@@ -51,7 +51,7 @@ public class UserController {
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		
 		UserIdObject reqUserId = new UserIdObject();
-		
+		response.setHeader("Access-Control-Allow-Origin", "*");
 		return JsonConverter.getResultObject(code, msg, reqUserId);
 		
 //		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
