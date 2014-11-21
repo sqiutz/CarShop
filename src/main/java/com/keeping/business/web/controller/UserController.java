@@ -45,7 +45,7 @@ public class UserController {
 //		Integer total = userService.checkValidUsername("test");
 		Long end = System.currentTimeMillis();
 		
-		System.out.println("Time is:" + (end - start) + "  and total is:" + total);
+//		System.out.println("Time is:" + (end - start) + "  and total is:" + total);
 		
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
