@@ -42,7 +42,7 @@ public class UserController {
 		Long start = System.currentTimeMillis();
 //		User user = userService.login("aaa", "test");
 //		userService.queryAll(null);
-		Integer total = userService.checkValidUsername("test");
+//		Integer total = userService.checkValidUsername("test");
 		Long end = System.currentTimeMillis();
 		
 		System.out.println("Time is:" + (end - start) + "  and total is:" + total);
