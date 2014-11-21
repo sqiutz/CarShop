@@ -1,0 +1,63 @@
+div.box-blue {
+	width:550px;
+	border:2px solid rgb(101,133,207);
+	border-radius:8px;
+	margin:10px auto;
+	padding-bottom:10px;
+}
+div.box-black {
+	margin-left:auto;
+	margin-right:auto;
+}
+div.box {
+	margin-left:auto;
+	margin-right:auto;
+}
+div.controller {
+	width:470px;
+	border:1px solid rgb(107,177,201);
+	border-radius:8px;
+	text-align:center;
+	margin:10px auto 10px auto;
+}
+span.h5 {
+	color:#ffffff;
+	font-weight:bold;
+	line-height:20px;
+}
+button.start {
+	display:inline-block;
+	background:url(../img/btn-bg-start.png);
+	background-repeat:no-repeat;
+	background-size:cover;
+	-moz-background-size:cover;
+	background-position:center;
+	cursor:pointer;
+	border:none;
+	width:150px;
+	height:89px;
+}
+button.stop {
+	display:inline-block;
+	background:url(../img/btn-bg-stop.png);
+	background-repeat:no-repeat;
+	background-size:cover;
+	-moz-background-size:cover;
+	background-position:center;
+	cursor:pointer;
+	border:none;
+	width:150px;
+	height:89px;
+}
+button.cancel {
+	display:inline-block;
+	background:url(../img/btn-bg-cancel.png);
+	background-repeat:no-repeat;
+	background-size:cover;
+	-moz-background-size:cover;
+	background-position:center;
+	cursor:pointer;
+	border:none;
+	width:150px;
+	height:89px;
+}

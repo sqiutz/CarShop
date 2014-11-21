@@ -1,0 +1,60 @@
+div.b1 {
+	width:460px;
+	height:62px;
+	margin:0px auto;
+}
+div.b1.odd {
+	background:url(../img/table_bg_yellow_dark.png);
+	background-repeat:no-repeat;
+	background-size:460px,62px;
+	-moz-background-size:460px,62px;
+}
+div.b1.even {
+	background:url(../img/table_bg_yellow_light.png);
+	background-repeat:no-repeat;
+	background-size:460px,62px;
+	-moz-background-size:460px,62px;	
+}
+span.b1 {
+	display:inline-block;
+	height:62px;
+	color:rgb(127,127,127);
+	font-size:26px;
+	font-weight:bold;
+	line-height:62px;
+}
+span.b1.col1 {
+	width:30%;
+	padding-left:20px;
+}
+span.b1.col2 {
+	width:20%;
+	padding-left:5px;
+	padding-right:5px;
+	text-align:center;
+}
+span.b1.col3 {
+	width:30%;
+	padding-right:20px;
+	text-align:right;
+}
+table.proceed {
+	border-top:2px solid rgb(156,176,132);
+	border-right:2px solid rgb(156,176,132);
+	border-bottom:2px solid rgb(156,176,132);
+	border-left:2px solid rgb(156,176,132);
+}
+td.customer_no {
+	padding-left:55px;
+	padding-right:55px;
+	height:110px;
+	line-height:110px;
+	text-align:center;
+	border-right:2px solid rgb(156,176,132);
+}
+span.h1 {
+	padding-left:15px;
+	padding-right:15px;
+	height:64px;
+	line-height:64px;
+}
