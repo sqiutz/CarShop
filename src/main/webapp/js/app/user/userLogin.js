@@ -20,7 +20,7 @@
                 passwd : 'userPass'
             },
             success : function(data) {
-                if(data.code == "000001") {
+                if(data.code == "000000") {
                     location.href = "mechanic_update.html";
                 }else {
                    
