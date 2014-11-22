@@ -23,8 +23,8 @@ SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `TBL_USERGROUP`;
 CREATE TABLE `TBL_USERGROUP` (
   `id` bigint(10) NOT NULL AUTO_INCREMENT,
-  `group_name` varchar(48) NOT NULL,
-  `comment` varchar(25) NOT NULL,
+  `group_name` varchar(48) NOT NULL,      /*0: admin; 1:waiter; 2:manager; 3:worker; 4:washer*/
+  `comment` varchar(256) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
@@ -40,7 +40,7 @@ CREATE TABLE `TBL_USER` (
   `id` bigint(10) NOT NULL AUTO_INCREMENT,
   `user_id` bigint(10) NOT NULL,
   `user_name` varchar(48) NOT NULL,
-  `user_type` bigint(10) NOT NULL,
+  `user_type` bigint(10) NOT NULL,   /*0: common*/
   `is_admin` smallint(1) NOT NULL,
   `img_path` varchar(48) DEFAULT NULL,
   `passwd` varchar(48) NOT NULL,
@@ -66,9 +66,10 @@ CREATE TABLE `TBL_USER` (
 DROP TABLE IF EXISTS `TBL_ORDER`;
 CREATE TABLE `TBL_ORDER` (
   `id` bigint(10) NOT NULL AUTO_INCREMENT,
-  `status` bigint(10) NOT NULL,
-  `registerNumber` varchar(48) NOT NULL,
-  `roofNumber` varchar(48) NOT NULL,
+  `status` bigint(10) NOT NULL DEFAULT 0,            /*0: subscribe; 1: serve start; */
+  `registerNumber` varchar(48) DEFAULT NULL,
+  `queueNumber` varchar(48) DEFAULT NULL,   
+  `roofNumber` varchar(48) DEFAULT NULL,
   `create_time` timestamp NOT NULL DEFAULT '1990-01-01 00:00:00',
   `start_time` timestamp  NOT NULL DEFAULT '1990-01-01 00:00:00',
   `end_time` timestamp  NOT NULL DEFAULT '1990-01-01 00:00:00',
@@ -86,10 +87,9 @@ CREATE TABLE `TBL_ORDER` (
 DROP TABLE IF EXISTS `TBL_SERVEQUEUE`;
 CREATE TABLE `TBL_SERVEQUEUE` (
   `id` bigint(10) NOT NULL AUTO_INCREMENT,
-  `step` bigint(10) NOT NULL,
+  `step` bigint(10) NOT NULL,     /*0: start; 1: hold; 2: end*/
   `user_id` bigint(10) NOT NULL,
   `order_id` bigint(10) NOT NULL,
-  `queueNumber` varchar(48) NOT NULL,
   `create_time` timestamp NOT NULL DEFAULT '1990-01-01 00:00:00',
   `start_time` timestamp  NOT NULL DEFAULT '1990-01-01 00:00:00',
   `end_time` timestamp  NOT NULL DEFAULT '1990-01-01 00:00:00',
