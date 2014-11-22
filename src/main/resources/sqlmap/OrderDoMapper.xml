@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.keeping.business.dal.dao.OrderDao">
+
+	<resultMap id="OrderDoMap" type="OrderDo">
+		<result column="STATUS" property="status" />
+		<result column="REGISTERNUMBER" property="registerNum" />
+		<result column="QUEUENUMBER" property="queueNum" />
+		<result column="ROOFNUMBER" property="roofNum" />
+		<result column="ESTIMATIONTIME" property="estimationTime" />
+		<result column="PROMISETIME" property="promiseTime" />
+		<result column="CREATE_TIME" property="createTime" />
+		<result column="START_TIME" property="startTime" />
+		<result column="END_TIME" property="endTime" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		STATUS,REGISTERNUMBER,QUEUENUMBER,ROOFNUMBER,ESTIMATIONTIME,PROMISETIME,CREATE_TIME,START_TIME,END_TIME
+	</sql>
+
+	<select id="queryByOrderstatus" resultMap="OrderDoMap" 
+		parameterType="java.lang.Integer">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM TBL_ORDER
+		WHERE
+		STATUS = #{status}
+	</select>
+	
+</mapper>

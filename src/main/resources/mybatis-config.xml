@@ -7,6 +7,7 @@
 	<typeAliases>
 	
 		<typeAlias alias="UserDo" type="com.keeping.business.dal.model.UserDo" />
+		<typeAlias alias="OrderDo" type="com.keeping.business.dal.model.OrderDo" />
 
 	</typeAliases>
 	

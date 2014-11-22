@@ -19,7 +19,6 @@ import com.keeping.business.service.UserService;
 import com.keeping.business.web.controller.converter.JsonConverter;
 import com.keeping.business.web.controller.converter.WebUserConverter;
 import com.keeping.business.web.controller.model.LoginReq;
-import com.keeping.business.web.controller.model.User;
 import com.keeping.business.web.controller.model.UserIdObject;
 import com.keeping.business.web.controller.model.UserProfile;
 import com.keeping.business.web.controller.model.WebResultObject;
@@ -39,64 +38,51 @@ public class UserController {
 	@ResponseBody
 	public WebResultObject<UserIdObject> login(HttpServletRequest request,HttpServletResponse response) throws Exception {
 		
-		Long start = System.currentTimeMillis();
-//		User user = userService.login("aaa", "test");
-//		userService.queryAll(null);
-//		Integer total = userService.checkValidUsername("test");
-		Long end = System.currentTimeMillis();
-		
-//		System.out.println("Time is:" + (end - start) + "  and total is:" + total);
-		
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
-		
 		UserIdObject reqUserId = new UserIdObject();
+		HttpSession session = request.getSession();
+		session.setMaxInactiveInterval(PlatformPar.sessionTimeout);
+
 		response.setHeader("Access-Control-Allow-Origin", "*");
-		return JsonConverter.getResultObject(code, msg, reqUserId);
 		
-//		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
-//		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
-//		UserIdObject reqUserId = new UserIdObject();
-//		HttpSession session = request.getSession();
-//		session.setMaxInactiveInterval(PlatformPar.sessionTimeout);
-//		
-//		try {
-//			//验证请求参数
-//			String jsonStr = request.getParameter("param");
-//			LoginReq req = JsonConverter.getFromJsonString(jsonStr, LoginReq.class);
-//
-//
-//			if (StringUtil.isNull(jsonStr) || req == null) {
-//				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
-//				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
-//				logger.error("< UserController.login() > 登录请求信息不正确。" + jsonStr);
-//			}else {
-//				UserProfile userProfile = WebUserConverter.getUserProfile(
-//						userService.login(req.getUsername(), req.getPasswd()));
-//				reqUserId = new UserIdObject();
-//				reqUserId.setUserId(userProfile.getUserId());
-//				
-//				//将用户信息保存在session中
-////				session.setAttribute(PlatfromConstants.STR_USER_PROFILE, userProfile);
-//			}
-//		}catch (BusinessServiceException ex) {
-//			code = ex.getErrorCode();
-//			msg = ex.getErrorMessage();
-//		}catch (Exception e) {
-//			code = BusinessCenterResCode.SYS_ERROR.getCode();
-//			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
-//			logger.error("< UserController.login() > 登录错误." + e.getMessage());
-//		}
-//
-//		//返回结果
-//		try{
-//			return JsonConverter.getResultObject(code, msg, reqUserId);
-//		}catch (Exception e) {
-////			session.removeAttribute(PlatfromConstants.STR_USER_PROFILE);
-//			session.invalidate();
-//			logger.error("< UserController.login() > 登录返回出错." + e.getMessage());
-//			throw e;
-//		}
+		try {
+			//验证请求参数
+			String jsonStr = request.getParameter("param");
+			LoginReq req = JsonConverter.getFromJsonString(jsonStr, LoginReq.class);
+
+
+			if (StringUtil.isNull(jsonStr) || req == null) {
+				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
+				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
+				logger.error("< UserController.login() > 登录请求信息不正确。" + jsonStr);
+			}else {
+				UserProfile userProfile = WebUserConverter.getUserProfile(
+						userService.login(req.getUsername(), req.getPasswd()));
+				reqUserId = new UserIdObject();
+				reqUserId.setUserId(userProfile.getUserId());
+				
+				//将用户信息保存在session中
+//				session.setAttribute(PlatfromConstants.STR_USER_PROFILE, userProfile);
+			}
+		}catch (BusinessServiceException ex) {
+			code = ex.getErrorCode();
+			msg = ex.getErrorMessage();
+		}catch (Exception e) {
+			code = BusinessCenterResCode.SYS_ERROR.getCode();
+			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
+			logger.error("< UserController.login() > 登录错误." + e.getMessage());
+		}
+
+		//返回结果
+		try{
+			return JsonConverter.getResultObject(code, msg, reqUserId);
+		}catch (Exception e) {
+//			session.removeAttribute(PlatfromConstants.STR_USER_PROFILE);
+			session.invalidate();
+			logger.error("< UserController.login() > 登录返回出错." + e.getMessage());
+			throw e;
+		}
 		
 	}
 

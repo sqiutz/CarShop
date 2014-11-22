@@ -70,6 +70,7 @@ CREATE TABLE `TBL_ORDER` (
   `registerNumber` varchar(48) DEFAULT NULL,
   `queueNumber` varchar(48) DEFAULT NULL,   
   `roofNumber` varchar(48) DEFAULT NULL,
+  `estimationTime` datetime DEFAULT NULL,
   `create_time` timestamp NOT NULL DEFAULT '1990-01-01 00:00:00',
   `start_time` timestamp  NOT NULL DEFAULT '1990-01-01 00:00:00',
   `end_time` timestamp  NOT NULL DEFAULT '1990-01-01 00:00:00',
@@ -93,7 +94,6 @@ CREATE TABLE `TBL_SERVEQUEUE` (
   `create_time` timestamp NOT NULL DEFAULT '1990-01-01 00:00:00',
   `start_time` timestamp  NOT NULL DEFAULT '1990-01-01 00:00:00',
   `end_time` timestamp  NOT NULL DEFAULT '1990-01-01 00:00:00',
-  `estimationTime` datetime DEFAULT NULL,
   INDEX user_ind (user_id),
     FOREIGN KEY (user_id)
     REFERENCES TBL_USER (id)

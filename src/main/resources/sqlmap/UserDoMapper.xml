@@ -12,10 +12,11 @@
 		<result column="IS_VALID" property="isValid" />
 		<result column="CREATE_TIME" property="createTime" />
 		<result column="MODIFY_TIME" property="modifyTime" />
+		<result column="GROUP_ID" property="groupId" />
 	</resultMap>
 	
 	<sql id="Base_Column_List">
-		USER_ID,USER_NAME,USER_TYPE,IS_ADMIN,IMG_PATH,PASSWD,IS_VALID,CREATE_TIME,MODIFY_TIME
+		USER_ID,USER_NAME,USER_TYPE,IS_ADMIN,IMG_PATH,PASSWD,IS_VALID,CREATE_TIME,MODIFY_TIME,GROUP_ID
 	</sql>
 
 	<sql id="QUERY_PARAM">

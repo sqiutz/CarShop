@@ -1,6 +1,6 @@
 package com.keeping.business.web.controller.model;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 public class User {
 
@@ -20,9 +20,9 @@ public class User {
 	
 	private int isValid;			//是否激活
 
-    private Date createTime;
+    private Timestamp createTime;
     
-    private Date modifyTime;
+    private Timestamp modifyTime;
 
 	public long getUserId() {
 		return userId;
@@ -88,19 +88,20 @@ public class User {
 		this.isValid = isValid;
 	}
 
-	public Date getCreateTime() {
+	public Timestamp getCreateTime() {
 		return createTime;
 	}
 
-	public void setCreateTime(Date createTime) {
+	public void setCreateTime(Timestamp createTime) {
 		this.createTime = createTime;
 	}
 
-	public Date getModifyTime() {
+	public Timestamp getModifyTime() {
 		return modifyTime;
 	}
 
-	public void setModifyTime(Date modifyTime) {
+	public void setModifyTime(Timestamp modifyTime) {
 		this.modifyTime = modifyTime;
 	}
+
 }
