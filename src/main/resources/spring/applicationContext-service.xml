@@ -16,6 +16,10 @@
 	<bean id="userService" class="com.keeping.business.service.impl.UserServiceImpl">
 		<property name="UserDao" ref="userDao" />
 	</bean>
+	
+	<bean id="orderService" class="com.keeping.business.service.impl.OrderServiceImpl">
+		<property name="OrderDao" ref="orderDao" />
+	</bean>
 
 	
 </beans>
