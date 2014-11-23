@@ -2,8 +2,6 @@ package com.keeping.business.service.impl;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
 import com.keeping.business.common.exception.BusinessServiceException;
 import com.keeping.business.dal.dao.UserDao;
 import com.keeping.business.dal.model.UserDo;
