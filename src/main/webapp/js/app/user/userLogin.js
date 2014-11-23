@@ -16,8 +16,8 @@
     $("#loginBtn").bind("click",function(){
         $.UserInfo.login({
             data : {
-                email : 'userName',
-                passwd : 'userPass'
+            	username : 'admin',
+                passwd : 'password'
             },
             success : function(data) {
                 if(data.code == "000000") {

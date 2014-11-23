@@ -5,3 +5,7 @@ div.controller {
 	width:300px;
 	text-align:right; 
 }
+label#errMsg {
+	width:100%;
+	color:red;
+}

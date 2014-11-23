@@ -17,6 +17,8 @@ public class UserDo {
 	private String passwd;
 	
 	private int isValid;			//是否激活
+	
+	private long groupId;
 
     private Timestamp createTime;
     
@@ -76,6 +78,14 @@ public class UserDo {
 
 	public void setIsValid(int isValid) {
 		this.isValid = isValid;
+	}
+	
+	public long getGroupId() {
+		return groupId;
+	}
+
+	public void setGroupId(long groupId) {
+		this.groupId = groupId;
 	}
 
 	public Timestamp getCreateTime() {

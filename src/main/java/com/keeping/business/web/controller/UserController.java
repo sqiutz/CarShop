@@ -36,11 +36,12 @@ public class UserController {
 
 	@RequestMapping(params = "action=login") 
 	@ResponseBody
-	public WebResultObject<UserIdObject> login(HttpServletRequest request,HttpServletResponse response) throws Exception {
+	public WebResultObject<UserProfile> login(HttpServletRequest request,HttpServletResponse response) throws Exception {
 		
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
-		UserIdObject reqUserId = new UserIdObject();
+		//UserIdObject reqUserId = new UserIdObject();
+		UserProfile userProfile = new UserProfile();
 		HttpSession session = request.getSession();
 		session.setMaxInactiveInterval(PlatformPar.sessionTimeout);
 
@@ -51,16 +52,15 @@ public class UserController {
 			String jsonStr = request.getParameter("param");
 			LoginReq req = JsonConverter.getFromJsonString(jsonStr, LoginReq.class);
 
-
 			if (StringUtil.isNull(jsonStr) || req == null) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
 				logger.error("< UserController.login() > 登录请求信息不正确。" + jsonStr);
 			}else {
-				UserProfile userProfile = WebUserConverter.getUserProfile(
+				userProfile = WebUserConverter.getUserProfile(
 						userService.login(req.getUsername(), req.getPasswd()));
-				reqUserId = new UserIdObject();
-				reqUserId.setUserId(userProfile.getUserId());
+				//reqUserId = new UserIdObject();
+				//reqUserId.setUserId(userProfile.getUserId());
 				
 				//将用户信息保存在session中
 //				session.setAttribute(PlatfromConstants.STR_USER_PROFILE, userProfile);
@@ -76,7 +76,7 @@ public class UserController {
 
 		//返回结果
 		try{
-			return JsonConverter.getResultObject(code, msg, reqUserId);
+			return JsonConverter.getResultObject(code, msg, userProfile);
 		}catch (Exception e) {
 //			session.removeAttribute(PlatfromConstants.STR_USER_PROFILE);
 			session.invalidate();

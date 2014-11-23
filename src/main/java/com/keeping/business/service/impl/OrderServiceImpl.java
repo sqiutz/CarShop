@@ -14,7 +14,6 @@ public class OrderServiceImpl implements OrderService{
 	/**用户信息DAO */
 	private OrderDao orderDao;
 
-	@Override
 	public List<Order> getOrdersByStatus(Integer status)
 			throws BusinessServiceException {
 		// TODO Auto-generated method stub
