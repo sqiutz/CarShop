@@ -4,8 +4,8 @@
 
 	<resultMap id="UserDoMap" type="UserDo">
 		<id column="ID" property="id" />
+		<result column="ID" property="id" />
 		<result column="USER_NAME" property="userName" />
-		<result column="USER_TYPE" property="userType" />
 		<result column="IS_ADMIN" property="isAdmin" />
 		<result column="IMG_PATH" property="imgPath" />
 		<result column="PASSWD" property="passwd" />
@@ -16,7 +16,7 @@
 	</resultMap>
 	
 	<sql id="Base_Column_List">
-		ID,USER_NAME,USER_TYPE,IS_ADMIN,IMG_PATH,PASSWD,IS_VALID,CREATE_TIME,MODIFY_TIME,GROUP_ID
+		ID,USER_NAME,IS_ADMIN,IMG_PATH,PASSWD,IS_VALID,CREATE_TIME,MODIFY_TIME,GROUP_ID
 	</sql>
 
 	<sql id="QUERY_PARAM">

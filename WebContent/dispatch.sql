@@ -51,8 +51,7 @@ CREATE TABLE `TBL_USER` (
     FOREIGN KEY (group_id)
     REFERENCES TBL_USERGROUP (id)
     ON DELETE no action,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `user_id` (`user_id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------

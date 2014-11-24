@@ -14,7 +14,7 @@ public class User {
 
 	private String passwd;
 	
-	private Integer groupId;
+	private long groupId;
 	
 	private int isValid;			//是否激活
 
@@ -86,11 +86,11 @@ public class User {
 		this.modifyTime = modifyTime;
 	}
 
-	public Integer getGroupId() {
+	public long getGroupId() {
 		return groupId;
 	}
 
-	public void setGroupId(Integer groupId) {
+	public void setGroupId(long groupId) {
 		this.groupId = groupId;
 	}
 

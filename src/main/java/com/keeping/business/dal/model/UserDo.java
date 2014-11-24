@@ -3,11 +3,11 @@ package com.keeping.business.dal.model;
 import java.sql.Timestamp;
 
 public class UserDo {
+	
+	private long id;
 
 	private String userName;		//用户名
-	
-	private int userType;		//用户区分
-	
+		
 	private int isAdmin;			//管理员标记
 	
 	private String imgPath;		//用户图标
@@ -21,6 +21,14 @@ public class UserDo {
     private Timestamp createTime;
     
     private Timestamp modifyTime;
+    
+    public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 
 	public String getUserName() {
 		return userName;
@@ -28,14 +36,6 @@ public class UserDo {
 
 	public void setUserName(String userName) {
 		this.userName = userName;
-	}
-
-	public int getUserType() {
-		return userType;
-	}
-
-	public void setUserType(int userType) {
-		this.userType = userType;
 	}
 
 	public int getIsAdmin() {

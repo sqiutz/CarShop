@@ -13,7 +13,6 @@ public class UserGroupServiceImpl implements UserGroupService{
 	/**用户信息DAO */
     private UserGroupDao userGroupDao;
 
-	@Override
 	public List<UserGroup> queryAll() {
 		// TODO Auto-generated method stub
 		List<UserGroupDo> userGroupDoes = userGroupDao.queryAll();

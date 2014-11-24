@@ -14,7 +14,7 @@ public class UserProfile {
 	
 	private Integer isValid;
 	
-	private Integer groupId;
+	private long groupId;
 
 	public long getId() {
 		return id;
@@ -64,11 +64,11 @@ public class UserProfile {
 		this.isValid = isValid;
 	}
 
-	public Integer getGroupId() {
+	public long getGroupId() {
 		return groupId;
 	}
 
-	public void setGroupId(Integer groupId) {
+	public void setGroupId(long groupId) {
 		this.groupId = groupId;
 	}
 }

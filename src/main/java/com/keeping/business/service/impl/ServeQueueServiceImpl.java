@@ -14,7 +14,6 @@ public class ServeQueueServiceImpl implements ServeQueueService{
 	/**用户信息DAO */
 	private ServeQueueDao serveQueueDao;
 
-	@Override
 	public List<ServeQueue> getServeQueueByStep(Integer step)
 			throws BusinessServiceException {
 		// TODO Auto-generated method stub

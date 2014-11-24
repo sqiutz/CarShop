@@ -13,10 +13,11 @@ public class UserConverter {
             return null;
         }
         User user = new User();
+        user.setId(userDo.getId());
         user.setUserName(userDo.getUserName());
         user.setIsAdmin(userDo.getIsAdmin());
         user.setProImgPath(userDo.getImgPath());
-        //user.setRegisterDate();
+        user.setGroupId(userDo.getGroupId());
         user.setPasswd(userDo.getPasswd());
         user.setIsValid(userDo.getIsValid());
         user.setCreateTime(userDo.getCreateTime());
