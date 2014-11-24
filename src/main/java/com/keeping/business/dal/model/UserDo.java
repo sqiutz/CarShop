@@ -4,8 +4,6 @@ import java.sql.Timestamp;
 
 public class UserDo {
 
-	private long userId;				//ID
-
 	private String userName;		//用户名
 	
 	private int userType;		//用户区分
@@ -23,14 +21,6 @@ public class UserDo {
     private Timestamp createTime;
     
     private Timestamp modifyTime;
-
-	public long getUserId() {
-		return userId;
-	}
-
-	public void setUserId(long userId) {
-		this.userId = userId;
-	}
 
 	public String getUserName() {
 		return userName;

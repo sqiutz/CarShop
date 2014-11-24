@@ -2,13 +2,9 @@ package com.keeping.business.web.controller.model;
 
 public class UserProfile {
 
-	private long userId;			//用户ID
+	private long id;			//用户ID
 	
 	private String userName;		//username
-	
-	private String nickName;		//昵称
-	
-	private int userType;		//用户区分
 	
 	private int isAdmin;			//是否管理员
 	
@@ -16,30 +12,16 @@ public class UserProfile {
 
 	private String passwd;
 	
-	private String vcode;		//验证码，注册时用	
+	private Integer isValid;
+	
+	private Integer groupId;
 
-	public long getUserId() {
-		return userId;
+	public long getId() {
+		return id;
 	}
 
-	public void setUserId(long userId) {
-		this.userId = userId;
-	}
-
-	public String getNickName() {
-		return nickName;
-	}
-
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
-	}
-
-	public int getUserType() {
-		return userType;
-	}
-
-	public void setUserType(int userType) {
-		this.userType = userType;
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public int getIsAdmin() {
@@ -66,19 +48,27 @@ public class UserProfile {
 		this.passwd = passwd;
 	}
 
-	public String getVcode() {
-		return vcode;
-	}
-
-	public void setVcode(String vcode) {
-		this.vcode = vcode;
-	}
-
 	public String getUserName() {
 		return userName;
 	}
 
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+
+	public Integer getIsValid() {
+		return isValid;
+	}
+
+	public void setIsValid(Integer isValid) {
+		this.isValid = isValid;
+	}
+
+	public Integer getGroupId() {
+		return groupId;
+	}
+
+	public void setGroupId(Integer groupId) {
+		this.groupId = groupId;
 	}
 }

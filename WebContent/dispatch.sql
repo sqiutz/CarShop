@@ -39,9 +39,7 @@ CREATE TABLE `TBL_USERGROUP` (
 DROP TABLE IF EXISTS `TBL_USER`;
 CREATE TABLE `TBL_USER` (
   `id` bigint(10) NOT NULL AUTO_INCREMENT,
-  `user_id` bigint(10) NOT NULL,
   `user_name` varchar(48) NOT NULL,
-  `user_type` bigint(10) NOT NULL,   /*0: common*/
   `is_admin` smallint(1) NOT NULL,
   `img_path` varchar(48) DEFAULT NULL,
   `passwd` varchar(48) NOT NULL,

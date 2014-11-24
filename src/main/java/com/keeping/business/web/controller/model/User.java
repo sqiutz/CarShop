@@ -4,19 +4,17 @@ import java.sql.Timestamp;
 
 public class User {
 
-	private long userId;			//ID
+	private long id;			//ID
 
 	private String userName;		//用户名
-	
-	private int userType;		//用户区分
 	
 	private int isAdmin;			//管理员标记
 	
 	private String proImgPath;	//Profile用户图标
-	
-	private int registerDate;	//注册日期
 
 	private String passwd;
+	
+	private Integer groupId;
 	
 	private int isValid;			//是否激活
 
@@ -24,12 +22,12 @@ public class User {
     
     private Timestamp modifyTime;
 
-	public long getUserId() {
-		return userId;
+	public long getId() {
+		return id;
 	}
 
-	public void setUserId(long userId) {
-		this.userId = userId;
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public String getUserName() {
@@ -64,14 +62,6 @@ public class User {
 		this.proImgPath = proImgPath;
 	}
 
-	public int getRegisterDate() {
-		return registerDate;
-	}
-
-	public void setRegisterDate(int registerDate) {
-		this.registerDate = registerDate;
-	}
-
 	public String getPasswd() {
 		return passwd;
 	}
@@ -102,6 +92,14 @@ public class User {
 
 	public void setModifyTime(Timestamp modifyTime) {
 		this.modifyTime = modifyTime;
+	}
+
+	public Integer getGroupId() {
+		return groupId;
+	}
+
+	public void setGroupId(Integer groupId) {
+		this.groupId = groupId;
 	}
 
 }

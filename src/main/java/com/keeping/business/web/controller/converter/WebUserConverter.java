@@ -14,11 +14,13 @@ public class WebUserConverter {
             return null;
         }
         UserProfile userPro = new UserProfile();
-        userPro.setUserId(user.getUserId());
-        userPro.setUserType(user.getUserType());
         userPro.setIsAdmin(user.getIsAdmin());
         userPro.setProImgPath(user.getProImgPath());
         userPro.setPasswd(user.getPasswd());
+        userPro.setGroupId(user.getGroupId());
+        userPro.setId(user.getId());
+        userPro.setIsValid(user.getIsValid());
+        userPro.setUserName(user.getUserName());
         return userPro;
     }
 
@@ -30,15 +32,17 @@ public class WebUserConverter {
             return null;
         }
         User user = new User();
-        user.setUserId(userPro.getUserId());
+        user.setId(userPro.getId());
         user.setUserName(userPro.getUserName());
         user.setUserType(userPro.getUserType());
-        user.setIsAdmin(0);							//userPro.getIsAdmin());
+        user.setIsAdmin(userPro.getIsAdmin());				//userPro.getIsAdmin());
         user.setProImgPath(userPro.getProImgPath());
         user.setPasswd(userPro.getPasswd());
+        user.setGroupId(userPro.getGroupId());
+        user.setIsValid(userPro.getIsValid());
      
-        int dt = Integer.parseInt(DateUtil.getCurrentDateTime1("yyyyMMdd"));
-        user.setRegisterDate(dt);
+//      int dt = Integer.parseInt(DateUtil.getCurrentDateTime1("yyyyMMdd"));
+
         return user;
     }
 
