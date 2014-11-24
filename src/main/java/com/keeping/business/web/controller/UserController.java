@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.keeping.business.common.exception.BusinessServiceException;
 import com.keeping.business.common.rescode.BusinessCenterResCode;
 import com.keeping.business.common.util.PlatformPar;
+import com.keeping.business.common.util.PlatfromConstants;
 import com.keeping.business.common.util.StringUtil;
 import com.keeping.business.service.UserService;
 import com.keeping.business.web.controller.converter.JsonConverter;
@@ -59,11 +60,9 @@ public class UserController {
 			}else {
 				userProfile = WebUserConverter.getUserProfile(
 						userService.login(req.getUsername(), req.getPasswd()));
-				//reqUserId = new UserIdObject();
-				//reqUserId.setUserId(userProfile.getUserId());
 				
 				//将用户信息保存在session中
-//				session.setAttribute(PlatfromConstants.STR_USER_PROFILE, userProfile);
+				session.setAttribute(PlatfromConstants.STR_USER_PROFILE, userProfile);
 			}
 		}catch (BusinessServiceException ex) {
 			code = ex.getErrorCode();
@@ -78,7 +77,7 @@ public class UserController {
 		try{
 			return JsonConverter.getResultObject(code, msg, userProfile);
 		}catch (Exception e) {
-//			session.removeAttribute(PlatfromConstants.STR_USER_PROFILE);
+			session.removeAttribute(PlatfromConstants.STR_USER_PROFILE);
 			session.invalidate();
 			logger.error("< UserController.login() > 登录返回出错." + e.getMessage());
 			throw e;
