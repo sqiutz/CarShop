@@ -20,6 +20,10 @@
 	<bean id="orderService" class="com.keeping.business.service.impl.OrderServiceImpl">
 		<property name="OrderDao" ref="orderDao" />
 	</bean>
+	
+	<bean id="serveQueueService" class="com.keeping.business.service.impl.ServeQueueServiceImpl">
+		<property name="ServeQueueDao" ref="serveQueueDao" />
+	</bean>
 
 	
 </beans>
