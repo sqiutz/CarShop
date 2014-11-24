@@ -2,14 +2,22 @@ package com.keeping.business.service.impl;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.keeping.business.common.exception.BusinessServiceException;
+import com.keeping.business.common.rescode.BusinessCenterResCode;
 import com.keeping.business.dal.dao.UserDao;
 import com.keeping.business.dal.model.UserDo;
 import com.keeping.business.service.UserService;
 import com.keeping.business.service.converter.UserConverter;
+import com.keeping.business.web.controller.UserController;
 import com.keeping.business.web.controller.model.User;
 
 public class UserServiceImpl implements UserService{
+	
+	/**日志 */
+	private Logger logger = LoggerFactory.getLogger(UserController.class);
 	
 	/**用户信息DAO */
     private UserDao userDao;
@@ -27,19 +35,26 @@ public class UserServiceImpl implements UserService{
 		return null;
 	}
 	
-	public User login(String username, String passwd)
-			throws BusinessServiceException {
+	public User login(String username, String passwd) throws BusinessServiceException {
 		// TODO Auto-generated method stub
 		UserDo userDo = userDao.queryByUsername(username);
-		User user;
-		if (null == userDo){
-			user = new User();
-			user.setUserName("test");
-		}else{
-			user = UserConverter.getUser(userDo);
+		if (userDo == null) {
+    		logger.error("用户名或者密码错误！" + BusinessCenterResCode.LOGIN_USER_NOT_EXIST.getMsg());
+    		throw new BusinessServiceException(BusinessCenterResCode.LOGIN_USER_NOT_EXIST.getCode(),
+    				BusinessCenterResCode.LOGIN_USER_NOT_EXIST.getMsg());
 		}
-		
-		return user;
+		if ((userDo.getIsValid() == 0)) {
+    		logger.error("用户名或者密码错误！" + BusinessCenterResCode.LOGIN_USER_NOT_ALIVE.getMsg());
+    		throw new BusinessServiceException(BusinessCenterResCode.LOGIN_USER_NOT_ALIVE.getCode(),
+    				BusinessCenterResCode.LOGIN_USER_NOT_ALIVE.getMsg());
+		}
+    	if (!userDo.getPasswd().equals(passwd)) {//failure
+    		logger.error("用户名或者密码错误！" + BusinessCenterResCode.LOGIN_PASSWORD_NOT_RIGHT.getMsg());
+    		throw new BusinessServiceException(BusinessCenterResCode.LOGIN_PASSWORD_NOT_RIGHT.getCode(),
+    				BusinessCenterResCode.LOGIN_PASSWORD_NOT_RIGHT.getMsg());
+    	}
+    	
+    	return UserConverter.getUser(userDo);
 	}
 
 	public int addUser(User user) throws BusinessServiceException {
