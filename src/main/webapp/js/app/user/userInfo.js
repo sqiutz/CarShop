@@ -5,7 +5,7 @@ define(["md5"],function(){
 		login:function(options){
 			var that=this;
 			if(!options.hasMd5){
-				options.data.passwd=hex_md5(options.data.passwd);
+				//options.data.passwd=hex_md5(options.data.passwd);
 			}
 			$.common.ajax("userLogin", {
 				type:"POST",

@@ -227,15 +227,13 @@ label {
 input[type='text'], input[type='password'] {
 	width:150px;
 	height:21px;
-	border:none;
+	border:1px solid #CCC;
 	background:url(../img/text-bg-gray.png);
-	background-repeat:x-repeat;
 	background-size:100%;
 	-moz-background-size:100%;
 }
 input[type='text']:focus, input[type='password']:focus{
 	background:url(../img/text-bg-blue.png);
-	background-repeat:x-repeat;
 	background-size:100%;
 	-moz-background-size:100%;
 }

@@ -12,6 +12,9 @@
 	<script src="js/global.js"></script>
 	<script type="text/javascript">
         $(document).ready(function() {
+        	$('#errMsg').hide();
+        	$('#userNameErrMsg').hide();
+        	$('#pwdErrMsg').hide();
             layout();
             $(window).resize(layout);
         });
@@ -28,13 +31,13 @@
 			<fieldset class='w1'>
 				<legend>Login</legend>
 				<form>
-					<div>
-						<label id='errMsg'>The username or password is not correct!</label><br />
-					</div>
+					<div id='errMsg' class='errMsg'></div>
+					<div id='userNameErrMsg' class='errMsg'></div>
 					<div>
 						<label for='username'>Username</label>
 						<input id='username' name='username' type='text'><br />
 					</div>
+					<div id='pwdErrMsg' class='errMsg'></div>
 					<div>
 						<label for='password'>Password</label>
 						<input id='password' name='password' type='password'><br />
