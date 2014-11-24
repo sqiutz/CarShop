@@ -34,7 +34,6 @@ public class WebUserConverter {
         User user = new User();
         user.setId(userPro.getId());
         user.setUserName(userPro.getUserName());
-        user.setUserType(userPro.getUserType());
         user.setIsAdmin(userPro.getIsAdmin());				//userPro.getIsAdmin());
         user.setProImgPath(userPro.getProImgPath());
         user.setPasswd(userPro.getPasswd());
@@ -50,13 +49,11 @@ public class WebUserConverter {
 		if (userImgs == null) return null;
 		
 		User user = new User();
-		user.setUserId(userImgs.getUserId());
 		user.setProImgPath(userImgs.getProImgPath());
         return user;
 	}
 	
 	public static void updateSessionProfile(UserProfile userPro, UserProfile ssUser) {
-		ssUser.setNickName(userPro.getNickName());
 		ssUser.setUserName(userPro.getUserName());
 		ssUser.setIsAdmin(userPro.getIsAdmin());
 		ssUser.setProImgPath(userPro.getProImgPath());

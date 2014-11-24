@@ -9,6 +9,7 @@
 		<typeAlias alias="UserDo" type="com.keeping.business.dal.model.UserDo" />
 		<typeAlias alias="OrderDo" type="com.keeping.business.dal.model.OrderDo" />
 		<typeAlias alias="ServeQueueDo" type="com.keeping.business.dal.model.ServeQueueDo" />
+		<typeAlias alias="UserGroupDo" type="com.keeping.business.dal.model.UserGroupDo" />
 
 	</typeAliases>
 	

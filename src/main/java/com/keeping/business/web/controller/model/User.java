@@ -38,14 +38,6 @@ public class User {
 		this.userName = userName;
 	}
 
-	public int getUserType() {
-		return userType;
-	}
-
-	public void setUserType(int userType) {
-		this.userType = userType;
-	}
-
 	public int getIsAdmin() {
 		return isAdmin;
 	}

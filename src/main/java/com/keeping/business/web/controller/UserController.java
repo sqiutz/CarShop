@@ -16,6 +16,7 @@ import com.keeping.business.common.rescode.BusinessCenterResCode;
 import com.keeping.business.common.util.PlatformPar;
 import com.keeping.business.common.util.PlatfromConstants;
 import com.keeping.business.common.util.StringUtil;
+import com.keeping.business.service.UserGroupService;
 import com.keeping.business.service.UserService;
 import com.keeping.business.web.controller.converter.JsonConverter;
 import com.keeping.business.web.controller.converter.WebUserConverter;
@@ -34,6 +35,9 @@ public class UserController {
 	/**用户信息Service */
     @Resource
 	private UserService userService;
+    
+    @Resource
+   	private UserGroupService userGroupService;
 
 	@RequestMapping(params = "action=login") 
 	@ResponseBody
