@@ -8,12 +8,12 @@
         	var name = userName.val();
         	var flag;
         	if(name.length == 0){
-				$('#userNameErrMsg').html('Please input the username!').show();
+				$('#userNameErrMsg').html('Please input the username!').show('normal');
 				userName.css('border', '1px solid #F00');
 				flag = false;
 			}
         	else {
-        		$('#userNameErrMsg').html('').hide();
+        		$('#userNameErrMsg').html('').hide('normal');
 				userName.css('border', '1px solid #CCC');
 				flag = true;
         	}
@@ -24,12 +24,12 @@
         	var pwd = password.val();
         	var flag;
         	if(pwd.length == 0){
-				$('#pwdErrMsg').html('Please input the password!').show();
+				$('#pwdErrMsg').html('Please input the password!').show('normal');
 				password.css('border', '1px solid #F00');
 				flag = false;
 			}
         	else {
-        		$('#pwdErrMsg').html('').hide();
+        		$('#pwdErrMsg').html('').hide('normal');
 				password.css('border', '1px solid #CCC');
 				flag = true;
         	}
@@ -48,13 +48,37 @@
 	            },
 	            success : function(data) {
 	                if(data.code == '000000') {
-	                	$('#errMsg').html('').hide();
+	                	$('#errMsg').html('').hide('normal');
 	                    location.href = 'mechanic_update.html';
 	                }else if(data.code == '010102'){
-	                	$('#errMsg').html('The password is not correct!').show();
-	                }
+	                	$('#errMsg').html('The password is not correct!').show('normal');
+	                }else if(data.code == '010100'){
+                        $('#errMsg').html('The username is not existed!').show('normal');
+                    }else if(data.code == '010101'){
+                        $('#errMsg').html('This is an inactive user!').show('normal');
+                    }
 	            }
 	        });
 		}        
-    });   
+    });
+    
+    //用户名失去焦点进行验证
+    userName.bind("blur", function() {
+        user.validateName();
+    });
+    userName.bind("focus", function() {
+        $('#errMsg').html('').hide('normal');
+        $('#userNameErrMsg').html('').hide('normal');
+        userName.css('border', '1px solid #CCC');
+    });
+    
+    //密码失去焦点进行验证
+    password.bind("blur", function(){
+        user.validatePass();
+    });
+    password.bind("focus",function(){
+        $('#errMsg').html('').hide('normal');
+        $('#pwdErrMsg').html('').hide('normal');
+        password.css('border', '1px solid #CCC');        
+    });
 })(jQuery);
