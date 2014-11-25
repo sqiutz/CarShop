@@ -115,7 +115,7 @@ span.t1.blue {
 }
 span.t2 {	
 	height:62px;
-	line-height:62px;
+	line-height:54px;
 }
 span.t2.yellow {
 	background:url(../img/title_bg_yellow.png);
@@ -140,7 +140,7 @@ span.t2.purple {
 }
 span.h3 {
 	font-weight:bold;
-	line-height:62px;
+	//line-height:58px;
 }
 span.h3.low {
 	line-height:26px;

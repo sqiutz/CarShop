@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
+<title>ADMINISTRATION</title>
+
+<link rel="stylesheet" type="text/css" href="css/global.css">
+
+<script src="js/lib/jquery-2.1.1.min.js"></script>
+	<script src="js/global.js"></script>
+	<script type="text/javascript">
+        $(document).ready(function() {
+            layout();
+            $(window).resize(layout);
+        });
+</script>
+</head>
+<body>
+	<div id='container' class='container'>
+		<div class='header'>
+			<span id='title' class='h1'>ADMINISTRATION</span>
+		</div>
+		<div id='content' class='content'>
+			<div id='content_lf' class='content_lf'>
+				<div class='box w1 rAlign'>
+					<span class='t2 green h3'>USER LIST</span>
+					<table class="w1 green">
+						<tr>
+							<th>Group</th>
+							<th>Username</th>
+							<th>Is Admin</th>
+							<th>Is Active</th>
+							<th>&nbsp;</th>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class='content_rg'>
+				<div class='w2'>
+					<fieldset>
+						<legend>Add User</legend>
+						<form>
+							<div>
+								<label for='group'>Group</label>
+								<select id='group' name='group' type='text'></select>
+							</div>
+							<div>
+								<label for='username'>Username</label>
+								<input id='username' name='username' type='text'>
+							</div>
+							<div>
+								<label for='password'>Password</label>
+								<input id='password' name='password' type='password'>
+							</div>
+							<div>
+								<label for='passwordConfirm'>Password Conf.</label>
+								<input id='passwordConfirm' name='passwordConfirm' type='password'>
+							</div>
+							<div>
+								<label for='isAdmin' class="">Is Admin</label>
+								<select id='isAdmin' name='isAdmin'>
+									<option>Yes</option>
+									<option>No</option>
+								</select>
+							</div>
+							<div>
+								<label>&nbsp;</label>
+								<button class='yellow' title='SAVE'>SAVE</button>
+							</div>
+						</form>
+					</fieldset>
+				</div>
+			</div>			
+		</div>
+	</div>
+</body>
