@@ -194,11 +194,9 @@ CREATE TABLE `TBL_USERWORKLOAD` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of TBL_ORDER
+-- Records of TBL_USERWORKLOAD
 -- ----------------------------
 
-
--- ----------------------------------------------------------------------------------------
 
 -- ----------------------------
 -- Records of d_log
@@ -213,4 +211,3 @@ insert into tbl_user set user_name = 'mgr_a', is_admin = 0, passwd = 'passw0rd',
 insert into tbl_user set user_name = 'mgr_b', is_admin = 0, passwd = 'passw0rd', is_valid = 1, group_id = 4;
 insert into tbl_user set user_name = 'worker_a', is_admin = 0, passwd = 'passw0rd', is_valid = 1, group_id = 5;
 insert into tbl_user set user_name = 'worker_b', is_admin = 0, passwd = 'passw0rd', is_valid = 1, group_id = 5;
-
