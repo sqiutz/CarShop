@@ -25,6 +25,7 @@ import com.keeping.business.web.controller.converter.JsonConverter;
 import com.keeping.business.web.controller.converter.WebUserConverter;
 import com.keeping.business.web.controller.model.LoginReq;
 import com.keeping.business.web.controller.model.User;
+import com.keeping.business.web.controller.model.UserGroup;
 import com.keeping.business.web.controller.model.UserProfile;
 import com.keeping.business.web.controller.model.WebResult;
 import com.keeping.business.web.controller.model.WebResultList;
@@ -108,8 +109,8 @@ public class UserController {
 		try {
 			userList = userService.queryAll();
 			for (int i = 0; i < userList.size(); i++) {
-				userProfileList.add(WebUserConverter.getUserProfile(
-						userList.get(i)));
+				userProfileList.add(WebUserConverter.getUserProfile(userList
+						.get(i)));
 			}
 		} catch (BusinessServiceException ex) {
 			code = ex.getErrorCode();
@@ -186,4 +187,41 @@ public class UserController {
 		}
 	}
 
+	@RequestMapping(params = "action=allgroups")
+	@ResponseBody
+	public WebResultList<UserGroup> getAllGroup(Integer status,
+			HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
+		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
+
+		List<UserGroup> groupList = new ArrayList<UserGroup>();
+		try {
+			System.out.println("enter getAllGroup");
+			groupList = userGroupService.queryAll();
+			System.out.println("return from userGroupService.queryAll() " + groupList.size());
+		} catch (BusinessServiceException ex) {
+			System.out.println(ex.getMessage());
+			System.out.println(ex.getStackTrace());
+			code = ex.getErrorCode();
+			msg = ex.getErrorMessage();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			System.out.println(e.getStackTrace());
+			code = BusinessCenterResCode.SYS_ERROR.getCode();
+			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
+			logger.error("< UserController.getAllGroup() > 获取用户组列表失败."
+					+ e.getMessage());
+		}
+
+		// 返回结果
+		try {
+			return JsonConverter.getResultObject(code, msg, groupList);
+		} catch (Exception e) {
+			logger.error("< UserController.getAllGroup() > 获取用户组列表返回出错."
+					+ e.getMessage());
+			throw e;
+		}
+	}
 }

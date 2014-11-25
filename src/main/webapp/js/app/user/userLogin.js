@@ -49,7 +49,10 @@
 	            success : function(data) {
 	                if(data.code == '000000') {
 	                	$('#errMsg').html('').hide('normal');
-	                    location.href = 'mechanic_update.html';
+	                	var u = data.obj;
+	                	if(u.isAdmin) {
+	                		location.href = 'administration.html';
+	                	}	                    
 	                }else if(data.code == '010102'){
 	                	$('#errMsg').html('The password is not correct!').show('normal');
 	                }else if(data.code == '010100'){

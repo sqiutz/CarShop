@@ -14,6 +14,10 @@
 								"passwd" // 密码
 								]
 							},
+							// 获取用户组列表
+							getAllGroups : {
+							    url : "user.do?action=allgroups"
+							},
 							// 获取用户列表
 							getAllUsers : {
 							    url : "user.do?action=alllist"

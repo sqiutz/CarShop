@@ -241,8 +241,9 @@ input[type='radio'] {
 	width:15px;
 }
 select {
-	width:150px;
-	height:21px;
+	width:152px;
+	height:25px;
+	border:1px solid #CCC;
 	background:url(../img/text-bg-gray.png);
 	background-repeat:x-repeat;
 	background-size:100%;
@@ -253,6 +254,18 @@ select:focus{
 	background-repeat:x-repeat;
 	background-size:100%;
 	-moz-background-size:100%;
+}
+button.yellow {
+	background:url(../img/btn-bg-yellow.png);
+	background-repeat:no-repeat;
+	background-size:cover;
+	-moz-background-size:100%;
+	background-position:100%;
+	cursor:pointer;
+	border:none;
+	width:150px;
+	height:48px;
+	font-size:18px;
 }
 .f-black {
 	color:#000000;

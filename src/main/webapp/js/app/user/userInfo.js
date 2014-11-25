@@ -15,6 +15,14 @@ define(["md5"],function(){
 				}
 			});
 		},
+		//获取用户组列表
+		getAllGroups : function(options) {
+			$.common.ajax("getAllGroups", {
+                success:function(data){                 
+                    options.success(data);                  
+                }
+            });
+		},
 		//获取用户列表
 		getAllUsers : function(options) {
 		    $.common.ajax("getAllUsers", {

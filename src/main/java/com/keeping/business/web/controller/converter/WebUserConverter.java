@@ -58,5 +58,4 @@ public class WebUserConverter {
 		ssUser.setIsAdmin(userPro.getIsAdmin());
 		ssUser.setProImgPath(userPro.getProImgPath());
 	}
-
 }
