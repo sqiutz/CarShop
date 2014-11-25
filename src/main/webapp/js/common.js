@@ -14,6 +14,10 @@
 								"passwd" // 密码
 								]
 							},
+							// 获取用户列表
+							getAllUsers : {
+							    url : "user.do?action=alllist"
+							}
 						},
 						ajax : function(key, args) {
 							var self = this;
@@ -22,12 +26,12 @@
 							var url = api[key].url, data = "";
 							var a = api[key].args;
 							var params = {};
-							var type = args.type !== "undefined" ? args.type
-									: "GET";
+							var type = args.type !== "undefined" ? 
+							        args.type : "GET";
 							if (args.data && a) {
 								for (var i = 0; i < a.length; ++i) {
-									params[a[i]] = args.data[a[i]] !== "undefined" ? args.data[a[i]]
-											: "";
+									params[a[i]] = args.data[a[i]] !== "undefined" ? 
+									        args.data[a[i]] : "";
 								}
 							}
 							var xhr = $

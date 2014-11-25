@@ -8,7 +8,7 @@ import com.keeping.business.web.controller.model.User;
 
 public interface UserService {
 
-	public List<User> queryAll(User user);
+	public List<User> queryAll();
 	
 	public int checkValidUsername(String username);
 	

@@ -1,5 +1,8 @@
 package com.keeping.business.web.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,121 +24,166 @@ import com.keeping.business.service.UserService;
 import com.keeping.business.web.controller.converter.JsonConverter;
 import com.keeping.business.web.controller.converter.WebUserConverter;
 import com.keeping.business.web.controller.model.LoginReq;
+import com.keeping.business.web.controller.model.User;
 import com.keeping.business.web.controller.model.UserProfile;
 import com.keeping.business.web.controller.model.WebResult;
+import com.keeping.business.web.controller.model.WebResultList;
 import com.keeping.business.web.controller.model.WebResultObject;
 
 @Controller
 @RequestMapping("/user.do")
 public class UserController {
-	
-    /**日志 */
-    private Logger logger = LoggerFactory.getLogger(UserController.class);
-    
-	/**用户信息Service */
-    @Resource
-	private UserService userService;
-    
-    @Resource
-   	private UserGroupService userGroupService;
 
-	@RequestMapping(params = "action=login") 
+	/** 日志 */
+	private Logger logger = LoggerFactory.getLogger(UserController.class);
+
+	/** 用户信息Service */
+	@Resource
+	private UserService userService;
+
+	@Resource
+	private UserGroupService userGroupService;
+
+	@RequestMapping(params = "action=login")
 	@ResponseBody
-	public WebResultObject<UserProfile> login(HttpServletRequest request,HttpServletResponse response) throws Exception {
-		
+	public WebResultObject<UserProfile> login(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
-		//UserIdObject reqUserId = new UserIdObject();
 		UserProfile userProfile = new UserProfile();
 		HttpSession session = request.getSession();
 		session.setMaxInactiveInterval(PlatformPar.sessionTimeout);
-
 		response.setHeader("Access-Control-Allow-Origin", "*");
-		
+
 		try {
-			//验证请求参数
+			// 验证请求参数
 			String jsonStr = request.getParameter("param");
-			LoginReq req = JsonConverter.getFromJsonString(jsonStr, LoginReq.class);
+			LoginReq req = JsonConverter.getFromJsonString(jsonStr,
+					LoginReq.class);
 
 			if (StringUtil.isNull(jsonStr) || req == null) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
 				logger.error("< UserController.login() > 登录请求信息不正确。" + jsonStr);
-			}else {
-				userProfile = WebUserConverter.getUserProfile(
-						userService.login(req.getUsername(), req.getPasswd()));
-				
-				//将用户信息保存在session中
-				session.setAttribute(PlatfromConstants.STR_USER_PROFILE, userProfile);
+			} else {
+				userProfile = WebUserConverter.getUserProfile(userService
+						.login(req.getUsername(), req.getPasswd()));
+
+				// 将用户信息保存在session中
+				session.setAttribute(PlatfromConstants.STR_USER_PROFILE,
+						userProfile);
 			}
-		}catch (BusinessServiceException ex) {
+		} catch (BusinessServiceException ex) {
 			code = ex.getErrorCode();
 			msg = ex.getErrorMessage();
-		}catch (Exception e) {
+		} catch (Exception e) {
 			code = BusinessCenterResCode.SYS_ERROR.getCode();
 			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
 			logger.error("< UserController.login() > 登录错误." + e.getMessage());
 		}
 
-		//返回结果
-		try{
+		// 返回结果
+		try {
 			return JsonConverter.getResultObject(code, msg, userProfile);
-		}catch (Exception e) {
+		} catch (Exception e) {
 			session.removeAttribute(PlatfromConstants.STR_USER_PROFILE);
 			session.invalidate();
 			logger.error("< UserController.login() > 登录返回出错." + e.getMessage());
 			throw e;
 		}
-		
+
 	}
-	
-	@RequestMapping(params = "action=add") 
+
+	@RequestMapping(params = "action=alllist")
 	@ResponseBody
-	public WebResult addUser(HttpServletRequest request,HttpServletResponse response) throws Exception {
-		
+	public WebResultList<UserProfile> getAllUsers(Integer status,
+			HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
+		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
+
+		List<User> userList = new ArrayList<User>();
+		List<UserProfile> userProfileList = new ArrayList<UserProfile>();
+		try {
+			userList = userService.queryAll();
+			for (int i = 0; i < userList.size(); i++) {
+				userProfileList.add(WebUserConverter.getUserProfile(
+						userList.get(i)));
+			}
+		} catch (BusinessServiceException ex) {
+			code = ex.getErrorCode();
+			msg = ex.getErrorMessage();
+		} catch (Exception e) {
+			code = BusinessCenterResCode.SYS_ERROR.getCode();
+			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
+			logger.error("< UserController.getAllUsers() > 获取用户列表失败."
+					+ e.getMessage());
+		}
+
+		// 返回结果
+		try {
+			return JsonConverter.getResultObject(code, msg, userProfileList);
+		} catch (Exception e) {
+			logger.error("< UserController.getAllUsers() > 获取用户列表返回出错."
+					+ e.getMessage());
+			throw e;
+		}
+	}
+
+	@RequestMapping(params = "action=add")
+	@ResponseBody
+	public WebResult addUser(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		HttpSession session = request.getSession();
 		session.setMaxInactiveInterval(PlatformPar.sessionTimeout);
-		
-		response.setHeader("Access-Control-Allow-Origin", "*");
-		
-		try {
-			
-			UserProfile admin = (UserProfile) session.getAttribute(PlatfromConstants.STR_USER_PROFILE);
-			
-			//验证请求参数
-			String jsonStr = request.getParameter("param");
-			UserProfile regUser = JsonConverter.getFromJsonString(jsonStr, UserProfile.class);
 
-			if (StringUtil.isNull(jsonStr) || regUser == null || null == admin || "admin".equals(admin.getUserName()) == false) {
+		response.setHeader("Access-Control-Allow-Origin", "*");
+
+		try {
+
+			UserProfile admin = (UserProfile) session
+					.getAttribute(PlatfromConstants.STR_USER_PROFILE);
+
+			// 验证请求参数
+			String jsonStr = request.getParameter("param");
+			UserProfile regUser = JsonConverter.getFromJsonString(jsonStr,
+					UserProfile.class);
+
+			if (StringUtil.isNull(jsonStr) || regUser == null || null == admin
+					|| "admin".equals(admin.getUserName()) == false) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
-				logger.error("< UserController.addUser() > 注册用户信息为空或没有权限。" + jsonStr);
-			}else {
+				logger.error("< UserController.addUser() > 注册用户信息为空或没有权限。"
+						+ jsonStr);
+			} else {
 				regUser.setIsAdmin(0);
 				regUser.setIsValid(1);
-				//注册
+				// 注册
 				userService.addUser(WebUserConverter.getUser(regUser));
 			}
-		}catch (BusinessServiceException ex) {
+		} catch (BusinessServiceException ex) {
 			code = ex.getErrorCode();
 			msg = ex.getErrorMessage();
-		}catch (Exception e) {
+		} catch (Exception e) {
 			code = BusinessCenterResCode.SYS_ERROR.getCode();
 			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
 			logger.error("< UserController.login() > 添加用户错误." + e.getMessage());
 		}
 
-		//返回结果
-		try{
+		// 返回结果
+		try {
 			return JsonConverter.getResultSignal(code, msg);
-		}catch (Exception e) {
+		} catch (Exception e) {
 			session.removeAttribute(PlatfromConstants.STR_USER_PROFILE);
 			session.invalidate();
-			logger.error("< UserController.addUser() > 添加用户返回出错." + e.getMessage());
+			logger.error("< UserController.addUser() > 添加用户返回出错."
+					+ e.getMessage());
 			throw e;
 		}
 	}
-	
+
 }

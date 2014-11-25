@@ -1,5 +1,6 @@
 package com.keeping.business.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -28,15 +29,16 @@ public class UserServiceImpl implements UserService{
 		return total;
 	}
     
-	public List<User> queryAll(User user) {
-		// TODO Auto-generated method stub
+	public List<User> queryAll() {
 		List<UserDo> userDoes = userDao.queryAll();
-		
-		return null;
+		List<User> users = new ArrayList<User>();
+		for (int i = 0; i < userDoes.size(); i++){
+			users.add(UserConverter.getUser(userDoes.get(i)));
+		}
+		return users;
 	}
 	
 	public User login(String username, String passwd) throws BusinessServiceException {
-		// TODO Auto-generated method stub
 		UserDo userDo = userDao.queryByUsername(username);
 		if (userDo == null) {
     		logger.error("用户名或者密码错误！" + BusinessCenterResCode.LOGIN_USER_NOT_EXIST.getMsg());
@@ -49,11 +51,11 @@ public class UserServiceImpl implements UserService{
     				BusinessCenterResCode.LOGIN_USER_NOT_ALIVE.getMsg());
 		}
     	if (!userDo.getPasswd().equals(passwd)) {//failure
+    		System.out.println(passwd);
     		logger.error("用户名或者密码错误！" + BusinessCenterResCode.LOGIN_PASSWORD_NOT_RIGHT.getMsg());
     		throw new BusinessServiceException(BusinessCenterResCode.LOGIN_PASSWORD_NOT_RIGHT.getCode(),
     				BusinessCenterResCode.LOGIN_PASSWORD_NOT_RIGHT.getMsg());
-    	}
-    	
+    	}    	
     	return UserConverter.getUser(userDo);
 	}
 
