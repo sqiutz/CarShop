@@ -17,20 +17,22 @@ public class OrderServiceImpl implements OrderService{
 	public List<Order> getOrdersByStatus(Integer status)
 			throws BusinessServiceException {
 		// TODO Auto-generated method stub
-		List<OrderDo> orders = orderDao.queryByOrderstatus(status);
+		List<OrderDo> orderDoes = orderDao.queryByOrderstatus(status);
 		
 		List<Order> orders_front = new ArrayList<Order>();
 		
-		for (int i = 0; i < orders.size(); i++){
-			orders_front.get(i).setCreateTime(orders.get(i).getCreateTime());
-			orders_front.get(i).setEndTime(orders.get(i).getEndTime());
-			orders_front.get(i).setEstimationTime(orders.get(i).getEstimationTime());
-			orders_front.get(i).setPromiseTime(orders.get(i).getPromiseTime());
-			orders_front.get(i).setQueueNum(orders.get(i).getQueueNum());
-			orders_front.get(i).setRegisterNum(orders.get(i).getRegisterNum());
-			orders_front.get(i).setRoofNum(orders.get(i).getRoofNum());
-			orders_front.get(i).setStartTime(orders.get(i).getStartTime());
-			orders_front.get(i).setStatus(orders.get(i).getStatus());
+		for (int i = 0; i < orderDoes.size(); i++){
+			Order order = new Order();
+			order.setCreateTime(orderDoes.get(i).getCreateTime());
+			order.setEndTime(orderDoes.get(i).getEndTime());
+			order.setEstimationTime(orderDoes.get(i).getEstimationTime());
+			order.setPromiseTime(orderDoes.get(i).getPromiseTime());
+			order.setQueueNum(orderDoes.get(i).getQueueNum());
+			order.setRegisterNum(orderDoes.get(i).getRegisterNum());
+			order.setRoofNum(orderDoes.get(i).getRoofNum());
+			order.setStartTime(orderDoes.get(i).getStartTime());
+			order.setStatus(orderDoes.get(i).getStatus());
+			orders_front.add(order);
 		}
 		
 		return orders_front;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.keeping.business.dal.dao.UserGroupDAO">
+<mapper namespace="com.keeping.business.dal.dao.UserGroupDao">
 
 	<resultMap id="UserGroupDoMap" type="UserGroupDo">
 		<result column="ID" property="id" />

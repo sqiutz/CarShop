@@ -17,20 +17,22 @@ public class ServeQueueServiceImpl implements ServeQueueService{
 	public List<ServeQueue> getServeQueueByStep(Integer step)
 			throws BusinessServiceException {
 		// TODO Auto-generated method stub
-		List<ServeQueueDo> serveQueues = serveQueueDao.queryByServeQueuestep(step);
+		List<ServeQueueDo> serveQueueDoes = serveQueueDao.queryByServeQueuestep(step);
 		
-		List<ServeQueue> serveQueues_front = new ArrayList<ServeQueue>();
+		List<ServeQueue> serveQueues = new ArrayList<ServeQueue>();
 		
 		for (int i = 0; i < serveQueues.size(); i++){
-			serveQueues_front.get(i).setCreateTime(serveQueues.get(i).getCreateTime());
-			serveQueues_front.get(i).setEndTime(serveQueues.get(i).getEndTime());
-			serveQueues_front.get(i).setStartTime(serveQueues.get(i).getStartTime());
-			serveQueues_front.get(i).setStep(serveQueues.get(i).getStep());
-			serveQueues_front.get(i).setOrder_id(serveQueues.get(i).getOrder_id());
-			serveQueues_front.get(i).setUser_id(serveQueues.get(i).getUser_id());
+			ServeQueue serveQueue = new ServeQueue();
+			serveQueue.setCreateTime(serveQueueDoes.get(i).getCreateTime());
+			serveQueue.setEndTime(serveQueueDoes.get(i).getEndTime());
+			serveQueue.setStartTime(serveQueueDoes.get(i).getStartTime());
+			serveQueue.setStep(serveQueueDoes.get(i).getStep());
+			serveQueue.setOrder_id(serveQueueDoes.get(i).getOrder_id());
+			serveQueue.setUser_id(serveQueueDoes.get(i).getUser_id());
+			serveQueues.add(serveQueue);
 		}
 		
-		return serveQueues_front;
+		return serveQueues;
 	}
 
 	public ServeQueueDao getServeQueueDao() {

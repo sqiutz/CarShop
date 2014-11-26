@@ -20,9 +20,11 @@ public class UserGroupServiceImpl implements UserGroupService{
 		List<UserGroup> userGroups = new ArrayList<UserGroup>();
 		
 		for (int i = 0; i < userGroupDoes.size(); i++){
-			userGroups.get(i).setId(userGroupDoes.get(i).getId());
-			userGroups.get(i).setGroupName(userGroupDoes.get(i).getGroupName());
-			userGroups.get(i).setComment(userGroupDoes.get(i).getComment());
+			UserGroup userGroup = new UserGroup();
+			userGroup.setId(userGroupDoes.get(i).getId());
+			userGroup.setGroupName(userGroupDoes.get(i).getGroupName());
+			userGroup.setComment(userGroupDoes.get(i).getComment());
+			userGroups.add(userGroup);
 		}
 		
 		return userGroups;
