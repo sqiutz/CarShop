@@ -20,6 +20,9 @@ define(["md5"],function(){
 			$.common.ajax("getAllGroups", {
                 success:function(data){                 
                     options.success(data);                  
+                },
+				complete:function(data){                 
+                    options.complete(data);                  
                 }
             });
 		},

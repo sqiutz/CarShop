@@ -5,8 +5,3 @@ div.controller {
 	width:300px;
 	text-align:right; 
 }
-.errMsg {
-	width:100%;
-	color:#ff0000;
-	font-weight:bold;
-}
