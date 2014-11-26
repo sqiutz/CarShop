@@ -9,4 +9,8 @@ public interface OrderService {
 
     public List<Order> getOrdersByStatus(Integer status) throws BusinessServiceException;
     
+    public void addOrder(Order order) throws BusinessServiceException;
+    
+    public void updateOrder(Order order) throws BusinessServiceException;
+    
 }

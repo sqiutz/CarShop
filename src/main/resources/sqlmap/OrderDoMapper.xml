@@ -3,6 +3,7 @@
 <mapper namespace="com.keeping.business.dal.dao.OrderDao">
 
 	<resultMap id="OrderDoMap" type="OrderDo">
+		<id column="ID" property="id" />
 		<result column="STATUS" property="status" />
 		<result column="REGISTERNUMBER" property="registerNum" />
 		<result column="QUEUENUMBER" property="queueNum" />
@@ -15,7 +16,7 @@
 	</resultMap>
 	
 	<sql id="Base_Column_List">
-		STATUS,REGISTERNUMBER,QUEUENUMBER,ROOFNUMBER,ESTIMATIONTIME,PROMISETIME,CREATE_TIME,START_TIME,END_TIME
+		ID,STATUS,REGISTERNUMBER,QUEUENUMBER,ROOFNUMBER,ESTIMATIONTIME,PROMISETIME,CREATE_TIME,START_TIME,END_TIME
 	</sql>
 
 	<select id="queryByOrderstatus" resultMap="OrderDoMap" 
@@ -26,5 +27,95 @@
 		WHERE
 		STATUS = #{status}
 	</select>
+	
+	<insert id="insertData" parameterType="OrderDo">
+		INSERT INTO TBL_ORDER 
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="status != null">
+				STATUS,
+			</if>
+			<if test="registerNum != null">
+				REGISTERNUMBER,
+			</if>
+			<if test="queueNum != null">
+				QUEUENUMBER,
+			</if>
+			<if test="roofNum != null">
+				ROOFNUMBER,
+			</if>
+			<if test="estimationTime != null">
+				ESTIMATIONTIME,
+			</if>
+			<if test="promiseTime != null">
+				PROMISETIME,
+			</if>
+			<if test="startTime != null">
+				START_TIME,
+			</if>
+			<if test="endTime != null">
+				END_TIME,
+			</if>
+			CREATE_TIME,
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="status != null">
+				#{status},
+			</if>
+			<if test="registerNum != null">
+				#{registerNum},
+			</if>
+			<if test="queueNum != null">
+				#{queueNum},
+			</if>
+			<if test="roofNum != null">
+				#{roofNum},
+			</if>
+			<if test="estimationTime != null">
+				#{estimationTime},
+			</if>
+			<if test="promiseTime != null">
+				#{promiseTime},
+			</if>
+			<if test="startTime != null">
+				#{startTime},
+			</if>
+			<if test="endTime != null">
+				#{endTime},
+			</if>
+			now(),
+		</trim>
+	</insert>
+	
+	<update id="updateData" parameterType="OrderDo">
+		UPDATE TBL_ORDER
+		<set>
+			<if test="status != null">
+				STATUS = #{status},
+			</if>
+			<if test="registerNum != null">
+				REGISTERNUMBER = #{registerNum},
+			</if>
+			<if test="queueNum != null">
+				QUEUENUMBER = #{queueNum},
+			</if>
+			<if test="roofNum != null">
+				ROOFNUMBER = #{roofNum},
+			</if>
+			<if test="estimationTime != null">
+				ESTIMATIONTIME = #{estimationTime},
+			</if>
+			<if test="promiseTime != null">
+				PROMISETIME = #{promiseTime},
+			</if>
+			<if test="startTime != null">
+				START_TIME = #{startTime},
+			</if>
+			<if test="endTime != null">
+				END_TIME = #{endTime},
+			</if>
+		</set>
+		WHERE 
+		ID = #{id}
+	</update>
 	
 </mapper>

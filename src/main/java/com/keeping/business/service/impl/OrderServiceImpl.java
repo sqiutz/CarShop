@@ -37,7 +37,40 @@ public class OrderServiceImpl implements OrderService{
 		
 		return orders_front;
 	}
+	
+	public void addOrder(Order order) throws BusinessServiceException {
+		// TODO Auto-generated method stub
+		OrderDo orderDo = new OrderDo();
+		
+		orderDo.setStatus(order.getStatus());
+		orderDo.setStartTime(order.getStartTime());
+		orderDo.setRoofNum(order.getRoofNum());
+		orderDo.setRegisterNum(order.getRegisterNum());
+		orderDo.setQueueNum(order.getQueueNum());
+		orderDo.setPromiseTime(order.getPromiseTime());
+		orderDo.setEstimationTime(order.getEstimationTime());
+		orderDo.setEndTime(order.getEndTime());
+		
+		orderDao.addOrder(orderDo);
+	}
 
+
+	public void updateOrder(Order order) throws BusinessServiceException {
+		// TODO Auto-generated method stub
+		OrderDo orderDo = new OrderDo();
+		
+		orderDo.setStatus(order.getStatus());
+		orderDo.setStartTime(order.getStartTime());
+		orderDo.setRoofNum(order.getRoofNum());
+		orderDo.setRegisterNum(order.getRegisterNum());
+		orderDo.setQueueNum(order.getQueueNum());
+		orderDo.setPromiseTime(order.getPromiseTime());
+		orderDo.setEstimationTime(order.getEstimationTime());
+		orderDo.setEndTime(order.getEndTime());
+		
+		orderDao.updateOrder(orderDo);
+	}
+	
 	public OrderDao getOrderDao() {
 		return orderDao;
 	}
@@ -45,6 +78,5 @@ public class OrderServiceImpl implements OrderService{
 	public void setOrderDao(OrderDao orderDao) {
 		this.orderDao = orderDao;
 	}
-
 	
 }
