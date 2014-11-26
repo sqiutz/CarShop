@@ -7,6 +7,10 @@ import com.keeping.business.dal.model.UserDo;
 public interface UserDao extends BaseDao<UserDo>{
 	
 	public List<UserDo> queryAll();
+	
+	public void addUser(UserDo userDo);
+	
+	public void modifyUser(UserDo userDo);
 	/**
      * 查询用户是否存在
      * 

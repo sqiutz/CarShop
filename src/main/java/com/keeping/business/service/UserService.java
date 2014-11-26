@@ -10,6 +10,10 @@ public interface UserService {
 
 	public List<User> queryAll();
 	
+    public void addUser(User user) throws BusinessServiceException;
+    
+    public void modifyUser(User user) throws BusinessServiceException;
+	
 	public int checkValidUsername(String username);
 	
 	  /**
@@ -28,7 +32,6 @@ public interface UserService {
      * @param UserRegistry
      * @return Integer
      */
-    public int addUser(User user) throws BusinessServiceException;
 
     /**
      * 重发注册确认信
@@ -53,7 +56,6 @@ public interface UserService {
      * @param User
      * @return Integer
      */
-    public int modifyUser(final User user) throws BusinessServiceException;
 
 	/**
      * 根据用户信息查询用户信息

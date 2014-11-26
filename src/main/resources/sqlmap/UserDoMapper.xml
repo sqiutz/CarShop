@@ -30,6 +30,81 @@
 			</if>
 		</trim>
 	</sql>
+	
+		<insert id="addUser" parameterType="UserDo">
+		INSERT INTO TBL_USER 
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userName != null">
+				USER_NAME,
+			</if>
+			<if test="isAdmin != null">
+				IS_ADMIN,
+			</if>
+			<if test="imgPath != null">
+				IMG_PATH,
+			</if>
+			<if test="passwd != null">
+				PASSWD,
+			</if>
+			<if test="groupId != null">
+				GROUP_ID,
+			</if>
+			<if test="isValid != null">
+				IS_VALID,
+			</if>
+			CREATE_TIME,
+			MODIFY_TIME,
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="userName != null">
+				#{userName},
+			</if>
+			<if test="isAdmin != null">
+				#{isAdmin},
+			</if>
+			<if test="imgPath != null">
+				#{imgPath},
+			</if>
+			<if test="passwd != null">
+				#{passwd},
+			</if>
+			<if test="groupId != null">
+				#{groupId},
+			</if>
+			<if test="isValid != null">
+				#{isValid},
+			</if>
+			now(),
+			now(),
+		</trim>
+	</insert>
+	
+	<update id="modifyUser" parameterType="UserDo">
+		UPDATE TBL_USER
+		<set>
+			<if test="userName != null">
+				USER_NAME = #{userName},
+			</if>
+			<if test="isAdmin != null">
+				IS_ADMIN = #{isAdmin},
+			</if>
+			<if test="imgPath != null">
+				IMG_PATH = #{imgPath},
+			</if>
+			<if test="passwd != null">
+				PASSWD = #{passwd},
+			</if>
+			<if test="groupId != null">
+				GROUP_ID = #{groupId},
+			</if>
+			<if test="isValid != null">
+				IS_VALID = #{isValid},
+			</if>
+			MODIFY_TIME = now(),
+		</set>
+		WHERE 
+		ID = #{id}
+	</update>
 
 	<select id="checkUniqueUsername" resultType="java.lang.Integer" 
 		parameterType="java.lang.String">
@@ -97,73 +172,6 @@
 		WHERE
 		ID = #{id}
 	</select>
-
-	<insert id="insertData" parameterType="UserDo">
-		INSERT INTO TBL_USER 
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="userName != null">
-				USER_NAME,
-			</if>
-			<if test="userType != null">
-				USER_TYPE,
-			</if>
-			<if test="isAdmin != null">
-				IS_ADMIN,
-			</if>
-			<if test="imgPath != null">
-				IMG_PATH,
-			</if>
-			<if test="passwd != null">
-				PASSWD,
-			</if>
-			<if test="isValid != null">
-				IS_VALID,
-			</if>
-			CREATE_TIME,
-			MODIFY_TIME,
-		</trim>
-		<trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="userName != null">
-				#{userName},
-			</if>
-			<if test="userType != null">
-				#{userType},
-			</if>
-			<if test="isAdmin != null">
-				#{isAdmin},
-			</if>
-			<if test="imgPath != null">
-				#{imgPath},
-			</if>
-			DATE_FORMAT(now(),'%Y%m%d'),
-			<if test="passwd != null">
-				#{passwd},
-			</if>
-			<if test="isValid != null">
-				#{isValid},
-			</if>
-			now(),
-			now(),
-		</trim>
-	</insert>
-	
-	<update id="updateData" parameterType="UserDo">
-		UPDATE TBL_USER
-		<set>
-			<if test="userName != null">
-				USER_NAME = #{userName},
-			</if>
-			<if test="isAdmin != null">
-				IS_ADMIN = #{isAdmin},
-			</if>
-			<if test="imgPath != null">
-				IMG_PATH = #{imgPath},
-			</if>
-			MODIFY_TIME = now(),
-		</set>
-		WHERE 
-		USER_ID = #{userId}
-	</update>
 	
 	<update id="modifyHeadImg" parameterType="UserDo">
 		UPDATE TBL_USER

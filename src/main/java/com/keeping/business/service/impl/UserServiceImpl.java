@@ -59,9 +59,36 @@ public class UserServiceImpl implements UserService{
     	return UserConverter.getUser(userDo);
 	}
 
-	public int addUser(User user) throws BusinessServiceException {
+	public void addUser(User user) throws BusinessServiceException {
 		// TODO Auto-generated method stub
-		return 0;
+		UserDo userDo = new UserDo();
+		
+		userDo.setUserName(user.getUserName());
+		userDo.setPasswd(user.getPasswd());
+		userDo.setIsValid(user.getIsValid());
+		userDo.setIsAdmin(user.getIsAdmin());
+		userDo.setImgPath(user.getProImgPath());
+		userDo.setGroupId(user.getGroupId());
+		
+		userDao.addUser(userDo);
+		
+		return;
+	}
+	
+	public void modifyUser(User user) throws BusinessServiceException {
+		// TODO Auto-generated method stub
+		UserDo userDo = new UserDo();
+		
+		userDo.setUserName(user.getUserName());
+		userDo.setPasswd(user.getPasswd());
+		userDo.setIsValid(user.getIsValid());
+		userDo.setIsAdmin(user.getIsAdmin());
+		userDo.setImgPath(user.getProImgPath());
+		userDo.setGroupId(user.getGroupId());
+		
+		userDao.modifyUser(userDo);
+		
+		return;
 	}
 
 	public int resendRegisterConfirmEmail(String email)
@@ -76,10 +103,6 @@ public class UserServiceImpl implements UserService{
 		return false;
 	}
 
-	public int modifyUser(User user) throws BusinessServiceException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 	public User getUser(User user) throws BusinessServiceException {
 		// TODO Auto-generated method stub
