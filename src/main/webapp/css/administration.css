@@ -4,6 +4,7 @@ div.w2 {
 div.controller {
 	width:304px;
 	text-align:right;
+	padding-top:8px;
 }
 span.button-yellow {
 	background:url(../img/btn-bg-yellow.png);

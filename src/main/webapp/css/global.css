@@ -207,9 +207,9 @@ fieldset {
 	margin:5px auto;
 	border:2px solid rgb(206,185,102);
 }
-fieldset .w1{
+fieldset.w1 {
 	width:350px;
-	padding:3px 80px 3px 60px;
+	padding:8px 60px 8px 80px;
 }
 fieldset legend {
 	font-size:18px;
@@ -218,7 +218,7 @@ fieldset legend {
 }
 form {
 	padding:0px;
-	margin:0px
+	margin:0px;
 	border:none;
 }
 form div {
@@ -288,4 +288,9 @@ button.yellow {
 .f-purple {
 	color:rgb(210,201,220);
 	-webkit-text-stroke: 1px rgb(104,101,111);
+}
+.errMsg {
+	width:100%;
+	color:#ff0000;
+	font-weight:bold;
 }

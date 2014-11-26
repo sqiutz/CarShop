@@ -12,6 +12,10 @@
 	<script src="js/global.js"></script>
 	<script type="text/javascript">
         $(document).ready(function() {
+        	$('#errMsg').hide();
+        	$('#userNameErrMsg').hide();
+        	$('#pwdErrMsg').hide();
+        	$('#pwdConfErrMsg').hide();
             layout();
             $(window).resize(layout);
         });
@@ -43,28 +47,29 @@
 					<fieldset class='w1'>
 						<legend>Add User</legend>
 						<form>
+							<div id='errMsg' class='errMsg'></div>
 							<div>
 								<label for='group'>Group</label>
 								<select id='group' name='group' type='text'></select>
 							</div>
+							<div id='userNameErrMsg' class='errMsg'></div>
 							<div>
 								<label for='username'>Username</label>
 								<input id='username' name='username' type='text'>
 							</div>
+							<div id='pwdErrMsg' class='errMsg'></div>
 							<div>
 								<label for='password'>Password</label>
 								<input id='password' name='password' type='password'>
 							</div>
+							<div id='pwdConfErrMsg' class='errMsg'></div>
 							<div>
 								<label for='passwordConfirm'>Password Conf.</label>
 								<input id='passwordConfirm' name='passwordConfirm' type='password'>
 							</div>
 							<div>
 								<label for='isAdmin' class="">Is Admin</label>
-								<select id='isAdmin' name='isAdmin'>
-									<option>Yes</option>
-									<option>No</option>
-								</select>
+								<label id='isAdmin' name='isAdmin'>Yes</label>
 							</div>
 							<div class='controller'>
 								<span class='button-yellow inline' title='Save'>Save</span>
