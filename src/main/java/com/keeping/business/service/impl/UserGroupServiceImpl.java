@@ -29,6 +29,22 @@ public class UserGroupServiceImpl implements UserGroupService{
 		
 		return userGroups;
 	}
+	
+	public void addGroup(UserGroup userGroup) {
+		// TODO Auto-generated method stub
+		UserGroupDo userGroupDo = new UserGroupDo();
+		
+		userGroupDo.setGroupName(userGroup.getGroupName());
+		userGroupDo.setComment(userGroup.getComment());
+		
+		userGroupDao.insertGroup(userGroupDo);
+	}
+
+
+	public void deleteGroup(Integer id) {
+		// TODO Auto-generated method stub
+		userGroupDao.deleteGroup(id);
+	}
 
 
 	public UserGroupDao getUserGroupDao() {

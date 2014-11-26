@@ -3,7 +3,7 @@
 <mapper namespace="com.keeping.business.dal.dao.UserGroupDao">
 
 	<resultMap id="UserGroupDoMap" type="UserGroupDo">
-		<result column="ID" property="id" />
+		<id column="ID" property="id" />
 		<result column="GROUP_NAME" property="groupName" />
 		<result column="COMMENT" property="comment" />
 	</resultMap>
@@ -17,5 +17,31 @@
 		<include refid="Base_Column_List" />
 		FROM TBL_USERGROUP
 	</select>
+	
+	<insert id="insertGroup" parameterType="UserGroupDo">
+		INSERT INTO TBL_USERGROUP 
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="groupName != null">
+				GROUP_NAME,
+			</if>
+			<if test="comment != null">
+				COMMENT,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="groupName != null">
+				#{groupName},
+			</if>
+			<if test="comment != null">
+				#{comment},
+			</if>
+		</trim>
+	</insert>
+	
+	<delete id="deleteGroup" parameterType="java.lang.Long">
+		DELETE FROM TBL_USERGROUP
+		WHERE 
+		USER_ID = #{id}
+	</delete>
 	
 </mapper>

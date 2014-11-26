@@ -24,6 +24,7 @@ import com.keeping.business.service.UserService;
 import com.keeping.business.web.controller.converter.JsonConverter;
 import com.keeping.business.web.controller.converter.WebUserConverter;
 import com.keeping.business.web.controller.model.LoginReq;
+import com.keeping.business.web.controller.model.Order;
 import com.keeping.business.web.controller.model.User;
 import com.keeping.business.web.controller.model.UserGroup;
 import com.keeping.business.web.controller.model.UserProfile;
@@ -154,13 +155,20 @@ public class UserController {
 			UserProfile regUser = JsonConverter.getFromJsonString(jsonStr,
 					UserProfile.class);
 
-			if (StringUtil.isNull(jsonStr) || regUser == null || null == admin
-					|| "admin".equals(admin.getUserName()) == false) {
+			if (StringUtil.isNull(jsonStr) || regUser == null ) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
 				logger.error("< UserController.addUser() > 注册用户信息为空或没有权限。"
 						+ jsonStr);
-			} else {
+			} else if (null == session || null == admin || null == admin.getUserName()){
+				code = BusinessCenterResCode.SYS_INVILID_REQ.getCode();
+				msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
+				logger.error("< UserController.addUser() > session is null。" + jsonStr);
+			} else if (admin.getIsAdmin() == 0){
+				code = BusinessCenterResCode.SYS_NO_ADMIN.getCode();
+				msg = BusinessCenterResCode.SYS_NO_ADMIN.getMsg();
+				logger.error("< UserController.addUser() > you are not admin。" + jsonStr);
+			}else{
 				regUser.setIsAdmin(0);
 				regUser.setIsValid(1);
 				// 注册
@@ -220,6 +228,120 @@ public class UserController {
 			return JsonConverter.getResultObject(code, msg, groupList);
 		} catch (Exception e) {
 			logger.error("< UserController.getAllGroup() > 获取用户组列表返回出错."
+					+ e.getMessage());
+			throw e;
+		}
+	}
+	
+	@RequestMapping(params = "action=addgroup")
+	@ResponseBody
+	public WebResult addGroup(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
+		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
+		
+		HttpSession session = request.getSession();
+		session.setMaxInactiveInterval(PlatformPar.sessionTimeout);
+
+		try {
+			UserProfile admin = (UserProfile) session.getAttribute(PlatfromConstants.STR_USER_PROFILE);
+
+			// 验证请求参数
+			String jsonStr = request.getParameter("param");
+			UserGroup userGroup = JsonConverter.getFromJsonString(jsonStr,UserGroup.class);
+
+			if (StringUtil.isNull(jsonStr) || userGroup == null ) {
+				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
+				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
+				logger.error("< UserController.addGroup() > parameter is null。"
+						+ jsonStr);
+			} else if (null == session || null == admin || null == admin.getUserName()){
+				code = BusinessCenterResCode.SYS_INVILID_REQ.getCode();
+				msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
+				logger.error("< UserController.addGroup() > session is null。" + jsonStr);
+			} else if (admin.getIsAdmin() == 0){
+				code = BusinessCenterResCode.SYS_NO_ADMIN.getCode();
+				msg = BusinessCenterResCode.SYS_NO_ADMIN.getMsg();
+				logger.error("< UserController.addGroup() > you are not admin。" + jsonStr);
+			}else{
+				// 注册
+				userGroupService.addGroup(userGroup);
+			}
+		} catch (BusinessServiceException ex) {
+			System.out.println(ex.getMessage());
+			System.out.println(ex.getStackTrace());
+			code = ex.getErrorCode();
+			msg = ex.getErrorMessage();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			System.out.println(e.getStackTrace());
+			code = BusinessCenterResCode.SYS_ERROR.getCode();
+			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
+			logger.error("< UserController.addGroup() > 获取用户组列表失败."
+					+ e.getMessage());
+		}
+
+		// 返回结果
+		try {
+			return JsonConverter.getResultSignal(code, msg);
+		} catch (Exception e) {
+			logger.error("< UserController.addGroup() > 获取用户组列表返回出错."
+					+ e.getMessage());
+			throw e;
+		}
+	}
+	
+	@RequestMapping(params = "action=deletegroup")
+	@ResponseBody
+	public WebResult deleteGroup(Integer id, HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
+		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
+		
+		HttpSession session = request.getSession();
+		session.setMaxInactiveInterval(PlatformPar.sessionTimeout);
+
+		try {
+			UserProfile admin = (UserProfile) session.getAttribute(PlatfromConstants.STR_USER_PROFILE);
+
+			if (id == null) {
+				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
+				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
+				logger.error("< UserController.deleteGroup() > parameter is null。"
+						+ id);
+			} else if (null == session || null == admin || null == admin.getUserName()){
+				code = BusinessCenterResCode.SYS_INVILID_REQ.getCode();
+				msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
+				logger.error("< UserController.deleteGroup() > session is null。");
+			} else if (admin.getIsAdmin() == 0){
+				code = BusinessCenterResCode.SYS_NO_ADMIN.getCode();
+				msg = BusinessCenterResCode.SYS_NO_ADMIN.getMsg();
+				logger.error("< UserController.deleteGroup() > you are not admin。");
+			}else{
+				// 注册
+				userGroupService.deleteGroup(id);
+			}
+		} catch (BusinessServiceException ex) {
+			System.out.println(ex.getMessage());
+			System.out.println(ex.getStackTrace());
+			code = ex.getErrorCode();
+			msg = ex.getErrorMessage();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			System.out.println(e.getStackTrace());
+			code = BusinessCenterResCode.SYS_ERROR.getCode();
+			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
+			logger.error("< UserController.deleteGroup() > fail to delete user group."
+					+ e.getMessage());
+		}
+
+		// 返回结果
+		try {
+			return JsonConverter.getResultSignal(code, msg);
+		} catch (Exception e) {
+			logger.error("< UserController.deleteGroup() > fail to delete user group."
 					+ e.getMessage());
 			throw e;
 		}

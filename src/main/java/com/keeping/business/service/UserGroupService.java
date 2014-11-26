@@ -8,4 +8,8 @@ public interface UserGroupService {
 
 	public List<UserGroup> queryAll();
 	
+	public void addGroup(UserGroup userGroup);
+	
+	public void deleteGroup(Integer id);
+	
 }

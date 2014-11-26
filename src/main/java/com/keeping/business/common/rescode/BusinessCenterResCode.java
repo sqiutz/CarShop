@@ -10,6 +10,7 @@ public enum BusinessCenterResCode {
 	SYS_INVILID_REQ("000004","无效的请求信息,请重新登录！"),
 	SYS_NO_PRIVILEGE("000005","无效的操作请求！"),
 	SYS_NO_AUTHORITY("000006","用户无此权限！"),
+	SYS_NO_ADMIN("000007","用户无此权限！"),
 	
 	/**注册错误提示信息  */
 	REGISTRY_EMAIL_EXISTED("010000", "邮箱地址已经被注册！"),
