@@ -134,6 +134,8 @@ public class UserController {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
+		HttpSession session = request.getSession();
+		session.setMaxInactiveInterval(PlatformPar.sessionTimeout);
 
 		List<User> userList = new ArrayList<User>();
 		List<UserProfile> userProfileList = new ArrayList<UserProfile>();
@@ -306,6 +308,8 @@ public class UserController {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
+		HttpSession session = request.getSession();
+		session.setMaxInactiveInterval(PlatformPar.sessionTimeout);
 
 		List<UserGroup> groupList = new ArrayList<UserGroup>();
 		try {
