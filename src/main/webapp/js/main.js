@@ -15,9 +15,6 @@ require.config({
 });
 require(["jquery", "common"],function($, common){
     $(function(){
-        //layout();
-        //$(window).resize(layout);
-
         function layout() {
             var width = $('#container').width();
             var height = $('#container').height();

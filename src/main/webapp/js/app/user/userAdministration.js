@@ -1,4 +1,4 @@
-(function($) {
+(function($) {   
 	var userGroup = {
 		groupNameMapper : {
 			0 : 'Admin',
@@ -190,11 +190,19 @@
                 'Admin' === userGroup.getGroupNameById(group.val()) ? 
                         'Yes' : 'No');
     });
-
-	userGroup.getAllGroups();
-	
+    
 	$("#saveBtn").bind("click",function() {
 	    user.addUser();
 	});
+	
 
+	$.UserInfo.checkLogin({
+	    success : function(data) {
+	        if(data.code == '000000') {
+	            //$("#helloUserName").text('Hello ' + data.obj.username);	            
+	        }
+	    }
+	});
+	
+	userGroup.getAllGroups();
 })(jQuery);

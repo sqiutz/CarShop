@@ -66,7 +66,7 @@ public class UserController {
 			if (StringUtil.isNull(jsonStr) || req == null) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
-				logger.error("< UserController.login() > 登录请求信息不正确。" + jsonStr);
+				logger.error("< UserController.login() > 登录请求信息不正确." + jsonStr);
 			} else {
 				userProfile = WebUserConverter.getUserProfile(userService
 						.login(req.getUsername(), req.getPasswd()));
@@ -74,6 +74,8 @@ public class UserController {
 				// 将用户信息保存在session中
 				session.setAttribute(PlatfromConstants.STR_USER_PROFILE,
 						userProfile);
+				UserProfile u = (UserProfile)session.getAttribute(PlatfromConstants.STR_USER_PROFILE);
+				System.out.println(null == u ? "u is null" : u.getUserName());
 			}
 		} catch (BusinessServiceException ex) {
 			code = ex.getErrorCode();
@@ -94,6 +96,34 @@ public class UserController {
 			throw e;
 		}
 
+	}
+	
+	@RequestMapping(params = "action=checklogin")
+	@ResponseBody
+	public WebResultObject<UserProfile> checkLogin(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
+		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
+		HttpSession session = request.getSession();
+		UserProfile userProfile = null;
+		try {
+			userProfile = (UserProfile)session.getAttribute(PlatfromConstants.STR_USER_PROFILE);
+			System.out.println(null == userProfile ? "null" : userProfile.getUserName());
+		}
+		catch (Exception e) {
+			code = BusinessCenterResCode.SYS_ERROR.getCode();
+			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
+			logger.error("< UserController.checkLogin() > 获取登录信息错误." + e.getMessage());
+		}
+		
+		try {
+			return JsonConverter.getResultObject(code, msg, userProfile);
+		}
+		catch (Exception e) {
+			logger.error("< UserController.checkLogin() > 登录信息返回出错." + e.getMessage());
+			throw e;
+		}
 	}
 
 	@RequestMapping(params = "action=alllist")
@@ -152,22 +182,22 @@ public class UserController {
 
 			// 验证请求参数
 			String jsonStr = request.getParameter("param");
+			System.out.println(jsonStr);
 			UserProfile regUser = JsonConverter.getFromJsonString(jsonStr,
 					UserProfile.class);
-
 			if (StringUtil.isNull(jsonStr) || regUser == null ) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
-				logger.error("< UserController.addUser() > 注册用户信息为空或没有权限。"
+				logger.error("< UserController.addUser() > 注册用户信息为空或没有权限."
 						+ jsonStr);
 			} else if (null == session || null == admin || null == admin.getUserName()){
 				code = BusinessCenterResCode.SYS_INVILID_REQ.getCode();
 				msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
-				logger.error("< UserController.addUser() > session is null。" + jsonStr);
+				logger.error("< UserController.addUser() > session is null." + jsonStr);
 			} else if (admin.getIsAdmin() == 0){
 				code = BusinessCenterResCode.SYS_NO_ADMIN.getCode();
 				msg = BusinessCenterResCode.SYS_NO_ADMIN.getMsg();
-				logger.error("< UserController.addUser() > you are not admin。" + jsonStr);
+				logger.error("< UserController.addUser() > you are not admin." + jsonStr);
 			}else{
 				regUser.setIsAdmin(0);
 				regUser.setIsValid(1);
@@ -180,11 +210,12 @@ public class UserController {
 		} catch (Exception e) {
 			code = BusinessCenterResCode.SYS_ERROR.getCode();
 			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
-			logger.error("< UserController.login() > 添加用户错误." + e.getMessage());
+			logger.error("< UserController.login() > 添加用户错误" + e.getMessage());
 		}
 
 		// 返回结果
 		try {
+			System.out.println(code + " " + msg);
 			return JsonConverter.getResultSignal(code, msg);
 		} catch (Exception e) {
 			session.removeAttribute(PlatfromConstants.STR_USER_PROFILE);
@@ -268,17 +299,11 @@ public class UserController {
 
 		List<UserGroup> groupList = new ArrayList<UserGroup>();
 		try {
-			System.out.println("enter getAllGroup");
 			groupList = userGroupService.queryAll();
-			System.out.println("return from userGroupService.queryAll() " + groupList.size());
 		} catch (BusinessServiceException ex) {
-			System.out.println(ex.getMessage());
-			System.out.println(ex.getStackTrace());
 			code = ex.getErrorCode();
 			msg = ex.getErrorMessage();
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			System.out.println(e.getStackTrace());
 			code = BusinessCenterResCode.SYS_ERROR.getCode();
 			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
 			logger.error("< UserController.getAllGroup() > 获取用户组列表失败."

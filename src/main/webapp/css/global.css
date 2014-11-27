@@ -20,6 +20,13 @@ div.rAlign {
 div.box {
 	margin-top:10px;
 }
+div.header-top {
+	background-color:#000000;
+	height:36px;
+	text-align:right;
+	color:#ffffff;
+	line-height:36px;
+}
 div.container {
 	background:url(../img/background.jpg);
 	background-repeat:no-repeat;
