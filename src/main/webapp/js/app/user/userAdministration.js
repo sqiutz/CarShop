@@ -13,6 +13,9 @@
 					that._groups = data.resList;
 					for (var i = 0; i < that._groups.length; i++) {
 						var g = that._groups[i];
+						if('0' === g.groupName) {
+						    continue;
+						}
 						$('#group').append(
 								"<option value ='" + g.id + "'>"
 								+ that.groupNameMapper[g.groupName] + "</option>");
@@ -154,6 +157,8 @@
 	
 	//账号 密码
 	var userName = $("#username"), password = $("#password"), passwordConf = $("#passwordConfirm");
+	//用户组
+    var group = $("#group");
 	
 	//用户名失去焦点进行验证
     userName.bind("blur", function() {
@@ -182,15 +187,7 @@
         $('#pwdConfErrMsg').html('').hide('normal');
         passwordConf.css('border', '1px solid #CCC');        
     });
-    
-    //选择用户组
-    var group = $("#group"), isAdmin = $("#isAdmin")
-    group.bind("change", function(){
-        isAdmin.text(
-                'Admin' === userGroup.getGroupNameById(group.val()) ? 
-                        'Yes' : 'No');
-    });
-    
+        
 	$("#saveBtn").bind("click",function() {
 	    user.addUser();
 	});

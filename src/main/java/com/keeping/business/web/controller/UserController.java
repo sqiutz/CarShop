@@ -179,10 +179,10 @@ public class UserController {
 
 			UserProfile admin = (UserProfile) session
 					.getAttribute(PlatfromConstants.STR_USER_PROFILE);
+			System.out.println(null == admin ? "admin is null" : admin.getUserName());
 
 			// 验证请求参数
 			String jsonStr = request.getParameter("param");
-			System.out.println(jsonStr);
 			UserProfile regUser = JsonConverter.getFromJsonString(jsonStr,
 					UserProfile.class);
 			if (StringUtil.isNull(jsonStr) || regUser == null ) {
@@ -190,15 +190,18 @@ public class UserController {
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
 				logger.error("< UserController.addUser() > 注册用户信息为空或没有权限."
 						+ jsonStr);
-			} else if (null == session || null == admin || null == admin.getUserName()){
+			} 
+			else if (null == session || null == admin || null == admin.getUserName()){
 				code = BusinessCenterResCode.SYS_INVILID_REQ.getCode();
 				msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
 				logger.error("< UserController.addUser() > session is null." + jsonStr);
-			} else if (admin.getIsAdmin() == 0){
+			} 
+			else if (admin.getIsAdmin() == 0){
 				code = BusinessCenterResCode.SYS_NO_ADMIN.getCode();
 				msg = BusinessCenterResCode.SYS_NO_ADMIN.getMsg();
 				logger.error("< UserController.addUser() > you are not admin." + jsonStr);
-			}else{
+			}
+			else{
 				regUser.setIsAdmin(0);
 				regUser.setIsValid(1);
 				// 注册
