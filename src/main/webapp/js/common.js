@@ -21,7 +21,11 @@
 							// 获取用户列表
 							getAllUsers : {
 							    url : "user.do?action=alllist"
-							}
+							},
+							// 添加用户
+							addUser : {
+                                url : "user.do?action=add"
+                            }
 						},
 						ajax : function(key, args) {
 							var self = this;
