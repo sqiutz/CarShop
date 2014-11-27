@@ -14,7 +14,7 @@
 					for (var i = 0; i < that._groups.length; i++) {
 						var g = that._groups[i];
 						$('#group').append(
-								"<option value ='" + g.groupName + "'>"
+								"<option value ='" + g.id + "'>"
 								+ that.groupNameMapper[g.groupName] + "</option>");
 					}
 				},
@@ -88,6 +88,11 @@
 				password.css('border', '1px solid #F00');
 				flag = false;
 			}
+        	else if(pwd.length < 6 || pwd.length > 22) {
+        	    $('#pwdErrMsg').html('The length of the password should be between 6 to 22!').show('normal');
+                password.css('border', '1px solid #F00');
+                flag = false;
+        	}
         	else {
         		$('#pwdErrMsg').html('').hide('normal');
 				password.css('border', '1px solid #CCC');
@@ -95,14 +100,60 @@
         	}
             return flag;
         },
+        validatePassConf : function() {
+            var pwd = passwordConf.val();
+            var flag;
+            if(pwd.length == 0){
+                $('#pwdConfErrMsg').html('Please confirm the password!').show('normal');
+                passwordConf.css('border', '1px solid #F00');
+                flag = false;
+            }
+            else if(pwd != password.val()) {
+                $('#pwdConfErrMsg').html('The two passwords are not consistent!').show('normal');
+                passwordConf.css('border', '1px solid #F00');
+                flag = false;
+            }
+            else {
+                $('#pwdConfErrMsg').html('').hide('normal');
+                passwordConf.css('border', '1px solid #CCC');
+                flag = true;
+            }
+            return flag;
+        },
 		// 添加用户
 		addUser : function() {
-			
+		    var valName = user.validateName();
+	        var valPass = user.validatePass();
+	        var valPassConf = user.validatePassConf();
+	        if(valName && valPass && valPassConf) {
+	            $.UserInfo.addUser({
+	                data : {
+	                    groupId : group.val(),
+	                    userName : userName.val(),
+	                    passwd : password.val()
+	                },
+	                success : function(data) {
+	                    if(data.code == '000000') {
+	                        $('#errMsg').html('').hide('normal');
+	                        //var u = data.obj;
+	                        //if(u.isAdmin) {
+	                        //    location.href = 'administration.html';
+	                        //}                       
+	                    }else if(data.code == '010102'){
+	                        $('#errMsg').html('The password is not correct!').show('normal');
+	                    }else if(data.code == '010100'){
+	                        $('#errMsg').html('The username is not existed!').show('normal');
+	                    }else if(data.code == '010101'){
+	                        $('#errMsg').html('This is an inactive user!').show('normal');
+	                    }
+	                }
+	            });
+	        }
 		}
 	};
 	
 	//账号 密码
-	var userName=$("#username"),userPass=$("#password");
+	var userName = $("#username"), password = $("#password"), passwordConf = $("#passwordConfirm");
 	
 	//用户名失去焦点进行验证
     userName.bind("blur", function() {
@@ -113,7 +164,37 @@
         $('#userNameErrMsg').html('').hide('normal');
         userName.css('border', '1px solid #CCC');
     });
+    
+    //密码失去焦点进行验证
+    password.bind("blur", function(){
+        user.validatePass();
+    });
+    password.bind("focus",function(){
+        $('#errMsg').html('').hide('normal');
+        $('#pwdErrMsg').html('').hide('normal');
+        password.css('border', '1px solid #CCC');        
+    });
+    passwordConf.bind("blur", function(){
+        user.validatePassConf();
+    });
+    passwordConf.bind("focus",function(){
+        $('#errConfMsg').html('').hide('normal');
+        $('#pwdConfErrMsg').html('').hide('normal');
+        passwordConf.css('border', '1px solid #CCC');        
+    });
+    
+    //选择用户组
+    var group = $("#group"), isAdmin = $("#isAdmin")
+    group.bind("change", function(){
+        isAdmin.text(
+                'Admin' === userGroup.getGroupNameById(group.val()) ? 
+                        'Yes' : 'No');
+    });
 
 	userGroup.getAllGroups();
+	
+	$("#saveBtn").bind("click",function() {
+	    user.addUser();
+	});
 
 })(jQuery);
