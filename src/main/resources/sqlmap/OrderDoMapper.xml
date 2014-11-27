@@ -29,6 +29,15 @@
 		STATUS = #{status}
 	</select>
 	
+	<select id="queryFirstForServeQueue" resultMap="OrderDoMap">
+		SELECT top 1 
+		<include refid="Base_Column_List" />
+		FROM TBL_ORDER
+		WHERE
+		STATUS = 1
+		order by START_TIME asc
+	</select>
+	
 	<select id="queryByOrderBookNum" resultMap="OrderDoMap" 
 		parameterType="java.lang.String">
 		SELECT 

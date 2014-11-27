@@ -4,6 +4,8 @@ import java.sql.Date;
 import java.sql.Timestamp;
 
 public class Order {
+	
+	private Integer id;
 
 	private Integer status;
 	
@@ -103,6 +105,14 @@ public class Order {
 
 	public void setBookNum(String bookNum) {
 		this.bookNum = bookNum;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
     
 }

@@ -23,6 +23,47 @@
 		FROM TBL_SERVEQUEUE
 		WHERE
 		STEP = #{step}
+		order by START_TIME asc
 	</select>
+	
+	<insert id="addServeQueue" parameterType="ServeQueueDo">
+		INSERT INTO TBL_SERVEQUEUE 
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="step != null">
+				STEP,
+			</if>
+			<if test="userId != null">
+				USER_ID,
+			</if>
+			<if test="orderId != null">
+				ORDER_ID,
+			</if>
+			<if test="startTime != null">
+				START_TIME,
+			</if>
+			<if test="endTime != null">
+				END_TIME,
+			</if>
+			CREATE_TIME,
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="step != null">
+				#{step},
+			</if>
+			<if test="userId != null">
+				#{userId},
+			</if>
+			<if test="orderId != null">
+				#{orderId},
+			</if>
+			<if test="startTime != null">
+				#{startTime},
+			</if>
+			<if test="endTime != null">
+				#{endTime},
+			</if>
+			now(),
+		</trim>
+	</insert>
 	
 </mapper>

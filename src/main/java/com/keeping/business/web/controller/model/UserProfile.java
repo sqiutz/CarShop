@@ -2,7 +2,7 @@ package com.keeping.business.web.controller.model;
 
 public class UserProfile {
 
-	private long id;			//用户ID
+	private Integer id;			//用户ID
 	
 	private String userName;		//username
 	
@@ -15,14 +15,6 @@ public class UserProfile {
 	private Integer isValid;
 	
 	private long groupId;
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
 
 	public int getIsAdmin() {
 		return isAdmin;
@@ -70,5 +62,13 @@ public class UserProfile {
 
 	public void setGroupId(long groupId) {
 		this.groupId = groupId;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 }

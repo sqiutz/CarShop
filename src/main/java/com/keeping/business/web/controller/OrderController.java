@@ -103,7 +103,6 @@ public class OrderController {
 				msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
 				logger.error("< OrderController.bookOrder() > session为空。" + jsonStr);
 			} else {
-				
 				 String bookNumber = System.currentTimeMillis() + "";
 				 order.setBookNum(bookNumber);
 				 orderService.addOrder(order);

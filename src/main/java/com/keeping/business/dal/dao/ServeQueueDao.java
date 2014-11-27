@@ -7,5 +7,7 @@ import com.keeping.business.dal.model.ServeQueueDo;
 public interface ServeQueueDao extends BaseDao<ServeQueueDo>{
 
 	public List<ServeQueueDo> queryByServeQueuestep(Integer step);
+	
+	public void addServeQueue(ServeQueueDo serveQueueDo);
 
 }

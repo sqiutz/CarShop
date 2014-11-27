@@ -13,6 +13,21 @@ public class ServeQueueServiceImpl implements ServeQueueService{
 
 	/**用户信息DAO */
 	private ServeQueueDao serveQueueDao;
+	
+
+	public void addServeQueue(ServeQueue serveQueue)
+			throws BusinessServiceException {
+		// TODO Auto-generated method stub
+		ServeQueueDo serveQueueDo = new ServeQueueDo();
+		
+		serveQueueDo.setEndTime(serveQueue.getEndTime());
+		serveQueueDo.setOrder_id(serveQueue.getOrder_id());
+		serveQueueDo.setStartTime(serveQueue.getStartTime());
+		serveQueueDo.setStep(serveQueue.getStep());
+		serveQueueDo.setUser_id(serveQueue.getUser_id());
+		
+		serveQueueDao.addServeQueue(serveQueueDo);
+	}
 
 	public List<ServeQueue> getServeQueueByStep(Integer step)
 			throws BusinessServiceException {
@@ -42,5 +57,6 @@ public class ServeQueueServiceImpl implements ServeQueueService{
 	public void setServeQueueDao(ServeQueueDao serveQueueDao) {
 		this.serveQueueDao = serveQueueDao;
 	}
+
 
 }

@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 public class User {
 
-	private long id;			//ID
+	private Integer id;			//ID
 
 	private String userName;		//用户名
 	
@@ -21,14 +21,6 @@ public class User {
     private Timestamp createTime;
     
     private Timestamp modifyTime;
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
 
 	public String getUserName() {
 		return userName;
@@ -92,6 +84,14 @@ public class User {
 
 	public void setGroupId(long groupId) {
 		this.groupId = groupId;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 }

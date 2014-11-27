@@ -89,7 +89,7 @@ CREATE TABLE `TBL_SERVEQUEUE` (
   `id` bigint(10) NOT NULL AUTO_INCREMENT,
   `step` bigint(10) NOT NULL,     /*0: start; 1: hold; 2: end*/
   `user_id` bigint(10) NOT NULL,
-  `order_id` bigint(10) NOT NULL,
+  `order_id` bigint(10) NOT NULL UNIQUE,
   `create_time` timestamp NOT NULL DEFAULT '1990-01-01 00:00:00',
   `start_time` timestamp  NOT NULL DEFAULT '1990-01-01 00:00:00',
   `end_time` timestamp  NOT NULL DEFAULT '1990-01-01 00:00:00',

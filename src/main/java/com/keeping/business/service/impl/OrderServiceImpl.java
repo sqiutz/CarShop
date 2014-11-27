@@ -13,6 +13,27 @@ public class OrderServiceImpl implements OrderService{
 
 	/**用户信息DAO */
 	private OrderDao orderDao;
+	
+
+	public Order queryFirstForServeQueue() throws BusinessServiceException {
+		// TODO Auto-generated method stub
+		OrderDo orderDo = orderDao.queryFirstForServeQueue();
+		
+		Order order = new Order();
+		order.setId(orderDo.getId());
+		order.setCreateTime(orderDo.getCreateTime());
+		order.setEndTime(orderDo.getEndTime());
+		order.setEstimationTime(orderDo.getEstimationTime());
+		order.setPromiseTime(orderDo.getPromiseTime());
+		order.setQueueNum(orderDo.getQueueNum());
+		order.setRegisterNum(orderDo.getRegisterNum());
+		order.setRoofNum(orderDo.getRoofNum());
+		order.setStartTime(orderDo.getStartTime());
+		order.setStatus(orderDo.getStatus());
+		order.setBookNum(orderDo.getBookNum());
+		
+		return order;
+	}
 
 	public List<Order> getOrdersByStatus(Integer status)
 			throws BusinessServiceException {
@@ -102,5 +123,6 @@ public class OrderServiceImpl implements OrderService{
 	public void setOrderDao(OrderDao orderDao) {
 		this.orderDao = orderDao;
 	}
+
 	
 }
