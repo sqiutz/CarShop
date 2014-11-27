@@ -49,8 +49,8 @@
 	            success : function(data) {
 	                if(data.code == '000000') {
 	                	$('#errMsg').html('').hide('normal');
-	                	var u = data.obj;
-	                	if(u.isAdmin) {
+	                	var userProfile = data.obj;
+	                	if(userProfile.isAdmin) {
 	                		location.href = 'administration.html';
 	                	}	                    
 	                }else if(data.code == '010102'){

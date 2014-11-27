@@ -20,6 +20,22 @@ div.rAlign {
 div.box {
 	margin-top:10px;
 }
+div.header-top {
+	background-color:#000000;
+	height:36px;	
+	color:#ffffff;
+	line-height:36px;
+}
+div.header-top-lf {
+	float: left;
+	width:auto;
+	padding-left:8px;
+}
+div.header-top-rg {
+	float: right;	
+	width: auto;
+	padding-right:8px;
+}
 div.container {
 	background:url(../img/background.jpg);
 	background-repeat:no-repeat;
@@ -61,6 +77,11 @@ div.box-black{
 	padding-top:20px;
 	border:none;
 	margin-right:15px;
+}
+div.controller {
+	width:304px;
+	text-align:right;
+	padding-top:4px;
 }
 span {
 	display:block;
@@ -157,9 +178,37 @@ span.h6.low {
 span.h7 {
 	line-height:60px;
 }
+span.hello {
+	font-size:18px;
+	font-weight:bold;
+}
+span.button-yellow {
+	background:url(../img/btn-bg-yellow.png);
+	background-repeat:no-repeat;
+	background-size:100px,33px;
+	-moz-background-size:100px,33px;
+	background-position:center;
+	cursor:pointer;
+	width:100px;
+	height:33px;
+	font-size:16px;
+	font-weight:bold;
+	line-height:30px;
+}
 a {
 	cursor:pointer;
 	font-weight:bold;
+}
+a.header-top {
+	color:#FFF;	
+	font-size:12px;
+	font-weight:normal;
+	font-style:italic;
+	text-decoration:underline;
+	margin-left:4px;
+}
+a.header-top:hover {
+	color:#DDD;
 }
 table {
 	border-collapse: collapse;
@@ -210,6 +259,9 @@ fieldset {
 fieldset.w1 {
 	width:350px;
 	padding:8px 60px 8px 80px;
+}
+fieldset.w1.small {
+	width:320px;
 }
 fieldset legend {
 	font-size:18px;

@@ -1,7 +1,12 @@
 function layout() {
+    var headerTopH = 0;
+    if($('#headerTop').length > 0) {
+        headerTopH = $('#headerTop').height();
+    }    
     var width = $('#container').width();
-    var height = $('#container').height();
-    var headerH = width * 0.085;
+    var height = $('#container').height() - headerTopH;
+    $('#container').css('height', height + 'px');
+    var headerH = width * 0.085;    
     $('#header').css('height', headerH + 'px');
     $('#header').css('margin', '0px ' + width * 0.255 + 'px 0px' + width * 0.172 + 'px');
     $('#title').css('line-height', width * 0.085 + 'px');

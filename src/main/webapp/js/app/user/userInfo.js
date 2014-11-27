@@ -37,19 +37,22 @@ define(["md5"],function(){
 		//添加用户
 		addUser : function(options) {
             $.common.ajax("addUser", {
+                type:"POST",
+                data:options.data,
                 success:function(data){                 
                     options.success(data);                  
                 }
             });
         },
 		//检测用户是否已经登录
-		checkLogin:function(){
-
-		},
-		//获取用户信息
-		getUserInfo:function(options){
-			
-		},
+		checkLogin:function(options){
+		    $.common.ajax("checkLogin", {
+                type:"POST",
+                success:function(data){                 
+                    options.success(data);                  
+                }
+            });
+		}
 	};
 
 	$.UserInfo = UserInfo;

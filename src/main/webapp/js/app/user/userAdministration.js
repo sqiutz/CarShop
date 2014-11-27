@@ -1,4 +1,4 @@
-(function($) {
+(function($) {   
 	var userGroup = {
 		groupNameMapper : {
 			0 : 'Admin',
@@ -13,6 +13,9 @@
 					that._groups = data.resList;
 					for (var i = 0; i < that._groups.length; i++) {
 						var g = that._groups[i];
+						if('0' === g.groupName) {
+						    continue;
+						}
 						$('#group').append(
 								"<option value ='" + g.id + "'>"
 								+ that.groupNameMapper[g.groupName] + "</option>");
@@ -41,6 +44,7 @@
 			var group = userGroup;
 			$.UserInfo.getAllUsers({
 				success : function(data) {
+					$('#usersTbl tr').remove();
 					var table = $('#usersTbl');
 					var users = data.resList;
 					for (var i = 0; i < users.length; i++) {
@@ -126,6 +130,7 @@
 	        var valPass = user.validatePass();
 	        var valPassConf = user.validatePassConf();
 	        if(valName && valPass && valPassConf) {
+	        	var that = this;
 	            $.UserInfo.addUser({
 	                data : {
 	                    groupId : group.val(),
@@ -135,10 +140,7 @@
 	                success : function(data) {
 	                    if(data.code == '000000') {
 	                        $('#errMsg').html('').hide('normal');
-	                        //var u = data.obj;
-	                        //if(u.isAdmin) {
-	                        //    location.href = 'administration.html';
-	                        //}                       
+	                        that.getAllUsers();                     
 	                    }else if(data.code == '010102'){
 	                        $('#errMsg').html('The password is not correct!').show('normal');
 	                    }else if(data.code == '010100'){
@@ -154,6 +156,8 @@
 	
 	//账号 密码
 	var userName = $("#username"), password = $("#password"), passwordConf = $("#passwordConfirm");
+	//用户组
+    var group = $("#group");
 	
 	//用户名失去焦点进行验证
     userName.bind("blur", function() {
@@ -183,18 +187,21 @@
         passwordConf.css('border', '1px solid #CCC');        
     });
     
-    //选择用户组
-    var group = $("#group"), isAdmin = $("#isAdmin")
-    group.bind("change", function(){
-        isAdmin.text(
-                'Admin' === userGroup.getGroupNameById(group.val()) ? 
-                        'Yes' : 'No');
-    });
-
-	userGroup.getAllGroups();
-	
+    $("#logout").bind("click",function() {
+    	
+	});
+        
 	$("#saveBtn").bind("click",function() {
 	    user.addUser();
-	});
+	});	
 
+	$.UserInfo.checkLogin({
+	    success : function(data) {
+	        if(data.code == '000000') {
+	            //$("#helloUserName").text('Hello ' + data.obj.username);	            
+	        }
+	    }
+	});
+	
+	userGroup.getAllGroups();
 })(jQuery);
