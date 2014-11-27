@@ -75,6 +75,23 @@ public class UserServiceImpl implements UserService{
 		return;
 	}
 	
+	public User queryUserByName(String userName)
+			throws BusinessServiceException {
+		// TODO Auto-generated method stub
+		UserDo userDo = userDao.queryByUsername(userName);
+		
+		User user = new User();
+		
+		user.setUserName(userDo.getUserName());
+		user.setPasswd(userDo.getPasswd());
+		user.setIsValid(userDo.getIsValid());
+		user.setIsAdmin(userDo.getIsAdmin());
+		user.setProImgPath(userDo.getImgPath());
+		user.setGroupId(userDo.getGroupId());
+		
+		return user;
+	}
+	
 	public void modifyUser(User user) throws BusinessServiceException {
 		// TODO Auto-generated method stub
 		UserDo userDo = new UserDo();
@@ -155,7 +172,5 @@ public class UserServiceImpl implements UserService{
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
 	}
-
-
 
 }

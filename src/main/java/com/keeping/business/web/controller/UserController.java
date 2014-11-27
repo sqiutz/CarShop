@@ -172,7 +172,14 @@ public class UserController {
 				regUser.setIsAdmin(0);
 				regUser.setIsValid(1);
 				// 注册
-				userService.addUser(WebUserConverter.getUser(regUser));
+				User user = userService.queryUserByName(regUser.getUserName());
+				
+				if (user != null){
+					userService.addUser(WebUserConverter.getUser(regUser));
+				} else {
+					code = BusinessCenterResCode.NAME_EXIST.getCode();
+					msg = BusinessCenterResCode.NAME_EXIST.getMsg();
+				}
 			}
 		} catch (BusinessServiceException ex) {
 			code = ex.getErrorCode();

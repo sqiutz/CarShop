@@ -13,6 +13,8 @@ public interface UserService {
     public void addUser(User user) throws BusinessServiceException;
     
     public void modifyUser(User user) throws BusinessServiceException;
+    
+    public User queryUserByName(String userName) throws BusinessServiceException;
 	
 	public int checkValidUsername(String username);
 	
