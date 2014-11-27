@@ -11,5 +11,7 @@ public interface OrderDao extends BaseDao<OrderDo>{
 	public void addOrder(OrderDo orderDo);
 	
 	public void updateOrder(OrderDo orderDo);
+	
+	public OrderDo queryOrderByBookNum(String bookNum);
 
 }

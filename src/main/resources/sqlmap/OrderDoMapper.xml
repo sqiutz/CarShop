@@ -8,6 +8,7 @@
 		<result column="REGISTERNUMBER" property="registerNum" />
 		<result column="QUEUENUMBER" property="queueNum" />
 		<result column="ROOFNUMBER" property="roofNum" />
+		<result column="BOOKNUMBER" property="bookNum" />
 		<result column="ESTIMATIONTIME" property="estimationTime" />
 		<result column="PROMISETIME" property="promiseTime" />
 		<result column="CREATE_TIME" property="createTime" />
@@ -16,7 +17,7 @@
 	</resultMap>
 	
 	<sql id="Base_Column_List">
-		ID,STATUS,REGISTERNUMBER,QUEUENUMBER,ROOFNUMBER,ESTIMATIONTIME,PROMISETIME,CREATE_TIME,START_TIME,END_TIME
+		ID,STATUS,REGISTERNUMBER,QUEUENUMBER,ROOFNUMBER,BOOKNUMBER,ESTIMATIONTIME,PROMISETIME,CREATE_TIME,START_TIME,END_TIME
 	</sql>
 
 	<select id="queryByOrderstatus" resultMap="OrderDoMap" 
@@ -26,6 +27,15 @@
 		FROM TBL_ORDER
 		WHERE
 		STATUS = #{status}
+	</select>
+	
+	<select id="queryByOrderBookNum" resultMap="OrderDoMap" 
+		parameterType="java.lang.String">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM TBL_ORDER
+		WHERE
+		BOOKNUMBER = #{bookNum}
 	</select>
 	
 	<insert id="insertData" parameterType="OrderDo">
@@ -42,6 +52,9 @@
 			</if>
 			<if test="roofNum != null">
 				ROOFNUMBER,
+			</if>
+			<if test="bookNum != null">
+				BOOKNUMBER,
 			</if>
 			<if test="estimationTime != null">
 				ESTIMATIONTIME,
@@ -69,6 +82,9 @@
 			</if>
 			<if test="roofNum != null">
 				#{roofNum},
+			</if>
+			<if test="bookNum != null">
+				#{bookNum},
 			</if>
 			<if test="estimationTime != null">
 				#{estimationTime},
@@ -100,6 +116,9 @@
 			</if>
 			<if test="roofNum != null">
 				ROOFNUMBER = #{roofNum},
+			</if>
+			<if test="bookNum != null">
+				BOOKNUMBER = #{bookNum},
 			</if>
 			<if test="estimationTime != null">
 				ESTIMATIONTIME = #{estimationTime},

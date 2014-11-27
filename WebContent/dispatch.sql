@@ -69,6 +69,7 @@ CREATE TABLE `TBL_ORDER` (
   `queueNumber` varchar(48) DEFAULT NULL,   
   `roofNumber` varchar(48) DEFAULT NULL,
   `estimationTime` datetime DEFAULT NULL,
+  `bookNumber` varchar(48) DEFAULT NULL,
   `create_time` timestamp NOT NULL DEFAULT '1990-01-01 00:00:00',
   `start_time` timestamp  NOT NULL DEFAULT '1990-01-01 00:00:00',
   `end_time` timestamp  NOT NULL DEFAULT '1990-01-01 00:00:00',

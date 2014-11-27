@@ -32,6 +32,7 @@ public class OrderServiceImpl implements OrderService{
 			order.setRoofNum(orderDoes.get(i).getRoofNum());
 			order.setStartTime(orderDoes.get(i).getStartTime());
 			order.setStatus(orderDoes.get(i).getStatus());
+			order.setBookNum(orderDoes.get(i).getBookNum());
 			orders_front.add(order);
 		}
 		
@@ -50,6 +51,7 @@ public class OrderServiceImpl implements OrderService{
 		orderDo.setPromiseTime(order.getPromiseTime());
 		orderDo.setEstimationTime(order.getEstimationTime());
 		orderDo.setEndTime(order.getEndTime());
+		orderDo.setBookNum(order.getBookNum());
 		
 		orderDao.addOrder(orderDo);
 	}
@@ -67,8 +69,30 @@ public class OrderServiceImpl implements OrderService{
 		orderDo.setPromiseTime(order.getPromiseTime());
 		orderDo.setEstimationTime(order.getEstimationTime());
 		orderDo.setEndTime(order.getEndTime());
+		orderDo.setBookNum(order.getBookNum());
 		
 		orderDao.updateOrder(orderDo);
+	}
+	
+
+	public Order queryOrderByBookNum(String bookNum)
+			throws BusinessServiceException {
+		// TODO Auto-generated method stub
+		OrderDo orderDo = orderDao.queryOrderByBookNum(bookNum);
+		
+		Order order = new Order();
+		order.setCreateTime(orderDo.getCreateTime());
+		order.setEndTime(orderDo.getEndTime());
+		order.setEstimationTime(orderDo.getEstimationTime());
+		order.setPromiseTime(orderDo.getPromiseTime());
+		order.setQueueNum(orderDo.getQueueNum());
+		order.setRegisterNum(orderDo.getRegisterNum());
+		order.setRoofNum(orderDo.getRoofNum());
+		order.setStartTime(orderDo.getStartTime());
+		order.setStatus(orderDo.getStatus());
+		order.setBookNum(orderDo.getBookNum());
+		
+		return order;
 	}
 	
 	public OrderDao getOrderDao() {

@@ -19,6 +19,8 @@ public class Order {
     
     private String queueNum;
     
+    private String bookNum;
+    
     private Date promiseTime;
     
     private Date estimationTime;
@@ -93,6 +95,14 @@ public class Order {
 
 	public void setEstimationTime(Date estimationTime) {
 		this.estimationTime = estimationTime;
+	}
+
+	public String getBookNum() {
+		return bookNum;
+	}
+
+	public void setBookNum(String bookNum) {
+		this.bookNum = bookNum;
 	}
     
 }
