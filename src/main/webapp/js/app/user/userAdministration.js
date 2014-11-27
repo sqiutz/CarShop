@@ -44,6 +44,7 @@
 			var group = userGroup;
 			$.UserInfo.getAllUsers({
 				success : function(data) {
+					$('#usersTbl tr').remove();
 					var table = $('#usersTbl');
 					var users = data.resList;
 					for (var i = 0; i < users.length; i++) {
@@ -129,6 +130,7 @@
 	        var valPass = user.validatePass();
 	        var valPassConf = user.validatePassConf();
 	        if(valName && valPass && valPassConf) {
+	        	var that = this;
 	            $.UserInfo.addUser({
 	                data : {
 	                    groupId : group.val(),
@@ -138,10 +140,7 @@
 	                success : function(data) {
 	                    if(data.code == '000000') {
 	                        $('#errMsg').html('').hide('normal');
-	                        //var u = data.obj;
-	                        //if(u.isAdmin) {
-	                        //    location.href = 'administration.html';
-	                        //}                       
+	                        that.getAllUsers();                     
 	                    }else if(data.code == '010102'){
 	                        $('#errMsg').html('The password is not correct!').show('normal');
 	                    }else if(data.code == '010100'){
@@ -187,11 +186,14 @@
         $('#pwdConfErrMsg').html('').hide('normal');
         passwordConf.css('border', '1px solid #CCC');        
     });
+    
+    $("#logout").bind("click",function() {
+    	
+	});
         
 	$("#saveBtn").bind("click",function() {
 	    user.addUser();
-	});
-	
+	});	
 
 	$.UserInfo.checkLogin({
 	    success : function(data) {
