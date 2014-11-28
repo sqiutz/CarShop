@@ -23,7 +23,7 @@
 		FROM TBL_SERVEQUEUE
 		WHERE
 		STEP = #{step}
-		order by START_TIME asc
+		order by START_TIME desc
 	</select>
 	
 	<insert id="addServeQueue" parameterType="ServeQueueDo">
