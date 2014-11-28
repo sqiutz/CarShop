@@ -33,6 +33,17 @@
                                  "userName", // 账号
                                  "passwd" // 密码
                         ]
+                    },
+                    // 修改用户
+                    modifyUser : {
+                        url : "user.do?action=modifyuser",
+                        args : [ 
+                                 "id",
+                                 "groupId", //用户组id
+                                 "userName", // 账号
+                                 "passwd", // 密码
+                                 "isAdmin"
+                        ]
                     }
                 },
                 ajax : function(key, args) {

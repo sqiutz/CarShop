@@ -16,7 +16,7 @@ public class WebUserConverter {
         UserProfile userPro = new UserProfile();
         userPro.setIsAdmin(user.getIsAdmin());
         userPro.setProImgPath(user.getProImgPath());
-        //userPro.setPasswd(user.getPasswd());
+        userPro.setPasswd(user.getPasswd());
         userPro.setGroupId(user.getGroupId());
         userPro.setId(user.getId());
         userPro.setIsValid(user.getIsValid());

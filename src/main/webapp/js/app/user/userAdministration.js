@@ -194,7 +194,7 @@
 	$.UserInfo.checkLogin({
 	    success : function(data) {
 	        if(data.code == '000000') {
-	            $("#helloUserName").text('Hello ' + data.obj.userName);	            
+	            $("#helloUserName").text('Hello ' + (data.obj ? data.obj.userName : ''));	            
 	        }
 	    }
 	});
