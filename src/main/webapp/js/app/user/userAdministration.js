@@ -160,10 +160,12 @@
 	                },
 	                success : function(data) {
 	                    if(data.code == '000000') {
-	                        $('#errMsg').html('').hide('normal');
+	                        $('#errMsg').attr('class', 'succMsg')
+                                .html('The user has been saved.').show('normal');
 	                        that.getAllUsers();                     
 	                    }else if(data.code == '010301'){
-	                        $('#errMsg').html('The username has been registed!').show('normal');
+	                        $('#errMsg').attr('class', 'errMsg')
+	                            .html('The username has been registed!').show('normal');
 	                    }
 	                }
 	            });
