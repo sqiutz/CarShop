@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.keeping.business.common.exception.BusinessServiceException;
+import com.keeping.business.common.rescode.BusinessCenterOrderStatus;
 import com.keeping.business.common.rescode.BusinessCenterResCode;
 import com.keeping.business.common.util.PlatformPar;
 import com.keeping.business.common.util.PlatfromConstants;
@@ -53,9 +54,14 @@ public class OrderController {
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 
-		List<Order> orderList = new ArrayList<Order>();
 		try {
-			orderList = orderService.getOrdersByStatus(status);
+			if (status == null) {
+				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
+				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
+				logger.error("< OrderController.getAllOrders() > 获取订单状态不正确." + status + " : " + BusinessCenterOrderStatus.ORDER_STATUS_WAIT.getStatus());
+			} else {
+				List<Order> orderList = orderService.getOrdersByStatus(status);
+			}
 		}catch (BusinessServiceException ex) {
 			code = ex.getErrorCode();
 			msg = ex.getErrorMessage();
