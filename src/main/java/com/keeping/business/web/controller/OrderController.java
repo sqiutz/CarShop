@@ -54,13 +54,15 @@ public class OrderController {
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 
+		List<Order> orderList = null;
+		
 		try {
 			if (status == null) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
 				logger.error("< OrderController.getAllOrders() > 获取订单状态不正确." + status + " : " + BusinessCenterOrderStatus.ORDER_STATUS_WAIT.getStatus());
 			} else {
-				List<Order> orderList = orderService.getOrdersByStatus(status);
+				orderList = orderService.getOrdersByStatus(status);
 			}
 		}catch (BusinessServiceException ex) {
 			code = ex.getErrorCode();

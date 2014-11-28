@@ -30,8 +30,8 @@ public enum BusinessCenterResCode {
 	ORDER_NOT_EXIST("010200", "订单不存在！"),
 	ORDER_ILLEGAL("010201", "32字符以内，英文、数字、下划线、中划线组成!"),
 	ORDER_EXIST("010301", "已存在体验产品！"),
-	ORDER_NAME_EXIST("010301", "该名称已存在！"),
-	ORDER_TYPE_EXIST("010302", "该版本号已存在！");
+	NAME_EXIST("010301", "该名称已存在！"),
+	TYPE_EXIST("010302", "该版本号已存在！");
     
 	private String code;
 	private String msg;
