@@ -9,10 +9,13 @@ import org.slf4j.LoggerFactory;
 import com.keeping.business.common.exception.BusinessServiceException;
 import com.keeping.business.dal.dao.OrderDao;
 import com.keeping.business.dal.model.OrderDo;
+import com.keeping.business.dal.model.UserDo;
 import com.keeping.business.service.OrderService;
 import com.keeping.business.service.converter.OrderConverter;
+import com.keeping.business.service.converter.UserConverter;
 import com.keeping.business.web.controller.UserController;
 import com.keeping.business.web.controller.model.Order;
+import com.keeping.business.web.controller.model.User;
 
 public class OrderServiceImpl implements OrderService {
 
@@ -84,6 +87,21 @@ public class OrderServiceImpl implements OrderService {
 		return order;
 	}
 
+	public List<Order> getByOrdersId(List<Integer> orderIdList)
+			throws BusinessServiceException {
+		// TODO Auto-generated method stub
+		List<OrderDo> orderDoes = orderDao.queryByOrdersId(orderIdList);
+		
+		List<Order> orders = new ArrayList<Order>();
+		
+		for (int i=0; i<orders.size(); i++){
+			orders.add(OrderConverter.getOrder(orderDoes.get(i)));
+		}
+		
+		return orders;
+	}
+
+	
 	public OrderDao getOrderDao() {
 		return orderDao;
 	}

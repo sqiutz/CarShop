@@ -100,9 +100,17 @@ public class UserServiceImpl implements UserService{
 		return null;
 	}
 
-	public User getUserById(long userId) throws BusinessServiceException {
+	public List<User> getByUsersId(List<Integer> userIdList) throws BusinessServiceException {
 		// TODO Auto-generated method stub
-		return null;
+		List<UserDo> userDoes = userDao.queryByUsersId(userIdList);
+		
+		List<User> users = new ArrayList<User>();
+		
+		for (int i=0; i<users.size(); i++){
+			users.add(UserConverter.getUser(userDoes.get(i)));
+		}
+		
+		return users;
 	}
 
 	public List<User> getUsersById(List<Long> userIdList)

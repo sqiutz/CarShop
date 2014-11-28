@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.keeping.business.common.exception.BusinessServiceException;
 import com.keeping.business.web.controller.model.Order;
+import com.keeping.business.web.controller.model.User;
 
 public interface OrderService {
 
@@ -16,4 +17,7 @@ public interface OrderService {
     public Order queryOrderByBookNum(String bookNum) throws BusinessServiceException;
  
     public Order queryFirstForServeQueue() throws BusinessServiceException;
+    
+	public List<Order> getByOrdersId(List<Integer> orderIdList) throws BusinessServiceException;
+
 }

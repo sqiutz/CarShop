@@ -24,11 +24,13 @@ import com.keeping.business.common.util.PlatfromConstants;
 import com.keeping.business.common.util.StringUtil;
 import com.keeping.business.service.OrderService;
 import com.keeping.business.service.ServeQueueService;
+import com.keeping.business.service.UserService;
 import com.keeping.business.web.controller.converter.JsonConverter;
 import com.keeping.business.web.controller.converter.WebUserConverter;
 import com.keeping.business.web.controller.model.LoginReq;
 import com.keeping.business.web.controller.model.Order;
 import com.keeping.business.web.controller.model.ServeQueue;
+import com.keeping.business.web.controller.model.User;
 import com.keeping.business.web.controller.model.UserProfile;
 import com.keeping.business.web.controller.model.WebResult;
 import com.keeping.business.web.controller.model.WebResultList;
@@ -45,6 +47,8 @@ public class ServeQueueController {
 	private ServeQueueService serveQueueService;
 	@Resource
 	private OrderService orderService;
+	@Resource
+	private UserService userService;
 
 	/**
 	 * 获取订单列表
@@ -61,14 +65,30 @@ public class ServeQueueController {
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 
-		List<ServeQueue> ServeQueueList = new ArrayList<ServeQueue>();
+		List<ServeQueue> serveQueueList = new ArrayList<ServeQueue>();
 		try {
 			if (null == step) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
 				logger.error("< ServeQueueController.getAllServeQueues() > 获取服务订单列表请求信息不正确: " + step);
 			} else {
-				ServeQueueList = serveQueueService.getServeQueueByStep(step);
+				serveQueueList = serveQueueService.getServeQueueByStep(step);
+				
+				List<Integer> userIdList = new ArrayList<Integer>();
+				List<Integer> orderIdList = new ArrayList<Integer>();
+				for (int i=0; i<serveQueueList.size(); i++){
+					userIdList.add(serveQueueList.get(i).getUser_id());
+					orderIdList.add(serveQueueList.get(i).getOrder_id());
+				}
+				
+				List<User> users = userService.getByUsersId(userIdList);
+				List<Order> orders = orderService.getByOrdersId(orderIdList);
+				
+				for(int i=0; i<serveQueueList.size(); i++){
+					serveQueueList.get(i).setOrder(orders.get(i));
+					serveQueueList.get(i).setUser(users.get(i));
+				}
+				
 			}
 		} catch (BusinessServiceException ex) {
 			code = ex.getErrorCode();
@@ -80,7 +100,7 @@ public class ServeQueueController {
 					+ e.getMessage());
 		}
 
-		return JsonConverter.getResultObject(code, msg, ServeQueueList);
+		return JsonConverter.getResultObject(code, msg, serveQueueList);
 	}
 
 	/**

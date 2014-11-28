@@ -41,7 +41,7 @@ public interface UserDao extends BaseDao<UserDo>{
      * @param List<Long>
      * @return List<UserDO>
      */
-	public List<UserDo> queryByUsersId(List<Long> userIdList);
+	public List<UserDo> queryByUsersId(List<Integer> userIdList);
 	
 	/**
      * 根据用户email查询用户信息

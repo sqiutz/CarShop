@@ -73,7 +73,7 @@ public interface UserService {
      * @param userId
      * @return User
      */
-    public User getUserById(long userId) throws BusinessServiceException;
+	public List<User> getByUsersId(List<Integer> userIdList) throws BusinessServiceException;
 
 	/**
      * 根据用户ID查询用户信息

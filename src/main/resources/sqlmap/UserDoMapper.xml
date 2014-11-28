@@ -134,7 +134,7 @@
 		SELECT
 		<include refid="Base_Column_List" />
 		FROM TBL_USER
-		WHERE USER_ID IN
+		WHERE ID IN
 		<foreach collection="list" item="item" index="index" open="("
 			separator="," close=")">
 			#{item}

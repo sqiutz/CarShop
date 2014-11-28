@@ -15,6 +15,10 @@ public class ServeQueue {
     private Integer user_id;
     
     private Integer order_id;
+    
+    private User user;
+    
+    private Order order;
 
     
 	public Integer getStep() {
@@ -63,6 +67,22 @@ public class ServeQueue {
 
 	public void setOrder_id(Integer order_id) {
 		this.order_id = order_id;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Order getOrder() {
+		return order;
+	}
+
+	public void setOrder(Order order) {
+		this.order = order;
 	}
 
 
