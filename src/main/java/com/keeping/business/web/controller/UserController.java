@@ -273,8 +273,13 @@ public class UserController {
 				code = BusinessCenterResCode.SYS_INVILID_REQ.getCode();
 				msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
 				logger.error("< UserController.modifyUser() > session is null." + jsonStr);
-			} else{
-				regUser.setIsValid(1);
+			} else if (admin.getIsAdmin() == 0 && 
+					!admin.getUserName().equals(regUser.getUserName())){
+				code = BusinessCenterResCode.SYS_NO_ADMIN.getCode();
+				msg = BusinessCenterResCode.SYS_NO_ADMIN.getMsg();
+				logger.error("< UserController.addUser() > you are not admin." + jsonStr);
+			}
+			else{
 				//修改用户信息
 				userService.modifyUser(WebUserConverter.getUser(regUser));
 			}

@@ -41,22 +41,43 @@
 	var user = {
 		// 获取用户列表
 		getAllUsers : function() {
-			var group = userGroup;
+		    var that = this;
 			$.UserInfo.getAllUsers({
 				success : function(data) {
 					$('#usersTbl tr').remove();
 					var table = $('#usersTbl');
-					var users = data.resList;
-					for (var i = 0; i < users.length; i++) {
-						var u = users[i];
+					that._users = data.resList;
+					for (var i = 0; i < that._users.length; i++) {
+						var u = that._users[i];
 						var tr = $("<tr></tr>").attr('class',
 								i % 2 === 0 ? 'odd' : 'even').appendTo(table);
-						$("<td>" + group.getGroupNameById(u.groupId) + "</td>").appendTo(tr);
+						$("<td>" + userGroup.getGroupNameById(u.groupId) + "</td>").appendTo(tr);
 						$("<td>" + u.userName + "</td>").appendTo(tr);
 						$("<td>" + (u.isAdmin ? 'Yes' : 'No') + "</td>")
 								.appendTo(tr);
-						$("<td>" + (u.isValid ? 'Yes' : 'No') + "</td>")
-								.appendTo(tr);
+						var td = $("<td></td>").appendTo(tr);
+						$("<a class='toggle' id='userId_" + i + "'>" + (u.isValid ? 'Yes' : 'No') + "</a>")
+								.appendTo(td)
+								.bind('click', function(){
+								    var index = this.id.split('_')[1];
+								    var userSelected = that._users[index];
+								    $.UserInfo.modifyUser({
+	                                    data : {
+	                                        id : userSelected.id,
+	                                        groupId : userSelected.groupId,
+	                                        userName : userSelected.userName,
+	                                        passwd : userSelected.passwd,
+	                                        isAdmin : userSelected.isAdmin,
+	                                        isValid : userSelected.isValid ? 0 : 1
+	                                    },
+	                                    success : function(data) {
+	                                        if(data.code == '000000') {
+	                                            $('#userId_'+index).text(
+	                                                    userSelected.isValid ? 'No' : 'Yes');
+	                                        }
+	                                    }
+	                                });
+								});
 					}
 				}
 			});

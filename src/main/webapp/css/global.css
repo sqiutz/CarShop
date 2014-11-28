@@ -343,6 +343,11 @@ button.yellow {
 }
 .errMsg {
 	width:100%;
-	color:#ff0000;
+	color:rgb(255,45,45);
+	font-weight:bold;
+}
+.succMsg {
+	width:100%;
+	color:rgb(77,184,77);
 	font-weight:bold;
 }

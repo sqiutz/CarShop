@@ -53,25 +53,41 @@
             return flag;
         },
         //修改密码
-        changePassword : function(userProfile) {
+        changePassword : function() {
             var valOrgPass = user.validateOrgPass();
             var valPass = user.validatePass();
             var valPassConf = user.validatePassConf();
             if(valOrgPass && valPass && valPassConf) {
-                $.UserInfo.modifyUser({
-                    data : {
-                        id : userProfile.id,
-                        groupId : userProfile.groupId,
-                        userName : userProfile.userName,
-                        passwd : newPassword.val(),
-                        isAdmin : userProfile.isAdmin
-                    },
+                $.UserInfo.checkLogin({
                     success : function(data) {
                         if(data.code == '000000') {
-                            $('#errMsg').html('The new password has been saved.').show('normal');
-                            orgPassword.val('');
-                            newPassword.val('');
-                            newPasswordConf.val('');
+                            var userProfile = data.obj;
+                            if(userProfile) {
+                                if(userProfile.passwd !== orgPassword.val()) {
+                                    $('#errMsg').attr('class', 'errMsg')
+                                    .html('The original password is not correct!').show('normal');
+                                    return;
+                                }
+                                $.UserInfo.modifyUser({
+                                    data : {
+                                        id : userProfile.id,
+                                        groupId : userProfile.groupId,
+                                        userName : userProfile.userName,
+                                        passwd : newPassword.val(),
+                                        isAdmin : userProfile.isAdmin,
+                                        isValid : 1
+                                    },
+                                    success : function(data) {
+                                        if(data.code == '000000') {
+                                            $('#errMsg').attr('class', 'succMsg')
+                                                .html('The new password has been saved.').show('normal');
+                                            orgPassword.val('');
+                                            newPassword.val('');
+                                            newPasswordConf.val('');
+                                        }
+                                    }
+                                });
+                            }                             
                         }
                     }
                 });
@@ -93,7 +109,7 @@
     });
     newPassword.bind("focus",function(){
         $('#errMsg').html('').hide('normal');
-        $('#pwdErrMsg').html('').hide('normal');
+        $('#newPwdErrMsg').html('').hide('normal');
         newPassword.css('border', '1px solid #CCC');        
     });
     newPasswordConf.bind("blur", function(){
@@ -101,23 +117,13 @@
     });
     newPasswordConf.bind("focus",function(){
         $('#errConfMsg').html('').hide('normal');
-        $('#pwdConfErrMsg').html('').hide('normal');
+        $('#newPwdConfErrMsg').html('').hide('normal');
         newPasswordConf.css('border', '1px solid #CCC');        
     });
     
     //修改密码
     $("#saveBtn").bind("click",function() {
-        var that = this;
-        $.UserInfo.checkLogin({
-            success : function(data) {
-                if(data.code == '000000') {
-                    var userProfile = data.obj;
-                    if(userProfile) {
-                        user.changePassword(userProfile);
-                    }                             
-                }
-            }
-        });
+        user.changePassword();
     }); 
     
     $.UserInfo.checkLogin({

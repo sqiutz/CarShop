@@ -1,3 +1,11 @@
 div.w2 {
 	width:500px;
 }
+a.toggle {
+	color:#1E90EF;
+	font-weight:normal;
+	text-decoration:underline;
+}
+a.toggle:hover {
+	color:#4682B4;
+}

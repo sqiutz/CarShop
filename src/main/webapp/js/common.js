@@ -42,7 +42,15 @@
                                  "groupId", //用户组id
                                  "userName", // 账号
                                  "passwd", // 密码
-                                 "isAdmin"
+                                 "isAdmin",
+                                 "isValid"
+                        ]
+                    },
+                    // 获取用户信息
+                    getUserByName : {
+                        url : "user.do?action=modifyuser",
+                        args : [ 
+                                 "userName", // 账号
                         ]
                     }
                 },
