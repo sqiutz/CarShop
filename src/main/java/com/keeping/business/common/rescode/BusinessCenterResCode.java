@@ -11,13 +11,7 @@ public enum BusinessCenterResCode {
 	SYS_NO_PRIVILEGE("000005","无效的操作请求！"),
 	SYS_NO_AUTHORITY("000006","用户无此权限！"),
 	SYS_NO_ADMIN("000007","用户无此权限！"),
-	
-	/**注册错误提示信息  */
-	REGISTRY_EMAIL_EXISTED("010000", "邮箱地址已经被注册！"),
-	REGISTRY_VCODE_ERROR("010001", "验证码错误！"),
-	REGISTRY_VCODE_EXPIRED("010002", "验证码已经过期！"),
-	REGISTRY_CONFIRM_FAIL("010003", "邮箱验证失败！"),
-	
+
 	/**登录错误提示信息  */
 	LOGIN_USER_NOT_EXIST("010100", "用户不存在！"),
 	LOGIN_USER_NOT_ALIVE("010101", "用户未激活！"),
@@ -33,12 +27,11 @@ public enum BusinessCenterResCode {
 	RETR_PASSWORD_CONFIRM_ERROR("010109", "找回密码验证过期！"),
 
 	/**错误信息 */
-	PRODUCT_NOT_EXIST("010200", "产品不存在！"),
-	ENGNAME_ILLEGAL("010201", "32字符以内，英文、数字、下划线、中划线组成!"),
-	PROJECT_NOT_EXIST("010300", "体验项目不存在！"),
-	PROJECT_EXIST("010301", "已存在体验产品！"),
-	NAME_EXIST("010301", "该名称已存在！"),
-	TYPE_EXIST("010302", "该版本号已存在！");
+	ORDER_NOT_EXIST("010200", "订单不存在！"),
+	ORDER_ILLEGAL("010201", "32字符以内，英文、数字、下划线、中划线组成!"),
+	ORDER_EXIST("010301", "已存在体验产品！"),
+	ORDER_NAME_EXIST("010301", "该名称已存在！"),
+	ORDER_TYPE_EXIST("010302", "该版本号已存在！");
     
 	private String code;
 	private String msg;
