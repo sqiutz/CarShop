@@ -141,12 +141,8 @@
 	                    if(data.code == '000000') {
 	                        $('#errMsg').html('').hide('normal');
 	                        that.getAllUsers();                     
-	                    }else if(data.code == '010102'){
-	                        $('#errMsg').html('The password is not correct!').show('normal');
-	                    }else if(data.code == '010100'){
-	                        $('#errMsg').html('The username is not existed!').show('normal');
-	                    }else if(data.code == '010101'){
-	                        $('#errMsg').html('This is an inactive user!').show('normal');
+	                    }else if(data.code == '010301'){
+	                        $('#errMsg').html('The username has been registed!').show('normal');
 	                    }
 	                }
 	            });
@@ -198,7 +194,7 @@
 	$.UserInfo.checkLogin({
 	    success : function(data) {
 	        if(data.code == '000000') {
-	            //$("#helloUserName").text('Hello ' + data.obj.username);	            
+	            $("#helloUserName").text('Hello ' + data.obj.userName);	            
 	        }
 	    }
 	});

@@ -26,4 +26,20 @@ public class UserConverter {
         return user;
     }
     
+    public static UserDo getUserDo(User user) {
+    	if(null == user) {
+    		return null;
+    	}
+    	UserDo userDo = new UserDo();
+    	userDo.setId(user.getId());
+    	userDo.setUserName(user.getUserName());
+    	userDo.setIsAdmin(user.getIsAdmin());
+    	userDo.setImgPath(user.getProImgPath());
+    	userDo.setGroupId(user.getGroupId());
+    	userDo.setPasswd(user.getPasswd());
+    	userDo.setIsValid(user.getIsValid());
+    	userDo.setCreateTime(user.getCreateTime());
+    	userDo.setModifyTime(user.getModifyTime());
+    	return userDo;
+    }
 }

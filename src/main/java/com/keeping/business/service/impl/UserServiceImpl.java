@@ -60,52 +60,26 @@ public class UserServiceImpl implements UserService{
 	}
 
 	public void addUser(User user) throws BusinessServiceException {
-		// TODO Auto-generated method stub
-		UserDo userDo = new UserDo();
-		
-		userDo.setUserName(user.getUserName());
-		userDo.setPasswd(user.getPasswd());
-		userDo.setIsValid(user.getIsValid());
-		userDo.setIsAdmin(user.getIsAdmin());
-		userDo.setImgPath(user.getProImgPath());
-		userDo.setGroupId(user.getGroupId());
-		
-		userDao.addUser(userDo);
-		
-		return;
+		if(null == user) {
+			return;
+		}		
+		userDao.addUser(UserConverter.getUserDo(user));
 	}
 	
 	public User queryUserByName(String userName)
 			throws BusinessServiceException {
-		// TODO Auto-generated method stub
 		UserDo userDo = userDao.queryByUsername(userName);
-		
-		User user = new User();
-		
-		user.setUserName(userDo.getUserName());
-		user.setPasswd(userDo.getPasswd());
-		user.setIsValid(userDo.getIsValid());
-		user.setIsAdmin(userDo.getIsAdmin());
-		user.setProImgPath(userDo.getImgPath());
-		user.setGroupId(userDo.getGroupId());
-		
-		return user;
+		if(null == userDo) {
+			return null;
+		}
+		return UserConverter.getUser(userDo);
 	}
 	
 	public void modifyUser(User user) throws BusinessServiceException {
-		// TODO Auto-generated method stub
-		UserDo userDo = new UserDo();
-		
-		userDo.setUserName(user.getUserName());
-		userDo.setPasswd(user.getPasswd());
-		userDo.setIsValid(user.getIsValid());
-		userDo.setIsAdmin(user.getIsAdmin());
-		userDo.setImgPath(user.getProImgPath());
-		userDo.setGroupId(user.getGroupId());
-		
-		userDao.modifyUser(userDo);
-		
-		return;
+		if(null == user) {
+			return;
+		}		
+		userDao.modifyUser(UserConverter.getUserDo(user));
 	}
 
 	public int resendRegisterConfirmEmail(String email)
