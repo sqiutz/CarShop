@@ -109,6 +109,10 @@ public class UserController {
 		try {
 			userProfile = (UserProfile)session.getAttribute(PlatfromConstants.STR_USER_PROFILE);
 			System.out.println(null == userProfile ? "null" : userProfile.getUserName());
+			if(null != userProfile) {
+				userProfile = WebUserConverter.getUserProfile(
+						userService.queryUserByName(userProfile.getUserName()));
+			}			
 		}
 		catch (Exception e) {
 			code = BusinessCenterResCode.SYS_ERROR.getCode();
