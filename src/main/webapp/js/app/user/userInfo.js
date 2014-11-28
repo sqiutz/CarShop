@@ -44,6 +44,16 @@ define(["md5"],function(){
                 }
             });
         },
+        //修改用户信息
+        modifyUser : function(options) {
+            $.common.ajax("modifyUser", {
+                type:"POST",
+                data:options.data,
+                success:function(data){                 
+                    options.success(data);                  
+                }
+            });
+        },
 		//检测用户是否已经登录
 		checkLogin:function(options){
 		    $.common.ajax("checkLogin", {

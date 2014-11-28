@@ -256,26 +256,22 @@ public class UserController {
 
 			// 验证请求参数
 			String jsonStr = request.getParameter("param");
+			System.out.println(jsonStr);
 			UserProfile regUser = JsonConverter.getFromJsonString(jsonStr,
 					UserProfile.class);
 
 			if (StringUtil.isNull(jsonStr) || regUser == null ) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
-				logger.error("< UserController.modifyUser() > 修改用户信息为空或没有权限。"
+				logger.error("< UserController.modifyUser() > 修改用户信息为空或没有权限."
 						+ jsonStr);
 			} else if (null == session || null == admin || null == admin.getUserName()){
 				code = BusinessCenterResCode.SYS_INVILID_REQ.getCode();
 				msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
-				logger.error("< UserController.modifyUser() > session is null。" + jsonStr);
-			} else if (admin.getIsAdmin() == 0){
-				code = BusinessCenterResCode.SYS_NO_ADMIN.getCode();
-				msg = BusinessCenterResCode.SYS_NO_ADMIN.getMsg();
-				logger.error("< UserController.modifyUser() > you are not admin。" + jsonStr);
-			}else{
-				regUser.setIsAdmin(0);
+				logger.error("< UserController.modifyUser() > session is null." + jsonStr);
+			} else{
 				regUser.setIsValid(1);
-				// 注册
+				//修改用户信息
 				userService.modifyUser(WebUserConverter.getUser(regUser));
 			}
 		} catch (BusinessServiceException ex) {
