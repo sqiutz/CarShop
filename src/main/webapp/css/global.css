@@ -195,7 +195,7 @@ span.button-yellow {
 	font-weight:bold;
 	line-height:30px;
 }
-a {
+a, span.link {
 	cursor:pointer;
 	font-weight:bold;
 }
@@ -207,7 +207,7 @@ a.header-top {
 	text-decoration:underline;
 	margin-left:4px;
 }
-a.header-top:hover {
+a.header-top:hover, span.link:hover {
 	color:#DDD;
 }
 table {
