@@ -217,6 +217,7 @@ insert into tbl_user set user_name = 'COUNTER 3', is_admin = 0, passwd = 'passw0
 insert into tbl_order set status=0, registerNumber='B-001', queueNumber='B1831TOK';
 insert into tbl_order set status=0, registerNumber='N-001', queueNumber='B1093MN';
 insert into tbl_order set status=0, registerNumber='B-002', queueNumber='B8763HJ';
+insert into tbl_order set status=1, registerNumber='B-003', queueNumber='B1001AC';
 
 insert into tbl_servequeue set step=0, user_id=6, order_id=3;
 insert into tbl_servequeue set step=0, user_id=7, order_id=4;

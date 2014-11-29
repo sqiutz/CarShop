@@ -1,4 +1,4 @@
-﻿define([ "jquery", "userInfo"], function() {
+﻿define([ "jquery", "userInfo", "orderInfo"], function() {
     (function($) {
         if (typeof $.common !== "undefined") {
             return false;
@@ -58,6 +58,13 @@
                         url : "servequeue.do?action=alllist",
                         args : [ 
                                  "step"
+                        ]
+                    },
+                    // 获取订单列表
+                    getOrderList : {
+                        url : "order.do?action=alllist",
+                        args : [ 
+                                 "status"
                         ]
                     }
                 },
