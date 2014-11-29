@@ -26,6 +26,7 @@ import com.keeping.business.service.OrderService;
 import com.keeping.business.service.ServeQueueService;
 import com.keeping.business.service.UserService;
 import com.keeping.business.web.controller.converter.JsonConverter;
+import com.keeping.business.web.controller.converter.ReorgQueue;
 import com.keeping.business.web.controller.converter.WebUserConverter;
 import com.keeping.business.web.controller.model.LoginReq;
 import com.keeping.business.web.controller.model.Order;
@@ -84,10 +85,7 @@ public class ServeQueueController {
 				List<User> users = userService.getByUsersId(userIdList);
 				List<Order> orders = orderService.getByOrdersId(orderIdList);
 				
-				for(int i=0; i<serveQueueList.size(); i++){
-					serveQueueList.get(i).setOrder(orders.get(i));
-					serveQueueList.get(i).setUser(users.get(i));
-				}
+				ReorgQueue.reorgServeQueue(serveQueueList, users, orders);   //need to verify
 				
 			}
 		} catch (BusinessServiceException ex) {
@@ -136,7 +134,7 @@ public class ServeQueueController {
 				code = BusinessCenterResCode.SYS_INVILID_REQ.getCode();
 				msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
 				logger.error("< ServeQueueController.call() > session is null。" + jsonStr);
-			} else if (2 != BusinessCenterUserGroup.SYS_SERVICER.getId()){
+			} else if (loginUser.getGroupId() != BusinessCenterUserGroup.SYS_SERVICER.getId()){
 				code = BusinessCenterResCode.SYS_NO_ADMIN.getCode();
 				msg = BusinessCenterResCode.SYS_NO_ADMIN.getMsg();
 				logger.error("< ServeQueueController.call() > you are not role。" + jsonStr);

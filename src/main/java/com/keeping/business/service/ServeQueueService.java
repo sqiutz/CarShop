@@ -10,4 +10,5 @@ public interface ServeQueueService {
     public List<ServeQueue> getServeQueueByStep(Integer step) throws BusinessServiceException;
     
     public void addServeQueue(ServeQueue serveQueue) throws BusinessServiceException;
+    
 }
