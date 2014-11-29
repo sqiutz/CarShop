@@ -63,6 +63,7 @@ public class ServeQueueController {
 	@RequestMapping(params = "action=alllist")
 	@ResponseBody
 	public WebResultList<ServeQueue> getAllServeQueues(HttpServletRequest request, HttpServletResponse response) {
+		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 
@@ -123,6 +124,7 @@ public class ServeQueueController {
 	@ResponseBody
 	public WebResult call(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		HttpSession session = request.getSession();

@@ -16,9 +16,7 @@
         var res = layout();
         var headerH = res[0], footerH = res[1], contentH = res[2];
         var contentLeftH = contentRightH = contentH - $('#welcome').height();
-        var imgW = $('#proceedTable').width();
         var imgH = contentRightH - $('#proceedDiv').height() - 25;
-        $('.vedio').css('width', imgW + 'px');
         $('.vedio').css('height', imgH + 'px');
     }
 
@@ -38,27 +36,15 @@
 		<div id='content' class='content'>
 			<span id='welcome' class='t1 blue h2'>WELCOME</span>
 			<div class='content_lf'>
-				<div class='box w1 rAlign'>
+				<div id='servingList' class='box w1 rAlign'>
 					<span class='t2 yellow h3'>NOW SERVING...</span>
-					<div class='b1 odd'>
-						<span class='b1 col1'>B1831TOK</span> <span
-							class='b1 col2'>B-001</span> <span
-							class='b1 col3'>COUNTER 1</span>
-					</div>
-					<div class='b1 even'>
-						<span class='b1 col1'>B1093MN</span> <span
-							class='b1 col2'>N-001</span> <span
-							class='b1 col3'>COUNTER 2</span>
-					</div>
-					<div class='b1 odd'>
-						<span class='b1 col1'>B8763HJ</span> <span
-							class='b1 col2'>B-002</span> <span
-							class='b1 col3'>COUNTER 3</span>
-					</div>
+					<div class='b1 odd'></div>
+					<div class='b1 even'></div>
+					<div class='b1 odd'></div>
 				</div>
 
 				<div class='box w1 rAlign'>
-					<span class='t2 green h3'>WAITING LIST</span>
+					<span class='t2 green h3'>WAITING LIST</span>				
 					<table class="w1 green">
 						<tr>
 							<th>Reg. No.</th>
@@ -100,9 +86,9 @@
 				<div id='proceedDiv' class='box w2'>
 					<table id='proceedTable' class='proceed'>
 						<tr class='proceed'>
-							<td class='customer_no h4 f-purple'>B-003</td>
-							<td><span class='h5'>Please Proceed to</span> <span
-								class='h1 f-yellow-light'>COUNTER 3</span></td>
+							<td style='width:257px' id='currRegNum' class='customer_no h4 f-purple'></td>
+							<td style='width:232px'><span class='h5'>Please Proceed to</span>
+							<span id='currUserName' class='h1 f-yellow-light'></span></td>
 						</tr>
 					</table>
 				</div>

@@ -7,7 +7,10 @@ define([], function() {
 				data : options.data,
 				success : function(data) {
 					options.success(data);
-				}
+				},
+				complete : function(data){                 
+                    options.complete(data);                  
+                }
 			});
 		}
 	};

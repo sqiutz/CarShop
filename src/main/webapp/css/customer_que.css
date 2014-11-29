@@ -45,8 +45,6 @@ table.proceed {
 	border-left:2px solid rgb(156,176,132);
 }
 td.customer_no {
-	padding-left:55px;
-	padding-right:55px;
 	height:110px;
 	line-height:110px;
 	text-align:center;
