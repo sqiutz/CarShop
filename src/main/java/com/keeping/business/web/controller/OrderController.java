@@ -1,7 +1,5 @@
 package com.keeping.business.web.controller;
 
-import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -25,6 +23,7 @@ import com.keeping.business.common.util.StringUtil;
 import com.keeping.business.service.OrderService;
 import com.keeping.business.web.controller.converter.JsonConverter;
 import com.keeping.business.web.controller.model.Order;
+import com.keeping.business.web.controller.model.StatusObject;
 import com.keeping.business.web.controller.model.UserProfile;
 import com.keeping.business.web.controller.model.WebResult;
 import com.keeping.business.web.controller.model.WebResultList;
@@ -50,19 +49,22 @@ public class OrderController {
      */
 	@RequestMapping(params = "action=alllist")
 	@ResponseBody
-	public WebResultList<Order> getAllOrders(Integer status, HttpServletRequest request,HttpServletResponse response) {
+	public WebResultList<Order> getAllOrders(HttpServletRequest request,HttpServletResponse response) {
+		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 
 		List<Order> orderList = null;
 		
 		try {
+			String jsonStr = request.getParameter("param");
+			StatusObject status = JsonConverter.getFromJsonString(jsonStr, StatusObject.class);
 			if (status == null) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
 				logger.error("< OrderController.getAllOrders() > 获取订单状态不正确." + status + " : " + BusinessCenterOrderStatus.ORDER_STATUS_WAIT.getStatus());
 			} else {
-				orderList = orderService.getOrdersByStatus(status);
+				orderList = orderService.getOrdersByStatus(status.getStatus());
 			}
 		}catch (BusinessServiceException ex) {
 			code = ex.getErrorCode();
