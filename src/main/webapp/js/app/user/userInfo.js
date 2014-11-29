@@ -1,9 +1,7 @@
 define(["md5"],function(){
 	var UserInfo = {
-		boolTime:0,
 		//用户系统登录方法
 		login : function(options) {
-			var that=this;
 			if(!options.hasMd5){
 				//options.data.passwd=hex_md5(options.data.passwd);
 			}

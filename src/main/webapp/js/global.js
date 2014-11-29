@@ -3,8 +3,8 @@ function layout() {
     if($('#headerTop').length > 0) {
         headerTopH = $('#headerTop').height();
     }    
-    var width = $('#container').width();
-    var height = $('#container').height() - headerTopH;
+    var width = $(window).width();
+    var height = $(window).height() - headerTopH;
     $('#container').css('height', height + 'px');
     var headerH = width * 0.085;    
     $('#header').css('height', headerH + 'px');
@@ -17,4 +17,5 @@ function layout() {
     }
     var contentH = height - headerH - footerH - 10;
     $('#content').css('height', contentH + 'px');
+    return[width, height, contentH];
 }

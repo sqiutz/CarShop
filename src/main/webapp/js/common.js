@@ -1,4 +1,4 @@
-﻿define([ "jquery", "userInfo" ], function() {
+﻿define([ "jquery", "userInfo"], function() {
     (function($) {
         if (typeof $.common !== "undefined") {
             return false;
@@ -51,6 +51,13 @@
                         url : "user.do?action=modifyuser",
                         args : [ 
                                  "userName", // 账号
+                        ]
+                    },
+                    // 获取服务队列
+                    getServeQueues : {
+                        url : "servequeue.do?action=alllist",
+                        args : [ 
+                                 "step"
                         ]
                     }
                 },

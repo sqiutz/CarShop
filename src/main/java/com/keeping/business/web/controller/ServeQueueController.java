@@ -31,6 +31,7 @@ import com.keeping.business.web.controller.converter.WebUserConverter;
 import com.keeping.business.web.controller.model.LoginReq;
 import com.keeping.business.web.controller.model.Order;
 import com.keeping.business.web.controller.model.ServeQueue;
+import com.keeping.business.web.controller.model.StepObject;
 import com.keeping.business.web.controller.model.User;
 import com.keeping.business.web.controller.model.UserProfile;
 import com.keeping.business.web.controller.model.WebResult;
@@ -61,29 +62,35 @@ public class ServeQueueController {
 	 */
 	@RequestMapping(params = "action=alllist")
 	@ResponseBody
-	public WebResultList<ServeQueue> getAllServeQueues(Integer step,
-			HttpServletRequest request, HttpServletResponse response) {
+	public WebResultList<ServeQueue> getAllServeQueues(HttpServletRequest request, HttpServletResponse response) {
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 
 		List<ServeQueue> serveQueueList = new ArrayList<ServeQueue>();
 		try {
+			String jsonStr = request.getParameter("param");
+			StepObject step = JsonConverter.getFromJsonString(jsonStr,
+					StepObject.class);
 			if (null == step) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
 				logger.error("< ServeQueueController.getAllServeQueues() > 获取服务订单列表请求信息不正确: " + step);
 			} else {
-				serveQueueList = serveQueueService.getServeQueueByStep(step);
-				
+				serveQueueList = serveQueueService.getServeQueueByStep(step.getStep());
+				System.out.println("retrun from serveQueueService " + serveQueueList.size());
 				List<Integer> userIdList = new ArrayList<Integer>();
 				List<Integer> orderIdList = new ArrayList<Integer>();
 				for (int i=0; i<serveQueueList.size(); i++){
-					userIdList.add(serveQueueList.get(i).getUser_id());
-					orderIdList.add(serveQueueList.get(i).getOrder_id());
+					System.out.println("serveQueueList.get(i).getUserId() " + serveQueueList.get(i).getUserId());
+					userIdList.add(serveQueueList.get(i).getUserId());
+					System.out.println("serveQueueList.get(i).getOrderId() " + serveQueueList.get(i).getOrderId());
+					orderIdList.add(serveQueueList.get(i).getOrderId());
 				}
 				
 				List<User> users = userService.getByUsersId(userIdList);
+				System.out.println("retrun from userService " + users.size());
 				List<Order> orders = orderService.getByOrdersId(orderIdList);
+				System.out.println("retrun from orderService " + orders.size());
 				
 				ReorgQueue.reorgServeQueue(serveQueueList, users, orders);   //need to verify
 				
@@ -92,6 +99,8 @@ public class ServeQueueController {
 			code = ex.getErrorCode();
 			msg = ex.getErrorMessage();
 		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			System.out.println(e.getStackTrace());
 			code = BusinessCenterResCode.SYS_ERROR.getCode();
 			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
 			logger.error("< ServeQueueController.getAllServeQueues() > 获取排队列表失败."
@@ -148,9 +157,9 @@ public class ServeQueueController {
 				
 				ServeQueue serveQueue = new ServeQueue();
 				serveQueue.setStartTime(dateTime);
-				serveQueue.setOrder_id(order.getId());
+				serveQueue.setOrderId(order.getId());
 				serveQueue.setStep(0);
-				serveQueue.setUser_id(loginUser.getId());
+				serveQueue.setUserId(loginUser.getId());
 				
 				serveQueueService.addServeQueue(serveQueue);   //添加ServeQueue订单
 			}

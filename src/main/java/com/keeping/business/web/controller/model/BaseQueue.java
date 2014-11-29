@@ -14,9 +14,9 @@ public class BaseQueue {
 
 	private Integer step;
 
-	private Integer user_id;
+	private Integer userId;
 
-	private Integer order_id;
+	private Integer orderId;
 
 	private User user;
 
@@ -62,22 +62,6 @@ public class BaseQueue {
 		this.step = step;
 	}
 
-	public Integer getUser_id() {
-		return user_id;
-	}
-
-	public void setUser_id(Integer user_id) {
-		this.user_id = user_id;
-	}
-
-	public Integer getOrder_id() {
-		return order_id;
-	}
-
-	public void setOrder_id(Integer order_id) {
-		this.order_id = order_id;
-	}
-
 	public User getUser() {
 		return user;
 	}
@@ -92,5 +76,21 @@ public class BaseQueue {
 
 	public void setOrder(Order order) {
 		this.order = order;
+	}
+
+	public Integer getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+
+	public Integer getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(Integer orderId) {
+		this.orderId = orderId;
 	}
 }

@@ -73,7 +73,7 @@ CREATE TABLE `TBL_ORDER` (
   `create_time` timestamp NOT NULL DEFAULT '1990-01-01 00:00:00',
   `start_time` timestamp  NOT NULL DEFAULT '1990-01-01 00:00:00',
   `end_time` timestamp  NOT NULL DEFAULT '1990-01-01 00:00:00',
-  `primiseTime` datetime DEFAULT NULL,
+  `promiseTime` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
@@ -210,5 +210,14 @@ insert into tbl_usergroup set group_name = 3;
 insert into tbl_user set user_name = 'admin', is_admin = 1, passwd = 'passw0rd', is_valid = 1, group_id = 3;
 insert into tbl_user set user_name = 'mgr_a', is_admin = 0, passwd = 'passw0rd', is_valid = 1, group_id = 4;
 insert into tbl_user set user_name = 'mgr_b', is_admin = 0, passwd = 'passw0rd', is_valid = 1, group_id = 4;
-insert into tbl_user set user_name = 'worker_a', is_admin = 0, passwd = 'passw0rd', is_valid = 1, group_id = 5;
-insert into tbl_user set user_name = 'worker_b', is_admin = 0, passwd = 'passw0rd', is_valid = 1, group_id = 5;
+insert into tbl_user set user_name = 'COUNTER 1', is_admin = 0, passwd = 'passw0rd', is_valid = 1, group_id = 5;
+insert into tbl_user set user_name = 'COUNTER 2', is_admin = 0, passwd = 'passw0rd', is_valid = 1, group_id = 5;
+insert into tbl_user set user_name = 'COUNTER 3', is_admin = 0, passwd = 'passw0rd', is_valid = 1, group_id = 5;
+
+insert into tbl_order set status=0, registerNumber='B-001', queueNumber='B1831TOK';
+insert into tbl_order set status=0, registerNumber='N-001', queueNumber='B1093MN';
+insert into tbl_order set status=0, registerNumber='B-002', queueNumber='B8763HJ';
+
+insert into tbl_servequeue set step=0, user_id=6, order_id=3;
+insert into tbl_servequeue set step=0, user_id=7, order_id=4;
+insert into tbl_servequeue set step=0, user_id=8, order_id=5;

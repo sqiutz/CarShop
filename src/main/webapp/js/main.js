@@ -10,6 +10,7 @@ require.config({
         common : 'common',
         jquery : 'lib/jquery-2.1.1.min',
         userInfo:'app/user/userInfo',
+        orderInfo:'app/user/orderInfo',
         md5:'lib/md5'
     }
 });

@@ -3,6 +3,8 @@ package com.keeping.business.dal.model;
 import java.sql.Timestamp;
 
 public class ServeQueueDo {
+	
+	private Integer id;
 
 	private Integer step;
 	
@@ -12,9 +14,9 @@ public class ServeQueueDo {
     
     private Timestamp endTime;
   
-    private Integer user_id;
+    private Integer userId;
     
-    private Integer order_id;
+    private Integer orderId;  
     
 	public Integer getStep() {
 		return step;
@@ -48,21 +50,28 @@ public class ServeQueueDo {
 		this.endTime = endTime;
 	}
 
-	public Integer getUser_id() {
-		return user_id;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setUser_id(Integer user_id) {
-		this.user_id = user_id;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
-	public Integer getOrder_id() {
-		return order_id;
+	public Integer getUserId() {
+		return userId;
 	}
 
-	public void setOrder_id(Integer order_id) {
-		this.order_id = order_id;
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
 
+	public Integer getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(Integer orderId) {
+		this.orderId = orderId;
+	}
 
 }
