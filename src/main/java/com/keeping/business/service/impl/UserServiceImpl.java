@@ -106,7 +106,7 @@ public class UserServiceImpl implements UserService{
 		
 		List<User> users = new ArrayList<User>();
 		
-		for (int i=0; i<users.size(); i++){
+		for (int i=0; i<userDoes.size(); i++){
 			users.add(UserConverter.getUser(userDoes.get(i)));
 		}
 		

@@ -94,7 +94,7 @@ public class OrderServiceImpl implements OrderService {
 		
 		List<Order> orders = new ArrayList<Order>();
 		
-		for (int i=0; i<orders.size(); i++){
+		for (int i=0; i<orderDoes.size(); i++){
 			orders.add(OrderConverter.getOrder(orderDoes.get(i)));
 		}
 		

@@ -4,7 +4,6 @@
 
 	<resultMap id="UserDoMap" type="UserDo">
 		<id column="ID" property="id" />
-		<result column="ID" property="id" />
 		<result column="USER_NAME" property="userName" />
 		<result column="IS_ADMIN" property="isAdmin" />
 		<result column="IMG_PATH" property="imgPath" />

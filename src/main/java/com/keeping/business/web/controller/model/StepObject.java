@@ -2,13 +2,13 @@ package com.keeping.business.web.controller.model;
 
 public class StepObject {
 	
-	private Integer step;
+	private String step;
 	
-	public Integer getStep() {
+	public String getStep() {
 		return step;
 	}
 
-	public void setStep(Integer step) {
+	public void setStep(String step) {
 		this.step = step;
 	}
 }

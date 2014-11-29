@@ -77,7 +77,7 @@ public class ServeQueueController {
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
 				logger.error("< ServeQueueController.getAllServeQueues() > 获取服务订单列表请求信息不正确: " + step);
 			} else {
-				serveQueueList = serveQueueService.getServeQueueByStep(step.getStep());
+				serveQueueList = serveQueueService.getServeQueueByStep(Integer.parseInt(step.getStep()));
 				System.out.println("retrun from serveQueueService " + serveQueueList.size());
 				List<Integer> userIdList = new ArrayList<Integer>();
 				List<Integer> orderIdList = new ArrayList<Integer>();
