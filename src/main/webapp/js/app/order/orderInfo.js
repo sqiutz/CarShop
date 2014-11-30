@@ -9,6 +9,9 @@ define([], function() {
 				success : function(data) {
 					serveList = data.resList;
 					options.success(serveList);
+				},
+				error : function(error) {
+					options.success();
 				}
 			});
 		},
@@ -21,6 +24,9 @@ define([], function() {
 				success : function(data) {
 					orderlist = data.resList;
 					options.success(orderlist);
+				},
+				error : function(error) {
+					options.success();
 				}
 			});
 		}
