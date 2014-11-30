@@ -52,7 +52,10 @@
 	                	var userProfile = data.obj;
 	                	if(userProfile.isAdmin) {
 	                		location.href = 'administration.html';
-	                	}	                    
+	                	}
+	                	else {
+	                		location.href = 'select_counter.html';
+	                	}
 	                }else if(data.code == '010102'){
 	                	$('#errMsg').html('The password is not correct!').show('normal');
 	                }else if(data.code == '010100'){

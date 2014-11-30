@@ -23,6 +23,7 @@ import com.keeping.business.service.UserGroupService;
 import com.keeping.business.service.UserService;
 import com.keeping.business.web.controller.converter.JsonConverter;
 import com.keeping.business.web.controller.converter.WebUserConverter;
+import com.keeping.business.web.controller.model.CounterObject;
 import com.keeping.business.web.controller.model.LoginReq;
 import com.keeping.business.web.controller.model.User;
 import com.keeping.business.web.controller.model.UserGroup;
@@ -131,7 +132,7 @@ public class UserController {
 	
 	@RequestMapping(params = "action=checkcounter")
 	@ResponseBody
-	public WebResult checkCounter(String counter, HttpServletRequest request,
+	public WebResult checkCounter(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
@@ -141,7 +142,9 @@ public class UserController {
 		try {
 			UserProfile logUser = (UserProfile) session
 					.getAttribute(PlatfromConstants.STR_USER_PROFILE);
-
+			String jsonStr = request.getParameter("param");
+			CounterObject counter = JsonConverter.getFromJsonString(jsonStr,
+					CounterObject.class);
 			if (counter == null ) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
@@ -151,10 +154,10 @@ public class UserController {
 			else if (null == session || null == logUser || null == logUser.getUserName()){
 				code = BusinessCenterResCode.SYS_INVILID_REQ.getCode();
 				msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
-				logger.error("< UserController.checkCounter() > session is null." + counter);
+				logger.error("< UserController.checkCounter() > session is null." + counter.getCounter());
 			}else{
 				// 检查用户名是否已经存在
-				User user = userService.queryUserByCounter(counter);
+				User user = userService.queryUserByCounter(counter.getCounter());
 				
 				if (user != null){
 					code = BusinessCenterResCode.NAME_EXIST.getCode();

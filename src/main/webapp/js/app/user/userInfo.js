@@ -63,8 +63,17 @@ define(["md5"],function(){
             });
         },
 		//检测用户是否已经登录
-		checkLogin:function(options){
+		checkLogin : function(options){
 		    $.common.ajax("checkLogin", {
+                type:"POST",
+                success:function(data){                 
+                    options.success(data);                  
+                }
+            });
+		},
+		// 获取用户对应的柜台
+		checkCounter : function(options){
+		    $.common.ajax("checkCounter", {
                 type:"POST",
                 success:function(data){                 
                     options.success(data);                  

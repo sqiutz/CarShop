@@ -13,9 +13,20 @@
                                  "passwd" // 密码
                         ]
                     },
-                    // 检测用户是否已经登录
+                    // 检查用户是否已经登录
                     checkLogin : {
                         url : "user.do?action=checklogin"
+                    },
+                    // 获取用户对应的柜台
+                    checkCounter : {
+                    	 url : "user.do?action=checkcounter",
+                         args : [ 
+                                  "counter"
+                         ]
+                    },
+                    // 获取配置信息
+                    getProperty : {
+                    	
                     },
                     // 获取用户组列表
                     getAllGroups : {
