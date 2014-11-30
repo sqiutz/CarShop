@@ -4,7 +4,9 @@ public class PropertyDo {
 	
 	private Integer id;
 
-	private Integer counterNum;
+	private String key;
+	
+	private String value;
 
 	public Integer getId() {
 		return id;
@@ -14,13 +16,22 @@ public class PropertyDo {
 		this.id = id;
 	}
 
-	public Integer getCounterNum() {
-		return counterNum;
+	public String getKey() {
+		return key;
 	}
 
-	public void setCounterNum(Integer counterNum) {
-		this.counterNum = counterNum;
+	public void setKey(String key) {
+		this.key = key;
 	}
+
+	public String getValue() {
+		return value;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
+	}
+
 		
 	
 }

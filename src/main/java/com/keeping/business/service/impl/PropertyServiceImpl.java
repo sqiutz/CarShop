@@ -47,9 +47,9 @@ public class PropertyServiceImpl implements PropertyService{
 		propertyDao.modifyProperty(PropertyConverter.getPropertyDo(property));
 	}
 
-	public Property queryById(Integer id) throws BusinessServiceException {
+	public Property queryByKey(String key) throws BusinessServiceException {
 		// TODO Auto-generated method stub
-		PropertyDo propertyDo = propertyDao.queryById(id);
+		PropertyDo propertyDo = propertyDao.queryByKey(key);
 		if(null == propertyDo) {
 			return null;
 		}

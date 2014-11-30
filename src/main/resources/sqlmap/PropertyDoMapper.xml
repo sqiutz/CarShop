@@ -4,11 +4,12 @@
 
 	<resultMap id="PropertyDoMap" type="PropertyDo">
 		<id column="ID" property="id" />
-		<result column="COUNTERNUM" property="counterNum" />
+		<result column="key" property="KEY" />
+		<result column="value" property="VALUE" />
 	</resultMap>
 	
 	<sql id="Base_Column_List">
-		ID,COUNTERNUM
+		ID,KEY,VALUE
 	</sql>
 
 	<sql id="QUERY_PARAM">
@@ -22,13 +23,25 @@
 	<insert id="addProperty" parameterType="PropertyDo">
 		INSERT INTO TBL_PROPERTY 
 		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="counterNum != null">
-				COUNTERNUM,
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="key != null">
+				KEY,
+			</if>
+			<if test="value != null">
+				VALUE,
 			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="counterNum != null">
-				#{counterNum},
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="key != null">
+				#{key},
+			</if>
+			<if test="value != null">
+				#{value},
 			</if>
 		</trim>
 	</insert>
@@ -36,21 +49,24 @@
 	<update id="modifyProperty" parameterType="PropertyDo">
 		UPDATE TBL_PROPERTY
 		<set>
-			<if test="counterNum != null">
-				COUNTERNUM = #{counterNum},
+			<if test="key != null">
+				KEY = #{key},
+			</if>
+			<if test="value != null">
+				KEY = #{value},
 			</if>
 		</set>
 		WHERE 
-		ID = #{id}
+		KEY = #{key}
 	</update>
 
-	<select id="queryById" resultMap="PropertyDoMap" 
-		parameterType="java.lang.Integer">
+	<select id="queryByKey" resultMap="PropertyDoMap" 
+		parameterType="java.lang.String">
 		SELECT
 		<include refid="Base_Column_List" />
 		FROM TBL_PROPERTY
 		WHERE
-		ID = #{id}
+		KEY = #{key}
 	</select>
 	
 </mapper>
