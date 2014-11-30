@@ -18,6 +18,7 @@ import com.keeping.business.common.util.PlatfromConstants;
 import com.keeping.business.common.util.StringUtil;
 import com.keeping.business.service.PropertyService;
 import com.keeping.business.web.controller.converter.JsonConverter;
+import com.keeping.business.web.controller.model.IdObject;
 import com.keeping.business.web.controller.model.Property;
 import com.keeping.business.web.controller.model.UserProfile;
 import com.keeping.business.web.controller.model.WebResult;
@@ -34,10 +35,9 @@ public class PropertyController {
 	@Resource
 	private PropertyService propertyService;
 
-	@RequestMapping(params = "action=alllist")
+	@RequestMapping(params = "action=property")
 	@ResponseBody
-	public WebResultObject<Property> getProperty(Integer id,
-			HttpServletRequest request, HttpServletResponse response)
+	public WebResultObject<Property> getProperty(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
@@ -49,7 +49,9 @@ public class PropertyController {
 		try {
 			UserProfile admin = (UserProfile) session
 					.getAttribute(PlatfromConstants.STR_USER_PROFILE);
-			
+			String jsonStr = request.getParameter("param");
+			IdObject id = JsonConverter.getFromJsonString(jsonStr,
+					IdObject.class);
 			if (id == null ) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
@@ -58,15 +60,10 @@ public class PropertyController {
 			}else if (null == session || null == admin || null == admin.getUserName()){
 				code = BusinessCenterResCode.SYS_INVILID_REQ.getCode();
 				msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
-				logger.error("<PropertyController.getProperty() > session is null." + id);
-			} 
-			else if (admin.getIsAdmin() == 0){
-				code = BusinessCenterResCode.SYS_NO_ADMIN.getCode();
-				msg = BusinessCenterResCode.SYS_NO_ADMIN.getMsg();
-				logger.error("< PropertyController.getProperty()) > you are not admin." + id);
+				logger.error("<PropertyController.getProperty() > session is null." + id.getId());
 			}
 			else{
-				property = propertyService.queryById(id);
+				property = propertyService.queryById(id.getId());
 			}
 		} catch (BusinessServiceException ex) {
 			code = ex.getErrorCode();
