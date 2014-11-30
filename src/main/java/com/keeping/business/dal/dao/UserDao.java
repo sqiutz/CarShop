@@ -11,6 +11,8 @@ public interface UserDao extends BaseDao<UserDo>{
 	public void addUser(UserDo userDo);
 	
 	public void modifyUser(UserDo userDo);
+	
+	public UserDo queryByCounter(String counter);
 	/**
      * 查询用户是否存在
      * 

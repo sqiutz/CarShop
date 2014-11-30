@@ -15,6 +15,8 @@ public interface UserService {
     public void modifyUser(User user) throws BusinessServiceException;
     
     public User queryUserByName(String userName) throws BusinessServiceException;
+    
+    public User queryUserByCounter(String counter) throws BusinessServiceException;
 	
 	public int checkValidUsername(String username);
 	

@@ -17,6 +17,8 @@ public class UserDo {
 	private int isValid;			//是否激活
 	
 	private long groupId;
+	
+	private String counter;
 
     private Timestamp createTime;
     
@@ -92,6 +94,14 @@ public class UserDo {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public String getCounter() {
+		return counter;
+	}
+
+	public void setCounter(String counter) {
+		this.counter = counter;
 	}
 
 }

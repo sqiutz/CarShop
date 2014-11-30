@@ -75,6 +75,17 @@ public class UserServiceImpl implements UserService{
 		return UserConverter.getUser(userDo);
 	}
 	
+
+	public User queryUserByCounter(String counter)
+			throws BusinessServiceException {
+		// TODO Auto-generated method stub
+		UserDo userDo = userDao.queryByCounter(counter);
+		if(null == userDo) {
+			return null;
+		}
+		return UserConverter.getUser(userDo);
+	}
+	
 	public void modifyUser(User user) throws BusinessServiceException {
 		if(null == user) {
 			return;
@@ -154,5 +165,6 @@ public class UserServiceImpl implements UserService{
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
 	}
+
 
 }

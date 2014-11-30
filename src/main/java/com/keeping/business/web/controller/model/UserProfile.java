@@ -15,6 +15,8 @@ public class UserProfile {
 	private Integer isValid;
 	
 	private long groupId;
+	
+	private String counter;
 
 	public int getIsAdmin() {
 		return isAdmin;
@@ -70,5 +72,13 @@ public class UserProfile {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public String getCounter() {
+		return counter;
+	}
+
+	public void setCounter(String counter) {
+		this.counter = counter;
 	}
 }

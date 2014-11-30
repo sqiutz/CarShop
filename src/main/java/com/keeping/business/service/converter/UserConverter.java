@@ -22,6 +22,7 @@ public class UserConverter {
         user.setIsValid(userDo.getIsValid());
         user.setCreateTime(userDo.getCreateTime());
         user.setModifyTime(userDo.getModifyTime());
+        user.setCounter(userDo.getCounter());
         
         return user;
     }
@@ -40,6 +41,8 @@ public class UserConverter {
     	userDo.setIsValid(user.getIsValid());
     	userDo.setCreateTime(user.getCreateTime());
     	userDo.setModifyTime(user.getModifyTime());
+    	userDo.setCounter(user.getCounter());
+    	
     	return userDo;
     }
 }

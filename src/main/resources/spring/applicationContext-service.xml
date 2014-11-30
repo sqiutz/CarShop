@@ -28,6 +28,10 @@
 	<bean id="serveQueueService" class="com.keeping.business.service.impl.ServeQueueServiceImpl">
 		<property name="ServeQueueDao" ref="serveQueueDao" />
 	</bean>
+	
+	<bean id="propertyService" class="com.keeping.business.service.impl.PropertyServiceImpl">
+		<property name="PropertyDao" ref="propertyDao" />
+	</bean>
 
 	
 </beans>

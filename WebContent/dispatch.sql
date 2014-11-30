@@ -19,6 +19,17 @@ USE carshop;
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
+-- Table structure for `TBL_PROPERTY`
+-- ----------------------------
+DROP TABLE IF EXISTS `TBL_PROPERTY`;
+CREATE TABLE `TBL_PROPERTY` (
+  `id` bigint(10) NOT NULL AUTO_INCREMENT,
+  `counterNum` bigint(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+
+-- ----------------------------
 -- Table structure for `TBL_USERGROUP`
 -- ----------------------------
 DROP TABLE IF EXISTS `TBL_USERGROUP`;
@@ -45,6 +56,7 @@ CREATE TABLE `TBL_USER` (
   `passwd` varchar(48) NOT NULL,
   `is_valid` smallint(1) NOT NULL,
   `group_id` bigint(10) NOT NULL,
+  `counter` varchar(48) DEFAULT NULL,
   `create_time` timestamp NOT NULL DEFAULT '1990-01-01 00:00:00',
   `modify_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   INDEX group_ind (group_id),
@@ -68,7 +80,7 @@ CREATE TABLE `TBL_ORDER` (
   `registerNumber` varchar(48) DEFAULT NULL,
   `queueNumber` varchar(48) DEFAULT NULL,   
   `roofNumber` varchar(48) DEFAULT NULL,
-  `estimationTime` datetime DEFAULT NULL,
+  `estimationTime` bigint(10) DEFAULT NULL,
   `bookNumber` varchar(48) DEFAULT NULL,
   `create_time` timestamp NOT NULL DEFAULT '1990-01-01 00:00:00',
   `start_time` timestamp  NOT NULL DEFAULT '1990-01-01 00:00:00',

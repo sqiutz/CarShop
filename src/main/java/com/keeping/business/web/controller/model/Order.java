@@ -25,7 +25,7 @@ public class Order {
     
     private Date promiseTime;
     
-    private Date estimationTime;
+    private Integer estimationTime;
 
 	public Integer getStatus() {
 		return status;
@@ -91,11 +91,11 @@ public class Order {
 		this.promiseTime = promiseTime;
 	}
 
-	public Date getEstimationTime() {
+	public Integer getEstimationTime() {
 		return estimationTime;
 	}
 
-	public void setEstimationTime(Date estimationTime) {
+	public void setEstimationTime(Integer estimationTime) {
 		this.estimationTime = estimationTime;
 	}
 

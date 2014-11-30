@@ -128,6 +128,55 @@ public class UserController {
 			throw e;
 		}
 	}
+	
+	@RequestMapping(params = "action=checkcounter")
+	@ResponseBody
+	public WebResult checkCounter(String counter, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
+		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
+		HttpSession session = request.getSession();
+		
+		try {
+			UserProfile logUser = (UserProfile) session
+					.getAttribute(PlatfromConstants.STR_USER_PROFILE);
+
+			if (counter == null ) {
+				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
+				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
+				logger.error("< UserController.checkCounter() > 信息为空或没有权限."
+						+ counter);
+			} 
+			else if (null == session || null == logUser || null == logUser.getUserName()){
+				code = BusinessCenterResCode.SYS_INVILID_REQ.getCode();
+				msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
+				logger.error("< UserController.checkCounter() > session is null." + counter);
+			}else{
+				// 检查用户名是否已经存在
+				User user = userService.queryUserByCounter(counter);
+				
+				if (user != null){
+					code = BusinessCenterResCode.NAME_EXIST.getCode();
+					msg = BusinessCenterResCode.NAME_EXIST.getMsg();
+				}
+			}
+			
+		}
+		catch (Exception e) {
+			code = BusinessCenterResCode.SYS_ERROR.getCode();
+			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
+			logger.error("< UserController.checkCounter() > 获取登录信息错误." + e.getMessage());
+		}
+		
+		try {
+			return JsonConverter.getResultSignal(code, msg);
+		}
+		catch (Exception e) {
+			logger.error("< UserController.checkCounter() > 登录信息返回出错." + e.getMessage());
+			throw e;
+		}
+	}
 
 	@RequestMapping(params = "action=alllist")
 	@ResponseBody
@@ -273,13 +322,7 @@ public class UserController {
 				code = BusinessCenterResCode.SYS_INVILID_REQ.getCode();
 				msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
 				logger.error("< UserController.modifyUser() > session is null." + jsonStr);
-			} else if (admin.getIsAdmin() == 0 && 
-					!admin.getUserName().equals(regUser.getUserName())){
-				code = BusinessCenterResCode.SYS_NO_ADMIN.getCode();
-				msg = BusinessCenterResCode.SYS_NO_ADMIN.getMsg();
-				logger.error("< UserController.addUser() > you are not admin." + jsonStr);
-			}
-			else{
+			} else{
 				//修改用户信息
 				userService.modifyUser(WebUserConverter.getUser(regUser));
 			}

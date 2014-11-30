@@ -12,10 +12,11 @@
 		<result column="CREATE_TIME" property="createTime" />
 		<result column="MODIFY_TIME" property="modifyTime" />
 		<result column="GROUP_ID" property="groupId" />
+		<result column="COUNTER" property="counter" />
 	</resultMap>
 	
 	<sql id="Base_Column_List">
-		ID,USER_NAME,IS_ADMIN,IMG_PATH,PASSWD,IS_VALID,CREATE_TIME,MODIFY_TIME,GROUP_ID
+		ID,USER_NAME,IS_ADMIN,IMG_PATH,PASSWD,IS_VALID,CREATE_TIME,MODIFY_TIME,GROUP_ID,COUNTER
 	</sql>
 
 	<sql id="QUERY_PARAM">
@@ -51,6 +52,9 @@
 			<if test="isValid != null">
 				IS_VALID,
 			</if>
+			<if test="counter != null">
+				COUNTER,
+			</if>
 			CREATE_TIME,
 			MODIFY_TIME,
 		</trim>
@@ -72,6 +76,9 @@
 			</if>
 			<if test="isValid != null">
 				#{isValid},
+			</if>
+			<if test="counter != null">
+				#{counter},
 			</if>
 			now(),
 			now(),
@@ -98,6 +105,9 @@
 			</if>
 			<if test="isValid != null">
 				IS_VALID = #{isValid},
+			</if>
+			<if test="counter != null">
+				COUNTER = #{counter},
 			</if>
 			MODIFY_TIME = now(),
 		</set>
@@ -162,6 +172,15 @@
 		FROM TBL_USER
 		WHERE
 		USER_NAME = #{userName}
+	</select>
+	
+	<select id="queryByCounter" resultMap="UserDoMap" 
+		parameterType="java.lang.String">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM TBL_USER
+		WHERE
+		COUNTER = #{counter}
 	</select>
 
 	<select id="queryPasswd" resultType="java.lang.String"
