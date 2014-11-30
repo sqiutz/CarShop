@@ -325,6 +325,16 @@ public class UserController {
 			} else{
 				//修改用户信息
 				userService.modifyUser(WebUserConverter.getUser(regUser));
+				
+				String counter = regUser.getCounter();
+				if(counter != null && counter.equals("") == false){
+					User existUser = userService.queryUserByCounter(counter);
+					if(existUser != null){
+						existUser.setCounter(null);
+						userService.modifyUser(existUser);
+					}
+				}
+				
 			}
 		} catch (BusinessServiceException ex) {
 			code = ex.getErrorCode();
