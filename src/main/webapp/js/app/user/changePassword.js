@@ -124,7 +124,11 @@
     //修改密码
     $("#saveBtn").bind("click",function() {
         user.changePassword();
-    }); 
+    });
+    
+    $("#cancelBtn").bind("click",function() {
+        history.go(-1);
+    });
     
     $.UserInfo.checkLogin({
         success : function(data) {

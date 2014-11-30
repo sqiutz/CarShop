@@ -1,29 +1,27 @@
 define([], function() {
 	var OrderInfo = {
-		//获取服务队列
+		// 获取服务队列
 		getServeQueues : function(options) {
+			var serveList;
 			$.common.ajax("getServeQueues", {
 				type : "POST",
 				data : options.data,
 				success : function(data) {
-					options.success(data);
-				},
-				complete : function(data){                 
-                    options.complete(data);                  
-                }
+					serveList = data.resList;
+					options.success(serveList);
+				}
 			});
 		},
-		//获取订单列表
+		// 获取订单列表
 		getOrderList : function(options) {
+			var orderlist;
 			$.common.ajax("getOrderList", {
 				type : "POST",
 				data : options.data,
 				success : function(data) {
-					options.success(data);
-				},
-				complete : function(data){                 
-                    options.complete(data);                  
-                }
+					orderlist = data.resList;
+					options.success(orderlist);
+				}
 			});
 		}
 	};

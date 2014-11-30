@@ -1,10 +1,16 @@
-function layout() {
+function layout(minWidth, minHeight) {
     var headerTopH = 0;
     if($('#headerTop').length > 0) {
         headerTopH = $('#headerTop').height();
-    }    
-    var width = $(window).width();
-    var height = $(window).height() - headerTopH;
+    } 
+    if(!minWidth) {
+    	minWidth = 1200;
+    }
+    if(!minHeight) {
+    	minHeight = 750;
+    }
+    var width = $(window).width() > minWidth ? $(window).width() : minWidth;
+    var height = ($(window).height() > minHeight ? $(window).height() : minHeight)- headerTopH;
     $('#container').css('height', height + 'px');
     var headerH = width * 0.085;    
     $('#header').css('height', headerH + 'px');
