@@ -15,7 +15,7 @@
 					'class', 'b1 col1').appendTo(div);
 			$("<span></span>").text(serve ? serve.order.registerNum : '').attr(
 					'class', 'b1 col2').appendTo(div);
-			$("<span></span>").text(serve ? serve.user.userName : '').attr(
+			$("<span></span>").text(serve ? serve.user.counter : '').attr(
 					'class', 'b1 col3').appendTo(div);
 		}
 		if (j < serves.length - 1) {
@@ -67,7 +67,7 @@
 					.appendTo($('#waitingList'));
 			$('<td></td>').text(order ? order.registerNum : '').appendTo(tr);
 			$('<td></td>').text(order ? order.queueNum : '').appendTo(tr);
-			$('<td></td>').text('').appendTo(tr);
+			$('<td></td>').text(order ? order.estimationTime + ' mins' : '').appendTo(tr);
 		}
 		if (j < orders.length - 1) {
 			oListIter++;
