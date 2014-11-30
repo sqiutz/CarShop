@@ -9,6 +9,6 @@ public interface PropertyService {
     
     public void modifyProperty(Property property) throws BusinessServiceException;
     
-    public Property queryById(Integer id) throws BusinessServiceException;
+    public Property queryByKey(String key) throws BusinessServiceException;
 
 }

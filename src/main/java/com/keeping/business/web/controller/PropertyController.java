@@ -50,20 +50,20 @@ public class PropertyController {
 			UserProfile admin = (UserProfile) session
 					.getAttribute(PlatfromConstants.STR_USER_PROFILE);
 			String jsonStr = request.getParameter("param");
-			IdObject id = JsonConverter.getFromJsonString(jsonStr,
-					IdObject.class);
-			if (id == null ) {
+			Property propertyReq = JsonConverter.getFromJsonString(jsonStr,
+					Property.class);
+			if (propertyReq == null || property.getKey() == null) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
 				logger.error("< PropertyController.getProperty() > 获取属性信息为空或没有权限."
-						+ id);
+						+ jsonStr);
 			}else if (null == session || null == admin || null == admin.getUserName()){
 				code = BusinessCenterResCode.SYS_INVILID_REQ.getCode();
 				msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
-				logger.error("<PropertyController.getProperty() > session is null." + id.getId());
+				logger.error("<PropertyController.getProperty() > session is null." + propertyReq);
 			}
 			else{
-				property = propertyService.queryById(id.getId());
+				property = propertyService.queryByKey(propertyReq.getKey());
 			}
 		} catch (BusinessServiceException ex) {
 			code = ex.getErrorCode();
@@ -125,7 +125,7 @@ public class PropertyController {
 			}
 			else{
 				// 检查用户名是否已经存在
-				Property property = propertyService.queryById(addProperty.getId());  //REQ的ID为0
+				Property property = propertyService.queryByKey(addProperty.getKey()); 
 				
 				if (property == null){
 					propertyService.addProperty(addProperty);

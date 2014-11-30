@@ -16,7 +16,8 @@ public class PropertyConverter {
         }
         Property property = new Property();
         property.setId(propertyDo.getId());
-        property.setCounterNum(propertyDo.getCounterNum());
+        property.setKey(propertyDo.getKey());
+        property.setValue(propertyDo.getValue());
         
         return property;
     }
@@ -27,7 +28,8 @@ public class PropertyConverter {
     	}
     	PropertyDo propertyDo = new PropertyDo();
     	propertyDo.setId(property.getId());
-    	propertyDo.setCounterNum(property.getCounterNum());
+    	propertyDo.setKey(property.getKey());
+    	propertyDo.setValue(property.getValue());
     
     	return propertyDo;
     }
