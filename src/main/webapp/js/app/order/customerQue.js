@@ -7,7 +7,7 @@
 		var j, num = 3;
 		for (var i = 0; i < num; i++) {
 			j = sListIter * num + i;
-			var serve = j < serves.length ? serves[j] : null;
+			var serve = serves && j < serves.length ? serves[j] : null;
 			var div = $(
 					"<div class='b1 " + (i % 2 === 0 ? "odd" : "even")
 							+ "'></div>").appendTo($('#servingList'));
