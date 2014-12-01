@@ -132,13 +132,14 @@ public class UserController {
 	
 	@RequestMapping(params = "action=checkcounter")
 	@ResponseBody
-	public WebResult checkCounter(HttpServletRequest request,
+	public WebResultObject<User> checkCounter(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		HttpSession session = request.getSession();
 		
+		User user = null;
 		try {
 			UserProfile logUser = (UserProfile) session
 					.getAttribute(PlatfromConstants.STR_USER_PROFILE);
@@ -157,7 +158,7 @@ public class UserController {
 				logger.error("< UserController.checkCounter() > session is null." + counter.getCounter());
 			}else{
 				// 检查用户名是否已经存在
-				User user = userService.queryUserByCounter(counter.getCounter());
+				user = userService.queryUserByCounter(counter.getCounter());
 				
 				if (user != null){
 					code = BusinessCenterResCode.NAME_EXIST.getCode();
@@ -173,7 +174,7 @@ public class UserController {
 		}
 		
 		try {
-			return JsonConverter.getResultSignal(code, msg);
+			return JsonConverter.getResultObject(code, msg, user);
 		}
 		catch (Exception e) {
 			logger.error("< UserController.checkCounter() > 登录信息返回出错." + e.getMessage());

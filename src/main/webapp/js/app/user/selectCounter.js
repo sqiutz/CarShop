@@ -8,6 +8,23 @@
 	    }
 	});
 	
+	$.UserInfo.getProperty({
+	    data : {
+            key : 'COUNTER_NUM'
+        },
+        success : function(data) {
+            if(data.code == '000000') {
+                $('#counter option').remove;
+                $("<option></option>").val('').text('Select Counter')
+                    .appendTo($('#counter'));
+                var num = data.obj.value;
+                for(var i = 0; i < num; i++) {
+                    
+                }
+            }
+        }
+	});
+	
 	counter.bind('change', function() {
 		if('' === counter.val()) {
 			nextBtn.attr('disabled', 'disabled');

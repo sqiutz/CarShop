@@ -26,7 +26,10 @@
                     },
                     // 获取配置信息
                     getProperty : {
-                    	
+                        url : "property.do?action=property",
+                        args : [ 
+                                 "key"
+                        ]
                     },
                     // 获取用户组列表
                     getAllGroups : {

@@ -79,7 +79,17 @@ define(["md5"],function(){
                     options.success(data);                  
                 }
             });
-		}
+		},
+		// 获取配置信息
+		getProperty : function(options){
+            $.common.ajax("getProperty", {
+                type:"POST",
+                data:options.data,
+                success:function(data){                 
+                    options.success(data);                  
+                }
+            });
+        }
 	};
 
 	$.UserInfo = UserInfo;

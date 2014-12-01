@@ -35,7 +35,7 @@
 		if (serves && serves.length > 0) {
 			var curr = serves[0];
 			$('#currRegNum').text(curr.order.registerNum);
-			$('#currUserName').text(curr.user.userName);
+			$('#currUserName').text(curr.user.counter);
 		}
 	};
 
