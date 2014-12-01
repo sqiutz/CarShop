@@ -15,6 +15,8 @@ public interface OrderService {
     public void updateOrder(Order order) throws BusinessServiceException;
     
     public Order queryOrderByBookNum(String bookNum) throws BusinessServiceException;
+    
+    public Order queryOrderById(Integer id) throws BusinessServiceException;
  
     public Order queryFirstForServeQueue() throws BusinessServiceException;
     

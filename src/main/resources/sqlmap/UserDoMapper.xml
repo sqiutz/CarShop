@@ -31,7 +31,7 @@
 		</trim>
 	</sql>
 	
-		<insert id="addUser" parameterType="UserDo">
+	<insert id="addUser" parameterType="UserDo">
 		INSERT INTO TBL_USER 
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="userName != null">

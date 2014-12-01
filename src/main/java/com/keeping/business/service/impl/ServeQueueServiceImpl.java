@@ -49,6 +49,17 @@ public class ServeQueueServiceImpl implements ServeQueueService{
 		
 		serveQueueDao.addServeQueue(serveQueueDo);
 	}
+	
+
+	public void updateServeQueue(ServeQueue serveQueue)
+			throws BusinessServiceException {
+		// TODO Auto-generated method stub
+		if(serveQueue == null){
+			return;
+		}
+		
+		serveQueueDao.updateServeQueue(ServeQueueConverter.getServeQueueDo(serveQueue));
+	}
 
 	public List<ServeQueue> getServeQueueByStep(Integer step)
 			throws BusinessServiceException {

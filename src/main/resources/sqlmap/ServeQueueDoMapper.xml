@@ -75,4 +75,27 @@
 		</trim>
 	</insert>
 	
+	<update id="updateServeQueue" parameterType="ServeQueueDo">
+		UPDATE TBL_SERVEQUEUE
+		<set>
+			<if test="step != null">
+				STEP = #{step},
+			</if>
+			<if test="userId != null">
+				USER_ID = #{userId},
+			</if>
+			<if test="orderId != null">
+				ORDER_ID = #{orderId},
+			</if>
+			<if test="startTime != null">
+				START_TIME = #{startTime},
+			</if>
+			<if test="endTime != null">
+				END_TIME = #{endTime},
+			</if>
+		</set>
+		WHERE 
+		ID = #{id}
+	</update>
+	
 </mapper>

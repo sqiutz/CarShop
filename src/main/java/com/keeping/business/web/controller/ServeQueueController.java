@@ -218,9 +218,9 @@ public class ServeQueueController {
 				
 				ServeQueue serveQueue = serveQueueService.queryServeQueueByUserAndStep(loginUser.getId(), 0);
 				
-//				Order order = orderService.queryOrderById(serveQueue.getOrderId());
-//				order.setStatus(BusinessCenterOrderStatus.ORDER_STATUS_MODIFY.getId());
-//				orderService.updateOrder(order);              //修改订单状态
+				Order order = orderService.queryOrderById(serveQueue.getOrderId());
+				order.setStatus(BusinessCenterOrderStatus.ORDER_STATUS_MODIFY.getId());
+				orderService.updateOrder(order);              //修改订单状态
 				
 				Date now = new Date();
 				java.sql.Timestamp dateTime = new java.sql.Timestamp(now.getTime());
@@ -228,7 +228,7 @@ public class ServeQueueController {
 				serveQueue.setEndTime(dateTime);
 				serveQueue.setStep(3);
 				
-//				serveQueueService.updateServeQueue(serveQueue);   //添加ServeQueue订单
+				serveQueueService.updateServeQueue(serveQueue);   //添加ServeQueue订单
 				
 				//modifyQueueService.addModifyQueue()
 			}

@@ -86,6 +86,20 @@ public class OrderServiceImpl implements OrderService {
 		
 		return order;
 	}
+	
+	public Order queryOrderById(Integer id) throws BusinessServiceException {
+		// TODO Auto-generated method stub
+		Order order = null;
+		OrderDo orderDo = orderDao.queryOrderById(id);
+
+		if (orderDo == null){
+			return new Order();
+		}else{
+			order = OrderConverter.getOrder(orderDo);
+		}
+		
+		return order;
+	}
 
 	public List<Order> getByOrdersId(List<Integer> orderIdList)
 			throws BusinessServiceException {
