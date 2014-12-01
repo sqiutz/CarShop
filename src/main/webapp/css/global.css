@@ -211,7 +211,7 @@ a.header-top {
 a.header-top:hover, span.link:hover {
 	color:#DDD;
 }
-table {
+table.queue {
 	border-collapse: collapse;
 	margin:0px auto;	
 	border-top:1px solid;
@@ -353,4 +353,12 @@ button.yellow {
 	width:100%;
 	color:rgb(77,184,77);
 	font-weight:bold;
+}
+
+span.button-blue {
+	background-color:#30BFCF;
+	color:#FFFFFF;
+	cursor:pointer;
+	font-size:20px;
+	line-height:30px;
 }
