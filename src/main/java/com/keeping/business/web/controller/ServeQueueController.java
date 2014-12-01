@@ -185,4 +185,71 @@ public class ServeQueueController {
 		}
 	}
 
+	@RequestMapping(params = "action=send")
+	@ResponseBody
+	public WebResult sendWorkShop(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
+		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
+		HttpSession session = request.getSession();
+		session.setMaxInactiveInterval(PlatformPar.sessionTimeout);
+		response.setHeader("Access-Control-Allow-Origin", "*");
+
+		try {
+			String jsonStr = request.getParameter("param");
+			UserProfile loginUser = (UserProfile) session
+					.getAttribute(PlatfromConstants.STR_USER_PROFILE);
+
+			if (StringUtil.isNull(jsonStr) || loginUser == null ) {
+				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
+				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
+				logger.error("< ServeQueueController.sendWorkShop() > 发送车间信息为空或没有权限。"
+						+ jsonStr);
+			} else if (null == session || null == loginUser || null == loginUser.getUserName()){
+				code = BusinessCenterResCode.SYS_INVILID_REQ.getCode();
+				msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
+				logger.error("< ServeQueueController.sendWorkShop() > session is null。" + jsonStr);
+			} else if (loginUser.getGroupId() != BusinessCenterUserGroup.SYS_SERVICER.getId()){
+				code = BusinessCenterResCode.SYS_NO_ADMIN.getCode();
+				msg = BusinessCenterResCode.SYS_NO_ADMIN.getMsg();
+				logger.error("< ServeQueueController.sendWorkShop() > you are not role。" + jsonStr);
+			}else{
+				
+				ServeQueue serveQueue = serveQueueService.queryServeQueueByUserAndStep(loginUser.getId(), 0);
+				
+//				Order order = orderService.queryOrderById(serveQueue.getOrderId());
+//				order.setStatus(BusinessCenterOrderStatus.ORDER_STATUS_MODIFY.getId());
+//				orderService.updateOrder(order);              //修改订单状态
+				
+				Date now = new Date();
+				java.sql.Timestamp dateTime = new java.sql.Timestamp(now.getTime());
+				
+				serveQueue.setEndTime(dateTime);
+				serveQueue.setStep(3);
+				
+//				serveQueueService.updateServeQueue(serveQueue);   //添加ServeQueue订单
+				
+				//modifyQueueService.addModifyQueue()
+			}
+		} catch (BusinessServiceException ex) {
+			code = ex.getErrorCode();
+			msg = ex.getErrorMessage();
+		} catch (Exception e) {
+			code = BusinessCenterResCode.SYS_ERROR.getCode();
+			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
+			logger.error("< OrderController.sendWorkShop() > 发送车间失败."
+					+ e.getMessage());
+		}
+
+		// 返回结果
+		try {
+			return JsonConverter.getResultSignal(code, msg);
+		} catch (Exception e) {
+			logger.error("< OrderController.sendWorkShop() > 发送车间返回出错."
+					+ e.getMessage());
+			throw e;
+		}
+	}
+	
 }

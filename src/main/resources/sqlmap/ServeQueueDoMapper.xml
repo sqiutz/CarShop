@@ -26,6 +26,15 @@
 		order by START_TIME desc
 	</select>
 	
+	<select id="queryByUseridAndStep" resultMap="ServeQueueDoMap" 
+		parameterType="java.lang.Integer">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM TBL_SERVEQUEUE
+		WHERE
+		USER_ID = {userId} and STEP = #{step} 
+	</select>
+	
 	<insert id="addServeQueue" parameterType="ServeQueueDo">
 		INSERT INTO TBL_SERVEQUEUE 
 		<trim prefix="(" suffix=")" suffixOverrides=",">

@@ -11,4 +11,6 @@ public interface ServeQueueService {
     
     public void addServeQueue(ServeQueue serveQueue) throws BusinessServiceException;
     
+    public ServeQueue queryServeQueueByUserAndStep(Integer userId, Integer step);
+    
 }
