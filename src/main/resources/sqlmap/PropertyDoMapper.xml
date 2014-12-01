@@ -4,12 +4,12 @@
 
 	<resultMap id="PropertyDoMap" type="PropertyDo">
 		<id column="ID" property="id" />
-		<result column="pkey" property="PKEY" />
-		<result column="pvalue" property="PVALUE" />
+		<result column="NAME" property="name" />
+		<result column="VALUE" property="value" />
 	</resultMap>
 	
 	<sql id="Base_Column_List">
-		ID,PKEY,PVALUE
+		ID,NAME,VALUE
 	</sql>
 
 	<sql id="QUERY_PARAM">
@@ -26,22 +26,22 @@
 			<if test="id != null">
 				ID,
 			</if>
-			<if test="pkey != null">
-				PKEY,
+			<if test="name != null">
+				NAME,
 			</if>
-			<if test="pvalue != null">
-				PVALUE,
+			<if test="value != null">
+				VALUE,
 			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="id != null">
 				#{id},
 			</if>
-			<if test="pkey != null">
-				#{pkey},
+			<if test="name != null">
+				#{name},
 			</if>
-			<if test="pvalue != null">
-				#{pvalue},
+			<if test="value != null">
+				#{value},
 			</if>
 		</trim>
 	</insert>
@@ -49,15 +49,15 @@
 	<update id="modifyProperty" parameterType="PropertyDo">
 		UPDATE TBL_PROPERTY
 		<set>
-			<if test="pkey != null">
-				KEY = #{pkey},
+			<if test="name != null">
+				NAME = #{name},
 			</if>
-			<if test="pvalue != null">
-				KEY = #{pvalue},
+			<if test="value != null">
+				VALUE = #{value},
 			</if>
 		</set>
 		WHERE 
-		PKEY = #{pkey}
+		NAME = #{name}
 	</update>
 
 	<select id="queryByKey" resultMap="PropertyDoMap" 
@@ -66,7 +66,7 @@
 		<include refid="Base_Column_List" />
 		FROM TBL_PROPERTY
 		WHERE
-		PKEY = #{pkey}
+		NAME = #{name}
 	</select>
 	
 </mapper>

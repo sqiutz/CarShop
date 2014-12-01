@@ -52,8 +52,8 @@ public class PropertyController {
 			System.out.println(jsonStr);
 			Property propertyReq = JsonConverter.getFromJsonString(jsonStr,
 					Property.class);
-			System.out.println(propertyReq.getPkey());
-			if (propertyReq == null || propertyReq.getPkey() == null) {
+			System.out.println(propertyReq.getName());
+			if (propertyReq == null || propertyReq.getName() == null) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
 				logger.error("< PropertyController.getProperty() > 获取属性信息为空或没有权限."
@@ -64,7 +64,7 @@ public class PropertyController {
 				logger.error("<PropertyController.getProperty() > session is null." + propertyReq);
 			}
 			else{
-				property = propertyService.queryByKey(propertyReq.getPkey());
+				property = propertyService.queryByKey(propertyReq.getName());
 			}
 		} catch (BusinessServiceException ex) {
 			System.out.println(ex.getMessage());
@@ -130,7 +130,7 @@ public class PropertyController {
 			}
 			else{
 				// 检查用户名是否已经存在
-				Property property = propertyService.queryByKey(addProperty.getPkey()); 
+				Property property = propertyService.queryByKey(addProperty.getName()); 
 				
 				if (property == null){
 					propertyService.addProperty(addProperty);

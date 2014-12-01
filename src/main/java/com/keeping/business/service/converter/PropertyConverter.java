@@ -16,8 +16,8 @@ public class PropertyConverter {
         }
         Property property = new Property();
         property.setId(propertyDo.getId());
-        property.setPkey(propertyDo.getPkey());
-        property.setPvalue(propertyDo.getPvalue());
+        property.setName(propertyDo.getName());
+        property.setValue(propertyDo.getValue());
         
         return property;
     }
@@ -28,8 +28,8 @@ public class PropertyConverter {
     	}
     	PropertyDo propertyDo = new PropertyDo();
     	propertyDo.setId(property.getId());
-    	propertyDo.setPkey(property.getPkey());
-    	propertyDo.setPvalue(property.getPvalue());
+    	propertyDo.setName(property.getName());
+    	propertyDo.setValue(property.getValue());
     
     	return propertyDo;
     }
