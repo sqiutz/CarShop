@@ -47,19 +47,19 @@ public class PropertyController {
 
 		Property property = new Property();
 		try {
-			UserProfile admin = (UserProfile) session
+			UserProfile logUser = (UserProfile) session
 					.getAttribute(PlatfromConstants.STR_USER_PROFILE);
 			String jsonStr = request.getParameter("param");
 			System.out.println(jsonStr);
 			Property propertyReq = JsonConverter.getFromJsonString(jsonStr,
 					Property.class);
 			System.out.println(propertyReq.getKey());
-			if (propertyReq == null || property.getKey() == null) {
+			if (propertyReq == null || propertyReq.getKey() == null) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
 				logger.error("< PropertyController.getProperty() > 获取属性信息为空或没有权限."
 						+ jsonStr);
-			}else if (null == session || null == admin || null == admin.getUserName()){
+			}else if (null == session || null == logUser || null == logUser.getUserName()){
 				code = BusinessCenterResCode.SYS_INVILID_REQ.getCode();
 				msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
 				logger.error("<PropertyController.getProperty() > session is null." + propertyReq);
