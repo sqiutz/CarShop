@@ -68,7 +68,8 @@
 	                                        userName : userSelected.userName,
 	                                        passwd : userSelected.passwd,
 	                                        isAdmin : userSelected.isAdmin,
-	                                        isValid : userSelected.isValid ? 0 : 1
+	                                        isValid : userSelected.isValid ? 0 : 1,
+	                                        counter : userSelected.counter
 	                                    },
 	                                    success : function(data) {
 	                                        if(data.code == '000000') {

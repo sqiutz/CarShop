@@ -171,7 +171,7 @@ span.h5 {
 	line-height:24px;
 }
 span.h6 {	
-	line-height:100px;
+	line-height:82px;
 }
 span.h6.low {	
 	line-height:72px;
@@ -346,12 +346,12 @@ button.yellow {
 }
 .errMsg {
 	width:100%;
-	color:rgb(255,45,45);
+	color:#B33737;
 	font-weight:bold;
 }
 .succMsg {
 	width:100%;
-	color:rgb(77,184,77);
+	color:#A4CB4E;
 	font-weight:bold;
 }
 

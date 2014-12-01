@@ -9,8 +9,15 @@ function layout(minWidth, minHeight) {
     if(!minHeight) {
     	minHeight = 750;
     }
-    var width = $(window).width() > minWidth ? $(window).width() : minWidth;
-    var height = ($(window).height() > minHeight ? $(window).height() : minHeight)- headerTopH;
+    var width = $(window).width();
+    if(width < minWidth) {
+    	width = minWidth
+    }
+    var height = $(window).height();
+    if(height < minHeight) {
+    	height = minHeight
+    }
+    height -= headerTopH;
     $('#container').css('height', height + 'px');
     var headerH = width * 0.085;    
     $('#header').css('height', headerH + 'px');
@@ -20,8 +27,9 @@ function layout(minWidth, minHeight) {
     if ($('#footer').length > 0) {
         footerH = width * 0.043;
         $('#footer').css('height', footerH + 'px');
+        footerH += 10;
     }
-    var contentH = height - headerH - footerH - 10;
+    var contentH = height - headerH - footerH;
     $('#content').css('height', contentH + 'px');
     return[width, height, contentH];
 }
