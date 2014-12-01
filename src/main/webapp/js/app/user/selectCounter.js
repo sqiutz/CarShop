@@ -14,11 +14,11 @@
         .appendTo($('#counter'));
 	$.UserInfo.getProperty({
 	    data : {
-            pkey : 'COUNTER_NUM'
+            name : 'COUNTER_NUM'
         },
         success : function(data) {
             if(data.code == '000000') {
-                var num = data.obj.pvalue;
+                var num = data.obj.value;
                 for(var i = 0; i < num; i++) {
                     $("<option></option>").val('COUNTER ' + (i+1)).text('COUNTER ' + (i+1))
                         .appendTo($('#counter'));
@@ -44,7 +44,7 @@
     	                $('#errMsg').html(counter.val() + 
                                 ' has been selected by ' +
                                 u.userName + 
-                                ' . If you confirm, click Next')
+                                ' . If you confirm, click Next.')
                                 .show('normal');
     	            }    	            
     	        }
@@ -52,5 +52,22 @@
 		});
 	});
 	
-	//nextBtn.bind()
+	nextBtn.bind('click', function() {
+	    $.UserInfo.modifyUser({
+            data : {
+                id : userProfile.id,
+                groupId : userProfile.groupId,
+                userName : userProfile.userName,
+                passwd : userProfile.passwd,
+                isAdmin : userProfile.isAdmin,
+                isValid : 1,
+                counter: counter.val()
+            },
+            success : function(data) {
+                if(data.code == '000000') {
+                    location.href = 'sa_que.html';
+                }
+            }
+        });
+	})
 })(jQuery);
