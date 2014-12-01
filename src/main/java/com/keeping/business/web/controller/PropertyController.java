@@ -18,7 +18,6 @@ import com.keeping.business.common.util.PlatfromConstants;
 import com.keeping.business.common.util.StringUtil;
 import com.keeping.business.service.PropertyService;
 import com.keeping.business.web.controller.converter.JsonConverter;
-import com.keeping.business.web.controller.model.IdObject;
 import com.keeping.business.web.controller.model.Property;
 import com.keeping.business.web.controller.model.UserProfile;
 import com.keeping.business.web.controller.model.WebResult;
@@ -53,8 +52,8 @@ public class PropertyController {
 			System.out.println(jsonStr);
 			Property propertyReq = JsonConverter.getFromJsonString(jsonStr,
 					Property.class);
-			System.out.println(propertyReq.getKey());
-			if (propertyReq == null || propertyReq.getKey() == null) {
+			System.out.println(propertyReq.getPkey());
+			if (propertyReq == null || propertyReq.getPkey() == null) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
 				logger.error("< PropertyController.getProperty() > 获取属性信息为空或没有权限."
@@ -65,7 +64,7 @@ public class PropertyController {
 				logger.error("<PropertyController.getProperty() > session is null." + propertyReq);
 			}
 			else{
-				property = propertyService.queryByKey(propertyReq.getKey());
+				property = propertyService.queryByKey(propertyReq.getPkey());
 			}
 		} catch (BusinessServiceException ex) {
 			System.out.println(ex.getMessage());
@@ -131,7 +130,7 @@ public class PropertyController {
 			}
 			else{
 				// 检查用户名是否已经存在
-				Property property = propertyService.queryByKey(addProperty.getKey()); 
+				Property property = propertyService.queryByKey(addProperty.getPkey()); 
 				
 				if (property == null){
 					propertyService.addProperty(addProperty);

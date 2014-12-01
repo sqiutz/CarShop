@@ -1,0 +1,167 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
+<title>SA QUE CALLING BOARD</title>
+
+<link rel="stylesheet" type="text/css" href="css/global.css">
+<link rel="stylesheet" type="text/css" href="css/sa_que.css">
+
+<script src="js/jquery-2.1.1.min.js"></script>
+
+<script src="js/global.js"></script>
+
+<script type="text/javascript">
+    function layout() {
+        var width = $('.container').width();
+        var height = $('.container').height();
+        var res = layoutHeaderFooter(width, height);
+        var contentH = res[2] + 10;
+        $('#content').css('height', contentH + 'px');
+        $('#content_lf').css('height', contentH - 6 + 'px');
+    }
+
+    $(document).ready(function() {
+        layout();
+        $(window).resize(layout);
+    });
+</script>
+</head>
+<body>
+	<div class='container'>
+		<div class='header'>
+			<span id='title' class='h1'>SA QUE CALLING BOARD</span>
+		</div>
+		<div id='content' class='content'>
+			<div id='content_lf' class='content_lf black'>
+				<div class='box'>
+					<span class='h6'>SA-01</span>				
+				</div>
+				<div class='content_lf'>
+					<div class='box-black rAlign'>
+						<span class='h3 low'>CURRENT NUMBER</span>
+						<span class='h6 f-yellow-dark'>B-001</span>
+					</div>
+					<div class='box-black rAlign small'>
+						<span class='h3 low'>REMAININ</span>
+						<span class='h7 f-yellow-dark'>2</span>
+					</div>	
+				</div>
+				<div class='content_rg'>
+					<div class='box-gray'>
+						<span class='h5 f-black lAlign'>Waiting Time</span>
+						<span class='h7 f-yellow-dark inline'>6''</span>
+						<span class='h1 f-yellow-light inline'>22'</span>
+					</div>
+					<div class='box-gray'>
+						<span class='h5 f-black lAlign'>Avg. Waiting Time</span>
+						<span class='h7 f-yellow-dark inline'>2''</span>
+						<span class='h1 f-yellow-light inline'>64'</span>
+					</div>
+					<div class='box-gray'>
+						<span class='h5 f-black lAlign'>Timer</span>
+						<span class='h7 f-yellow-dark inline'>0''</span>
+						<span class='h1 f-yellow-light inline'>33'</span>
+					</div>
+				</div>
+				<div class='controller'>
+					<button class='blue' title='CALL'>CALL</button>
+					<button class='blue' title='RECALL'>RECALL</button>
+					<button class='blue' title='HOLD'>HOLD</button>	
+					<button class='blue' title='CANCEL'>CANCEL</button>
+					<button class='blue' title='Send to Workshop'>Workshop</button>		
+				</div>
+				<div class='w1 rAlign'>
+					<a class='h5 f-yellow'>Show details >></a>
+				</div>				
+			</div>
+			<div class='content_rg'>
+				<div class='box'>
+					<span class='t2 purple h3'>NOW SERVING...</span>
+					<table class="w1 purple">
+						<tr>
+							<th>Reg. No.</th>
+							<th>Que. No.</th>
+							<th>SA</th>
+							<th>Start Time</th>
+							<th>End Time</th>
+						</tr>
+						<tr class='odd'>
+							<td>B1831TOK</td>
+							<td>B-001</td>
+							<td>SA-01</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>B1093MN</td>
+							<td>N-001</td>
+							<td>SA-02</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr class='odd'>
+							<td>B8763HJ</td>
+							<td>B-002</td>
+							<td>SA-03</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr class='odd'>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+
+					</table>
+				</div>
+				<div class='box'>
+					<span class='t2 green h3'>WAITING LIST</span>
+					<table class="w1 green">
+						<tr>
+							<th>Reg. No.</th>
+							<th>Que. No.</th>
+							<th>Que Start</th>
+						</tr>
+						<tr class='odd'>
+							<td>B1001AC</td>
+							<td>B-003</td>
+							<td>8:45</td>
+						</tr>
+						<tr>
+							<td>B3321RT</td>
+							<td>N-002</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr class='odd'>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr class='odd'>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>

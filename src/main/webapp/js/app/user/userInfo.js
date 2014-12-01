@@ -75,6 +75,7 @@ define(["md5"],function(){
 		checkCounter : function(options){
 		    $.common.ajax("checkCounter", {
                 type:"POST",
+                data:options.data,
                 success:function(data){                 
                     options.success(data);                  
                 }

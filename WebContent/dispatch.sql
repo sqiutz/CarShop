@@ -240,3 +240,5 @@ insert into tbl_servequeue set step=0, user_id=6, order_id=3;
 insert into tbl_servequeue set step=0, user_id=7, order_id=4;
 insert into tbl_servequeue set step=0, user_id=8, order_id=5;
 insert into tbl_servequeue set step=0, user_id=9, order_id=6;
+
+insert into tbl_property set pkey='COUNTER_NUM', pvalue='5';

@@ -1,25 +1,27 @@
 (function($) {
 	var counter = $('#counter'), nextBtn = $('#nextBtn');
+	var userProfile;
 	$.UserInfo.checkLogin({
 	    success : function(data) {
 	        if(data.code == '000000') {
-	            $("#helloUserName").text('Hello ' + (data.obj ? data.obj.userName : ''));	            
+	            userProfile = data.obj;
+	            $("#helloUserName").text('Hello ' + (userProfile ? userProfile.userName : ''));	            
 	        }
 	    }
 	});
 	
+	$("<option></option>").val('').text('Select Counter')
+        .appendTo($('#counter'));
 	$.UserInfo.getProperty({
 	    data : {
-            key : 'COUNTER_NUM'
+            pkey : 'COUNTER_NUM'
         },
         success : function(data) {
             if(data.code == '000000') {
-                $('#counter option').remove;
-                $("<option></option>").val('').text('Select Counter')
-                    .appendTo($('#counter'));
-                var num = data.obj.value;
+                var num = data.obj.pvalue;
                 for(var i = 0; i < num; i++) {
-                    
+                    $("<option></option>").val('COUNTER ' + (i+1)).text('COUNTER ' + (i+1))
+                        .appendTo($('#counter'));
                 }
             }
         }
@@ -35,11 +37,16 @@
             	counter : counter.val()
             },
             success : function(data) {
-    	        if(data.code == '000000') {
-    	        	nextBtn.attr('disabled', false);	            
-    	        }
-    	        else {
-    	        	
+                nextBtn.attr('disabled', false);
+    	        if(data.code !== '000000') {
+    	            var u = data.obj;
+    	            if(u.userName !== userProfile.userName) {
+    	                $('#errMsg').html(counter.val() + 
+                                ' has been selected by ' +
+                                u.userName + 
+                                ' . If you confirm, click Next')
+                                .show('normal');
+    	            }    	            
     	        }
     	    }
 		});

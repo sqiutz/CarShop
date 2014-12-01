@@ -4,9 +4,9 @@ public class Property {
 
 	private Integer id;
 	
-	private String key;
+	private String pkey;
 	
-	private String value;
+	private String pvalue;
 	
 	public Integer getId() {
 		return id;
@@ -16,20 +16,20 @@ public class Property {
 		this.id = id;
 	}
 
-	public String getKey() {
-		return key;
+	public String getPkey() {
+		return pkey;
 	}
 
-	public void setKey(String key) {
-		this.key = key;
+	public void setPkey(String pkey) {
+		this.pkey = pkey;
 	}
 
-	public String getValue() {
-		return value;
+	public String getPvalue() {
+		return pvalue;
 	}
 
-	public void setValue(String value) {
-		this.value = value;
+	public void setPvalue(String pvalue) {
+		this.pvalue = pvalue;
 	}
 
 }

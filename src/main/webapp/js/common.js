@@ -28,7 +28,7 @@
                     getProperty : {
                         url : "property.do?action=property",
                         args : [ 
-                                 "key"
+                                 "pkey"
                         ]
                     },
                     // 获取用户组列表
