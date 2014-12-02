@@ -57,7 +57,7 @@ CREATE TABLE `TBL_USER` (
   `passwd` varchar(48) NOT NULL,
   `is_valid` smallint(1) NOT NULL,
   `group_id` bigint(10) NOT NULL,
-  `counter` varchar(48) DEFAULT NULL,
+  `counter` varchar(48) DEFAULT NULL UNIQUE,
   `create_time` timestamp NOT NULL DEFAULT '1990-01-01 00:00:00',
   `modify_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   INDEX group_ind (group_id),
