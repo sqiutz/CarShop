@@ -15,6 +15,16 @@ define([], function() {
 				}
 			});
 		},
+		// 获取单个服务单
+		getServeQueue : function(options) {
+			$.common.ajax("getServeQueue", {
+				type : "POST",
+				data : options.data,
+				success : function(data) {
+					options.success(data);
+				}
+			});
+		},
 		// 获取订单列表
 		getOrderList : function(options) {
 			var orderlist;

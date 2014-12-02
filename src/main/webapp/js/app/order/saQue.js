@@ -81,6 +81,26 @@
         });
     };
     
+    // 获取当前订单
+    var getServeQueue = function() {
+    	$.OrderInfo.getServeQueue({
+    		data : {
+                step : 0
+            },
+            success : function(data) {
+            	if(data.code == '000000') {
+            		var serve = data.obj;
+            		
+            	}
+            }
+    	});
+    }
+       
+    // Call
+//    $('#callBtn').bind() {
+//    	
+//    }
+    
     function getTimeStr(time) {
         if(undefined === time || null === time) {
             return '';
@@ -92,6 +112,7 @@
             (minutes < 10 ? '0' : '') + minutes;
     }
     
+    getServeQueue();
     getServeQueues();
-    getOrderList();
+    getOrderList();    
 })(jQuery);;

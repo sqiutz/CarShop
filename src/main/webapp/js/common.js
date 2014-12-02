@@ -75,6 +75,13 @@
                                  "step"
                         ]
                     },
+                    // 获取单个服务单
+                    getServeQueue : {
+                        url : "servequeue.do?action=getone",
+                        args : [ 
+                                 "step"
+                        ]
+                    },
                     // 获取订单列表
                     getOrderList : {
                         url : "order.do?action=alllist",
