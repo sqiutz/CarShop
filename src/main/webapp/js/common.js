@@ -82,6 +82,10 @@
                                  "step"
                         ]
                     },
+                    // call
+                    call : {
+                    	url : "servequeue.do?action=call",
+                    },
                     // 获取订单列表
                     getOrderList : {
                         url : "order.do?action=alllist",
