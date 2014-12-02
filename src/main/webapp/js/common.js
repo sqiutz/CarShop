@@ -134,7 +134,7 @@
                         success : function(data) {
                             if (data.code == "000004") {// 登录超时跳转到登录界面
                                 alert('Your session has been timeout, please login again.');
-                                location.href="login.html";
+                                location.href="index.html";
                                 /*
                                  * require(['jsMessage'],function(){
                                  * dhtmlx.message(data.msg);
