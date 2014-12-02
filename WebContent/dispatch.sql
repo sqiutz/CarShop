@@ -228,7 +228,7 @@ insert into tbl_user set user_name = 'SA-02', is_admin = 0, passwd = 'passw0rd',
 insert into tbl_user set user_name = 'SA-03', is_admin = 0, passwd = 'passw0rd', is_valid = 1, group_id = 5, counter='COUNTER 3';
 insert into tbl_user set user_name = 'SA-04', is_admin = 0, passwd = 'passw0rd', is_valid = 1, group_id = 5, counter='COUNTER 4';
 
-insert into tbl_order set status=0, registerNumber='B-001', queueNumber='B1831TOK', estimationTime=4;
+insert into tbl_order set status=0, registerNumber='B-001', queueNumber='B1831TOK', estimationTime=4, start_time='2014-12-02 12:02:06', end_time='2014-12-02 12:12:26';
 insert into tbl_order set status=0, registerNumber='N-001', queueNumber='B1093MN', estimationTime=5;
 insert into tbl_order set status=0, registerNumber='B-002', queueNumber='B8763HJ', estimationTime=6;
 insert into tbl_order set status=1, registerNumber='B-003', queueNumber='B1001AC', estimationTime=7;
