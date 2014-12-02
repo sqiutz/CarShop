@@ -86,8 +86,11 @@ public class ServeQueueController {
 					userIdList.add(serveQueueList.get(i).getUserId());
 					System.out.println("serveQueueList.get(i).getOrderId() " + serveQueueList.get(i).getOrderId());
 					orderIdList.add(serveQueueList.get(i).getOrderId());
-					
 
+				}
+				
+				if(serveQueueList.size() > 0){
+					
 					List<User> users = userService.getByUsersId(userIdList);
 					System.out.println("retrun from userService " + users.size());
 					List<Order> orders = orderService.getByOrdersId(orderIdList);
@@ -151,6 +154,10 @@ public class ServeQueueController {
 					userIdList.add(serveQueueList.get(i).getUserId());
 					System.out.println("serveQueueList.get(i).getOrderId() " + serveQueueList.get(i).getOrderId());
 					orderIdList.add(serveQueueList.get(i).getOrderId());
+				
+				}
+				
+				if(serveQueueList.size() > 0){
 					
 					List<User> users = userService.getByUsersId(userIdList);
 					System.out.println("retrun from userService " + users.size());
@@ -159,7 +166,6 @@ public class ServeQueueController {
 					
 					ReorgQueue.reorgServeQueue(serveQueueList, users, orders);   //need to verify
 				}
-				
 				
 			}
 		} catch (BusinessServiceException ex) {
