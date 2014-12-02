@@ -4,7 +4,6 @@ define([], function() {
 		getServeQueues : function(options) {
 			var serveList;
 			$.common.ajax("getServeQueues", {
-				type : "POST",
 				data : options.data,
 				success : function(data) {
 					serveList = data.resList;
@@ -18,8 +17,15 @@ define([], function() {
 		// 获取单个服务单
 		getServeQueue : function(options) {
 			$.common.ajax("getServeQueue", {
-				type : "POST",
 				data : options.data,
+				success : function(data) {
+					options.success(data);
+				}
+			});
+		},
+		// call
+		call : function(options) {
+			$.common.ajax("call", {
 				success : function(data) {
 					options.success(data);
 				}
@@ -29,7 +35,6 @@ define([], function() {
 		getOrderList : function(options) {
 			var orderlist;
 			$.common.ajax("getOrderList", {
-				type : "POST",
 				data : options.data,
 				success : function(data) {
 					orderlist = data.resList;

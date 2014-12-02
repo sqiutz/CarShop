@@ -1,8 +1,19 @@
 (function($) {
     var oListIter = 0, sListIter = 0, interval = 3000;
+    var userProfile;
+	$.UserInfo.checkLogin({
+		success : function(data) {
+			if (data.code == '000000') {
+				userProfile = data.obj;
+				$("#helloUserName").text(
+						'Hello ' + (userProfile ? userProfile.userName : ''));
+			}
+		}
+	});
     
     // 创建服务队列
     var createServingList = function(serves) {
+    	$('#remaining').text(serves ? serves.length : 0);
         $('#servingList tr.odd').remove();
         $('#servingList tr.even').remove();
         var availHeight = ($('#content').height() - 20) * 0.5 - $('#servingListTitle').height() - 15;
@@ -97,9 +108,13 @@
     }
        
     // Call
-//    $('#callBtn').bind() {
-//    	
-//    }
+    $('#callBtn').bind('click', function() {
+    	$.OrderInfo.call({
+    		success : function(data) {
+    			$('#callBtn').attr('disabled', 'disabled');
+            }
+    	});
+    });
     
     function getTimeStr(time) {
         if(undefined === time || null === time) {
