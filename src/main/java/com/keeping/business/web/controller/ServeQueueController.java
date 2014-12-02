@@ -86,14 +86,15 @@ public class ServeQueueController {
 					userIdList.add(serveQueueList.get(i).getUserId());
 					System.out.println("serveQueueList.get(i).getOrderId() " + serveQueueList.get(i).getOrderId());
 					orderIdList.add(serveQueueList.get(i).getOrderId());
+					
+
+					List<User> users = userService.getByUsersId(userIdList);
+					System.out.println("retrun from userService " + users.size());
+					List<Order> orders = orderService.getByOrdersId(orderIdList);
+					System.out.println("retrun from orderService " + orders.size());
+					
+					ReorgQueue.reorgServeQueue(serveQueueList, users, orders);   //need to verify
 				}
-				
-				List<User> users = userService.getByUsersId(userIdList);
-				System.out.println("retrun from userService " + users.size());
-				List<Order> orders = orderService.getByOrdersId(orderIdList);
-				System.out.println("retrun from orderService " + orders.size());
-				
-				ReorgQueue.reorgServeQueue(serveQueueList, users, orders);   //need to verify
 				
 			}
 		} catch (BusinessServiceException ex) {
@@ -138,7 +139,10 @@ public class ServeQueueController {
 				logger.error("< ServeQueueController.getServeQueue() > session is null." + jsonStr);
 			}  
 			else {
-				serveQueueList = serveQueueService.getServeQueueByStepAndUserId(Integer.parseInt(step.getStep()), logUser.getId());
+				ServeQueue serveQueue = new ServeQueue();
+				serveQueue.setStep(Integer.parseInt(step.getStep()));
+				serveQueue.setUserId(logUser.getId());
+				serveQueueList = serveQueueService.getServeQueueByStepAndUserId(serveQueue);
 				
 				List<Integer> userIdList = new ArrayList<Integer>();
 				List<Integer> orderIdList = new ArrayList<Integer>();
@@ -147,14 +151,15 @@ public class ServeQueueController {
 					userIdList.add(serveQueueList.get(i).getUserId());
 					System.out.println("serveQueueList.get(i).getOrderId() " + serveQueueList.get(i).getOrderId());
 					orderIdList.add(serveQueueList.get(i).getOrderId());
+					
+					List<User> users = userService.getByUsersId(userIdList);
+					System.out.println("retrun from userService " + users.size());
+					List<Order> orders = orderService.getByOrdersId(orderIdList);
+					System.out.println("retrun from orderService " + orders.size());
+					
+					ReorgQueue.reorgServeQueue(serveQueueList, users, orders);   //need to verify
 				}
 				
-				List<User> users = userService.getByUsersId(userIdList);
-				System.out.println("retrun from userService " + users.size());
-				List<Order> orders = orderService.getByOrdersId(orderIdList);
-				System.out.println("retrun from orderService " + orders.size());
-				
-				ReorgQueue.reorgServeQueue(serveQueueList, users, orders);   //need to verify
 				
 			}
 		} catch (BusinessServiceException ex) {
@@ -194,23 +199,24 @@ public class ServeQueueController {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 
 		try {
-			String jsonStr = request.getParameter("param");
+//			String jsonStr = request.getParameter("param");
 			UserProfile loginUser = (UserProfile) session
 					.getAttribute(PlatfromConstants.STR_USER_PROFILE);
 
-			if (StringUtil.isNull(jsonStr) || loginUser == null ) {
-				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
-				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
-				logger.error("< ServeQueueController.call() > 注册用户信息为空或没有权限。"
-						+ jsonStr);
-			} else if (null == session || null == loginUser || null == loginUser.getUserName()){
+//			if (StringUtil.isNull(jsonStr) || loginUser == null ) {
+//				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
+//				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
+//				logger.error("< ServeQueueController.call() > 注册用户信息为空或没有权限。"
+//						+ jsonStr);
+//			} else 
+			if (null == session || null == loginUser || null == loginUser.getUserName()){
 				code = BusinessCenterResCode.SYS_INVILID_REQ.getCode();
 				msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
-				logger.error("< ServeQueueController.call() > session is null。" + jsonStr);
+				logger.error("< ServeQueueController.call() > session is null。");
 			} else if (loginUser.getGroupId() != BusinessCenterUserGroup.SYS_SERVICER.getId()){
 				code = BusinessCenterResCode.SYS_NO_ADMIN.getCode();
 				msg = BusinessCenterResCode.SYS_NO_ADMIN.getMsg();
-				logger.error("< ServeQueueController.call() > you are not role。" + jsonStr);
+				logger.error("< ServeQueueController.call() > you are not role。");
 			}else{
 				Order order = orderService.queryFirstForServeQueue();
 				order.setStatus(BusinessCenterOrderStatus.ORDER_STATUS_SERVE.getId());
@@ -259,26 +265,32 @@ public class ServeQueueController {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 
 		try {
-			String jsonStr = request.getParameter("param");
-			UserProfile loginUser = (UserProfile) session
+//			String jsonStr = request.getParameter("param");
+			UserProfile logUser = (UserProfile) session
 					.getAttribute(PlatfromConstants.STR_USER_PROFILE);
 
-			if (StringUtil.isNull(jsonStr) || loginUser == null ) {
-				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
-				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
-				logger.error("< ServeQueueController.sendWorkShop() > 发送车间信息为空或没有权限。"
-						+ jsonStr);
-			} else if (null == session || null == loginUser || null == loginUser.getUserName()){
+//			if (StringUtil.isNull(jsonStr) || loginUser == null ) {
+//				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
+//				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
+//				logger.error("< ServeQueueController.sendWorkShop() > 发送车间信息为空或没有权限。"
+//						+ jsonStr);
+//			} else 
+			if (null == session || null == logUser || null == logUser.getUserName()){
 				code = BusinessCenterResCode.SYS_INVILID_REQ.getCode();
 				msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
-				logger.error("< ServeQueueController.sendWorkShop() > session is null。" + jsonStr);
-			} else if (loginUser.getGroupId() != BusinessCenterUserGroup.SYS_SERVICER.getId()){
+				logger.error("< ServeQueueController.sendWorkShop() > session is null。");
+			} else if (logUser.getGroupId() != BusinessCenterUserGroup.SYS_SERVICER.getId()){
 				code = BusinessCenterResCode.SYS_NO_ADMIN.getCode();
 				msg = BusinessCenterResCode.SYS_NO_ADMIN.getMsg();
-				logger.error("< ServeQueueController.sendWorkShop() > you are not role。" + jsonStr);
+				logger.error("< ServeQueueController.sendWorkShop() > you are not role。");
 			}else{
 				
-				ServeQueue serveQueue = serveQueueService.queryServeQueueByUserAndStep(loginUser.getId(), 0);
+				ServeQueue serveQueue = new ServeQueue();
+				serveQueue.setStep(0);
+				serveQueue.setUserId(logUser.getId());
+				List<ServeQueue> serveQueues = serveQueueService.getServeQueueByStepAndUserId(serveQueue);
+				
+				serveQueue = serveQueues.get(0);
 				
 				Order order = orderService.queryOrderById(serveQueue.getOrderId());
 				order.setStatus(BusinessCenterOrderStatus.ORDER_STATUS_MODIFY.getId());

@@ -26,23 +26,12 @@
 		order by START_TIME desc
 	</select>
 	
-	<select id="queryByServeQueueStepandUserid" resultMap="ServeQueueDoMap" 
-		parameterType="java.lang.Integer">
+	<select id="queryByUseridAndStep" resultMap="ServeQueueDoMap" parameterType="ServeQueueDo">
 		SELECT 
 		<include refid="Base_Column_List" />
 		FROM TBL_SERVEQUEUE
 		WHERE
 		STEP = #{step} and USER_ID = #{userId}
-		order by START_TIME desc
-	</select>
-	
-	<select id="queryByUseridAndStep" resultMap="ServeQueueDoMap" 
-		parameterType="java.lang.Integer">
-		SELECT 
-		<include refid="Base_Column_List" />
-		FROM TBL_SERVEQUEUE
-		WHERE
-		USER_ID = {userId} and STEP = #{step} 
 	</select>
 	
 	<insert id="addServeQueue" parameterType="ServeQueueDo">

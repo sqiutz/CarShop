@@ -24,23 +24,23 @@ public class ServeQueueServiceImpl implements ServeQueueService{
 	private ServeQueueDao serveQueueDao;
 	
 
-	public ServeQueue queryServeQueueByUserAndStep(Integer userId, Integer step) {
-		// TODO Auto-generated method stub
-		ServeQueue serveQueue = null;
-		List<ServeQueueDo> serveQueueDoes = serveQueueDao.queryByUseridAndStep(userId, step);
-		
-		if(serveQueueDoes == null){
-			return new ServeQueue();
-		}else if(serveQueueDoes.size() > 1){
-			logger.error("处理的serve订单数超过>1！" + BusinessCenterResCode.ORDER_ILLEGAL.getMsg());
-    		throw new BusinessServiceException(BusinessCenterResCode.ORDER_ILLEGAL.getCode(),
-    				BusinessCenterResCode.ORDER_ILLEGAL.getMsg());
-		}else{
-			serveQueue = ServeQueueConverter.getServeQueue(serveQueueDoes.get(0));
-		}
-
-		return serveQueue;
-	}
+//	public ServeQueue queryServeQueueByUserAndStep(Integer userId, Integer step) {
+//		// TODO Auto-generated method stub
+//		ServeQueue serveQueue = null;
+//		List<ServeQueueDo> serveQueueDoes = serveQueueDao.queryByUseridAndStep(userId, step);
+//		
+//		if(serveQueueDoes == null){
+//			return new ServeQueue();
+//		}else if(serveQueueDoes.size() > 1){
+//			logger.error("处理的serve订单数超过>1！" + BusinessCenterResCode.ORDER_ILLEGAL.getMsg());
+//    		throw new BusinessServiceException(BusinessCenterResCode.ORDER_ILLEGAL.getCode(),
+//    				BusinessCenterResCode.ORDER_ILLEGAL.getMsg());
+//		}else{
+//			serveQueue = ServeQueueConverter.getServeQueue(serveQueueDoes.get(0));
+//		}
+//
+//		return serveQueue;
+//	}
 
 	public void addServeQueue(ServeQueue serveQueue)
 			throws BusinessServiceException {
@@ -79,10 +79,11 @@ public class ServeQueueServiceImpl implements ServeQueueService{
 	}
 	
 
-	public List<ServeQueue> getServeQueueByStepAndUserId(Integer step,
-			Integer userId) throws BusinessServiceException {
+	public List<ServeQueue> getServeQueueByStepAndUserId(ServeQueue serveQueue) throws BusinessServiceException {
 		// TODO Auto-generated method stub
-		List<ServeQueueDo> serveQueueDoes = serveQueueDao.queryByServeQueueStepandUserid(step, userId);
+		
+		ServeQueueDo serveQueueDo = ServeQueueConverter.getServeQueueDo(serveQueue);
+		List<ServeQueueDo> serveQueueDoes = serveQueueDao.queryByUseridAndStep(serveQueueDo);
 		List<ServeQueue> serveQueues = new ArrayList<ServeQueue>();
 		
 		if (serveQueueDoes == null){
