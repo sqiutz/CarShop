@@ -369,17 +369,19 @@ public class UserController {
 				msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
 				logger.error("< UserController.modifyUser() > session is null." + jsonStr);
 			} else{
-				//修改用户信息
-				userService.modifyUser(WebUserConverter.getUser(regUser));
-				
+		
 				String counter = regUser.getCounter();
 				if(counter != null && counter.equals("") == false){
 					User existUser = userService.queryUserByCounter(counter);
 					if(existUser != null){
-						existUser.setCounter(null);
+						existUser.setCounter("Null");
 						userService.modifyUser(existUser);
 					}
 				}
+				
+				//修改用户信息
+				userService.modifyUser(WebUserConverter.getUser(regUser));
+				
 				
 			}
 		} catch (BusinessServiceException ex) {

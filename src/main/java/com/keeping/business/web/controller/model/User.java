@@ -8,15 +8,15 @@ public class User {
 
 	private String userName;		//用户名
 	
-	private int isAdmin;			//管理员标记
+	private Integer isAdmin;			//管理员标记
 	
 	private String proImgPath;	//Profile用户图标
 
 	private String passwd;
 	
-	private long groupId;
+	private Integer groupId;
 	
-	private int isValid;			//是否激活
+	private Integer isValid;			//是否激活
 	
 	private String counter;
 
@@ -32,11 +32,11 @@ public class User {
 		this.userName = userName;
 	}
 
-	public int getIsAdmin() {
+	public Integer getIsAdmin() {
 		return isAdmin;
 	}
 
-	public void setIsAdmin(int isAdmin) {
+	public void setIsAdmin(Integer isAdmin) {
 		this.isAdmin = isAdmin;
 	}
 
@@ -56,11 +56,11 @@ public class User {
 		this.passwd = passwd;
 	}
 
-	public int getIsValid() {
+	public Integer getIsValid() {
 		return isValid;
 	}
 
-	public void setIsValid(int isValid) {
+	public void setIsValid(Integer isValid) {
 		this.isValid = isValid;
 	}
 
@@ -80,11 +80,11 @@ public class User {
 		this.modifyTime = modifyTime;
 	}
 
-	public long getGroupId() {
+	public Integer getGroupId() {
 		return groupId;
 	}
 
-	public void setGroupId(long groupId) {
+	public void setGroupId(Integer groupId) {
 		this.groupId = groupId;
 	}
 

@@ -16,7 +16,7 @@ public class UserDo {
 	
 	private int isValid;			//是否激活
 	
-	private long groupId;
+	private Integer groupId;
 	
 	private String counter;
 
@@ -64,11 +64,11 @@ public class UserDo {
 		this.isValid = isValid;
 	}
 	
-	public long getGroupId() {
+	public Integer getGroupId() {
 		return groupId;
 	}
 
-	public void setGroupId(long groupId) {
+	public void setGroupId(Integer groupId) {
 		this.groupId = groupId;
 	}
 

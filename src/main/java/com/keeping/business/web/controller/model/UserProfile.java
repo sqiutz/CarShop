@@ -6,7 +6,7 @@ public class UserProfile {
 	
 	private String userName;		//username
 	
-	private int isAdmin;			//是否管理员
+	private Integer isAdmin;			//是否管理员
 	
 	private String proImgPath;	//Profile用户图标
 
@@ -14,15 +14,15 @@ public class UserProfile {
 	
 	private Integer isValid;
 	
-	private long groupId;
+	private Integer groupId;
 	
 	private String counter;
 
-	public int getIsAdmin() {
+	public Integer getIsAdmin() {
 		return isAdmin;
 	}
 
-	public void setIsAdmin(int isAdmin) {
+	public void setIsAdmin(Integer isAdmin) {
 		this.isAdmin = isAdmin;
 	}
 
@@ -58,11 +58,11 @@ public class UserProfile {
 		this.isValid = isValid;
 	}
 
-	public long getGroupId() {
+	public Integer getGroupId() {
 		return groupId;
 	}
 
-	public void setGroupId(long groupId) {
+	public void setGroupId(Integer groupId) {
 		this.groupId = groupId;
 	}
 
