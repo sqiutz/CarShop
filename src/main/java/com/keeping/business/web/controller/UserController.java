@@ -374,7 +374,7 @@ public class UserController {
 				if(counter != null && counter.equals("") == false){
 					User existUser = userService.queryUserByCounter(counter);
 					if(existUser != null){
-						existUser.setCounter("Null");
+						existUser.setCounter(existUser.getId().toString());
 						userService.modifyUser(existUser);
 					}
 				}
