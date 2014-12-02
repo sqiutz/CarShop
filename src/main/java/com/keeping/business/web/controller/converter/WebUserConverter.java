@@ -21,6 +21,7 @@ public class WebUserConverter {
         userPro.setId(user.getId());
         userPro.setIsValid(user.getIsValid());
         userPro.setUserName(user.getUserName());
+        userPro.setCounter(user.getCounter());
         return userPro;
     }
 
@@ -39,6 +40,7 @@ public class WebUserConverter {
         user.setPasswd(userPro.getPasswd());
         user.setGroupId(userPro.getGroupId());
         user.setIsValid(userPro.getIsValid());
+        user.setCounter(userPro.getCounter());
      
 //      int dt = Integer.parseInt(DateUtil.getCurrentDateTime1("yyyyMMdd"));
 
