@@ -73,8 +73,9 @@
 	                                    },
 	                                    success : function(data) {
 	                                        if(data.code == '000000') {
+	                                            userSelected.isValid = userSelected.isValid ? 0 : 1;
 	                                            $('#userId_'+index).text(
-	                                                    userSelected.isValid ? 'No' : 'Yes');
+	                                                    userSelected.isValid ? 'Yes' : 'No');
 	                                        }
 	                                    }
 	                                });

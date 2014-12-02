@@ -281,6 +281,10 @@ label {
 	float:left;
 	width:150px;
 }
+input {
+	 margin: 0px;
+	 padding: 0px;
+}
 input[type='text'], input[type='password'] {
 	width:150px;
 	height:21px;

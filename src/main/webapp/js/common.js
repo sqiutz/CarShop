@@ -57,7 +57,8 @@
                                  "userName", // 账号
                                  "passwd", // 密码
                                  "isAdmin",
-                                 "isValid"
+                                 "isValid",
+                                 "counter"
                         ]
                     },
                     // 获取用户信息
