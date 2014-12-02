@@ -100,8 +100,8 @@
             },
             success : function(data) {
             	if(data.code == '000000') {
-            		var serve = data.obj;
-            		
+            		var serve = data.resList[0];
+            		$('#currentNo').text(serve ? serve.order.registerNum : '')
             	}
             }
     	});
