@@ -98,6 +98,48 @@ public class UserController {
 
 	}
 	
+	@RequestMapping(params = "action=logout")
+	@ResponseBody
+	public WebResult logout(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
+		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
+		UserProfile userProfile = new UserProfile();
+		HttpSession session = request.getSession();
+		response.setHeader("Access-Control-Allow-Origin", "*");
+
+		try {
+			
+			UserProfile u = (UserProfile)session.getAttribute(PlatfromConstants.STR_USER_PROFILE);
+			
+			User user = userService.queryUserByName(u.getUserName());
+			user.setCounter(null);
+			userService.modifyUser(user);
+			
+			session.removeAttribute(PlatfromConstants.STR_USER_PROFILE);
+			session.invalidate();
+
+		} catch (BusinessServiceException ex) {
+			code = ex.getErrorCode();
+			msg = ex.getErrorMessage();
+		} catch (Exception e) {
+			code = BusinessCenterResCode.SYS_ERROR.getCode();
+			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
+			logger.error("< UserController.login() > 登录错误." + e.getMessage());
+		}
+
+		// 返回结果
+		try {
+			return JsonConverter.getResultSignal(code, msg);
+		} catch (Exception e) {
+			session.removeAttribute(PlatfromConstants.STR_USER_PROFILE);
+			session.invalidate();
+			logger.error("< UserController.login() > 登录返回出错." + e.getMessage());
+			throw e;
+		}
+
+	}
+	
 	@RequestMapping(params = "action=checklogin")
 	@ResponseBody
 	public WebResultObject<UserProfile> checkLogin(HttpServletRequest request,
