@@ -77,6 +77,24 @@ public class ServeQueueServiceImpl implements ServeQueueService{
 		
 		return serveQueues;
 	}
+	
+
+	public List<ServeQueue> getServeQueueByStepAndUserId(Integer step,
+			Integer userId) throws BusinessServiceException {
+		// TODO Auto-generated method stub
+		List<ServeQueueDo> serveQueueDoes = serveQueueDao.queryByServeQueueStepandUserid(step, userId);
+		List<ServeQueue> serveQueues = new ArrayList<ServeQueue>();
+		
+		if (serveQueueDoes == null){
+			return serveQueues;
+		}
+		
+		for (int i = 0; i < serveQueueDoes.size(); i++){
+			serveQueues.add(ServeQueueConverter.getServeQueue(serveQueueDoes.get(i)));
+		}
+		
+		return serveQueues;
+	}
 
 	public ServeQueueDao getServeQueueDao() {
 		return serveQueueDao;

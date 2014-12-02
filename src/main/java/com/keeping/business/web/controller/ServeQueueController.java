@@ -111,6 +111,68 @@ public class ServeQueueController {
 		return JsonConverter.getResultObject(code, msg, serveQueueList);
 	}
 
+	@RequestMapping(params = "action=getone")
+	@ResponseBody
+	public WebResultList<ServeQueue> getServeQueue(HttpServletRequest request, HttpServletResponse response) {
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
+		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
+		HttpSession session = request.getSession();
+		session.setMaxInactiveInterval(PlatformPar.sessionTimeout);
+
+		List<ServeQueue> serveQueueList = new ArrayList<ServeQueue>();
+		try {
+			UserProfile logUser = (UserProfile) session
+					.getAttribute(PlatfromConstants.STR_USER_PROFILE);
+			
+			String jsonStr = request.getParameter("param");
+			StepObject step = JsonConverter.getFromJsonString(jsonStr,
+					StepObject.class);
+			if (null == step) {
+				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
+				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
+				logger.error("< ServeQueueController.getServeQueue() > 获取服务订单请求信息不正确: " + step);
+			} else if (null == session || null == logUser || null == logUser.getUserName()){
+				code = BusinessCenterResCode.SYS_INVILID_REQ.getCode();
+				msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
+				logger.error("< ServeQueueController.getServeQueue() > session is null." + jsonStr);
+			}  
+			else {
+				serveQueueList = serveQueueService.getServeQueueByStepAndUserId(Integer.parseInt(step.getStep()), logUser.getId());
+				
+				List<Integer> userIdList = new ArrayList<Integer>();
+				List<Integer> orderIdList = new ArrayList<Integer>();
+				for (int i=0; i<serveQueueList.size(); i++){
+					System.out.println("serveQueueList.get(i).getUserId() " + serveQueueList.get(i).getUserId());
+					userIdList.add(serveQueueList.get(i).getUserId());
+					System.out.println("serveQueueList.get(i).getOrderId() " + serveQueueList.get(i).getOrderId());
+					orderIdList.add(serveQueueList.get(i).getOrderId());
+				}
+				
+				List<User> users = userService.getByUsersId(userIdList);
+				System.out.println("retrun from userService " + users.size());
+				List<Order> orders = orderService.getByOrdersId(orderIdList);
+				System.out.println("retrun from orderService " + orders.size());
+				
+				ReorgQueue.reorgServeQueue(serveQueueList, users, orders);   //need to verify
+				
+			}
+		} catch (BusinessServiceException ex) {
+			code = ex.getErrorCode();
+			msg = ex.getErrorMessage();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			System.out.println(e.getStackTrace());
+			code = BusinessCenterResCode.SYS_ERROR.getCode();
+			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
+			logger.error("< ServeQueueController.getAllServeQueues() > 获取排队列表失败."
+					+ e.getMessage());
+		}
+
+		return JsonConverter.getResultObject(code, msg, serveQueueList);
+	}
+
+	
 	/**
 	 * 添加serveQueue订单
 	 * 

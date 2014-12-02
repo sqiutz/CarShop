@@ -15,4 +15,6 @@ public interface ServeQueueService {
     
     public void updateServeQueue(ServeQueue serveQueue) throws BusinessServiceException;
     
+    public List<ServeQueue> getServeQueueByStepAndUserId(Integer step, Integer userId) throws BusinessServiceException;
+    
 }
