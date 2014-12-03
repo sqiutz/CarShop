@@ -1,5 +1,6 @@
 (function($) {
-    var orgPassword = $('#orgPassword'), newPassword = $('#newPassword'), newPasswordConf = $('#newPasswordConf');
+    var orgPassword = $('#orgPassword'), newPassword = $('#newPassword'), newPasswordConf = $('#newPasswordConf'),
+        username = $('#username'), adminPassword = $('#adminPassword');
     var user = {
         // 验证登录密码
         validateOrgPass : function() {
@@ -130,10 +131,17 @@
         history.go(-1);
     });
     
+    var userProfile;
     $.UserInfo.checkLogin({
         success : function(data) {
             if(data.code == '000000') {
-                $("#helloUserName").text('Hello ' + (data.obj ? data.obj.userName : ''));             
+                userProfile = data.obj;
+                $("#helloUserName").text('Hello ' + (userProfile ? userProfile.userName : ''));  
+                if(userProfile.isAdmin) {
+                    $('#orgPwdDiv').hide();
+                    $('#adminPwdDiv').show();
+                    $('#usernameDiv').show();
+                }
             }
         }
     });
