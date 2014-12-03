@@ -330,6 +330,10 @@ button.yellow {
 	font-size:16px;
 	
 }
+button.yellow:disabled {
+	color:gray;
+	cursor:auto;
+}
 .f-black {
 	color:#000000;
 }

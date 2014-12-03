@@ -47,14 +47,19 @@ button.blue {
 	display:inline-block;
 	background:url(../img/btn-bg-blue.png);
 	background-repeat:no-repeat;
-	background-size:cover;
-	-moz-background-size:cover;
+	background-size:150px, 85px;
+	-moz-background-size:150px, 85px;
 	background-position:center;
 	cursor:pointer;
 	border:none;
+	outline:none;
 	width:150px;
 	height:85px;
 	color:rgb(56,41,113);
 	font-size:22px;
 	font-weight:bold;
+}
+button.blue:disabled {
+	color:gray;
+	cursor:auto;
 }
