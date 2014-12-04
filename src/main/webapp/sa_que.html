@@ -11,9 +11,13 @@
 <script src="js/lib/jquery-2.1.1.min.js"></script>
 <script src="js/global.js"></script>
 <script type="text/javascript">
+		function layoutMe() {
+			var res = layout();
+			$('#content_lf').css('height', res[2] - 6 + 'px');
+		}
         $(document).ready(function() {
-            layout();
-            $(window).resize(layout);
+            layoutMe();
+            $(window).resize(layoutMe);
         });
 </script>
 
