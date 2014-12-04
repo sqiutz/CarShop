@@ -1,6 +1,6 @@
 (function($) {
     var orgPassword = $('#orgPassword'), newPassword = $('#newPassword'), newPasswordConf = $('#newPasswordConf'),
-        username = $('#username'), adminPassword = $('#adminPassword');
+        username = $('#username');
     var user = {
         // 验证登录密码
         validateOrgPass : function() {
@@ -53,45 +53,63 @@
             }
             return flag;
         },
+        validateUsername : function() {
+            var flag = undefined !== username.val() && null !== username.val() && '' !== username.val();
+            if(!flag) {
+                $('#usernameErrMsg').html('').hide('normal');
+                username.css('border', '1px solid #CCC');
+            }
+            return flag;
+        },
         //修改密码
         changePassword : function() {
             var valOrgPass = user.validateOrgPass();
-            var valPass = user.validatePass();
+            var valPass = userProfile.isAdmin ? true : user.validatePass();
             var valPassConf = user.validatePassConf();
-            if(valOrgPass && valPass && valPassConf) {
-                $.UserInfo.checkLogin({
-                    success : function(data) {
-                        if(data.code == '000000') {
-                            var userProfile = data.obj;
-                            if(userProfile) {
-                                if(userProfile.passwd !== orgPassword.val()) {
-                                    $('#errMsg').attr('class', 'errMsg')
-                                    .html('The original password is not correct!').show('normal');
-                                    return;
-                                }
-                                $.UserInfo.modifyUser({
-                                    data : {
-                                        id : userProfile.id,
-                                        groupId : userProfile.groupId,
-                                        userName : userProfile.userName,
-                                        passwd : newPassword.val(),
-                                        isAdmin : userProfile.isAdmin,
-                                        isValid : 1
-                                    },
-                                    success : function(data) {
-                                        if(data.code == '000000') {
-                                            $('#errMsg').attr('class', 'succMsg')
-                                                .html('The new password has been saved.').show('normal');
-                                            orgPassword.val('');
-                                            newPassword.val('');
-                                            newPasswordConf.val('');
-                                        }
+            var valUsername = userProfile.isAdmin ? user.validateUsername() : true;
+            if(valOrgPass && valPass && valPassConf && valUsername) {
+                if(userProfile.isAdmin) {
+                    modifyUser();
+                }
+                else {
+                    $.UserInfo.checkLogin({
+                        success : function(data) {
+                            if(data.code == '000000') {
+                                var u = data.obj;
+                                if(u) {
+                                    if(u.passwd !== orgPassword.val()) {
+                                        $('#errMsg').attr('class', 'errMsg')
+                                        .html('The original password is not correct!').show('normal');
+                                        return;
                                     }
-                                });
-                            }                             
+                                    modifyUser();
+                                }                             
+                            }
                         }
-                    }
-                });
+                    });
+                }                
+                
+                function modifyUser() {
+                    $.UserInfo.modifyUser({
+                        data : {
+                            id : u.id,
+                            groupId : u.groupId,
+                            userName : u.userName,
+                            passwd : userProfile.isAdmin ? u.passwd : newPassword.val(),
+                            isAdmin : u.isAdmin,
+                            isValid : 1
+                        },
+                        success : function(data) {
+                            if(data.code == '000000') {
+                                $('#errMsg').attr('class', 'succMsg')
+                                    .html('The new password has been saved.').show('normal');
+                                orgPassword.val('');
+                                newPassword.val('');
+                                newPasswordConf.val('');
+                            }
+                        }
+                    });
+                }
             }
         }
     };
@@ -139,7 +157,6 @@
                 $("#helloUserName").text('Hello ' + (userProfile ? userProfile.userName : ''));  
                 if(userProfile.isAdmin) {
                     $('#orgPwdDiv').hide();
-                    $('#adminPwdDiv').show();
                     $('#usernameDiv').show();
                 }
             }
