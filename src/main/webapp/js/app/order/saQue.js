@@ -23,11 +23,11 @@
             var serve = serves && j < serves.length ? serves[j] : null;
             var tr = $('<tr></tr>').attr('class', i % 2 === 0 ? 'odd' : 'even')
                     .appendTo($('#servingList'));
-            $('<td></td>').text(serve ? serve.order.registerNum : '').appendTo(tr);
-            $('<td></td>').text(serve ? serve.order.queueNum : '').appendTo(tr);
-            $('<td></td>').text(serve ? serve.user.userName : '').appendTo(tr);
-            $('<td></td>').text(serve ? getTimeStr(serve.order.startTime) : '').appendTo(tr);
-            $('<td></td>').text(serve ? getTimeStr(serve.order.endTime) : '').appendTo(tr);
+            $('<td></td>').text(serve && serve.order ? serve.order.registerNum : '').appendTo(tr);
+            $('<td></td>').text(serve && serve.order ? serve.order.queueNum : '').appendTo(tr);
+            $('<td></td>').text(serve && serve.user ? serve.user.userName : '').appendTo(tr);
+            $('<td></td>').text(serve && serve.order ? getTimeStr(serve.order.startTime) : '').appendTo(tr);
+            $('<td></td>').text(serve && serve.order ? getTimeStr(serve.order.endTime) : '').appendTo(tr);
         }
         if (j < serves.length - 1) {
             sListIter++;
@@ -101,6 +101,9 @@
             success : function(data) {
             	if(data.code == '000000') {
             		var serve = data.resList[0];
+            		if(serve) {
+            		    $('#callBtn').attr('disabled', 'disabled');
+            		}
             		$('#currentNo').text(serve ? serve.order.registerNum : '')
             	}
             }
@@ -109,7 +112,6 @@
        
     // Call
     $('#callBtn').bind('click', function() {
-        //$('#callBtn').attr('disabled', 'disabled');
     	$.OrderInfo.call({
     		success : function(data) {
     			$('#callBtn').attr('disabled', 'disabled');
