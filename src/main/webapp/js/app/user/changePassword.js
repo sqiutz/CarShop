@@ -56,20 +56,21 @@
         validateUsername : function() {
             var flag = undefined !== username.val() && null !== username.val() && '' !== username.val();
             if(!flag) {
-                $('#usernameErrMsg').html('').hide('normal');
-                username.css('border', '1px solid #CCC');
+                $('#usernameErrMsg').html('Please select a username!').show('normal');
+                username.css('border', '1px solid #F00');
+                flag = false;
             }
             return flag;
         },
         //修改密码
         changePassword : function() {
-            var valOrgPass = user.validateOrgPass();
-            var valPass = userProfile.isAdmin ? true : user.validatePass();
+            var valOrgPass = userProfile.isAdmin ? true : user.validateOrgPass();
+            var valPass = user.validatePass();
             var valPassConf = user.validatePassConf();
             var valUsername = userProfile.isAdmin ? user.validateUsername() : true;
             if(valOrgPass && valPass && valPassConf && valUsername) {
                 if(userProfile.isAdmin) {
-                    modifyUser();
+                    modifyUser(users[username.val()]);
                 }
                 else {
                     $.UserInfo.checkLogin({
@@ -82,20 +83,20 @@
                                         .html('The original password is not correct!').show('normal');
                                         return;
                                     }
-                                    modifyUser();
+                                    modifyUser(u);
                                 }                             
                             }
                         }
                     });
                 }                
                 
-                function modifyUser() {
+                function modifyUser(u) {
                     $.UserInfo.modifyUser({
                         data : {
                             id : u.id,
                             groupId : u.groupId,
                             userName : u.userName,
-                            passwd : userProfile.isAdmin ? u.passwd : newPassword.val(),
+                            passwd : newPassword.val(),
                             isAdmin : u.isAdmin,
                             isValid : 1
                         },
@@ -159,6 +160,18 @@
                     $('#orgPwdDiv').hide();
                     $('#usernameDiv').show();
                 }
+            }
+        }
+    });
+    
+    var users;
+    $.UserInfo.getAllUsers({
+        success : function(data) {
+            users = data.resList;
+            for(var i = 0; i < users.length; i++) {
+                var u = users[i];
+                $('#username').append("<option value ='" + i + "'>"
+                        + u.userName + "</option>");
             }
         }
     });
