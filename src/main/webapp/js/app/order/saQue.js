@@ -113,6 +113,7 @@
     	$.OrderInfo.call({
     		success : function(data) {
     			$('#callBtn').attr('disabled', 'disabled');
+    			getServeQueue();
             }
     	});
     });
