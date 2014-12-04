@@ -36,7 +36,7 @@ CREATE TABLE `TBL_PROPERTY` (
 DROP TABLE IF EXISTS `TBL_USERGROUP`;
 CREATE TABLE `TBL_USERGROUP` (
   `id` bigint(10) NOT NULL AUTO_INCREMENT,
-  `group_name` varchar(48) NOT NULL,      /*0: admin; 1:waiter; 2:manager; 3:worker; 4:washer*/
+  `group_name` varchar(48) NOT NULL UNIQUE,      /*0: admin; 1:waiter; 2:manager; 3:worker; 4:washer*/
   `comment` varchar(256) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;

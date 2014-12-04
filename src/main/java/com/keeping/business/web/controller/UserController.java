@@ -70,7 +70,9 @@ public class UserController {
 			} else {
 				userProfile = WebUserConverter.getUserProfile(userService
 						.login(req.getUsername(), req.getPasswd()));
-
+				UserGroup userGroup = userGroupService.queryById(userProfile.getGroupId());
+				userProfile.setGroupName(userGroup.getGroupName());
+				
 				// 将用户信息保存在session中
 				session.setAttribute(PlatfromConstants.STR_USER_PROFILE,
 						userProfile);

@@ -6,12 +6,27 @@ import java.util.List;
 import com.keeping.business.dal.dao.UserGroupDao;
 import com.keeping.business.dal.model.UserGroupDo;
 import com.keeping.business.service.UserGroupService;
+import com.keeping.business.service.converter.UserGroupConverter;
 import com.keeping.business.web.controller.model.UserGroup;
 
 public class UserGroupServiceImpl implements UserGroupService{
 	
 	/**用户信息DAO */
     private UserGroupDao userGroupDao;
+    
+	public UserGroup queryById(Integer id) {
+		// TODO Auto-generated method stub
+		UserGroupDo userGroupDo = userGroupDao.queryById(id);
+		UserGroup userGroup = new UserGroup();;
+		
+		if(userGroupDo == null){
+			return userGroup;
+		}
+		
+		return UserGroupConverter.getUserGroup(userGroupDo);
+		
+		
+	}
 
 	public List<UserGroup> queryAll() {
 		// TODO Auto-generated method stub
@@ -54,5 +69,7 @@ public class UserGroupServiceImpl implements UserGroupService{
 	public void setUserGroupDao(UserGroupDao userGroupDao) {
 		this.userGroupDao = userGroupDao;
 	}
+
+
 
 }

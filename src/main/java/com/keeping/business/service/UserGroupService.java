@@ -12,4 +12,6 @@ public interface UserGroupService {
 	
 	public void deleteGroup(Integer id);
 	
+	public UserGroup queryById(Integer id);
+	
 }

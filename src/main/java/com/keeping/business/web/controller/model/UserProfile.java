@@ -17,6 +17,8 @@ public class UserProfile {
 	private Integer groupId;
 	
 	private String counter;
+	
+	private String groupName;
 
 	public Integer getIsAdmin() {
 		return isAdmin;
@@ -80,5 +82,13 @@ public class UserProfile {
 
 	public void setCounter(String counter) {
 		this.counter = counter;
+	}
+
+	public String getGroupName() {
+		return groupName;
+	}
+
+	public void setGroupName(String groupName) {
+		this.groupName = groupName;
 	}
 }

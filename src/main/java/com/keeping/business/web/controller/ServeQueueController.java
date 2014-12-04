@@ -219,7 +219,7 @@ public class ServeQueueController {
 				code = BusinessCenterResCode.SYS_INVILID_REQ.getCode();
 				msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
 				logger.error("< ServeQueueController.call() > session is null。");
-			} else if (loginUser.getGroupId() != BusinessCenterUserGroup.SYS_SERVICER.getId()){
+			} else if (null == loginUser.getGroupName() && loginUser.getGroupName()!= BusinessCenterUserGroup.SYS_SERVICER.getGroupName()){
 				code = BusinessCenterResCode.SYS_NO_ADMIN.getCode();
 				msg = BusinessCenterResCode.SYS_NO_ADMIN.getMsg();
 				logger.error("< ServeQueueController.call() > you are not role。");
