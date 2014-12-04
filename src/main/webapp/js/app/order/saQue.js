@@ -109,12 +109,12 @@
        
     // Call
     $('#callBtn').bind('click', function() {
-        $('#callBtn').attr('disabled', 'disabled');
-    	/*$.OrderInfo.call({
+        //$('#callBtn').attr('disabled', 'disabled');
+    	$.OrderInfo.call({
     		success : function(data) {
     			$('#callBtn').attr('disabled', 'disabled');
             }
-    	});*/
+    	});
     });
     
     $('#cancelBtn').bind('click', function() {

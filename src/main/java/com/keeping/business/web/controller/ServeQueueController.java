@@ -243,6 +243,8 @@ public class ServeQueueController {
 			code = ex.getErrorCode();
 			msg = ex.getErrorMessage();
 		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			System.out.println(e.getStackTrace());
 			code = BusinessCenterResCode.SYS_ERROR.getCode();
 			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
 			logger.error("< OrderController.startOrder() > 取号预约失败."
