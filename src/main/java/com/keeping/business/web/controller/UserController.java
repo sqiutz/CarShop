@@ -306,6 +306,7 @@ public class UserController {
 			else{
 				regUser.setIsAdmin(0);
 				regUser.setIsValid(1);
+
 				// 检查用户名是否已经存在
 				User user = userService.queryUserByName(regUser.getUserName());
 				
