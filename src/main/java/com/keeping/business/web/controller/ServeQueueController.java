@@ -224,6 +224,14 @@ public class ServeQueueController {
 				msg = BusinessCenterResCode.SYS_NO_ADMIN.getMsg();
 				logger.error("< ServeQueueController.call() > you are not role。");
 			}else{
+				
+				ServeQueue serveQueueV = new ServeQueue();
+				serveQueueV.setStep(0);
+				serveQueueV.setUserId(loginUser.getId());
+				List<ServeQueue> serveQueueList = serveQueueService.getServeQueueByStepAndUserId(serveQueueV);
+				
+				if (serveQueueList != null & serveQueueList.size() == 1){
+				
 				Order order = orderService.queryFirstForServeQueue();
 				order.setStatus(BusinessCenterOrderStatus.ORDER_STATUS_SERVE.getId());
 				orderService.updateOrder(order);              //修改订单状态
@@ -238,7 +246,11 @@ public class ServeQueueController {
 				serveQueue.setUserId(loginUser.getId());
 				
 				serveQueueService.addServeQueue(serveQueue);   //添加ServeQueue订单
-			}
+				}else{
+					code = BusinessCenterResCode.SYS_INVILID_REQ.getCode();
+					msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
+				}
+				}
 		} catch (BusinessServiceException ex) {
 			code = ex.getErrorCode();
 			msg = ex.getErrorMessage();
