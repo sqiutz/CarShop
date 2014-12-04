@@ -11,6 +11,7 @@ public class OrderConverter {
 		}
 		
 		Order order = new Order();
+		order.setId(orderDo.getId());
 		order.setCreateTime(orderDo.getCreateTime());
 		order.setEndTime(orderDo.getEndTime());
 		order.setEstimationTime(orderDo.getEstimationTime());
