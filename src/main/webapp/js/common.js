@@ -58,7 +58,8 @@
                                  "passwd", // 密码
                                  "isAdmin",
                                  "isValid",
-                                 "counter"
+                                 "counter",
+                                 "isBooker"
                         ]
                     },
                     // 获取用户信息

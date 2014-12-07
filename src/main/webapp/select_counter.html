@@ -13,6 +13,17 @@
 	<script type="text/javascript">
         $(document).ready(function() {
         	$('#errMsg').hide();
+        	loadLang('lang/en_US.js', function() {
+        		$('#changePwd').text(CHANGE_PASSW0RD);
+        		$('#logout').text(LOGOUT);
+        		$('#title').text(SUZUKI_SIAGA_LEBIH_MENGERTI_KELUARGA);
+        		$('#legend').text(SELECT_COUNTER);
+        		$('#isBookerLabel').text(IS_BOOKER);
+        		$('#opNo').text(NO);
+        		$('#opYes').text(YES);
+        		$('#counterLabel').text(COUNTER_NO);
+        		$('#nextBtn').text(NEXT);
+        	});
             layout();
             $(window).resize(layout);
         });
@@ -26,27 +37,34 @@
 		<span id='helloUserName' class='hello inline'></span>
 		</div>
 		<div class='header-top-rg'>
-			<a class='header-top' title='Change Password' href='change_password.html'>Change Password</a>
-			<a id='logout' class='header-top' title='Logout' href='index.html'>Logout</a>
+			<a id='changePwd' class='header-top' title='Change Password' href='change_password.html'></a>
+			<a id='logout' class='header-top' title='Logout' href='index.html'></a>
 		</div>
 	</div>
 	<div id='container' class='container'>
 		<div class='header'>
-			<span id='title' class='h1'>SUZUKI SIAGA LEBIH MENGERTI KELUARGA</span>
+			<span id='title' class='h1'></span>
 		</div>
 		<div id='content' class='content'>
 			<fieldset class='w1 small'>
-				<legend>Select Counter</legend>
+				<legend id='legend'></legend>
 				<form>
 					<div id='errMsg' class='errMsg'></div>
 					<div>
-						<label for='counter'>Counter No.</label>
+						<label id='isBookerLabel' for='isBooker'></label>
+						<select id='isBooker' name='isBooker'>
+							<option id='opNo' value='0'></option>
+							<option id='opYes' value='1'></option>
+						</select>
+					</div>
+					<div>
+						<label id='counterLabel' for='counter'></label>
 						<select id='counter' name='counter'></select>
 					</div> 				
 				</form>
 				<div class='controller'>
 <!-- 						<span class='button-yellow inline' id='nextBtn' title='Next'>Next</span> -->
- 							<button id='nextBtn' class='yellow' title='Next' disabled='disabled'>Next</button>
+ 							<button id='nextBtn' class='yellow' title='Next' disabled='disabled'></button>
 				</div>			
 			</fieldset>
 		</div>

@@ -171,7 +171,8 @@
                                 passwd : userSelected.passwd,
                                 isAdmin : userSelected.isAdmin,
                                 isValid : userSelected.isValid ? 0 : 1,
-                                counter : userSelected.counter
+                                counter : userSelected.counter,
+                                isBooker : userSelected.isBooker
                             },
                             success : function(data) {
                                 if(data.code == '000000') {

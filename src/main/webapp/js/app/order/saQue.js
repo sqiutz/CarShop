@@ -7,6 +7,7 @@
 				userProfile = data.obj;
 				$("#helloUserName").text(
 						'Hello ' + (userProfile ? userProfile.userName : ''));
+				$('#userName').text(userProfile ? userProfile.userName : '');
 			}
 		}
 	});

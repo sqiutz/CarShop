@@ -1,4 +1,4 @@
-function layout(minWidth, minHeight) {
+function layout(minWidth, minHeight, contentPadding) {
     var headerTopH = 0;
     if($('#headerTop').length > 0) {
         headerTopH = $('#headerTop').height();
@@ -28,7 +28,10 @@ function layout(minWidth, minHeight) {
         footerH = width * 0.043;
         $('#footer').css('height', footerH + 'px');
     }
-    var contentH = height - headerH - footerH - 10;
+    if(undefined === contentPadding) {
+    	contentPadding = 10
+    }
+    var contentH = height - headerH - footerH - contentPadding;
     $('#content').css('height', contentH + 'px');
     return[width, height, contentH];
 }

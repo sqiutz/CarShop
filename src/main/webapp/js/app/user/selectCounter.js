@@ -1,5 +1,5 @@
 (function($) {
-	var counter = $('#counter'), nextBtn = $('#nextBtn');
+	var counter = $('#counter'), isBooker = $('#isBooker'), nextBtn = $('#nextBtn');
 	var userProfile;
 	$.UserInfo.checkLogin({
 		success : function(data) {
@@ -62,7 +62,8 @@
 				passwd : userProfile.passwd,
 				isAdmin : userProfile.isAdmin,
 				isValid : 1,
-				counter : counter.val()
+				counter : counter.val(),
+				isBooker : parseInt(isBooker.val())
 			},
 			success : function(data) {
 				if (data.code == '000000') {

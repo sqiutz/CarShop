@@ -98,7 +98,8 @@
                             userName : u.userName,
                             passwd : newPassword.val(),
                             isAdmin : u.isAdmin,
-                            isValid : 1
+                            isValid : 1,
+                            isBooker : u.isBooker
                         },
                         success : function(data) {
                             if(data.code == '000000') {

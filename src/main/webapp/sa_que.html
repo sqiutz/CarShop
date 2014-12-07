@@ -12,10 +12,20 @@
 <script src="js/global.js"></script>
 <script type="text/javascript">
 		function layoutMe() {
-			var res = layout();
+			var res = layout(1200, 750, 0);
 			$('#content_lf').css('height', res[2] - 6 + 'px');
 		}
         $(document).ready(function() {
+        	loadLang('lang/en_US.js', function() {
+        		$('#changePwd').text(CHANGE_PASSW0RD);
+        		$('#logout').text(LOGOUT);
+        		$('#title').text(SA_QUE_CALLING_BOARD);
+        		$('#currentNoLabel').text(CURRENT_NUMBER);
+        		$('#remainingLabel').text(REMAINING);
+        		$('#waitingTimeLabel').text(WAITING_TIME);
+        		$('#avgWaitingTimeLabel').text(AVG_WAITING_TIME);
+        		$('#timerLabel').text(TIMER);
+        	});
             layoutMe();
             $(window).resize(layoutMe);
         });
@@ -29,42 +39,42 @@
 		<span id='helloUserName' class='hello inline'></span>
 		</div>
 		<div class='header-top-rg'>
-			<a class='header-top' title='Change Password' href='change_password.html'>Change Password</a>
-			<a id='logout' class='header-top' title='Logout' href='index.html'>Logout</a>
+			<a id='changePwd' class='header-top' title='Change Password' href='change_password.html'></a>
+			<a id='logout' class='header-top' title='Logout' href='index.html'></a>
 		</div>
 	</div>
 	<div id='container' class='container'>
 		<div id='header' class='header'>
-			<span id='title' class='h1'>SA QUE CALLING BOARD</span>
+			<span id='title' class='h1'></span>
 		</div>
 		<div id='content' class='content'>
 			<div id='content_lf' class='content_lf black'>
 				<div class='box'>
-					<span class='h6'>SA-01</span>				
+					<span id='userName' class='h6'></span>				
 				</div>
 				<div class='content_lf'>
 					<div class='box-black rAlign'>
-						<span class='h3 low'>CURRENT NUMBER</span>
+						<span id='currentNoLabel' class='h3 low'></span>
 						<span id='currentNo' class='h6 f-yellow-dark'></span>
 					</div>
 					<div class='box-black rAlign small'>
-						<span class='h3 low'>REMAINING</span>
+						<span id='remainingLabel' class='h3 low'></span>
 						<span id='remaining' class='h7 f-yellow-dark'></span>
 					</div>	
 				</div>
 				<div class='content_rg'>
 					<div class='box-gray'>
-						<span class='h5 f-black lAlign'>Waiting Time</span>
+						<span id='waitingTimeLabel' class='h5 f-black lAlign'></span>
 						<span class='h7 f-yellow-dark inline'>6''</span>
 						<span class='h1 f-yellow-light inline'>22'</span>
 					</div>
 					<div class='box-gray'>
-						<span class='h5 f-black lAlign'>Avg. Waiting Time</span>
+						<span id='avgWaitingTimeLabel' class='h5 f-black lAlign'></span>
 						<span class='h7 f-yellow-dark inline'>2''</span>
 						<span class='h1 f-yellow-light inline'>64'</span>
 					</div>
 					<div class='box-gray'>
-						<span class='h5 f-black lAlign'>Timer</span>
+						<span id='timerLabel' class='h5 f-black lAlign'>Timer</span>
 						<span class='h7 f-yellow-dark inline'>0''</span>
 						<span class='h1 f-yellow-light inline'>33'</span>
 					</div>
