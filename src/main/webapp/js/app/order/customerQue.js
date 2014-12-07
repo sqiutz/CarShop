@@ -5,11 +5,10 @@
 	var createServingList = function(serves) {
 		$('#servingList div').remove();
 		var j, num = 3;
-		for (var i = 0; i < num; i++) {
-			j = sListIter * num + i;
-			var serve = serves && j < serves.length ? serves[j] : null;
+		for (var i = sListIter, j = 0; i < num + sListIter; i++,j++) {
+			var serve = serves && i < serves.length ? serves[i] : null;
 			var div = $(
-					"<div class='b1 " + (i % 2 === 0 ? "odd" : "even")
+					"<div class='b1 " + (j % 2 === 0 ? "odd" : "even")
 							+ "'></div>").appendTo($('#servingList'));
 			$("<span></span>").text(serve ? serve.order.queueNum : '').attr(
 					'class', 'b1 col1').appendTo(div);
@@ -18,7 +17,7 @@
 			$("<span></span>").text(serve ? serve.user.counter : '').attr(
 					'class', 'b1 col3').appendTo(div);
 		}
-		if (j < serves.length - 1) {
+		if (i < serves.length - 1) {
 			sListIter++;
 			setTimeout(function() {
 				createServingList(serves);

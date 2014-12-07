@@ -98,7 +98,7 @@ public class UserProfile {
 		return isBooker;
 	}
 
-	public void setIdBooker(Integer isBooker) {
+	public void setIsBooker(Integer isBooker) {
 		this.isBooker = isBooker;
 	}
 }
