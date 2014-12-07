@@ -33,3 +33,19 @@ function layout(minWidth, minHeight) {
     $('#content').css('height', contentH + 'px');
     return[width, height, contentH];
 }
+
+function loadLang(url, complete) {
+    var head = document.getElementsByTagName("head")[0] || document.documentElement;
+    var script = document.createElement("script");
+    script.type = 'text/javascript';
+    script.src = url;
+    script.onload = script.onreadystatechange = function() {
+        complete();
+    }
+    
+    if (head.firstChild) {
+        head.insertBefore(script, head.firstChild);
+    } else {
+        head.appendChild(script);
+    }
+}

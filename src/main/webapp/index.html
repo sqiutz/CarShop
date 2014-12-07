@@ -15,6 +15,20 @@ $(document).ready(function() {
 	$('#errMsg').hide();
 	$('#userNameErrMsg').hide();
 	$('#pwdErrMsg').hide();
+	loadLang('lang/en_US.js', function() {
+	    $('#title').text(SUZUKI_SIAGA_LEBIH_MENGERTI_KELUARGA);
+	    $('#usernameLabel').text(USERNAME);
+	    $('#passwordLabel').text(PASSWORD);
+	    $('#loginBtn').text(LOGIN);
+	    $('#customerQueTitle').text(CUSTOMER_QUE_STATUS_BOARD);
+	    $('#customerQueDesc').text(CUSTOMER_QUE_STATUS_BOARD_DESC);
+	    $('#machanicTitle').text(MECHANIC_UPDATE_JOB_PROGRESS);
+	    $('#machanicDesc').text(MECHANIC_UPDATE_JOB_PROGRESS_DESC);
+	    $('#carWashTitle').text(CAR_WASH_QUE_BOARD);
+	    $('#carWashDesc').text(CAR_WASH_QUE_BOARD_DESC);
+	    $('#customerJobTitle').text(CUSTOMER_JOB_PROGRESS_BOARD);
+	    $('#customerJobDesc').text(CUSTOMER_JOB_PROGRESS_BOARD_DESC);
+	});
 	layout();
 	$(window).resize(layout);
 	});
@@ -25,8 +39,7 @@ $(document).ready(function() {
 <body data-js="user/userLogin">
 	<div id='container' class='container'>
 		<div class='header'>
-			<span id='title' class='h1'>SUZUKI SIAGA LEBIH MENGERTI
-				KELUARGA</span>
+			<span id='title' class='h1'></span>
 		</div>
 		<div id='content' class='content'>
 			<div style='width: 272px; margin: 20px auto 40px auto;'>
@@ -34,20 +47,20 @@ $(document).ready(function() {
 					<div id='errMsg' class='errMsg'></div>
 					<div id='userNameErrMsg' class='errMsg'></div>
 					<div>
-						<label style='width: 120px; font-size: 20px' for='username'>UserName</label>
-						<input style='width: 150px; font-size: 18px' id='username'
+						<label id='usernameLabel' style='width: 120px; font-size: 20px' for='username'></label>
+						<input id='username' style='width: 150px; font-size: 18px'
 							name='username' type='text'></input>
 					</div>
 					<div id='pwdErrMsg' class='errMsg'></div>
 					<div>
-						<label style='width: 120px; font-size: 20px' for='password'>Password</label>
-						<input style='width: 150px;' id='password' name='password' type='password'></input>
+						<label id='passwordLabel' style='width: 120px; font-size: 20px' for='password'></label>
+						<input id='password' style='width: 150px;' name='password' type='password'></input>
 					</div>
 <!-- 					<span id='loginBtn' class='button-blue' -->
 <!-- 						style='width: 272px; height: 33px' title='Login'>Login</span> -->
 				</form>
 				<button id='loginBtn' class='blue-button'
-						style='width: 272px; height: 33px' title='Login'>Login</button>
+						style='width: 272px; height: 33px' title='Login'></button>
 			</div>
 			<div align="center">
 				<table>
@@ -55,14 +68,14 @@ $(document).ready(function() {
 						<td style="width: 470px; cursor: pointer">
 							<table width="100%" height="100%">
 								<tr>
-									<td
+									<td id='customerQueTitle'
 										style="height: 150px; background: #E07C24; text-align: center; color: #FFFFFF; font-size: 40px"
-										onclick="location.href='customer_que.html'">CUSTOMER QUE STATUS BOARD</td>
+										onclick="location.href='customer_que.html'"></td>
 								</tr>
 								<tr>
-									<td
+									<td id='customerQueDesc'
 										style="height: 50px; background: #E3893B; text-align: center; color: #FFFFFF;"
-										onclick="location.href='customer_que.html'">Show the serving & waiting queue</td>
+										onclick="location.href='customer_que.html'"></td>
 								</tr>
 							</table>
 						</td>
@@ -70,14 +83,14 @@ $(document).ready(function() {
 						<td style="width: 470px; cursor: pointer">
 							<table width="100%" height="100%">
 								<tr>
-									<td
+									<td id='machanicTitle'
 										style="height: 150px; background: #B33737; text-align: center; color: #FFFFFF; font-size: 40px;"
-										onclick="location.href='mechanic_update.html'">MECHANIC UPDATE JOB PROGRESS</td>
+										onclick="location.href='mechanic_update.html'"></td>
 								</tr>
 								<tr>
-									<td
+									<td id='machanicDesc'
 										style="height: 50px; background: #C33C3C; text-align: center; color: #FFFFFF;"
-										onclick="location.href='mechanic_update.html'">Input/Edit the mechanic job</td>
+										onclick="location.href='mechanic_update.html'"></td>
 								</tr>
 							</table>
 						</td>
@@ -89,14 +102,14 @@ $(document).ready(function() {
 						<td style="width: 470px; cursor: pointer">
 							<table width="100%" height="100%">
 								<tr>
-									<td
+									<td id='carWashTitle'
 										style="height: 150px; background: #2DB1C0; text-align: center; color: #FFFFFF; font-size: 40px"
-										onclick="location.href='car_wash_que.html'">CAR WASH QUE BOARD</td>
+										onclick="location.href='car_wash_que.html'"></td>
 								</tr>
 								<tr>
-									<td
+									<td id='carWashDesc'
 										style="height: 50px; background: #30BFCF; text-align: center; color: #FFFFFF;"
-										onclick="location.href='car_wash_que.html'">Show the car wash queue</td>
+										onclick="location.href='car_wash_que.html'"></td>
 								</tr>
 							</table>
 						</td>
@@ -104,14 +117,14 @@ $(document).ready(function() {
 						<td style="width: 470px; cursor: pointer">
 							<table width="100%" height="100%">
 								<tr>
-									<td
+									<td id='customerJobTitle'
 										style="height: 150px; background: #A4CB4E; text-align: center; color: #FFFFFF; font-size: 40px;"
-										onclick="location.href='customer_job.html'">CUSTOMER JOB PROGRESS BOARD</td>
+										onclick="location.href='customer_job.html'"></td>
 								</tr>
 								<tr>
-									<td
+									<td id='customerJobDesc'
 										style="height: 50px; background: #AED161; text-align: center; color: #FFFFFF;"
-										onclick="location.href='customer_job.html'">Show the customer job progress list</td>
+										onclick="location.href='customer_job.html'"></td>
 								</tr>
 							</table>
 						</td>
