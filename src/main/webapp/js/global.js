@@ -27,9 +27,8 @@ function layout(minWidth, minHeight) {
     if ($('#footer').length > 0) {
         footerH = width * 0.043;
         $('#footer').css('height', footerH + 'px');
-        footerH += 10;
     }
-    var contentH = height - headerH - footerH;
+    var contentH = height - headerH - footerH - 10;
     $('#content').css('height', contentH + 'px');
     return[width, height, contentH];
 }

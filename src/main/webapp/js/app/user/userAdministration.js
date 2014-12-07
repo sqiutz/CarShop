@@ -19,6 +19,9 @@
 						$('#group').append(
 								"<option value ='" + g.id + "'>"
 								+ that.groupNameMapper[g.groupName] + "</option>");
+						$('#groupBy').append(
+								"<option value ='" + g.id + "'>"
+								+ that.groupNameMapper[g.groupName] + "</option>");
 					}
 				},
 				complete : user.getAllUsers
@@ -41,46 +44,10 @@
 	var user = {
 		// 获取用户列表
 		getAllUsers : function() {
-		    var that = this;
 			$.UserInfo.getAllUsers({
 				success : function(data) {
-					$('#usersTbl tr').remove();
-					var table = $('#usersTbl');
-					that._users = data.resList;
-					for (var i = 0; i < that._users.length; i++) {
-						var u = that._users[i];
-						var tr = $("<tr></tr>").attr('class',
-								i % 2 === 0 ? 'odd' : 'even').appendTo(table);
-						$("<td>" + userGroup.getGroupNameById(u.groupId) + "</td>").appendTo(tr);
-						$("<td>" + u.userName + "</td>").appendTo(tr);
-						$("<td>" + (u.isAdmin ? 'Yes' : 'No') + "</td>")
-								.appendTo(tr);
-						var td = $("<td></td>").appendTo(tr);
-						$("<a class='toggle' id='userId_" + i + "'>" + (u.isValid ? 'Yes' : 'No') + "</a>")
-								.appendTo(td)
-								.bind('click', function(){
-								    var index = this.id.split('_')[1];
-								    var userSelected = that._users[index];
-								    $.UserInfo.modifyUser({
-	                                    data : {
-	                                        id : userSelected.id,
-	                                        groupId : userSelected.groupId,
-	                                        userName : userSelected.userName,
-	                                        passwd : userSelected.passwd,
-	                                        isAdmin : userSelected.isAdmin,
-	                                        isValid : userSelected.isValid ? 0 : 1,
-	                                        counter : userSelected.counter
-	                                    },
-	                                    success : function(data) {
-	                                        if(data.code == '000000') {
-	                                            userSelected.isValid = userSelected.isValid ? 0 : 1;
-	                                            $('#userId_'+index).text(
-	                                                    userSelected.isValid ? 'Yes' : 'No');
-	                                        }
-	                                    }
-	                                });
-								});
-					}
+					user._users = data.resList;	
+					showUserList($('#groupBy').val())
 				}
 			});
 		},
@@ -175,6 +142,49 @@
 		}
 	};
 	
+	function showUserList(groupId) {
+		$('#usersTbl tr.odd').remove();
+		$('#usersTbl tr.even').remove();
+		var table = $('#usersTbl');
+		for (var i = 0, j = 0; i < user._users.length; i++) {
+			var u = user._users[i];
+			if(u.groupId !== parseInt(groupId)) {
+				continue;
+			}
+			var tr = $("<tr></tr>").attr('class',
+					j++ % 2 === 0 ? 'odd' : 'even').appendTo(table);
+			$("<td>" + userGroup.getGroupNameById(u.groupId) + "</td>").appendTo(tr);
+			$("<td>" + u.userName + "</td>").appendTo(tr);
+			$("<td>" + (u.isAdmin ? 'Yes' : 'No') + "</td>")
+					.appendTo(tr);
+			var td = $("<td></td>").appendTo(tr);
+			$("<a class='toggle' id='userId_" + i + "'>" + (u.isValid ? 'Yes' : 'No') + "</a>")
+					.appendTo(td)
+					.bind('click', function(){
+					    var index = this.id.split('_')[1];
+					    var userSelected = user._users[index];
+					    $.UserInfo.modifyUser({
+                            data : {
+                                id : userSelected.id,
+                                groupId : userSelected.groupId,
+                                userName : userSelected.userName,
+                                passwd : userSelected.passwd,
+                                isAdmin : userSelected.isAdmin,
+                                isValid : userSelected.isValid ? 0 : 1,
+                                counter : userSelected.counter
+                            },
+                            success : function(data) {
+                                if(data.code == '000000') {
+                                    userSelected.isValid = userSelected.isValid ? 0 : 1;
+                                    $('#userId_'+index).text(
+                                            userSelected.isValid ? 'Yes' : 'No');
+                                }
+                            }
+                        });
+					});
+		}
+	}
+	
 	//账号 密码
 	var userName = $("#username"), password = $("#password"), passwordConf = $("#passwordConfirm");
 	//用户组
@@ -208,11 +218,15 @@
         passwordConf.css('border', '1px solid #CCC');        
     });
     
-    $("#logout").bind("click",function() {
+    $('#groupBy').bind('click', function() {
+    	showUserList($('#groupBy').val());
+    });
+    
+    $("#logout").bind("click", function() {
     	
 	});
         
-	$("#saveBtn").bind("click",function() {
+	$("#saveBtn").bind("click", function() {
 	    user.addUser();
 	});	
 

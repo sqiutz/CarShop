@@ -56,7 +56,6 @@ CREATE TABLE `TBL_USER` (
   `img_path` varchar(48) DEFAULT NULL,
   `passwd` varchar(48) NOT NULL,
   `is_valid` smallint(1) NOT NULL,
-  `is_book` smallint(1) NOT NULL,
   `group_id` bigint(10) NOT NULL,
   `counter` varchar(48) DEFAULT NULL,
   `isBooker` smallint(1) NOT NULL DEFAULT 0,
