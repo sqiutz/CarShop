@@ -66,6 +66,15 @@ public class UserServiceImpl implements UserService{
 		userDao.addUser(UserConverter.getUserDo(user));
 	}
 	
+	public void deleteUser(User user) throws BusinessServiceException {
+		// TODO Auto-generated method stub
+		if(null == user || user.getId() == null){
+			return;
+		}
+		
+		userDao.deleteUser(user.getId());
+	}
+	
 	public User queryUserByName(String userName)
 			throws BusinessServiceException {
 		UserDo userDo = userDao.queryByUsername(userName);
@@ -165,6 +174,7 @@ public class UserServiceImpl implements UserService{
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
 	}
+
 
 
 }

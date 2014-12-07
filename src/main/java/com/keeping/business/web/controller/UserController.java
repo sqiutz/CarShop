@@ -339,6 +339,77 @@ public class UserController {
 		}
 	}
 	
+	@RequestMapping(params = "action=delete")
+	@ResponseBody
+	public WebResult deleteUser(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+
+		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
+		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
+		HttpSession session = request.getSession();
+		session.setMaxInactiveInterval(PlatformPar.sessionTimeout);
+
+		response.setHeader("Access-Control-Allow-Origin", "*");
+
+		try {
+
+			UserProfile admin = (UserProfile) session
+					.getAttribute(PlatfromConstants.STR_USER_PROFILE);
+
+			// 验证请求参数
+			String jsonStr = request.getParameter("param");
+			UserProfile regUser = JsonConverter.getFromJsonString(jsonStr,
+					UserProfile.class);
+			if (StringUtil.isNull(jsonStr) || regUser == null ) {
+				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
+				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
+				logger.error("< UserController.deleteUser() > 注册用户信息为空或没有权限."
+						+ jsonStr);
+			} 
+			else if (null == session || null == admin || null == admin.getUserName()){
+				code = BusinessCenterResCode.SYS_INVILID_REQ.getCode();
+				msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
+				logger.error("< UserController.deleteUser() > session is null." + jsonStr);
+			} 
+			else if (admin.getIsAdmin() == 0){
+				code = BusinessCenterResCode.SYS_NO_ADMIN.getCode();
+				msg = BusinessCenterResCode.SYS_NO_ADMIN.getMsg();
+				logger.error("< UserController.deleteUser() > you are not admin." + jsonStr);
+			}
+			else{
+
+				// 检查用户名是否已经存在
+				User user = userService.queryUserByName(regUser.getUserName());
+				
+				if (user != null){
+					userService.deleteUser(WebUserConverter.getUser(regUser));
+				} else {
+					code = BusinessCenterResCode.SYS_NOT_EXIST.getCode();
+					msg = BusinessCenterResCode.SYS_NOT_EXIST.getMsg();
+					System.out.println("用户不存在 " + code + " " + msg);
+				}
+			}
+		} catch (BusinessServiceException ex) {
+			code = ex.getErrorCode();
+			msg = ex.getErrorMessage();
+		} catch (Exception e) {
+			code = BusinessCenterResCode.SYS_ERROR.getCode();
+			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
+			logger.error("< UserController.deleteUser() > 删除用户错误" + e.getMessage());
+		}
+
+		// 返回结果
+		try {
+			return JsonConverter.getResultSignal(code, msg);
+		} catch (Exception e) {
+			session.removeAttribute(PlatfromConstants.STR_USER_PROFILE);
+			session.invalidate();
+			logger.error("< UserController.deleteUser() > 删除用户返回出错."
+					+ e.getMessage());
+			throw e;
+		}
+	}
+	
 	@RequestMapping(params = "action=modifyuser")
 	@ResponseBody
 	public WebResult modifyUser(HttpServletRequest request,

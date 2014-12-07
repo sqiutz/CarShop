@@ -230,7 +230,7 @@ public class ServeQueueController {
 				serveQueueV.setUserId(loginUser.getId());
 				List<ServeQueue> serveQueueList = serveQueueService.getServeQueueByStepAndUserId(serveQueueV);
 				
-				if (serveQueueList != null & serveQueueList.size() == 1){
+				if (serveQueueList != null && serveQueueList.size() == 0){
 				
 				Order order = orderService.queryFirstForServeQueue();
 				order.setStatus(BusinessCenterOrderStatus.ORDER_STATUS_SERVE.getId());

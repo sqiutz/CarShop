@@ -10,6 +10,8 @@ public interface UserDao extends BaseDao<UserDo>{
 	
 	public void addUser(UserDo userDo);
 	
+	public void deleteUser(Integer id);
+	
 	public void modifyUser(UserDo userDo);
 	
 	public UserDo queryByCounter(String counter);

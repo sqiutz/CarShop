@@ -225,10 +225,10 @@
 		WHERE USER_NAME = #{userName}
 	</update>
 	
-	<delete id="deleteData" parameterType="java.lang.Long">
+	<delete id="deleteUser" parameterType="java.lang.Integer">
 		DELETE FROM TBL_USER
 		WHERE 
-		USER_ID = #{id}
+		ID = #{id}
 	</delete>
 	
 </mapper>
