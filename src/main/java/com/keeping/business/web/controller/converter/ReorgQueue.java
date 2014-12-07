@@ -8,17 +8,52 @@ import com.keeping.business.web.controller.model.User;
 
 public class ReorgQueue {
 
-	public static void reorgServeQueue(List<ServeQueue> baseQueues, List<User> users, List<Order> orders){
-		
-		if(baseQueues == null || users == null || orders == null){
+	public static void reorgServeQueue(List<ServeQueue> baseQueues,
+			List<User> users, List<Order> orders) {
+
+		if (baseQueues == null || users == null || orders == null) {
 			return;
 		}
-		
-		for(int i=0; i<baseQueues.size(); i++){
-			baseQueues.get(i).setUser(users.get(i));
-			baseQueues.get(i).setOrder(orders.get(i));
+
+		for (int i = 0; i < baseQueues.size(); i++) {
+				baseQueues.get(i).setUser(users.get(i));
+				baseQueues.get(i).setOrder(orders.get(i));
 		}
-		
+
+		return;
+	}
+	
+	public static void reorgNoBookServeQueue(List<ServeQueue> baseQueues,
+			List<User> users, List<Order> orders) {
+
+		if (baseQueues == null || users == null || orders == null) {
+			return;
+		}
+
+		for (int i = 0; i < baseQueues.size(); i++) {
+			if (orders.get(i).getIdBook() == 0) {
+				baseQueues.get(i).setUser(users.get(i));
+				baseQueues.get(i).setOrder(orders.get(i));
+			}
+		}
+
+		return;
+	}
+
+	public static void reorgBookServeQueue(List<ServeQueue> baseQueues,
+			List<User> users, List<Order> orders) {
+
+		if (baseQueues == null || users == null || orders == null) {
+			return;
+		}
+
+		for (int i = 0; i < baseQueues.size(); i++) {
+			if (orders.get(i).getIdBook() == 1) {
+				baseQueues.get(i).setUser(users.get(i));
+				baseQueues.get(i).setOrder(orders.get(i));
+			}
+		}
+
 		return;
 	}
 }

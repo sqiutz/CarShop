@@ -23,6 +23,7 @@ public class UserConverter {
         user.setCreateTime(userDo.getCreateTime());
         user.setModifyTime(userDo.getModifyTime());
         user.setCounter(userDo.getCounter());
+        user.setIsBooker(userDo.getIsBooker());
         
         return user;
     }
@@ -42,6 +43,7 @@ public class UserConverter {
     	userDo.setCreateTime(user.getCreateTime());
     	userDo.setModifyTime(user.getModifyTime());
     	userDo.setCounter(user.getCounter());
+    	userDo.setIsBooker(user.getIsBooker());;
     	
     	return userDo;
     }

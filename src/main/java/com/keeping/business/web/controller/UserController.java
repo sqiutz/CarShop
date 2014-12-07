@@ -72,6 +72,7 @@ public class UserController {
 						.login(req.getUsername(), req.getPasswd()));
 				UserGroup userGroup = userGroupService.queryById(userProfile.getGroupId());
 				userProfile.setGroupName(userGroup.getGroupName());
+				userProfile.setIdBooker(0);
 				
 				// 将用户信息保存在session中
 				session.setAttribute(PlatfromConstants.STR_USER_PROFILE,

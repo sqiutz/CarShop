@@ -96,7 +96,11 @@ public class ServeQueueController {
 					List<Order> orders = orderService.getByOrdersId(orderIdList);
 					System.out.println("retrun from orderService " + orders.size());
 					
-					ReorgQueue.reorgServeQueue(serveQueueList, users, orders);   //need to verify
+					if(step.getIsBook() == 0){
+						ReorgQueue.reorgNoBookServeQueue(serveQueueList, users, orders);   
+					}else{
+						ReorgQueue.reorgBookServeQueue(serveQueueList, users, orders);
+					}
 				}
 				
 			}
@@ -230,22 +234,31 @@ public class ServeQueueController {
 				serveQueueV.setUserId(loginUser.getId());
 				List<ServeQueue> serveQueueList = serveQueueService.getServeQueueByStepAndUserId(serveQueueV);
 				
-				if (serveQueueList != null && serveQueueList.size() == 0){
+				if (serveQueueList != null && serveQueueList.size() == 0 && loginUser.getIsBooker() != null){
 				
-				Order order = orderService.queryFirstForServeQueue();
-				order.setStatus(BusinessCenterOrderStatus.ORDER_STATUS_SERVE.getId());
-				orderService.updateOrder(order);              //修改订单状态
-				
-				Date now = new Date();
-				java.sql.Timestamp dateTime = new java.sql.Timestamp(now.getTime());
-				
-				ServeQueue serveQueue = new ServeQueue();
-				serveQueue.setStartTime(dateTime);
-				serveQueue.setOrderId(order.getId());
-				serveQueue.setStep(0);
-				serveQueue.setUserId(loginUser.getId());
-				
-				serveQueueService.addServeQueue(serveQueue);   //添加ServeQueue订单
+				Order order = orderService.queryFirstForServeQueue(loginUser.getIsBooker());
+				if (order != null && order.getId() == null){
+					Integer booker = loginUser.getIsBooker() > 0 ? 0 : 1;
+					order = orderService.queryFirstForServeQueue(booker);
+				}
+				if (order != null && order.getId() != null){
+					order.setStatus(BusinessCenterOrderStatus.ORDER_STATUS_SERVE.getId());
+					orderService.updateOrder(order);              //修改订单状态
+					
+					Date now = new Date();
+					java.sql.Timestamp dateTime = new java.sql.Timestamp(now.getTime());
+					
+					ServeQueue serveQueue = new ServeQueue();
+					serveQueue.setStartTime(dateTime);
+					serveQueue.setOrderId(order.getId());
+					serveQueue.setStep(0);
+					serveQueue.setUserId(loginUser.getId());
+					
+					serveQueueService.addServeQueue(serveQueue);   //添加ServeQueue订单
+				}else{
+					code = BusinessCenterResCode.SYS_INVILID_REQ.getCode();
+					msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
+				}
 				}else{
 					code = BusinessCenterResCode.SYS_INVILID_REQ.getCode();
 					msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();

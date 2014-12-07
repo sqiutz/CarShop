@@ -13,10 +13,11 @@
 		<result column="MODIFY_TIME" property="modifyTime" />
 		<result column="GROUP_ID" property="groupId" />
 		<result column="COUNTER" property="counter" />
+		<result column="ISBOOKER" property="isBooker" />
 	</resultMap>
 	
 	<sql id="Base_Column_List">
-		ID,USER_NAME,IS_ADMIN,IMG_PATH,PASSWD,IS_VALID,CREATE_TIME,MODIFY_TIME,GROUP_ID,COUNTER
+		ID,USER_NAME,IS_ADMIN,IMG_PATH,PASSWD,IS_VALID,CREATE_TIME,MODIFY_TIME,GROUP_ID,COUNTER,ISBOOKER
 	</sql>
 
 	<sql id="QUERY_PARAM">
@@ -55,6 +56,9 @@
 			<if test="counter != null">
 				COUNTER,
 			</if>
+			<if test="isBooker != null">
+				ISBOOKER,
+			</if>
 			CREATE_TIME,
 			MODIFY_TIME,
 		</trim>
@@ -79,6 +83,9 @@
 			</if>
 			<if test="counter != null">
 				#{counter},
+			</if>
+			<if test="isBooker != null">
+				#{isBooker},
 			</if>
 			now(),
 			now(),
@@ -108,6 +115,9 @@
 			</if>
 			<if test="counter != null">
 				COUNTER = #{counter},
+			</if>
+			<if test="isBooker != null">
+				ISBOOKER = #{isBooker},
 			</if>
 			MODIFY_TIME = now(),
 		</set>

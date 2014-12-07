@@ -14,10 +14,11 @@
 		<result column="CREATE_TIME" property="createTime" />
 		<result column="START_TIME" property="startTime" />
 		<result column="END_TIME" property="endTime" />
+		<result column="IS_BOOK" property="isBook" />
 	</resultMap>
 	
 	<sql id="Base_Column_List">
-		ID,STATUS,REGISTERNUMBER,QUEUENUMBER,ROOFNUMBER,BOOKNUMBER,ESTIMATIONTIME,PROMISETIME,CREATE_TIME,START_TIME,END_TIME
+		ID,STATUS,REGISTERNUMBER,QUEUENUMBER,ROOFNUMBER,BOOKNUMBER,ESTIMATIONTIME,PROMISETIME,CREATE_TIME,START_TIME,END_TIME,IS_BOOK
 	</sql>
 
 	<select id="queryByOrderstatus" resultMap="OrderDoMap" 
@@ -29,12 +30,12 @@
 		STATUS = #{status}
 	</select>
 	
-	<select id="queryFirstForServeQueue" resultMap="OrderDoMap">
+	<select id="queryFirstForServeQueue" resultMap="OrderDoMap" parameterType="java.lang.Integer">
 		SELECT
 		<include refid="Base_Column_List" />
 		FROM TBL_ORDER
 		WHERE
-		STATUS = 1
+		STATUS = 1 and IS_BOOK = #{isBook}
 		order by START_TIME asc
 		limit 1
 	</select>
@@ -87,6 +88,9 @@
 			<if test="endTime != null">
 				END_TIME,
 			</if>
+			<if test="isBook != null">
+				IS_BOOK,
+			</if>
 			CREATE_TIME,
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -116,6 +120,9 @@
 			</if>
 			<if test="endTime != null">
 				#{endTime},
+			</if>
+			<if test="isBook != null">
+				#{isBook},
 			</if>
 			now(),
 		</trim>
@@ -150,6 +157,9 @@
 			</if>
 			<if test="endTime != null">
 				END_TIME = #{endTime},
+			</if>
+			<if test="idBook != null">
+				IS_BOOK = #{isBook},
 			</if>
 		</set>
 		WHERE 

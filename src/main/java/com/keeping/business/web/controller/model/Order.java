@@ -26,6 +26,8 @@ public class Order {
     private Date promiseTime;
     
     private Integer estimationTime;
+    
+    private Integer idBook;
 
 	public Integer getStatus() {
 		return status;
@@ -113,6 +115,14 @@ public class Order {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public Integer getIdBook() {
+		return idBook;
+	}
+
+	public void setIdBook(Integer idBook) {
+		this.idBook = idBook;
 	}
     
 }

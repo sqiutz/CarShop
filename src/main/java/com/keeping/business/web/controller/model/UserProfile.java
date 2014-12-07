@@ -19,6 +19,8 @@ public class UserProfile {
 	private String counter;
 	
 	private String groupName;
+	
+	private Integer isBooker;
 
 	public Integer getIsAdmin() {
 		return isAdmin;
@@ -90,5 +92,13 @@ public class UserProfile {
 
 	public void setGroupName(String groupName) {
 		this.groupName = groupName;
+	}
+
+	public Integer getIsBooker() {
+		return isBooker;
+	}
+
+	public void setIdBooker(Integer isBooker) {
+		this.isBooker = isBooker;
 	}
 }

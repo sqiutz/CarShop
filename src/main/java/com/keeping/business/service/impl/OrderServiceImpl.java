@@ -25,10 +25,10 @@ public class OrderServiceImpl implements OrderService {
 	/** 日志 */
 	private Logger logger = LoggerFactory.getLogger(UserController.class);
 
-	public Order queryFirstForServeQueue() throws BusinessServiceException {
+	public Order queryFirstForServeQueue(Integer idBook) throws BusinessServiceException {
 		// TODO Auto-generated method stub
 		Order order = null;
-		OrderDo orderDo = orderDao.queryFirstForServeQueue();
+		OrderDo orderDo = orderDao.queryFirstForServeQueue(idBook);
 
 		if (orderDo == null) {
 			return new Order();

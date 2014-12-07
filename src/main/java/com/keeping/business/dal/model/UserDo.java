@@ -23,6 +23,8 @@ public class UserDo {
     private Timestamp createTime;
     
     private Timestamp modifyTime;
+    
+    private Integer isBooker;
 
 	public String getUserName() {
 		return userName;
@@ -102,6 +104,14 @@ public class UserDo {
 
 	public void setCounter(String counter) {
 		this.counter = counter;
+	}
+
+	public Integer getIsBooker() {
+		return isBooker;
+	}
+
+	public void setIsBooker(Integer isBooker) {
+		this.isBooker = isBooker;
 	}
 
 }

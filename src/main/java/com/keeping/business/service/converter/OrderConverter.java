@@ -22,6 +22,7 @@ public class OrderConverter {
 		order.setStartTime(orderDo.getStartTime());
 		order.setStatus(orderDo.getStatus());
 		order.setBookNum(orderDo.getBookNum());
+		order.setIdBook(orderDo.getIdBook());
 		
 		return order;
 	}
@@ -42,6 +43,7 @@ public class OrderConverter {
 		orderDo.setEstimationTime(order.getEstimationTime());
 		orderDo.setEndTime(order.getEndTime());
 		orderDo.setBookNum(order.getBookNum());
+		orderDo.setIdBook(order.getIdBook());
 		
 		return orderDo;
 	}
