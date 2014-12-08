@@ -1,4 +1,46 @@
 (function($) {
+    applyLang();
+    $.UserInfo.getProperty({
+        data : {
+            name : 'LANGUAGE'
+        },
+        success : function(data) {
+            if (data.code == '000000') {
+                var langCode = data.obj.value;
+                applyLang(langCode);
+            }
+        }
+    });
+    
+    function applyLang(langCode) {
+        if(undefined === langCode || null === langCode) {
+            langCode = 'en_US';
+        }
+        loadLang('lang/' + langCode + '.js', function() {
+            $('#changePwd').text(CHANGE_PASSW0RD);
+            $('#logout').text(LOGOUT);
+            $('#title').text(SA_QUE_CALLING_BOARD);
+            $('#currentNoLabel').text(CURRENT_NUMBER);
+            $('#remainingLabel').text(REMAINING);
+            $('#waitingTimeLabel').text(WAITING_TIME);
+            $('#avgWaitingTimeLabel').text(AVG_WAITING_TIME);
+            $('#timerLabel').text(TIMER);
+            $('#callBtn').text(CALL).attr('title', CALL);
+            $('#recallBtn').text(RECALL).attr('title', RECALL);
+            $('#holdBtn').text(HOLD).attr('title', HOLD);
+            $('#sendToWorkshopBtn').text(WORKSHOP).attr('title', SEND_TO_WORKSHOP);
+            $('#showDetails').text(SHOW_DETAILS + ' >>');
+            $('#regNoCol').text(REG_NO);
+            $('#queNoCol').text(QUE_NO);
+            $('#saCol').text(SA);
+            $('#startTimeCol').text(START_TIME);
+            $('#endTimeCol').text(END_TIME);
+            $('#wRegNoCol').text(REG_NO);
+            $('#wQueNoCol').text(QUE_NO);
+            $('#queStartCol').text(QUE_START);
+        });
+    }
+    
     var oListIter = 0, sListIter = 0, interval = 3000;
     var userProfile;
 	$.UserInfo.checkLogin({

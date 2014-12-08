@@ -16,16 +16,6 @@
 			$('#content_lf').css('height', res[2] - 6 + 'px');
 		}
         $(document).ready(function() {
-        	loadLang('lang/en_US.js', function() {
-        		$('#changePwd').text(CHANGE_PASSW0RD);
-        		$('#logout').text(LOGOUT);
-        		$('#title').text(SA_QUE_CALLING_BOARD);
-        		$('#currentNoLabel').text(CURRENT_NUMBER);
-        		$('#remainingLabel').text(REMAINING);
-        		$('#waitingTimeLabel').text(WAITING_TIME);
-        		$('#avgWaitingTimeLabel').text(AVG_WAITING_TIME);
-        		$('#timerLabel').text(TIMER);
-        	});
             layoutMe();
             $(window).resize(layoutMe);
         });
@@ -80,14 +70,14 @@
 					</div>
 				</div>
 				<div class='controller'>
-					<button id='callBtn' class='blue' title='CALL'>CALL</button>
-					<button class='blue' title='RECALL'>RECALL</button>
-					<button class='blue' title='HOLD'>HOLD</button>	
-					<button id='cancelBtn' class='blue' title='CANCEL'>CANCEL</button>
-					<button id='sendToWorkshopBtn' class='blue' title='Send to Workshop'>Workshop</button>		
+					<button id='callBtn' class='blue'></button>
+					<button id='recallBtn' class='blue'></button>
+					<button id='holdBtn' class='blue'></button>	
+<!-- 					<button id='cancelBtn' class='blue' title='CANCEL'>CANCEL</button> -->
+					<button id='sendToWorkshopBtn' class='blue'></button>		
 				</div>
 				<div class='w1 rAlign'>
-					<a class='h5 f-yellow'>Show details >></a>
+					<a id='showDetails' class='h5 f-yellow'>Show details >></a>
 				</div>				
 			</div>
 			<div class='content_rg'>
@@ -95,11 +85,11 @@
 					<span id='servingListTitle' class='t2 purple h3'>NOW SERVING...</span>
 					<table id='servingList' class="queue w1 purple">
 						<tr>
-							<th>Reg. No.</th>
-							<th>Que. No.</th>
-							<th>SA</th>
-							<th>Start Time</th>
-							<th>End Time</th>
+							<th id='regNoCol'>Reg. No.</th>
+							<th id='queNoCol'>Que. No.</th>
+							<th id='saCol'>SA</th>
+							<th id='startTimeCol'>Start Time</th>
+							<th id='endTimeCol'>End Time</th>
 						</tr>
 					</table>
 				</div>
@@ -107,9 +97,9 @@
 					<span id='waitingListTitle' class='t2 green h3'>WAITING LIST</span>
 					<table id='waitingList' class="queue w1 green">
 						<tr>
-							<th>Reg. No.</th>
-							<th>Que. No.</th>
-							<th>Que Start</th>
+							<th id='wRegNoCol'>Reg. No.</th>
+							<th id='wQueNoCol'>Que. No.</th>
+							<th id='queStartCol'>Que Start</th>
 						</tr>
 					</table>
 				</div>
