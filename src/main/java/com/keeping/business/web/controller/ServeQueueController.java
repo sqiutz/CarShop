@@ -96,9 +96,9 @@ public class ServeQueueController {
 					List<Order> orders = orderService.getByOrdersId(orderIdList);
 					System.out.println("retrun from orderService " + orders.size());
 					
-					if(1 == step.getIsBook()){
+					if(step.getIsBook() != null && 1 == step.getIsBook()){
 						ReorgQueue.reorgBookServeQueue(serveQueueList, users, orders);
-					}else if (step.getIsBook() == 0){
+					}else if (step.getIsBook() != null && step.getIsBook() == 0){
 						ReorgQueue.reorgNoBookServeQueue(serveQueueList, users, orders);   
 					}else{
 						ReorgQueue.reorgServeQueue(serveQueueList, users, orders);
