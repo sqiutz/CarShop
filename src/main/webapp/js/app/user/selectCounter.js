@@ -1,4 +1,34 @@
 (function($) {
+    applyLang();
+    $.UserInfo.getProperty({
+        data : {
+            name : 'LANGUAGE'
+        },
+        success : function(data) {
+            if (data.code == '000000') {
+                var langCode = data.obj.value;
+                applyLang(langCode);
+            }
+        }
+    });
+    
+    function applyLang(langCode) {
+        if(undefined === langCode || null === langCode) {
+            langCode = 'en_US';
+        }
+        loadLang('lang/' + langCode + '.js', function() {
+            $('#changePwd').text(CHANGE_PASSW0RD);
+            $('#logout').text(LOGOUT);
+            $('#title').text(SUZUKI_SIAGA_LEBIH_MENGERTI_KELUARGA);
+            $('#legend').text(SELECT_COUNTER);
+            $('#isBookerLabel').text(IS_BOOKER);
+            $('#opNo').text(NO);
+            $('#opYes').text(YES);
+            $('#counterLabel').text(COUNTER_NO);
+            $('#nextBtn').text(NEXT).attr('title', NEXT);
+        });
+    }
+    
 	var counter = $('#counter'), isBooker = $('#isBooker'), nextBtn = $('#nextBtn');
 	var userProfile;
 	$.UserInfo.checkLogin({
