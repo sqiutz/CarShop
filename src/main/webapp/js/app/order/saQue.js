@@ -33,7 +33,7 @@
             $('<td></td>').text(serve && serve.order ? getTimeStr(serve.order.startTime) : '').appendTo(tr);
             $('<td></td>').text(serve && serve.order ? getTimeStr(serve.order.endTime) : '').appendTo(tr);
         }
-        if (j < serves.length - 1) {
+        if (serves && j < serves.length - 1) {
             sListIter++;
             setTimeout(function() {
                 createServingList(serves);
@@ -74,7 +74,7 @@
             $('<td></td>').text(order ? order.queueNum : '').appendTo(tr);
             $('<td></td>').text(order ? getTimeStr(order.startTime) : '').appendTo(tr);
         }
-        if (j < orders.length - 1) {
+        if (orders && j < orders.length - 1) {
             oListIter++;
             setTimeout(function() {
                 createWaitingList(orders);

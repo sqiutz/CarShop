@@ -17,7 +17,7 @@
 			$("<span></span>").text(serve ? serve.user.counter : '').attr(
 					'class', 'b1 col3').appendTo(div);
 		}
-		if (i < serves.length - 1) {
+		if (serves && i < serves.length - 1) {
 			sListIter++;
 			setTimeout(function() {
 				createServingList(serves);
@@ -68,7 +68,7 @@
 			$('<td></td>').text(order ? order.queueNum : '').appendTo(tr);
 			$('<td></td>').text(order ? order.estimationTime + ' mins' : '').appendTo(tr);
 		}
-		if (j < orders.length - 1) {
+		if (orders && j < orders.length - 1) {
 			oListIter++;
 			setTimeout(function() {
 				createWaitingList(orders);
