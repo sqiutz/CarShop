@@ -234,11 +234,13 @@ public class ServeQueueController {
 				serveQueueV.setUserId(loginUser.getId());
 				List<ServeQueue> serveQueueList = serveQueueService.getServeQueueByStepAndUserId(serveQueueV);
 				
-				if (serveQueueList != null && serveQueueList.size() == 0 && loginUser.getIsBooker() != null){
+				User user = userService.queryUserByName(loginUser.getUserName());
 				
-				Order order = orderService.queryFirstForServeQueue(loginUser.getIsBooker());
+				if (serveQueueList != null && serveQueueList.size() == 0 && user.getIsBooker() != null){
+				
+				Order order = orderService.queryFirstForServeQueue(user.getIsBooker());
 				if (order != null && order.getId() == null){
-					Integer booker = loginUser.getIsBooker() > 0 ? 0 : 1;
+					Integer booker = user.getIsBooker() > 0 ? 0 : 1;
 					order = orderService.queryFirstForServeQueue(booker);
 				}
 				if (order != null && order.getId() != null){
