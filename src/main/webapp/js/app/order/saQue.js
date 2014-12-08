@@ -3,11 +3,14 @@
     var userProfile;
 	$.UserInfo.checkLogin({
 		success : function(data) {
-			if (data.code == '000000') {
+			if (data.code == '000000' && data.obj) {
 				userProfile = data.obj;
 				$("#helloUserName").text(
 						'Hello ' + (userProfile ? userProfile.userName : ''));
 				$('#userName').text(userProfile ? userProfile.userName : '');
+				getServeQueue();
+				getServeQueues();
+				getOrderList(); 
 			}
 		}
 	});
@@ -47,7 +50,8 @@
     var getServeQueues = function() {
         $.OrderInfo.getServeQueues({
             data : {
-                step : 0
+                step : 0,
+                isBooker : userProfile.isBooker
             },
             success : function(serves) {
                 createServingList(serves);
@@ -97,7 +101,8 @@
     var getServeQueue = function() {
     	$.OrderInfo.getServeQueue({
     		data : {
-                step : 0
+                step : 0,
+                isBooker : userProfile.isBooker
             },
             success : function(data) {
             	if(data.code == '000000') {
@@ -140,7 +145,7 @@
             (minutes < 10 ? '0' : '') + minutes;
     }
     
-    getServeQueue();
-    getServeQueues();
-    getOrderList();    
+    //getServeQueue();
+    //getServeQueues();
+    //getOrderList();    
 })(jQuery);;

@@ -73,14 +73,16 @@
                     getServeQueues : {
                         url : "servequeue.do?action=alllist",
                         args : [ 
-                                 "step"
+                                 "step",
+                                 "isBooker"
                         ]
                     },
                     // 获取单个服务单
                     getServeQueue : {
                         url : "servequeue.do?action=getone",
                         args : [ 
-                                 "step"
+                                 "step",
+                                 "isBooker"
                         ]
                     },
                     // call
