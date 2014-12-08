@@ -31,7 +31,7 @@ public class ReorgQueue {
 		}
 
 		for (int i = 0; i < baseQueues.size(); i++) {
-			if (orders.get(i).getIdBook() == 0) {
+			if (orders.get(i).getIsBook() == 0) {
 				baseQueues.get(i).setUser(users.get(i));
 				baseQueues.get(i).setOrder(orders.get(i));
 			}
@@ -48,7 +48,7 @@ public class ReorgQueue {
 		}
 
 		for (int i = 0; i < baseQueues.size(); i++) {
-			if (orders.get(i).getIdBook() == 1) {
+			if (orders.get(i).getIsBook() == 1) {
 				baseQueues.get(i).setUser(users.get(i));
 				baseQueues.get(i).setOrder(orders.get(i));
 			}

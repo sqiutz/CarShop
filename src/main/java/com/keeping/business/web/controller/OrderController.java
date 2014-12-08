@@ -115,7 +115,7 @@ public class OrderController {
 			} else {
 				 String bookNumber = System.currentTimeMillis() + "";
 				 order.setBookNum(bookNumber);
-				 order.setIdBook(1);
+				 order.setIsBook(1);
 				 orderService.addOrder(order);
 			}
 		}catch (BusinessServiceException ex) {
@@ -165,7 +165,7 @@ public class OrderController {
 			if (StringUtil.isNull(bookNum)) {
 				order.setStartTime(dateTime);
 				order.setStatus(1);    //1: start to wait for serve queue
-				order.setIdBook(0);
+				order.setIsBook(0);
 				orderService.addOrder(order);
 			}else {
 				order = orderService.queryOrderByBookNum(bookNum);

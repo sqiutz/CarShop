@@ -27,7 +27,7 @@ public class OrderDo {
     
     private Integer estimationTime;
     
-    private Integer idBook;
+    private Integer isBook;
 
 	public Integer getStatus() {
 		return status;
@@ -117,11 +117,11 @@ public class OrderDo {
 		this.id = id;
 	}
 
-	public Integer getIdBook() {
-		return idBook;
+	public Integer getIsBook() {
+		return isBook;
 	}
 
-	public void setIdBook(Integer idBook) {
-		this.idBook = idBook;
+	public void setIsBook(Integer isBook) {
+		this.isBook = isBook;
 	}
 }
