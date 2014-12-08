@@ -11,30 +11,17 @@
 <script src="js/lib/jquery-2.1.1.min.js"></script>
 <script src="js/global.js"></script>
 <script type="text/javascript">
-$(document).ready(function() {
-	$('#errMsg').hide();
-	$('#userNameErrMsg').hide();
-	$('#pwdErrMsg').hide();
-	loadLang('lang/en_US.js', function() {
-	    $('#title').text(SUZUKI_SIAGA_LEBIH_MENGERTI_KELUARGA);
-	    $('#usernameLabel').text(USERNAME);
-	    $('#passwordLabel').text(PASSWORD);
-	    $('#loginBtn').text(LOGIN);
-	    $('#customerQueTitle').text(CUSTOMER_QUE_STATUS_BOARD);
-	    $('#customerQueDesc').text(CUSTOMER_QUE_STATUS_BOARD_DESC);
-	    $('#machanicTitle').text(MECHANIC_UPDATE_JOB_PROGRESS);
-	    $('#machanicDesc').text(MECHANIC_UPDATE_JOB_PROGRESS_DESC);
-	    $('#carWashTitle').text(CAR_WASH_QUE_BOARD);
-	    $('#carWashDesc').text(CAR_WASH_QUE_BOARD_DESC);
-	    $('#customerJobTitle').text(CUSTOMER_JOB_PROGRESS_BOARD);
-	    $('#customerJobDesc').text(CUSTOMER_JOB_PROGRESS_BOARD_DESC);
-	});
-	layout();
-	$(window).resize(layout);
-	});
+    $(document).ready(function() {
+        $('#errMsg').hide();
+        $('#userNameErrMsg').hide();
+        $('#pwdErrMsg').hide();
+        layout();
+        $(window).resize(layout);
+    });
 </script>
 
-<script data-main="js/main" src="js/lib/require.min.js" type="text/javascript"></script>
+<script data-main="js/main" src="js/lib/require.min.js"
+	type="text/javascript"></script>
 </head>
 <body data-js="user/userLogin">
 	<div id='container' class='container'>
@@ -47,20 +34,19 @@ $(document).ready(function() {
 					<div id='errMsg' class='errMsg'></div>
 					<div id='userNameErrMsg' class='errMsg'></div>
 					<div>
-						<label id='usernameLabel' style='width: 120px; font-size: 20px' for='username'></label>
-						<input id='username' style='width: 150px; font-size: 18px'
-							name='username' type='text'></input>
+						<label id='usernameLabel' style='width: 120px; font-size: 20px'
+							for='username'></label> <input id='username'
+							style='width: 150px; font-size: 18px' name='username' type='text'></input>
 					</div>
 					<div id='pwdErrMsg' class='errMsg'></div>
 					<div>
-						<label id='passwordLabel' style='width: 120px; font-size: 20px' for='password'></label>
-						<input id='password' style='width: 150px;' name='password' type='password'></input>
+						<label id='passwordLabel' style='width: 120px; font-size: 20px'
+							for='password'></label> <input id='password'
+							style='width: 150px;' name='password' type='password'></input>
 					</div>
-<!-- 					<span id='loginBtn' class='button-blue' -->
-<!-- 						style='width: 272px; height: 33px' title='Login'>Login</span> -->
 				</form>
 				<button id='loginBtn' class='blue-button'
-						style='width: 272px; height: 33px' title='Login'></button>
+					style='width: 272px; height: 33px'></button>
 			</div>
 			<div align="center">
 				<table>

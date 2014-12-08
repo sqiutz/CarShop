@@ -244,3 +244,4 @@ insert into tbl_servequeue set step=0, user_id=8, order_id=5;
 insert into tbl_servequeue set step=0, user_id=9, order_id=6;
 
 insert into tbl_property set name='COUNTER_NUM', value='5';
+insert into tbl_property set name='LANGUAGE', value='en_US';
