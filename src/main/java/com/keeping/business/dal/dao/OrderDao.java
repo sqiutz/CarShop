@@ -20,5 +20,7 @@ public interface OrderDao extends BaseDao<OrderDo>{
 	public OrderDo queryFirstForServeQueue(Integer isBook);
 	
 	public List<OrderDo> queryByOrdersId(List<Integer> orderIdList);
+	
+	public List<OrderDo> getAllOrders(Integer status);
 
 }

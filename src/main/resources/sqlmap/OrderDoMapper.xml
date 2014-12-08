@@ -30,6 +30,15 @@
 		STATUS = #{status}
 	</select>
 	
+	<select id="getAllOrders" resultMap="OrderDoMap" 
+		parameterType="java.lang.Integer">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM TBL_ORDER
+		WHERE
+		STATUS >= #{status}
+	</select>
+	
 	<select id="queryFirstForServeQueue" resultMap="OrderDoMap" parameterType="java.lang.Integer">
 		SELECT
 		<include refid="Base_Column_List" />

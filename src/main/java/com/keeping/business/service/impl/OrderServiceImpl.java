@@ -56,6 +56,23 @@ public class OrderServiceImpl implements OrderService {
 		return orders_front;
 	}
 
+
+	public List<Order> getAllOrders(Integer startStatus) {
+		// TODO Auto-generated method stub
+		List<Order> orders_front = new ArrayList<Order>();
+		List<OrderDo> orderDoes = orderDao.getAllOrders(startStatus);
+
+		if (orderDoes == null) {
+			return orders_front;
+		} else {
+			for (int i = 0; i < orderDoes.size(); i++) {
+				orders_front.add(OrderConverter.getOrder(orderDoes.get(i)));
+			}
+		}
+
+		return orders_front;
+	}
+	
 	public void addOrder(Order order) throws BusinessServiceException {
 		// TODO Auto-generated method stub
 
@@ -123,5 +140,6 @@ public class OrderServiceImpl implements OrderService {
 	public void setOrderDao(OrderDao orderDao) {
 		this.orderDao = orderDao;
 	}
+
 
 }

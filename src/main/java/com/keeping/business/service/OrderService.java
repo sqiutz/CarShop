@@ -21,5 +21,7 @@ public interface OrderService {
     public Order queryFirstForServeQueue(Integer idBook) throws BusinessServiceException;
     
 	public List<Order> getByOrdersId(List<Integer> orderIdList) throws BusinessServiceException;
+	
+	public List<Order> getAllOrders(Integer startStatus);
 
 }

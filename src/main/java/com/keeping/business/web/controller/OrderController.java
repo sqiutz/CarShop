@@ -64,7 +64,11 @@ public class OrderController {
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
 				logger.error("< OrderController.getAllOrders() > 获取订单状态不正确." + status + " : " + BusinessCenterOrderStatus.ORDER_STATUS_WAIT.getStatus());
 			} else {
-				orderList = orderService.getOrdersByStatus(status.getStatus());
+				if(status.getStatus() != null){
+					orderList = orderService.getOrdersByStatus(status.getStatus());
+				}else{
+					orderList = orderService.getAllOrders(status.getStartStatus());
+				}
 			}
 		}catch (BusinessServiceException ex) {
 			code = ex.getErrorCode();
