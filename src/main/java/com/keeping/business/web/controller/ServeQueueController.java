@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.keeping.business.common.exception.BusinessServiceException;
 import com.keeping.business.common.rescode.BusinessCenterOrderStatus;
 import com.keeping.business.common.rescode.BusinessCenterResCode;
+import com.keeping.business.common.rescode.BusinessCenterServeQueueStatus;
 import com.keeping.business.common.rescode.BusinessCenterUserGroup;
 import com.keeping.business.common.util.PlatformPar;
 import com.keeping.business.common.util.PlatfromConstants;
@@ -290,6 +291,142 @@ public class ServeQueueController {
 		}
 	}
 
+	/**
+	 * 添加serveQueue订单
+	 * 
+	 * @param HttpServletRequest
+	 * @param HttpServletResponse
+	 * @return
+	 * @return N/A
+	 * @throws Exception
+	 */
+	@RequestMapping(params = "action=hold")
+	@ResponseBody
+	public WebResult hold(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
+		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
+		HttpSession session = request.getSession();
+		session.setMaxInactiveInterval(PlatformPar.sessionTimeout);
+		response.setHeader("Access-Control-Allow-Origin", "*");
+
+		try {
+			String jsonStr = request.getParameter("param");
+			UserProfile loginUser = (UserProfile) session
+					.getAttribute(PlatfromConstants.STR_USER_PROFILE);
+			
+			ServeQueue serveQueue = JsonConverter.getFromJsonString(jsonStr,
+					ServeQueue.class);
+
+			if (StringUtil.isNull(jsonStr) || serveQueue == null) {
+				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
+				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
+				logger.error("< ServeQueueController.hold() > 订单信息为空或没有权限。"
+						+ jsonStr);
+			} else if (null == session || null == loginUser || null == loginUser.getUserName()){
+				code = BusinessCenterResCode.SYS_INVILID_REQ.getCode();
+				msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
+				logger.error("< ServeQueueController.hold() > session is null。");
+			} else if (null == loginUser.getGroupName() && loginUser.getGroupName()!= BusinessCenterUserGroup.SYS_SERVICER.getGroupName()){
+				code = BusinessCenterResCode.SYS_NO_ADMIN.getCode();
+				msg = BusinessCenterResCode.SYS_NO_ADMIN.getMsg();
+				logger.error("< ServeQueueController.hold() > you are not role。");
+			}else{
+				
+				serveQueue.setStep(BusinessCenterServeQueueStatus.SERVEQUEUE_STATUS_HOLD.getId());
+				serveQueueService.updateServeQueue(serveQueue);
+			}
+		} catch (BusinessServiceException ex) {
+			code = ex.getErrorCode();
+			msg = ex.getErrorMessage();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			System.out.println(e.getStackTrace());
+			code = BusinessCenterResCode.SYS_ERROR.getCode();
+			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
+			logger.error("< ServeQueueController.hold() > 挂起任务失败."
+					+ e.getMessage());
+		}
+
+		// 返回结果
+		try {
+			return JsonConverter.getResultSignal(code, msg);
+		} catch (Exception e) {
+			logger.error("< ServeQueueController.hold() > 挂起任务返回出错."
+					+ e.getMessage());
+			throw e;
+		}
+	}
+	
+	/**
+	 * 添加serveQueue订单
+	 * 
+	 * @param HttpServletRequest
+	 * @param HttpServletResponse
+	 * @return
+	 * @return N/A
+	 * @throws Exception
+	 */
+	@RequestMapping(params = "action=cancelhold")
+	@ResponseBody
+	public WebResult cancelHold(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
+		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
+		HttpSession session = request.getSession();
+		session.setMaxInactiveInterval(PlatformPar.sessionTimeout);
+		response.setHeader("Access-Control-Allow-Origin", "*");
+
+		try {
+			String jsonStr = request.getParameter("param");
+			UserProfile loginUser = (UserProfile) session
+					.getAttribute(PlatfromConstants.STR_USER_PROFILE);
+			
+			ServeQueue serveQueue = JsonConverter.getFromJsonString(jsonStr,
+					ServeQueue.class);
+
+			if (StringUtil.isNull(jsonStr) || serveQueue == null) {
+				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
+				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
+				logger.error("< ServeQueueController.hold() > 订单信息为空或没有权限。"
+						+ jsonStr);
+			} else if (null == session || null == loginUser || null == loginUser.getUserName()){
+				code = BusinessCenterResCode.SYS_INVILID_REQ.getCode();
+				msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
+				logger.error("< ServeQueueController.hold() > session is null。");
+			} else if (null == loginUser.getGroupName() && loginUser.getGroupName()!= BusinessCenterUserGroup.SYS_SERVICER.getGroupName()){
+				code = BusinessCenterResCode.SYS_NO_ADMIN.getCode();
+				msg = BusinessCenterResCode.SYS_NO_ADMIN.getMsg();
+				logger.error("< ServeQueueController.hold() > you are not role。");
+			}else{
+				
+				serveQueue.setStep(BusinessCenterServeQueueStatus.SERVEQUEUE_STATUS_SERVING.getId());
+				serveQueueService.updateServeQueue(serveQueue);
+			}
+		} catch (BusinessServiceException ex) {
+			code = ex.getErrorCode();
+			msg = ex.getErrorMessage();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			System.out.println(e.getStackTrace());
+			code = BusinessCenterResCode.SYS_ERROR.getCode();
+			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
+			logger.error("< ServeQueueController.cancelhold() > 取号预约失败."
+					+ e.getMessage());
+		}
+
+		// 返回结果
+		try {
+			return JsonConverter.getResultSignal(code, msg);
+		} catch (Exception e) {
+			logger.error("< ServeQueueController.startOrder() > 取号预约返回出错."
+					+ e.getMessage());
+			throw e;
+		}
+	}
+	
 	@RequestMapping(params = "action=send")
 	@ResponseBody
 	public WebResult sendWorkShop(HttpServletRequest request,
@@ -302,17 +439,19 @@ public class ServeQueueController {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 
 		try {
-//			String jsonStr = request.getParameter("param");
+			String jsonStr = request.getParameter("param");
 			UserProfile logUser = (UserProfile) session
 					.getAttribute(PlatfromConstants.STR_USER_PROFILE);
+			
+			ServeQueue serveQueue = JsonConverter.getFromJsonString(jsonStr,
+					ServeQueue.class);
 
-//			if (StringUtil.isNull(jsonStr) || loginUser == null ) {
-//				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
-//				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
-//				logger.error("< ServeQueueController.sendWorkShop() > 发送车间信息为空或没有权限。"
-//						+ jsonStr);
-//			} else 
-			if (null == session || null == logUser || null == logUser.getUserName()){
+			if (StringUtil.isNull(jsonStr) || serveQueue == null ) {
+				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
+				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
+				logger.error("< ServeQueueController.sendWorkShop() > 发送车间信息为空或没有权限。"
+						+ jsonStr);
+			} else if (null == session || null == logUser || null == logUser.getUserName()){
 				code = BusinessCenterResCode.SYS_INVILID_REQ.getCode();
 				msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
 				logger.error("< ServeQueueController.sendWorkShop() > session is null。");
@@ -322,13 +461,6 @@ public class ServeQueueController {
 				logger.error("< ServeQueueController.sendWorkShop() > you are not role。");
 			}else{
 				
-				ServeQueue serveQueue = new ServeQueue();
-				serveQueue.setStep(0);
-				serveQueue.setUserId(logUser.getId());
-				List<ServeQueue> serveQueues = serveQueueService.getServeQueueByStepAndUserId(serveQueue);
-				
-				serveQueue = serveQueues.get(0);
-				
 				Order order = orderService.queryOrderById(serveQueue.getOrderId());
 				order.setStatus(BusinessCenterOrderStatus.ORDER_STATUS_MODIFY.getId());
 				orderService.updateOrder(order);              //修改订单状态
@@ -337,7 +469,7 @@ public class ServeQueueController {
 				java.sql.Timestamp dateTime = new java.sql.Timestamp(now.getTime());
 				
 				serveQueue.setEndTime(dateTime);
-				serveQueue.setStep(3);
+				serveQueue.setStep(BusinessCenterServeQueueStatus.SERVEQUEUE_STATUS_SEND.getId());
 				
 				serveQueueService.updateServeQueue(serveQueue);   //添加ServeQueue订单
 				
