@@ -30,6 +30,9 @@
             $('#holdBtn').text(HOLD).attr('title', HOLD);
             $('#sendToWorkshopBtn').text(WORKSHOP).attr('title', SEND_TO_WORKSHOP);
             $('#showDetails').text(SHOW_DETAILS + ' >>');
+            $('#servingListTab').text(NOW_SERVING + '...');
+            $('#holdListTab').text(HOLD_LIST);
+            $('#waitingListTitle').text(WAITING_LIST);
             $('#regNoCol').text(REG_NO);
             $('#queNoCol').text(QUE_NO);
             $('#saCol').text(SA);

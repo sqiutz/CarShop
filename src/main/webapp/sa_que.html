@@ -77,29 +77,35 @@
 					<button id='sendToWorkshopBtn' class='blue'></button>		
 				</div>
 				<div class='w1 rAlign'>
-					<a id='showDetails' class='h5 f-yellow'>Show details >></a>
+					<a id='showDetails' class='h5 f-yellow'></a>
 				</div>				
 			</div>
 			<div class='content_rg'>
 				<div class='box'>
-					<span id='servingListTitle' class='t2 purple h3'>NOW SERVING...</span>
-					<table id='servingList' class="queue w1 purple">
+<!-- 					<span id='servingListTitle' class='t2 purple h3'></span> -->
+					<div class='navg' style='width:450px;height:45px'>
+						<ul>
+							<li><a id='servingListTab' style='width:225px;height:45px'></a></li>
+							<li class='unselected'><a id='holdListTab' style='width:225px;height:45px'></a></li>
+						</ul>
+					</div>
+					<table id='servingList' class="queue w1 red">
 						<tr>
-							<th id='regNoCol'>Reg. No.</th>
-							<th id='queNoCol'>Que. No.</th>
-							<th id='saCol'>SA</th>
-							<th id='startTimeCol'>Start Time</th>
-							<th id='endTimeCol'>End Time</th>
+							<th id='regNoCol'></th>
+							<th id='queNoCol'></th>
+							<th id='saCol'></th>
+							<th id='startTimeCol'></th>
+							<th id='endTimeCol'></th>
 						</tr>
 					</table>
 				</div>
 				<div class='box'>
-					<span id='waitingListTitle' class='t2 green h3'>WAITING LIST</span>
-					<table id='waitingList' class="queue w1 green">
+					<div id='waitingListTitle' class='blue h3' style='width:450px;height:45px'></div>
+					<table id='waitingList' class="queue w1 blue">
 						<tr>
-							<th id='wRegNoCol'>Reg. No.</th>
-							<th id='wQueNoCol'>Que. No.</th>
-							<th id='queStartCol'>Que Start</th>
+							<th id='wRegNoCol'></th>
+							<th id='wQueNoCol'></th>
+							<th id='queStartCol'></th>
 						</tr>
 					</table>
 				</div>
