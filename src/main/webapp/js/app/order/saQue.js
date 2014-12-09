@@ -30,8 +30,8 @@
             $('#holdBtn').text(HOLD).attr('title', HOLD);
             $('#sendToWorkshopBtn').text(WORKSHOP).attr('title', SEND_TO_WORKSHOP);
             $('#showDetails').text(SHOW_DETAILS + ' >>');
-            $('#servingListTab').text(NOW_SERVING + '...');
-            $('#holdListTab').text(HOLD_LIST);
+            $('#servingListLink').text(NOW_SERVING + '...');
+            $('#holdListLink').text(HOLD_LIST);
             $('#waitingListTitle').text(WAITING_LIST);
             $('#regNoCol').text(REG_NO);
             $('#queNoCol').text(QUE_NO);
@@ -44,7 +44,7 @@
         });
     }
     
-    var oListIter = 0, sListIter = 0, interval = 3000;
+    var oListIter = 0, sListIter = 0, interval = 3000, tab = 0;
     var userProfile;
 	$.UserInfo.checkLogin({
 		success : function(data) {
@@ -62,7 +62,6 @@
     
     // 创建服务队列
     var createServingList = function(serves) {
-    	$('#remaining').text(serves ? serves.length : 0);
         $('#servingList tr.odd').remove();
         $('#servingList tr.even').remove();
         var availHeight = ($('#content').height() - 20) * 0.5 - $('#servingListTitle').height() - 15;
@@ -70,7 +69,9 @@
         for (var i = 0; i < num; i++) {
             j = sListIter * num + i;
             var serve = serves && j < serves.length ? serves[j] : null;
-            var tr = $('<tr></tr>').attr('class', i % 2 === 0 ? 'odd' : 'even')
+            var tr = $('<tr></tr>').attr('class', i % 2 === 0 ? 
+            		('odd' + (serve?' hoverable':'')) : 
+            		('even' + (serve?' hoverable':'')))
                     .appendTo($('#servingList'));
             $('<td></td>').text(serve && serve.order ? serve.order.registerNum : '').appendTo(tr);
             $('<td></td>').text(serve && serve.order ? serve.order.queueNum : '').appendTo(tr);
@@ -86,19 +87,49 @@
         } else {
             sListIter = 0;
             setTimeout(function() {
-                getServeQueues();
+            	if(0 === tab) {
+            		getServeQueues();
+            	}
+            	else {
+            		getHoldQueues();
+            	}
             }, interval);
         }
     };
     
     // 获取服务队列
     var getServeQueues = function() {
+    	if(0 !== tab) {
+    		return;
+    	}
         $.OrderInfo.getServeQueues({
             data : {
                 step : 0,
                 isBooker : userProfile.isBooker
             },
             success : function(serves) {
+            	if(0 !== tab) {
+            		return;
+            	}
+                createServingList(serves);
+            }
+        });
+    };
+    
+    // 获取Hold队列
+    var getHoldQueues = function() {
+    	if(1 !== tab) {
+    		return;
+    	}
+        $.OrderInfo.getServeQueues({
+            data : {
+                step : 1,
+                isBooker : userProfile.isBooker
+            },
+            success : function(serves) {
+            	if(1 !== tab) {
+            		return;
+            	}
                 createServingList(serves);
             }
         });
@@ -106,6 +137,7 @@
     
     // 创建订单列表
     var createWaitingList = function(orders) {
+    	$('#remaining').text(orders ? orders.length : 0);
         $('#waitingList tr.odd').remove();
         $('#waitingList tr.even').remove();
         var availHeight = ($('#content').height() - 20) * 0.5 - $('#waitingListTitle').height() - 15;
@@ -189,6 +221,26 @@
         return (hours < 10 ? '0' : '') + hours + ':' + 
             (minutes < 10 ? '0' : '') + minutes;
     }
+    
+    $('#holdListLink').bind('click', function() {
+    	if('unselected' === $('#holdListTab').attr('class')) {
+    		sListIter = 0;
+    		tab = 1;
+    		$('#holdListTab').attr('class', '');
+    		$('#servingListTab').attr('class', 'unselected');
+    		getHoldQueues();
+    	}
+    });
+    
+    $('#servingListLink').bind('click', function() {
+    	if('unselected' === $('#servingListTab').attr('class')) {
+    		sListIter = 0;
+    		tab = 0;
+    		$('#servingListTab').attr('class', '');
+    		$('#holdListTab').attr('class', 'unselected');
+    		getServeQueues();
+    	}
+    })
     
     //getServeQueue();
     //getServeQueues();

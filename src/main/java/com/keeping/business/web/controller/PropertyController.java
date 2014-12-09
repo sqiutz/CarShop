@@ -57,6 +57,7 @@ public class PropertyController {
 				logger.error("< PropertyController.getProperty() > 获取属性信息为空或没有权限."
 						+ jsonStr);
 			}else{
+				System.out.println("enter service");
 				property = propertyService.queryByKey(propertyReq.getName());
 			}
 		} catch (BusinessServiceException ex) {
@@ -77,6 +78,8 @@ public class PropertyController {
 		try {
 			return JsonConverter.getResultObject(code, msg, property);
 		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			System.out.println(e.getStackTrace());
 			logger.error("< PropertyController.getProperty() > 获取属性信息返回出错."
 					+ e.getMessage());
 			throw e;

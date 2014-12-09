@@ -425,7 +425,11 @@ table.red th {
 	border-color:#B33737;
 }
 table.red tr.odd {
+	background-color:#F39C9C;
+}
+table.red tr.hoverable:hover {
 	background-color:#C33C3C;
+	cursor:pointer;
 }
 table.blue {		
 	font-style:italic;
@@ -436,5 +440,5 @@ table.blue th {
 	border-color:#2DB1C0;
 }
 table.blue tr.odd {
-	background-color:#30BFCF;
+	background-color:#90DFEF;
 }

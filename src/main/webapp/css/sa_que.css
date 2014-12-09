@@ -11,10 +11,10 @@ div.content_rg {
 	width:49%;
 }
 div.black {
-	background: -webkit-linear-gradient(top, #1a1a1a, #303030);
-	background: -ms-linear-gradient(top, #1a1a1a, #303030); 
-	background:-moz-linear-gradient(top, #1a1a1a, #303030);
-	background: -o-linear-gradient(top, #1a1a1a, #303030);
+	background: -webkit-linear-gradient(top, #1a1a1a, #606060);
+	background: -ms-linear-gradient(top, #1a1a1a, #606060); 
+	background:-moz-linear-gradient(top, #1a1a1a, #606060);
+	background: -o-linear-gradient(top, #1a1a1a, #606060);
 	border:3px solid #000000;
 }
 div.box-black.small {
