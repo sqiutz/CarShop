@@ -106,7 +106,7 @@ CREATE TABLE `TBL_SERVEQUEUE` (
   `user_id` bigint(10) NOT NULL,
   `order_id` bigint(10) NOT NULL UNIQUE,
   `create_time` timestamp NOT NULL DEFAULT '1990-01-01 00:00:00',
-  `modify_time` timestamp NOT NULL DEFAULT '2100-01-01 00:00:00',
+  `modify_time` timestamp NOT NULL DEFAULT '2014-01-01 00:00:00',
   `start_time` timestamp  NOT NULL DEFAULT '1990-01-01 00:00:00',
   `end_time` timestamp  NOT NULL DEFAULT '1990-01-01 00:00:00',
   INDEX user_ind (user_id),
@@ -231,21 +231,21 @@ insert into tbl_user set user_name = 'SA-02', is_admin = 0, passwd = 'passw0rd',
 insert into tbl_user set user_name = 'SA-03', is_admin = 0, passwd = 'passw0rd', is_valid = 1, group_id = 5, counter='COUNTER 3';
 insert into tbl_user set user_name = 'SA-04', is_admin = 0, passwd = 'passw0rd', is_valid = 1, group_id = 5, counter='COUNTER 4';
 
-insert into tbl_order set status=0, registerNumber='B-001', queueNumber='B1831TOK', estimationTime=4, start_time='2014-12-02 12:02:06', end_time='2014-12-02 12:12:26';
-insert into tbl_order set status=0, registerNumber='N-001', queueNumber='B1093MN', estimationTime=5;
-insert into tbl_order set status=0, registerNumber='B-002', queueNumber='B8763HJ', estimationTime=6;
+-- insert into tbl_order set status=0, registerNumber='B-001', queueNumber='B1831TOK', estimationTime=4, start_time='2014-12-02 12:02:06', end_time='2014-12-02 12:12:26';
+-- insert into tbl_order set status=0, registerNumber='N-001', queueNumber='B1093MN', estimationTime=5;
+-- insert into tbl_order set status=0, registerNumber='B-002', queueNumber='B8763HJ', estimationTime=6;
 insert into tbl_order set status=1, registerNumber='B-003', queueNumber='B1001AC', estimationTime=7;
 insert into tbl_order set status=1, registerNumber='B-002', queueNumber='B1002AC', estimationTime=8;
 insert into tbl_order set status=1, registerNumber='B-001', queueNumber='B1003AC', estimationTime=4;
 insert into tbl_order set status=1, registerNumber='N-001', queueNumber='B1001NC', estimationTime=5;
 
 insert into tbl_servequeue set step=0, user_id=6, order_id=3;
-insert into tbl_servequeue set step=0, user_id=7, order_id=4;
-insert into tbl_servequeue set step=0, user_id=8, order_id=5;
-insert into tbl_servequeue set step=0, user_id=9, order_id=6;
-insert into tbl_servequeue set step=1, user_id=7, order_id=7;
-insert into tbl_servequeue set step=1, user_id=8, order_id=8;
-insert into tbl_servequeue set step=1, user_id=9, order_id=9;
+-- insert into tbl_servequeue set step=0, user_id=7, order_id=4;
+-- insert into tbl_servequeue set step=0, user_id=8, order_id=5;
+-- insert into tbl_servequeue set step=0, user_id=9, order_id=6;
+-- insert into tbl_servequeue set step=1, user_id=7, order_id=5;
+-- insert into tbl_servequeue set step=1, user_id=8, order_id=8;
+-- insert into tbl_servequeue set step=1, user_id=9, order_id=9;
 
 insert into tbl_property set name='COUNTER_NUM', value='5';
 insert into tbl_property set name='LANGUAGE', value='en_US';

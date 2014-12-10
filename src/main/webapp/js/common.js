@@ -87,7 +87,33 @@
                     },
                     // call
                     call : {
-                    	url : "servequeue.do?action=call",
+                    	url : "servequeue.do?action=call"
+                    },
+                    // hold
+                    hold : {
+                        url : "servequeue.do?action=hold",
+                        args : [ 
+                                "id",
+                                "createTime",
+                                "startTime",
+                                "endTime",
+                                "step",
+                                "userId",
+                                "orderId"
+                       ]
+                    },
+                    // resume
+                    resume : {
+                        url : "servequeue.do?action=cancelhold",
+                        args : [ 
+                                "id",
+                                "createTime",
+                                "startTime",
+                                "endTime",
+                                "step",
+                                "userId",
+                                "orderId"
+                       ]
                     },
                     // 获取订单列表
                     getOrderList : {

@@ -320,9 +320,10 @@ public class ServeQueueController {
 			String jsonStr = request.getParameter("param");
 			UserProfile loginUser = (UserProfile) session
 					.getAttribute(PlatfromConstants.STR_USER_PROFILE);
-			
+			System.out.println(jsonStr);
 			ServeQueue serveQueue = JsonConverter.getFromJsonString(jsonStr,
 					ServeQueue.class);
+			System.out.println("ServeQueue " + (null == serveQueue ? "null" : serveQueue.getId()));
 
 			if (StringUtil.isNull(jsonStr) || serveQueue == null) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();

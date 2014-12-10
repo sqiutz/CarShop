@@ -22,6 +22,7 @@ var TIMER = 'Timer';
 var CALL = 'CALL';
 var RECALL = 'RECALL';
 var HOLD = 'HOLD';
+var RESUME = 'RESUME';
 var WORKSHOP = 'Workshop';
 var SEND_TO_WORKSHOP = 'Send to Workshop';
 var SHOW_DETAILS = 'Show details';

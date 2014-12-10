@@ -31,6 +31,24 @@ define([], function() {
 				}
 			});
 		},
+		// hold
+        hold : function(options) {
+            $.common.ajax("hold", {
+                data : options.data,
+                success : function(data) {
+                    options.success(data);
+                }
+            });
+        },
+        // resume
+        resume : function(options) {
+            $.common.ajax("resume", {
+                data : options.data,
+                success : function(data) {
+                    options.success(data);
+                }
+            });
+        },
 		// 获取订单列表
 		getOrderList : function(options) {
 			var orderlist;

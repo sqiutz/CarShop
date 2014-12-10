@@ -167,7 +167,7 @@
 			<if test="endTime != null">
 				END_TIME = #{endTime},
 			</if>
-			<if test="idBook != null">
+			<if test="isBook != null">
 				IS_BOOK = #{isBook},
 			</if>
 		</set>

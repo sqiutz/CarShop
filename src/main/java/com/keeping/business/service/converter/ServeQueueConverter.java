@@ -13,6 +13,7 @@ public class ServeQueueConverter {
 
 		ServeQueue serveQueue = new ServeQueue();
 		
+		serveQueue.setId(serveQueueDo.getId());
 		serveQueue.setCreateTime(serveQueueDo.getCreateTime());
 		serveQueue.setEndTime(serveQueueDo.getEndTime());
 		serveQueue.setStartTime(serveQueueDo.getStartTime());
@@ -31,6 +32,7 @@ public class ServeQueueConverter {
 		
 		ServeQueueDo serveQueueDo = new ServeQueueDo();
 		
+		serveQueueDo.setId(serveQueue.getId());
 		serveQueueDo.setEndTime(serveQueue.getEndTime());
 		serveQueueDo.setOrderId(serveQueue.getOrderId());
 		serveQueueDo.setStartTime(serveQueue.getStartTime());

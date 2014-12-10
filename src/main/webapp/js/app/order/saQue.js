@@ -28,6 +28,7 @@
             $('#callBtn').text(CALL).attr('title', CALL);
             $('#recallBtn').text(RECALL).attr('title', RECALL);
             $('#holdBtn').text(HOLD).attr('title', HOLD);
+            $('#resumeBtn').text(RESUME).attr('title', RESUME);
             $('#sendToWorkshopBtn').text(WORKSHOP).attr('title', SEND_TO_WORKSHOP);
             $('#showDetails').text(SHOW_DETAILS + ' >>');
             $('#servingListLink').text(NOW_SERVING + '...');
@@ -73,14 +74,17 @@
             var tr = $('<tr></tr>').attr('class', i % 2 === 0 ? 'odd' : 'even')
                     .appendTo($('#servingList'));
             if(serve) {
-                tr.addClass('hoverable').val(serve.order.id);
-                if(serve.order.id === parseInt(selectedId)) {
+                tr.addClass('hoverable').val(serve.id);
+                if(serve.id === parseInt(selectedId)) {
                     tr.addClass('selected');
                 }
                 tr.bind('click', function() {
                     $('#servingList tr').removeClass('selected');
                     $(this).addClass('selected');
                     selectedId = $(this).val();
+                    if(!currServe) {
+                        $('#resumeBtn').attr('disabled', false);
+                    }
                 })
             }
             $('<td></td>').text(serve && serve.order ? serve.order.registerNum : '').appendTo(tr);
@@ -188,6 +192,7 @@
     };
     
     // 获取当前订单
+    var currServe;
     var getServeQueue = function() {
     	$.OrderInfo.getServeQueue({
     		data : {
@@ -196,11 +201,18 @@
             },
             success : function(data) {
             	if(data.code == '000000') {
-            		var serve = data.resList[0];
-            		if(serve) {
+            	    currServe = data.resList[0];
+            		if(currServe) {
             		    $('#callBtn').attr('disabled', 'disabled');
+            		    $('#resumeBtn').attr('disabled', 'disabled');
+            		    $('#holdBtn').attr('disabled', false);            		    
             		}
-            		$('#currentNo').text(serve ? serve.order.registerNum : '')
+            		else {
+            		    $('#callBtn').attr('disabled', false);
+            		    $('#holdBtn').attr('disabled', 'disabled');
+            		    $('#resumeBtn').attr('disabled', 'disabled');
+            		}
+            		$('#currentNo').text(currServe ? currServe.order.registerNum : '')
             	}
             }
     	});
@@ -210,10 +222,45 @@
     $('#callBtn').bind('click', function() {
     	$.OrderInfo.call({
     		success : function(data) {
-    			$('#callBtn').attr('disabled', 'disabled');
-    			getServeQueue();
+    		    if(data.code == '000000') {
+                    getServeQueue();
+    		    }
             }
     	});
+    });
+    
+    // Hold
+    $('#holdBtn').bind('click', function() {
+        $.OrderInfo.hold({
+            data : {
+                id : currServe.id,
+                /*createTime : currServe.createTime,
+                startTime : currServe.startTime,
+                endTime : currServe.endTime,
+                step : currServe.step,
+                userId : currServe.userId,
+                orderId : currServe.orderId*/                
+            },
+            success : function(data) {
+                if(data.code == '000000') {
+                    getServeQueue();
+                }                
+            }
+        });
+    });
+    
+    // Resume
+    $('#resumeBtn').bind('click', function() {
+        $.OrderInfo.resume({
+            data : {
+                id : selectedId,         
+            },
+            success : function(data) {
+                if(data.code == '000000') {
+                    getServeQueue();
+                }                
+            }
+        });
     });
     
     $('#cancelBtn').bind('click', function() {
