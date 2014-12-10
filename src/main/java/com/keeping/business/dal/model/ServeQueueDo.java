@@ -10,6 +10,8 @@ public class ServeQueueDo {
 	
     private Timestamp createTime;
     
+    private Timestamp modifyTime;
+    
     private Timestamp startTime;
     
     private Timestamp endTime;
@@ -72,6 +74,14 @@ public class ServeQueueDo {
 
 	public void setOrderId(Integer orderId) {
 		this.orderId = orderId;
+	}
+
+	public Timestamp getModifyTime() {
+		return modifyTime;
+	}
+
+	public void setModifyTime(Timestamp modifyTime) {
+		this.modifyTime = modifyTime;
 	}
 
 }

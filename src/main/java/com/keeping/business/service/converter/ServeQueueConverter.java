@@ -15,6 +15,7 @@ public class ServeQueueConverter {
 		
 		serveQueue.setId(serveQueueDo.getId());
 		serveQueue.setCreateTime(serveQueueDo.getCreateTime());
+		serveQueue.setModifyTime(serveQueueDo.getModifyTime());
 		serveQueue.setEndTime(serveQueueDo.getEndTime());
 		serveQueue.setStartTime(serveQueueDo.getStartTime());
 		serveQueue.setStep(serveQueueDo.getStep());
@@ -36,8 +37,10 @@ public class ServeQueueConverter {
 		serveQueueDo.setEndTime(serveQueue.getEndTime());
 		serveQueueDo.setOrderId(serveQueue.getOrderId());
 		serveQueueDo.setStartTime(serveQueue.getStartTime());
+		serveQueueDo.setCreateTime(serveQueue.getCreateTime());
 		serveQueueDo.setStep(serveQueue.getStep());
 		serveQueueDo.setUserId(serveQueue.getUserId());
+		serveQueueDo.setModifyTime(serveQueue.getModifyTime());
 		
 		return serveQueueDo;
 	}

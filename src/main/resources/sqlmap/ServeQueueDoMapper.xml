@@ -8,12 +8,13 @@
 		<result column="USER_ID" property="userId" />
 		<result column="ORDER_ID" property="orderId" />
 		<result column="CREATE_TIME" property="createTime" />
+		<result column="MODIFY_TIME" property="modifyTime" />
 		<result column="START_TIME" property="startTime" />
 		<result column="END_TIME" property="endTime" />
 	</resultMap>
 	
 	<sql id="Base_Column_List">
-		ID,STEP,USER_ID,ORDER_ID,CREATE_TIME,START_TIME,END_TIME
+		ID,STEP,USER_ID,ORDER_ID,CREATE_TIME,MODIFY_TIME,START_TIME,END_TIME
 	</sql>
 
 	<select id="queryByServeQueuestep" resultMap="ServeQueueDoMap" 
@@ -23,7 +24,7 @@
 		FROM TBL_SERVEQUEUE
 		WHERE
 		STEP = #{step}
-		order by START_TIME desc
+		order by MODIFY_TIME desc
 	</select>
 	
 	<select id="queryByServeQueueid" resultMap="ServeQueueDoMap" 
@@ -62,6 +63,9 @@
 			<if test="endTime != null">
 				END_TIME,
 			</if>
+			<if test="modifyTime != null">
+				MODIFY_TIME,
+			</if>
 			CREATE_TIME,
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -79,6 +83,9 @@
 			</if>
 			<if test="endTime != null">
 				#{endTime},
+			</if>
+			<if test="modifyTime != null">
+				#{modifyTime},
 			</if>
 			now(),
 		</trim>
@@ -98,6 +105,9 @@
 			</if>
 			<if test="startTime != null">
 				START_TIME = #{startTime},
+			</if>
+			<if test="modifyTime != null">
+				MODIFY_TIME = #{modifyTime},
 			</if>
 			<if test="endTime != null">
 				END_TIME = #{endTime},

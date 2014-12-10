@@ -40,6 +40,7 @@ import com.keeping.business.web.controller.model.User;
 import com.keeping.business.web.controller.model.UserProfile;
 import com.keeping.business.web.controller.model.WebResult;
 import com.keeping.business.web.controller.model.WebResultList;
+import com.keeping.business.web.controller.model.WebResultObject;
 
 @Controller
 @RequestMapping("/servequeue.do")
@@ -197,6 +198,63 @@ public class ServeQueueController {
 		return JsonConverter.getResultObject(code, msg, serveQueueList);
 	}
 
+	@RequestMapping(params = "action=getlatestone")
+	@ResponseBody
+	public WebResultObject<ServeQueue> getLatestServeQueue(HttpServletRequest request, HttpServletResponse response) {
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
+		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
+		HttpSession session = request.getSession();
+		session.setMaxInactiveInterval(PlatformPar.sessionTimeout);
+
+		List<ServeQueue> serveQueueList = new ArrayList<ServeQueue>();
+		try {
+			
+			String jsonStr = request.getParameter("param");
+			StepObject step = JsonConverter.getFromJsonString(jsonStr,
+					StepObject.class);
+			
+			if (null == step) {
+				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
+				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
+				logger.error("< ServeQueueController.getServeQueue() > 获取服务订单请求信息不正确: " + step);
+			} else {
+				
+				serveQueueList = serveQueueService.getServeQueueByStep(BusinessCenterServeQueueStatus.SERVEQUEUE_STATUS_SERVING.getId());
+				
+				List<Integer> userIdList = new ArrayList<Integer>();
+				List<Integer> orderIdList = new ArrayList<Integer>();
+				List<User> users = new ArrayList<User>();
+				for (int i=0; i<serveQueueList.size(); i++){
+					userIdList.add(serveQueueList.get(i).getUserId());
+					orderIdList.add(serveQueueList.get(i).getOrderId());
+				
+					User user = userService.getByUserId(userIdList.get(i));
+					users.add(user);
+				}
+				
+				if(serveQueueList.size() > 0){
+
+					List<Order> orders = orderService.getByOrdersId(orderIdList);
+					
+					ReorgQueue.reorgServeQueue(serveQueueList, users, orders);   //need to verify
+				}
+				
+			}
+		} catch (BusinessServiceException ex) {
+			code = ex.getErrorCode();
+			msg = ex.getErrorMessage();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			System.out.println(e.getStackTrace());
+			code = BusinessCenterResCode.SYS_ERROR.getCode();
+			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
+			logger.error("< ServeQueueController.getAllServeQueues() > 获取排队列表失败."
+					+ e.getMessage());
+		}
+
+		return JsonConverter.getResultObject(code, msg, serveQueueList.get(0));
+	}
 	
 	/**
 	 * 添加serveQueue订单
@@ -262,6 +320,7 @@ public class ServeQueueController {
 					
 					ServeQueue serveQueue = new ServeQueue();
 					serveQueue.setStartTime(dateTime);
+					serveQueue.setModifyTime(dateTime);
 					serveQueue.setOrderId(order.getId());
 					serveQueue.setStep(BusinessCenterServeQueueStatus.SERVEQUEUE_STATUS_SERVING.getId());
 					serveQueue.setUserId(loginUser.getId());
@@ -435,6 +494,10 @@ public class ServeQueueController {
 						orderService.updateOrder(order);
 					}
 					
+					Date now = new Date();
+					java.sql.Timestamp dateTime = new java.sql.Timestamp(now.getTime());
+					
+					serveQueue.setModifyTime(dateTime);
 					serveQueue.setUserId(loginUser.getId());
 					serveQueue.setStep(BusinessCenterServeQueueStatus.SERVEQUEUE_STATUS_SERVING.getId());
 					serveQueueService.updateServeQueue(serveQueue);
