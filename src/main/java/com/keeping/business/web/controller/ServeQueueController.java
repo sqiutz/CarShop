@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.keeping.business.common.exception.BusinessServiceException;
+import com.keeping.business.common.rescode.BusinessCenterModifyQueueStatus;
 import com.keeping.business.common.rescode.BusinessCenterOrderStatus;
 import com.keeping.business.common.rescode.BusinessCenterResCode;
 import com.keeping.business.common.rescode.BusinessCenterServeQueueStatus;
@@ -23,6 +24,7 @@ import com.keeping.business.common.rescode.BusinessCenterUserGroup;
 import com.keeping.business.common.util.PlatformPar;
 import com.keeping.business.common.util.PlatfromConstants;
 import com.keeping.business.common.util.StringUtil;
+import com.keeping.business.service.ModifyQueueService;
 import com.keeping.business.service.OrderService;
 import com.keeping.business.service.ServeQueueService;
 import com.keeping.business.service.UserService;
@@ -30,6 +32,7 @@ import com.keeping.business.web.controller.converter.JsonConverter;
 import com.keeping.business.web.controller.converter.ReorgQueue;
 import com.keeping.business.web.controller.converter.WebUserConverter;
 import com.keeping.business.web.controller.model.LoginReq;
+import com.keeping.business.web.controller.model.ModifyQueue;
 import com.keeping.business.web.controller.model.Order;
 import com.keeping.business.web.controller.model.ServeQueue;
 import com.keeping.business.web.controller.model.StepObject;
@@ -46,6 +49,8 @@ public class ServeQueueController {
 	private Logger logger = LoggerFactory.getLogger(UserController.class);
 
 	/** 用户信息Service */
+	@Resource
+	private ModifyQueueService modifyQueueService;
 	@Resource
 	private ServeQueueService serveQueueService;
 	@Resource
@@ -473,7 +478,11 @@ public class ServeQueueController {
 				
 				serveQueueService.updateServeQueue(serveQueue);   //添加ServeQueue订单
 				
-				//modifyQueueService.addModifyQueue()
+				ModifyQueue modifyQueue = new ModifyQueue();
+				modifyQueue.setStep(BusinessCenterModifyQueueStatus.MODIFYQUEUE_STATUS_MODIFYING.getId());
+				modifyQueue.setOrderId(serveQueue.getOrderId());
+				
+				modifyQueueService.addModifyQueue(modifyQueue);
 			}
 		} catch (BusinessServiceException ex) {
 			code = ex.getErrorCode();
