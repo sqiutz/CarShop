@@ -75,17 +75,19 @@
                     .appendTo($('#servingList'));
             if(serve) {
                 tr.addClass('hoverable').val(serve.id);
-                if(serve.id === parseInt(selectedId)) {
-                    tr.addClass('selected');
-                }
-                tr.bind('click', function() {
-                    $('#servingList tr').removeClass('selected');
-                    $(this).addClass('selected');
-                    selectedId = $(this).val();
-                    if(!currServe) {
-                        $('#resumeBtn').attr('disabled', false);
+                if(1 === tab) {
+                	if(serve.id === parseInt(selectedId)) {
+                        tr.addClass('selected');
                     }
-                })
+                    tr.bind('click', function() {
+                        $('#servingList tr').removeClass('selected');
+                        $(this).addClass('selected');
+                        selectedId = $(this).val();
+                        if(!currServe) {
+                            $('#resumeBtn').attr('disabled', false);
+                        }
+                    })
+                }                
             }
             $('<td></td>').text(serve && serve.order ? serve.order.registerNum : '').appendTo(tr);
             $('<td></td>').text(serve && serve.order ? serve.order.queueNum : '').appendTo(tr);
