@@ -418,27 +418,37 @@ div.navg {
 }
 table.red {		
 	font-style:italic;
-	border-color:#B33737;
+	border-color:#C33C3C;
 }
 table.red th {	
-	color:#B33737;
-	border-color:#B33737;
+	color:#C33C3C;
+	border-color:#C33C3C;
 }
 table.red tr.odd {
-	background-color:#F39C9C;
+	background-color:#edc4c4;
 }
 table.red tr.hoverable:hover {
 	background-color:#C33C3C;
 	cursor:pointer;
 }
+table.red tr.selected {
+	background-color:#B33737;
+}
 table.blue {		
 	font-style:italic;
-	border-color:#2DB1C0;
+	border-color:#30BFCF;
 }
 table.blue th {	
-	color:#2DB1C0;
-	border-color:#2DB1C0;
+	color:#30BFCF;
+	border-color:#30BFCF;
 }
 table.blue tr.odd {
-	background-color:#90DFEF;
+	background-color:#c1ecf1;
+}
+table.blue tr.hoverable:hover {
+	background-color:#30BFCF;
+	cursor:pointer;
+}
+table.blue tr.selected {
+	background-color:#2DB1C0;
 }

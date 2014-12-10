@@ -61,6 +61,7 @@
 	});
     
     // 创建服务队列
+	var selectedId = 0;
     var createServingList = function(serves) {
         $('#servingList tr.odd').remove();
         $('#servingList tr.even').remove();
@@ -69,10 +70,19 @@
         for (var i = 0; i < num; i++) {
             j = sListIter * num + i;
             var serve = serves && j < serves.length ? serves[j] : null;
-            var tr = $('<tr></tr>').attr('class', i % 2 === 0 ? 
-            		('odd' + (serve?' hoverable':'')) : 
-            		('even' + (serve?' hoverable':'')))
+            var tr = $('<tr></tr>').attr('class', i % 2 === 0 ? 'odd' : 'even')
                     .appendTo($('#servingList'));
+            if(serve) {
+                tr.addClass('hoverable').val(serve.order.id);
+                if(serve.order.id === parseInt(selectedId)) {
+                    tr.addClass('selected');
+                }
+                tr.bind('click', function() {
+                    $('#servingList tr').removeClass('selected');
+                    $(this).addClass('selected');
+                    selectedId = $(this).val();
+                })
+            }
             $('<td></td>').text(serve && serve.order ? serve.order.registerNum : '').appendTo(tr);
             $('<td></td>').text(serve && serve.order ? serve.order.queueNum : '').appendTo(tr);
             $('<td></td>').text(serve && serve.user ? serve.user.userName : '').appendTo(tr);
@@ -147,6 +157,9 @@
             var order = orders && j < orders.length ? orders[j] : null;
             var tr = $('<tr></tr>').attr('class', i % 2 === 0 ? 'odd' : 'even')
                     .appendTo($('#waitingList'));
+            if(order) {
+                tr.addClass('hoverable').val(order.id);
+            }
             $('<td></td>').text(order ? order.registerNum : '').appendTo(tr);
             $('<td></td>').text(order ? order.queueNum : '').appendTo(tr);
             $('<td></td>').text(order ? getTimeStr(order.startTime) : '').appendTo(tr);
@@ -226,6 +239,7 @@
     	if('unselected' === $('#holdListTab').attr('class')) {
     		sListIter = 0;
     		tab = 1;
+    		selectedId = 0;
     		$('#holdListTab').attr('class', '');
     		$('#servingListTab').attr('class', 'unselected');
     		getHoldQueues();
@@ -236,6 +250,7 @@
     	if('unselected' === $('#servingListTab').attr('class')) {
     		sListIter = 0;
     		tab = 0;
+    		selectedId = 0;
     		$('#servingListTab').attr('class', '');
     		$('#holdListTab').attr('class', 'unselected');
     		getServeQueues();
