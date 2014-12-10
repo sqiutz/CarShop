@@ -133,6 +133,21 @@ public class UserServiceImpl implements UserService{
 		return users;
 	}
 
+	public User getByUserId(Integer id) throws BusinessServiceException {
+		// TODO Auto-generated method stub
+		UserDo userDo = userDao.queryByUserId(id);
+		
+		User user = null;
+		
+		if (userDo == null){
+			return new User();
+		}
+		
+		user = UserConverter.getUser(userDo);
+		
+		return user;
+	}
+	
 	public List<User> getUsersById(List<Long> userIdList)
 			throws BusinessServiceException {
 		// TODO Auto-generated method stub
@@ -174,7 +189,5 @@ public class UserServiceImpl implements UserService{
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
 	}
-
-
 
 }

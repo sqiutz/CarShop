@@ -78,6 +78,21 @@ public class ServeQueueServiceImpl implements ServeQueueService{
 		return serveQueues;
 	}
 	
+	public ServeQueue getServeQueueById(Integer id)
+			throws BusinessServiceException {
+		// TODO Auto-generated method stub
+		ServeQueueDo serveQueueDo = serveQueueDao.queryByServeQueueid(id);
+		ServeQueue serveQueue = new ServeQueue();
+		
+		if (serveQueueDo == null){
+			return serveQueue;
+		}
+		
+		serveQueue = ServeQueueConverter.getServeQueue(serveQueueDo);
+		
+		return serveQueue;
+	}
+	
 
 	public List<ServeQueue> getServeQueueByStepAndUserId(ServeQueue serveQueue) throws BusinessServiceException {
 		// TODO Auto-generated method stub

@@ -166,13 +166,13 @@
 		FROM TBL_USER
 	</select>
 
-	<select id="queryByPK" resultMap="UserDoMap" 
-		parameterType="java.lang.Long">
+	<select id="queryByUserId" resultMap="UserDoMap" 
+		parameterType="java.lang.Integer">
 		SELECT
 		<include refid="Base_Column_List" />
 		FROM TBL_USER
 		WHERE
-		USER_ID = #{userId}
+		ID = #{id}
 	</select>
 	
 	<select id="queryByUsername" resultMap="UserDoMap" 

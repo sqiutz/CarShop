@@ -87,18 +87,19 @@ public class ServeQueueController {
 				System.out.println("retrun from serveQueueService " + serveQueueList.size());
 				List<Integer> userIdList = new ArrayList<Integer>();
 				List<Integer> orderIdList = new ArrayList<Integer>();
+				List<User> users = new ArrayList<User>();
 				for (int i=0; i<serveQueueList.size(); i++){
 					System.out.println("serveQueueList.get(i).getUserId() " + serveQueueList.get(i).getUserId());
 					userIdList.add(serveQueueList.get(i).getUserId());
 					System.out.println("serveQueueList.get(i).getOrderId() " + serveQueueList.get(i).getOrderId());
 					orderIdList.add(serveQueueList.get(i).getOrderId());
-
+					
+					User user = userService.getByUserId(userIdList.get(i));
+					users.add(user);
 				}
 				
 				if(serveQueueList.size() > 0){
 					
-					List<User> users = userService.getByUsersId(userIdList);
-					System.out.println("retrun from userService " + users.size());
 					List<Order> orders = orderService.getByOrdersId(orderIdList);
 					System.out.println("retrun from orderService " + orders.size());
 					
@@ -161,18 +162,19 @@ public class ServeQueueController {
 				
 				List<Integer> userIdList = new ArrayList<Integer>();
 				List<Integer> orderIdList = new ArrayList<Integer>();
+				List<User> users = new ArrayList<User>();
 				for (int i=0; i<serveQueueList.size(); i++){
 					System.out.println("serveQueueList.get(i).getUserId() " + serveQueueList.get(i).getUserId());
 					userIdList.add(serveQueueList.get(i).getUserId());
 					System.out.println("serveQueueList.get(i).getOrderId() " + serveQueueList.get(i).getOrderId());
 					orderIdList.add(serveQueueList.get(i).getOrderId());
 				
+					User user = userService.getByUserId(userIdList.get(i));
+					users.add(user);
 				}
 				
 				if(serveQueueList.size() > 0){
-					
-					List<User> users = userService.getByUsersId(userIdList);
-					System.out.println("retrun from userService " + users.size());
+
 					List<Order> orders = orderService.getByOrdersId(orderIdList);
 					System.out.println("retrun from orderService " + orders.size());
 					
@@ -261,17 +263,17 @@ public class ServeQueueController {
 					ServeQueue serveQueue = new ServeQueue();
 					serveQueue.setStartTime(dateTime);
 					serveQueue.setOrderId(order.getId());
-					serveQueue.setStep(0);
+					serveQueue.setStep(BusinessCenterServeQueueStatus.SERVEQUEUE_STATUS_SERVING.getId());
 					serveQueue.setUserId(loginUser.getId());
 					
 					serveQueueService.addServeQueue(serveQueue);   //添加ServeQueue订单
 				}else{
-					code = BusinessCenterResCode.SYS_INVILID_REQ.getCode();
-					msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
+					code = BusinessCenterResCode.ORDER_NOT_EXIST.getCode();
+					msg = BusinessCenterResCode.ORDER_NOT_EXIST.getMsg();
 				}
 				}else{
-					code = BusinessCenterResCode.SYS_INVILID_REQ.getCode();
-					msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
+					code = BusinessCenterResCode.ORDER_EXIST.getCode();
+					msg = BusinessCenterResCode.ORDER_EXIST.getMsg();
 				}
 				}
 		} catch (BusinessServiceException ex) {
@@ -340,8 +342,23 @@ public class ServeQueueController {
 				logger.error("< ServeQueueController.hold() > you are not role。");
 			}else{
 				
-				serveQueue.setStep(BusinessCenterServeQueueStatus.SERVEQUEUE_STATUS_HOLD.getId());
-				serveQueueService.updateServeQueue(serveQueue);
+				serveQueue = serveQueueService.getServeQueueById(serveQueue.getId());
+				
+				if (serveQueue != null){
+					Order order = orderService.queryOrderById(serveQueue.getOrderId());
+					
+					if (order != null){
+						order.setStatus(BusinessCenterOrderStatus.ORDER_STATUS_HOLD.getId());
+						orderService.updateOrder(order);
+					}
+					
+					serveQueue.setStep(BusinessCenterServeQueueStatus.SERVEQUEUE_STATUS_HOLD.getId());
+					serveQueueService.updateServeQueue(serveQueue);
+				}else{
+					code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
+					msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
+				}
+
 			}
 		} catch (BusinessServiceException ex) {
 			code = ex.getErrorCode();
@@ -407,9 +424,24 @@ public class ServeQueueController {
 				msg = BusinessCenterResCode.SYS_NO_ADMIN.getMsg();
 				logger.error("< ServeQueueController.hold() > you are not role。");
 			}else{
+			
+				serveQueue = serveQueueService.getServeQueueById(serveQueue.getId());
 				
-				serveQueue.setStep(BusinessCenterServeQueueStatus.SERVEQUEUE_STATUS_SERVING.getId());
-				serveQueueService.updateServeQueue(serveQueue);
+				if (serveQueue != null){
+					Order order = orderService.queryOrderById(serveQueue.getOrderId());
+					
+					if (order != null){
+						order.setStatus(BusinessCenterOrderStatus.ORDER_STATUS_SERVE.getId());
+						orderService.updateOrder(order);
+					}
+					
+					serveQueue.setUserId(loginUser.getId());
+					serveQueue.setStep(BusinessCenterServeQueueStatus.SERVEQUEUE_STATUS_SERVING.getId());
+					serveQueueService.updateServeQueue(serveQueue);
+				}else{
+					code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
+					msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
+				}
 			}
 		} catch (BusinessServiceException ex) {
 			code = ex.getErrorCode();

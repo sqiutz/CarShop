@@ -9,6 +9,8 @@ public interface ServeQueueService {
 
     public List<ServeQueue> getServeQueueByStep(Integer step) throws BusinessServiceException;
     
+    public ServeQueue getServeQueueById(Integer id) throws BusinessServiceException;
+    
     public void addServeQueue(ServeQueue serveQueue) throws BusinessServiceException;
     
 //    public ServeQueue queryServeQueueByUserAndStep(Integer userId, Integer step) throws BusinessServiceException;

@@ -8,6 +8,8 @@ public interface ServeQueueDao extends BaseDao<ServeQueueDo>{
 
 	public List<ServeQueueDo> queryByServeQueuestep(Integer step);
 	
+	public ServeQueueDo queryByServeQueueid(Integer id);
+	
 	public void addServeQueue(ServeQueueDo serveQueueDo);
 	
 	public List<ServeQueueDo> queryByUseridAndStep(ServeQueueDo serveQueueDo);  //

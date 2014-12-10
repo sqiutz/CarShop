@@ -79,6 +79,8 @@ public interface UserService {
      */
 	public List<User> getByUsersId(List<Integer> userIdList) throws BusinessServiceException;
 
+	public User getByUserId(Integer id) throws BusinessServiceException;
+	
 	/**
      * 根据用户ID查询用户信息
      * 

@@ -34,6 +34,7 @@ public class OrderConverter {
 		
 		OrderDo orderDo = new OrderDo();
 		
+		orderDo.setId(order.getId());
 		orderDo.setStatus(order.getStatus());
 		orderDo.setStartTime(order.getStartTime());
 		orderDo.setRoofNum(order.getRoofNum());
