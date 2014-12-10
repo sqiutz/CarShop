@@ -106,6 +106,7 @@ CREATE TABLE `TBL_SERVEQUEUE` (
   `user_id` bigint(10) NOT NULL,
   `order_id` bigint(10) NOT NULL UNIQUE,
   `create_time` timestamp NOT NULL DEFAULT '1990-01-01 00:00:00',
+  `modify_time` timestamp NOT NULL DEFAULT '2100-01-01 00:00:00',
   `start_time` timestamp  NOT NULL DEFAULT '1990-01-01 00:00:00',
   `end_time` timestamp  NOT NULL DEFAULT '1990-01-01 00:00:00',
   INDEX user_ind (user_id),

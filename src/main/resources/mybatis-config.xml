@@ -11,6 +11,7 @@
 		<typeAlias alias="ServeQueueDo" type="com.keeping.business.dal.model.ServeQueueDo" />
 		<typeAlias alias="UserGroupDo" type="com.keeping.business.dal.model.UserGroupDo" />
 		<typeAlias alias="PropertyDo" type="com.keeping.business.dal.model.PropertyDo" />
+		<typeAlias alias="ModifyQueueDo" type="com.keeping.business.dal.model.ModifyQueueDo" />
 
 	</typeAliases>
 	

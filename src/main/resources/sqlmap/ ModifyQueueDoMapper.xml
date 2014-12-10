@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.keeping.business.dal.dao.ModifyQueueDao">
+
+	<resultMap id="ModifyQueueDoMap" type="ModifyQueueDo">
+	    <id column="ID" property="id" />
+		<result column="STEP" property="step" />
+		<result column="USER_ID" property="userId" />
+		<result column="ORDER_ID" property="orderId" />
+		<result column="CREATE_TIME" property="createTime" />
+		<result column="START_TIME" property="startTime" />
+		<result column="END_TIME" property="endTime" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		ID,STEP,USER_ID,ORDER_ID,CREATE_TIME,START_TIME,END_TIME
+	</sql>
+
+	<select id="queryByModifyQueuestep" resultMap="ModifyQueueDoMap" 
+		parameterType="java.lang.Integer">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM TBL_MODIFYQUEUE
+		WHERE
+		STEP = #{step}
+		order by START_TIME desc
+	</select>
+	
+	<select id="queryByUseridAndStep" resultMap="ModifyQueueDoMap" parameterType="ModifyQueueDo">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM TBL_MODIFYQUEUE
+		WHERE
+		STEP = #{step} and USER_ID = #{userId}
+	</select>
+	
+	<insert id="addModifyQueue" parameterType="ModifyQueueDo">
+		INSERT INTO TBL_MODIFYQUEUE 
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="step != null">
+				STEP,
+			</if>
+			<if test="userId != null">
+				USER_ID,
+			</if>
+			<if test="orderId != null">
+				ORDER_ID,
+			</if>
+			<if test="startTime != null">
+				START_TIME,
+			</if>
+			<if test="endTime != null">
+				END_TIME,
+			</if>
+			CREATE_TIME,
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="step != null">
+				#{step},
+			</if>
+			<if test="userId != null">
+				#{userId},
+			</if>
+			<if test="orderId != null">
+				#{orderId},
+			</if>
+			<if test="startTime != null">
+				#{startTime},
+			</if>
+			<if test="endTime != null">
+				#{endTime},
+			</if>
+			now(),
+		</trim>
+	</insert>
+	
+	<update id="updateModifyQueue" parameterType="ModifyQueueDo">
+		UPDATE TBL_MODIFYQUEUE
+		<set>
+			<if test="step != null">
+				STEP = #{step},
+			</if>
+			<if test="userId != null">
+				USER_ID = #{userId},
+			</if>
+			<if test="orderId != null">
+				ORDER_ID = #{orderId},
+			</if>
+			<if test="startTime != null">
+				START_TIME = #{startTime},
+			</if>
+			<if test="endTime != null">
+				END_TIME = #{endTime},
+			</if>
+		</set>
+		WHERE 
+		ID = #{id}
+	</update>
+	
+</mapper>
