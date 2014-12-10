@@ -352,8 +352,8 @@ button.blue-button:hover {
 	color:rgb(170,147,53);
 }
 .f-yellow-dark {
-	color:rgb(170,147,53);
-	-webkit-text-stroke: 1px rgb(251,249,245);
+	color:#CFBF8C;
+	-webkit-text-stroke: 1px #f5f1e6;
 }
 .f-yellow-light {
 	color:rgb(251,249,245);
