@@ -78,6 +78,23 @@ public class ModifyQueueServiceImpl implements ModifyQueueService{
 	}
 	
 
+
+	public ModifyQueue getModifyQueueById(Integer id)
+			throws BusinessServiceException {
+		// TODO Auto-generated method stub
+		ModifyQueueDo modifyQueueDo = modifyQueueDao.queryByModifyQueueid(id);
+		ModifyQueue modifyQueue = null;
+		
+		if(modifyQueueDo == null){
+			return new ModifyQueue();
+		}
+		
+		modifyQueue = ModifyQueueConverter.getModifyQueue(modifyQueueDo);
+		
+		return modifyQueue;
+	}
+	
+
 	public List<ModifyQueue> getModifyQueueByStepAndUserId(ModifyQueue modifyQueue) throws BusinessServiceException {
 		// TODO Auto-generated method stub
 		
@@ -103,6 +120,7 @@ public class ModifyQueueServiceImpl implements ModifyQueueService{
 	public void setModifyQueueDao(ModifyQueueDao modifyQueueDao) {
 		this.modifyQueueDao = modifyQueueDao;
 	}
+
 
 
 }

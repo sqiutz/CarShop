@@ -26,6 +26,15 @@
 		order by START_TIME desc
 	</select>
 	
+	<select id="queryByModifyQueueid" resultMap="ModifyQueueDoMap" 
+		parameterType="java.lang.Integer">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM TBL_MODIFYQUEUE
+		WHERE
+		ID = #{id}
+	</select>
+	
 	<select id="queryByUseridAndStep" resultMap="ModifyQueueDoMap" parameterType="ModifyQueueDo">
 		SELECT 
 		<include refid="Base_Column_List" />

@@ -37,6 +37,7 @@
 		FROM TBL_ORDER
 		WHERE
 		STATUS >= #{status}
+		order by STATUS asc
 	</select>
 	
 	<select id="queryFirstForServeQueue" resultMap="OrderDoMap" parameterType="java.lang.Integer">

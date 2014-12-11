@@ -9,6 +9,8 @@ public interface ModifyQueueService {
 
     public List<ModifyQueue> getModifyQueueByStep(Integer step) throws BusinessServiceException;
     
+    public ModifyQueue getModifyQueueById(Integer id) throws BusinessServiceException;
+    
     public void addModifyQueue(ModifyQueue modifyQueue) throws BusinessServiceException;
     
 //    public ModifyQueue queryModifyQueueByUserAndStep(Integer userId, Integer step) throws BusinessServiceException;
