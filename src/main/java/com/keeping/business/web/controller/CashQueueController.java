@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.keeping.business.common.exception.BusinessServiceException;
 import com.keeping.business.common.rescode.BusinessCenterCashQueueStatus;
-import com.keeping.business.common.rescode.BusinessCenterModifyQueueStatus;
 import com.keeping.business.common.rescode.BusinessCenterOrderStatus;
 import com.keeping.business.common.rescode.BusinessCenterResCode;
 import com.keeping.business.common.rescode.BusinessCenterServeQueueStatus;
@@ -25,17 +24,16 @@ import com.keeping.business.common.rescode.BusinessCenterUserGroup;
 import com.keeping.business.common.util.PlatformPar;
 import com.keeping.business.common.util.PlatfromConstants;
 import com.keeping.business.common.util.StringUtil;
-import com.keeping.business.service.ModifyQueueService;
+import com.keeping.business.service.CashQueueService;
 import com.keeping.business.service.OrderService;
 import com.keeping.business.service.ServeQueueService;
 import com.keeping.business.service.UserService;
 import com.keeping.business.web.controller.converter.JsonConverter;
 import com.keeping.business.web.controller.converter.ReorgQueue;
 import com.keeping.business.web.controller.converter.WebUserConverter;
-import com.keeping.business.web.controller.model.CashQueue;
 import com.keeping.business.web.controller.model.IdObject;
 import com.keeping.business.web.controller.model.LoginReq;
-import com.keeping.business.web.controller.model.ModifyQueue;
+import com.keeping.business.web.controller.model.CashQueue;
 import com.keeping.business.web.controller.model.Order;
 import com.keeping.business.web.controller.model.ServeQueue;
 import com.keeping.business.web.controller.model.StepObject;
@@ -46,15 +44,15 @@ import com.keeping.business.web.controller.model.WebResultList;
 import com.keeping.business.web.controller.model.WebResultObject;
 
 @Controller
-@RequestMapping("/modifyqueue.do")
-public class ModifyQueueController {
+@RequestMapping("/cashqueue.do")
+public class CashQueueController {
 
 	/** 日志 */
 	private Logger logger = LoggerFactory.getLogger(UserController.class);
 
 	/** 用户信息Service */
 	@Resource
-	private ModifyQueueService modifyQueueService;
+	private CashQueueService cashQueueService;
 	@Resource
 	private OrderService orderService;
 	@Resource
@@ -62,12 +60,12 @@ public class ModifyQueueController {
 
 	@RequestMapping(params = "action=getone")
 	@ResponseBody
-	public WebResultObject<ModifyQueue> getModifyQueue(HttpServletRequest request, HttpServletResponse response) {
+	public WebResultObject<CashQueue> getCashQueue(HttpServletRequest request, HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 
-		ModifyQueue modifyQueue = new ModifyQueue();
+		CashQueue cashQueue = new CashQueue();
 		
 		try {
 			
@@ -77,20 +75,20 @@ public class ModifyQueueController {
 			if (null == idObject || idObject.getId() == null) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
-				logger.error("< ModifyQueueController.getModifyQueue() > 获取维修订单请求信息不正确: " + idObject.getId());
+				logger.error("< CashQueueController.getCashQueue() > 获取维修订单请求信息不正确: " + idObject.getId());
 			} else {
 				
-				modifyQueue = modifyQueueService.getModifyQueueById(idObject.getId());
+				cashQueue = cashQueueService.getCashQueueById(idObject.getId());
 				
-				if (modifyQueue != null && modifyQueue.getId() != null){
-					Integer userId = modifyQueue.getUserId();
-					Integer orderId = modifyQueue.getOrderId();
+				if (cashQueue != null && cashQueue.getId() != null){
+					Integer userId = cashQueue.getUserId();
+					Integer orderId = cashQueue.getOrderId();
 					
 					User user = userService.getByUserId(userId);
 					Order order = orderService.queryOrderById(orderId);
 
-					modifyQueue.setUser(user);
-					modifyQueue.setOrder(order);
+					cashQueue.setUser(user);
+					cashQueue.setOrder(order);
 					
 				}else{
 					code = BusinessCenterResCode.ORDER_NOT_EXIST.getCode();
@@ -106,11 +104,11 @@ public class ModifyQueueController {
 			System.out.println(e.getStackTrace());
 			code = BusinessCenterResCode.SYS_ERROR.getCode();
 			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
-			logger.error("< ModifyQueueController.getModifyQueue() > 获取维修列表失败."
+			logger.error("< CashQueueController.getCashQueue() > 获取维修列表失败."
 					+ e.getMessage());
 		}
 		
-		return JsonConverter.getResultObject(code, msg, modifyQueue);
+		return JsonConverter.getResultObject(code, msg, cashQueue);
 	}
 
 	@RequestMapping(params = "action=start")
@@ -124,22 +122,22 @@ public class ModifyQueueController {
 		try {
 			String jsonStr = request.getParameter("param");
 			
-			ModifyQueue modifyQueue = JsonConverter.getFromJsonString(jsonStr,
-					ModifyQueue.class);
+			CashQueue cashQueue = JsonConverter.getFromJsonString(jsonStr,
+					CashQueue.class);
 	
-			if (StringUtil.isNull(jsonStr) || modifyQueue == null) {
+			if (StringUtil.isNull(jsonStr) || cashQueue == null) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
-				logger.error("< ModifyQueueController.start() > 订单维修订单信息为空或没有权限。"
+				logger.error("< CashQueueController.start() > 订单维修订单信息为空或没有权限。"
 						+ jsonStr);
 			} else{
 				
-				modifyQueue = modifyQueueService.getModifyQueueById(modifyQueue.getId());
+				cashQueue = cashQueueService.getCashQueueById(cashQueue.getId());
 				
-				if (modifyQueue != null){
+				if (cashQueue != null){
 					
-					modifyQueue.setStep(BusinessCenterModifyQueueStatus.MODIFYQUEUE_STATUS_START.getId());
-					modifyQueueService.updateModifyQueue(modifyQueue);
+					cashQueue.setStep(BusinessCenterCashQueueStatus.CASHQUEUE_STATUS_START.getId());
+					cashQueueService.updateCashQueue(cashQueue);
 				}else{
 					code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 					msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
@@ -154,7 +152,7 @@ public class ModifyQueueController {
 			System.out.println(e.getStackTrace());
 			code = BusinessCenterResCode.SYS_ERROR.getCode();
 			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
-			logger.error("< ModifyQueueController.start() > 挂起任务失败."
+			logger.error("< CashQueueController.start() > 挂起任务失败."
 					+ e.getMessage());
 		}
 
@@ -162,7 +160,7 @@ public class ModifyQueueController {
 		try {
 			return JsonConverter.getResultSignal(code, msg);
 		} catch (Exception e) {
-			logger.error("< ModifyQueueController.start() > 挂起任务返回出错."
+			logger.error("< CashQueueController.start() > 挂起任务返回出错."
 					+ e.getMessage());
 			throw e;
 		}
@@ -179,22 +177,22 @@ public class ModifyQueueController {
 		try {
 			String jsonStr = request.getParameter("param");
 			
-			ModifyQueue modifyQueue = JsonConverter.getFromJsonString(jsonStr,
-					ModifyQueue.class);
+			CashQueue cashQueue = JsonConverter.getFromJsonString(jsonStr,
+					CashQueue.class);
 	
-			if (StringUtil.isNull(jsonStr) || modifyQueue == null) {
+			if (StringUtil.isNull(jsonStr) || cashQueue == null) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
-				logger.error("< ModifyQueueController.hold() > 订单维修订单信息为空或没有权限。"
+				logger.error("< CashQueueController.hold() > 订单维修订单信息为空或没有权限。"
 						+ jsonStr);
 			} else{
 				
-				modifyQueue = modifyQueueService.getModifyQueueById(modifyQueue.getId());
+				cashQueue = cashQueueService.getCashQueueById(cashQueue.getId());
 				
-				if (modifyQueue != null){
+				if (cashQueue != null){
 					
-					modifyQueue.setStep(BusinessCenterModifyQueueStatus.MODIFYQUEUE_STATUS_HOLD.getId());
-					modifyQueueService.updateModifyQueue(modifyQueue);
+					cashQueue.setStep(BusinessCenterCashQueueStatus.CASHQUEUE_STATUS_HOLD.getId());
+					cashQueueService.updateCashQueue(cashQueue);
 				}else{
 					code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 					msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
@@ -209,7 +207,7 @@ public class ModifyQueueController {
 			System.out.println(e.getStackTrace());
 			code = BusinessCenterResCode.SYS_ERROR.getCode();
 			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
-			logger.error("< ModifyQueueController.hold() > 挂起任务失败."
+			logger.error("< CashQueueController.hold() > 挂起任务失败."
 					+ e.getMessage());
 		}
 
@@ -217,7 +215,7 @@ public class ModifyQueueController {
 		try {
 			return JsonConverter.getResultSignal(code, msg);
 		} catch (Exception e) {
-			logger.error("< ModifyQueueController.hold() > 挂起任务返回出错."
+			logger.error("< CashQueueController.hold() > 挂起任务返回出错."
 					+ e.getMessage());
 			throw e;
 		}
@@ -234,34 +232,28 @@ public class ModifyQueueController {
 		try {
 			String jsonStr = request.getParameter("param");
 			
-			ModifyQueue modifyQueue = JsonConverter.getFromJsonString(jsonStr,
-					ModifyQueue.class);
+			CashQueue cashQueue = JsonConverter.getFromJsonString(jsonStr,
+					CashQueue.class);
 
-			if (StringUtil.isNull(jsonStr) || modifyQueue == null ) {
+			if (StringUtil.isNull(jsonStr) || cashQueue == null ) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
-				logger.error("< ModifyQueueController.finish() > 维修订单信息为空或没有权限。"
+				logger.error("< CashQueueController.finish() > 维修订单信息为空或没有权限。"
 						+ jsonStr);
 			}else{
-				modifyQueue = modifyQueueService.getModifyQueueById(modifyQueue.getId());
-				Order order = orderService.queryOrderById(modifyQueue.getOrderId());
+				cashQueue = cashQueueService.getCashQueueById(cashQueue.getId());
+				Order order = orderService.queryOrderById(cashQueue.getOrderId());
 				order.setStatus(BusinessCenterOrderStatus.ORDER_STATUS_WASH.getId());
 				orderService.updateOrder(order);              //修改订单状态
 				
 				Date now = new Date();
 				java.sql.Timestamp dateTime = new java.sql.Timestamp(now.getTime());
 				
-				modifyQueue.setEndTime(dateTime);
-				modifyQueue.setStep(BusinessCenterModifyQueueStatus.MODIFYQUEUE_STATUS_FINISH.getId());
+				cashQueue.setEndTime(dateTime);
+				cashQueue.setStep(BusinessCenterCashQueueStatus.CASHQUEUE_STATUS_FINISH.getId());
 				
-				modifyQueueService.updateModifyQueue(modifyQueue);   //更新modifyQueue订单
-				
-				CashQueue cashQueue = new CashQueue();
-				cashQueue.setStep(BusinessCenterCashQueueStatus.CASHQUEUE_STATUS_MODIFYING.getId());
-				cashQueue.setOrderId(modifyQueue.getOrderId());
-				cashQueue.setUserId(modifyQueue.getUserId());
-				
-				modifyQueueService.addModifyQueue(modifyQueue);
+				cashQueueService.updateCashQueue(cashQueue);   //更新cashQueue订单
+
 			}
 		} catch (BusinessServiceException ex) {
 			System.out.println(ex.getMessage());
@@ -273,7 +265,7 @@ public class ModifyQueueController {
 			System.out.println(e.getStackTrace());
 			code = BusinessCenterResCode.SYS_ERROR.getCode();
 			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
-			logger.error("< ModifyQueueController.finish() > 维修订单发送清洗车间失败."
+			logger.error("< CashQueueController.finish() > 维修订单发送清洗车间失败."
 					+ e.getMessage());
 		}
 
@@ -281,7 +273,7 @@ public class ModifyQueueController {
 		try {
 			return JsonConverter.getResultSignal(code, msg);
 		} catch (Exception e) {
-			logger.error("< ModifyQueueController.finish() > 发送清洗车间返回出错."
+			logger.error("< CashQueueController.finish() > 发送清洗车间返回出错."
 					+ e.getMessage());
 			throw e;
 		}
