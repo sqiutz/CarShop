@@ -75,17 +75,19 @@
                     .appendTo($('#servingList'));
             if(serve) {
                 tr.addClass('hoverable').val(serve.id);
-                if(serve.id === parseInt(selectedId)) {
-                    tr.addClass('selected');
-                }
-                tr.bind('click', function() {
-                    $('#servingList tr').removeClass('selected');
-                    $(this).addClass('selected');
-                    selectedId = $(this).val();
-                    if(!currServe) {
-                        $('#resumeBtn').attr('disabled', false);
+                if(1 === tab) {
+                	if(serve.id === parseInt(selectedId)) {
+                        tr.addClass('selected');
                     }
-                })
+                    tr.bind('click', function() {
+                        $('#servingList tr').removeClass('selected');
+                        $(this).addClass('selected');
+                        selectedId = $(this).val();
+                        if(!currServe) {
+                            $('#resumeBtn').attr('disabled', false);
+                        }
+                    })
+                }                
             }
             $('<td></td>').text(serve && serve.order ? serve.order.registerNum : '').appendTo(tr);
             $('<td></td>').text(serve && serve.order ? serve.order.queueNum : '').appendTo(tr);
@@ -205,12 +207,14 @@
             		if(currServe) {
             		    $('#callBtn').attr('disabled', 'disabled');
             		    $('#resumeBtn').attr('disabled', 'disabled');
-            		    $('#holdBtn').attr('disabled', false);            		    
+            		    $('#holdBtn').attr('disabled', false);
+            		    $('#sendToWorkshopBtn').attr('disabled', false); 
             		}
             		else {
             		    $('#callBtn').attr('disabled', false);
             		    $('#holdBtn').attr('disabled', 'disabled');
             		    $('#resumeBtn').attr('disabled', 'disabled');
+            		    $('#sendToWorkshopBtn').attr('disabled', 'disabled');
             		}
             		$('#currentNo').text(currServe ? currServe.order.registerNum : '')
             	}
@@ -233,13 +237,7 @@
     $('#holdBtn').bind('click', function() {
         $.OrderInfo.hold({
             data : {
-                id : currServe.id,
-                /*createTime : currServe.createTime,
-                startTime : currServe.startTime,
-                endTime : currServe.endTime,
-                step : currServe.step,
-                userId : currServe.userId,
-                orderId : currServe.orderId*/                
+                id : currServe.id               
             },
             success : function(data) {
                 if(data.code == '000000') {
@@ -263,12 +261,18 @@
         });
     });
     
-    $('#cancelBtn').bind('click', function() {
-        $('#callBtn').attr('disabled', false);
-    });
-    
+    // send
     $('#sendToWorkshopBtn').bind('click', function() {
-        $('#callBtn').attr('disabled', false);
+        $.OrderInfo.send({
+            data : {
+                id : currServe.id               
+            },
+            success : function(data) {
+                if(data.code == '000000') {
+                    getServeQueue();
+                }                
+            }
+        });
     })
     
     function getTimeStr(time) {
