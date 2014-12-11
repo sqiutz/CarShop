@@ -556,12 +556,8 @@ public class ServeQueueController {
 				code = BusinessCenterResCode.SYS_INVILID_REQ.getCode();
 				msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
 				logger.error("< ServeQueueController.sendWorkShop() > session is null。");
-			} else if (logUser.getGroupId() != BusinessCenterUserGroup.SYS_SERVICER.getId()){
-				code = BusinessCenterResCode.SYS_NO_ADMIN.getCode();
-				msg = BusinessCenterResCode.SYS_NO_ADMIN.getMsg();
-				logger.error("< ServeQueueController.sendWorkShop() > you are not role。");
-			}else{
-				
+			} else{
+				serveQueue = serveQueueService.getServeQueueById(serveQueue.getId());
 				Order order = orderService.queryOrderById(serveQueue.getOrderId());
 				order.setStatus(BusinessCenterOrderStatus.ORDER_STATUS_MODIFY.getId());
 				orderService.updateOrder(order);              //修改订单状态
@@ -581,9 +577,13 @@ public class ServeQueueController {
 				modifyQueueService.addModifyQueue(modifyQueue);
 			}
 		} catch (BusinessServiceException ex) {
+			System.out.println(ex.getMessage());
+			System.out.println(ex.getStackTrace());
 			code = ex.getErrorCode();
 			msg = ex.getErrorMessage();
 		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			System.out.println(e.getStackTrace());
 			code = BusinessCenterResCode.SYS_ERROR.getCode();
 			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
 			logger.error("< OrderController.sendWorkShop() > 发送车间失败."

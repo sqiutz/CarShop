@@ -49,6 +49,15 @@ define([], function() {
                 }
             });
         },
+        // send
+        send : function(options) {
+            $.common.ajax("send", {
+                data : options.data,
+                success : function(data) {
+                    options.success(data);
+                }
+            });
+        },
 		// 获取订单列表
 		getOrderList : function(options) {
 			var orderlist;

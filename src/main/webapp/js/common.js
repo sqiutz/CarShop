@@ -93,26 +93,21 @@
                     hold : {
                         url : "servequeue.do?action=hold",
                         args : [ 
-                                "id",
-                                "createTime",
-                                "startTime",
-                                "endTime",
-                                "step",
-                                "userId",
-                                "orderId"
+                                "id"
                        ]
                     },
                     // resume
                     resume : {
                         url : "servequeue.do?action=cancelhold",
                         args : [ 
-                                "id",
-                                "createTime",
-                                "startTime",
-                                "endTime",
-                                "step",
-                                "userId",
-                                "orderId"
+                                "id"
+                       ]
+                    },
+                    // send
+                    send : {
+                        url : "servequeue.do?action=send",
+                        args : [ 
+                                "id"
                        ]
                     },
                     // 获取订单列表
