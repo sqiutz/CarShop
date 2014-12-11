@@ -65,8 +65,8 @@
 					</div>
 					<div class='box-gray' style='width:190px;height:90px'>
 						<span id='timerLabel' class='h5 f-black lAlign'>Timer</span>
-						<span class='h7 f-yellow-dark inline'>0''</span>
-						<span class='h1 f-yellow-light inline'>33'</span>
+						<span id='timerMinutes' class='h7 f-yellow-dark inline'></span>
+						<span id='timerSeconds' class='h1 f-yellow-light inline'></span>
 					</div>
 				</div>
 				<div class='controller' style='width:510px;'>
@@ -83,13 +83,13 @@
 			<div class='content_rg'>
 				<div class='box'>
 <!-- 					<span id='servingListTitle' class='t2 purple h3'></span> -->
-					<div class='navg' style='width:450px;height:45px'>
+					<div class='navg' style='width:540px;height:45px'>
 						<ul>
-							<li id='servingListTab'><a id='servingListLink' style='width:225px;height:45px'></a></li>
-							<li id='holdListTab' class='unselected'><a id='holdListLink' style='width:225px;height:45px'></a></li>
+							<li id='servingListTab'><a id='servingListLink' style='width:270px;height:45px'></a></li>
+							<li id='holdListTab' class='unselected'><a id='holdListLink' style='width:270px;height:45px'></a></li>
 						</ul>
 					</div>
-					<table id='servingList' class="queue w1 red">
+					<table id='servingList' class="queue red" style='width:540px'>
 						<tr>
 							<th id='regNoCol'></th>
 							<th id='queNoCol'></th>
@@ -100,8 +100,8 @@
 					</table>
 				</div>
 				<div class='box'>
-					<div id='waitingListTitle' class='blue h3' style='width:450px;height:45px'></div>
-					<table id='waitingList' class="queue w1 blue">
+					<div id='waitingListTitle' class='blue h3' style='width:540px;height:45px'></div>
+					<table id='waitingList' class="queue blue" style='width:540px'>
 						<tr>
 							<th id='wRegNoCol'></th>
 							<th id='wQueNoCol'></th>

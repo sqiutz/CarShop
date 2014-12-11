@@ -11,6 +11,11 @@ var CAR_WASH_QUE_BOARD_DESC = 'Show the car wash queue';
 var CUSTOMER_JOB_PROGRESS_BOARD = 'CUSTOMER JOB PROGRESS BOARD';
 var CUSTOMER_JOB_PROGRESS_BOARD_DESC = 'Show the customer job progress list';
 
+var CUSTOMER_QUE_STATUS_BOARD = 'CUSTOMER QUE STATUS BOARD';
+var WELCOME = 'WELCOME';
+var EST_TIME = 'Est. Time';
+var PLEASE_PROCEED_TO = 'Please Proceed to';
+
 var CHANGE_PASSW0RD = 'Change Password';
 var LOGOUT = 'Logout';
 var SA_QUE_CALLING_BOARD = 'SA QUE CALLING BOARD';

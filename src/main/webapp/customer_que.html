@@ -31,38 +31,35 @@
 <body data-js="order/customerQue">
 	<div id='container' class='container'>
 		<div id='header' class='header'>
-			<span id='title' class='h1'>CUSTOMER QUE STATUS BOARD</span>
+			<span id='title' class='h1'></span>
 		</div>
 		<div id='content' class='content'>
-			<span id='welcome' class='t1 blue h2'>WELCOME</span>
+			<span id='welcome' class='blue h2' style='width:1200px;margin:0px auto;line-height:65px'></span>
 			<div class='content_lf'>
-				<div id='servingList' class='box w1 rAlign'>
-					<span class='t2 yellow h3'>NOW SERVING...</span>
-					<div class='b1 odd'></div>
-					<div class='b1 even'></div>
-					<div class='b1 odd'></div>
+				<div id='servingList' class='box rAlign' style='width:545px;padding-right:40px'>
+					<div id='servingListTitle' class='yellow h3' style='width:545px;'></div>
 				</div>
 
-				<div class='box w1 rAlign'>
-					<span id='waitingListTitle' class='t2 green h3'>WAITING LIST</span>				
-					<table id='waitingList' class="queue w1 green">
+				<div class='box rAlign' style='width:545px;padding-right:40px'>
+					<div id='waitingListTitle' class='blue h3' style='width:545px;'></div>			
+					<table id='waitingList' class="queue blue" style='width:535px'>
 						<tr>
-							<th>Reg. No.</th>
-							<th>Que. No.</th>
-							<th>Est. Time</th>
+							<th id='regNoCol'></th>
+							<th id='queNoCol'></th>
+							<th id='estTimeCol'></th>
 						</tr>
 					</table>
 				</div>
 			</div>
 
 			<div class='content_rg'>
-				<div class='vedio'></div>
-				<div id='proceedDiv' class='box w2'>
+				<div class='vedio' style='width:545px;margin:10px auto 0px 40px'></div>
+				<div id='proceedDiv' class='box' style='width:545px;margin-left:40px'>
 					<table id='proceedTable' class='proceed queue'>
 						<tr class='proceed'>
-							<td style='width:257px' id='currRegNum' class='customer_no h4 f-purple'></td>
-							<td style='width:232px'><span class='h5'>Please Proceed to</span>
-							<span id='currUserName' class='h1 f-yellow-light'></span></td>
+							<td style='width:265px' id='currRegNum' class='customer_no h4 f-yellow-dark'></td>
+							<td style='width:275px'><span id='plsProceedTo' class='h5 f-white'></span>
+							<span id='currUserName' class='h1 f-yellow-light' style='padding-left:15px;padding-right:15px;line-height:64px;'></span></td>
 						</tr>
 					</table>
 				</div>

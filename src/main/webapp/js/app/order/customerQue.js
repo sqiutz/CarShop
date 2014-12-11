@@ -1,9 +1,38 @@
 (function($) {
+    applyLang();
+    $.UserInfo.getProperty({
+        data : {
+            name : 'LANGUAGE'
+        },
+        success : function(data) {
+            if (data.code == '000000') {
+                var langCode = data.obj.value;
+                applyLang(langCode);
+            }
+        }
+    });
+    
+    function applyLang(langCode) {
+        if(undefined === langCode || null === langCode) {
+            langCode = 'en_US';
+        }
+        loadLang('lang/' + langCode + '.js', function() {
+            $('#title').text(CUSTOMER_QUE_STATUS_BOARD);
+            $('#servingListTitle').text(NOW_SERVING + '...');
+            $('#welcome').text(WELCOME);
+            $('#waitingListTitle').text(WAITING_LIST);
+            $('#regNoCol').text(REG_NO);
+            $('#queNoCol').text(QUE_NO);
+            $('#estTimeCol').text(EST_TIME);
+            $('#plsProceedTo').text(PLEASE_PROCEED_TO);
+        });
+    }
+    
 	var oListIter = 0, sListIter = 0, interval = 3000;
 
 	// 创建服务队列
 	var createServingList = function(serves) {
-		$('#servingList div').remove();
+		$('#servingList div.b1').remove();
 		var j, num = 3;
 		for (var i = sListIter, j = 0; i < num + sListIter; i++,j++) {
 			var serve = serves && i < serves.length ? serves[i] : null;

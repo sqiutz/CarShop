@@ -50,22 +50,23 @@ div.content {
 }
 div.content_lf {
 	float: left;
-	width:49%;
+	width:50%;
 }
 div.content_rg {
 	display:inline-block;
-	width:49%;
+	width:50%;
 }
 div.footer {
-	background:url(../img/footer.png);
-	background-repeat:no-repeat;
-	background-size:cover;
-	-moz-background-size:cover;
+	//background:url(../img/footer.png);
+	//background-repeat:no-repeat;
+	//background-size:cover;
+	//-moz-background-size:cover;
+	background-color:#AED161;
 }
 div.vedio {
 	background-color:#000000;
-	margin:10px auto 0px 40px;
-	width:495px;
+	//margin:10px auto 0px 40px;
+	//width:495px;
 }
 div.box-black{
 	background:url(../img/box-bg-black.png);
@@ -124,15 +125,17 @@ span.lAlign {
 	text-align:left;
 }
 span.t1 {	
-	height:80px;
-	line-height:80px;
+	//height:80px;
+	line-height:65px;
 }
-span.t1.blue {
-	background:url(../img/title_bg_blue.png);
-	background-repeat:no-repeat;
-	background-size:627px,80px;
-	-moz-background-size:627px,80px;
-	background-position:center;
+span.blue {
+	//background:url(../img/title_bg_blue.png);
+	//background-repeat:no-repeat;
+	//background-size:627px,80px;
+	//-moz-background-size:627px,80px;
+	//background-position:center;
+	background-color:#0697DA;
+	border-radius: 4px;
 }
 span.t2 {	
 	height:62px;
@@ -144,6 +147,9 @@ span.t2.yellow {
 	background-size:470px,62px;
 	-moz-background-size:470px,62px;
 	background-position:center;
+}
+span.blue-light {
+	background-color:#E07C24;
 }
 span.t2.green {
 	background:url(../img/title_bg_green.png);
@@ -351,6 +357,9 @@ button.blue-button:disabled {
 	color:gray;
 	cursor:auto;
 }
+.f-white {
+	color:#FFFFFF;
+}
 .f-black {
 	color:#000000;
 }
@@ -388,6 +397,14 @@ span.button-blue {
 	line-height:30px;
 }
 
+
+div.yellow {
+	padding:0px;
+	background-color:#E07C24;
+	margin:0px auto 4px auto;
+	line-height:45px;
+	text-align:center;
+}
 div.blue {
 	background-color:#2DB1C0;
 	margin:0px auto 4px auto;
