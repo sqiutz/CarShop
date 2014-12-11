@@ -66,7 +66,7 @@
     var createServingList = function(serves) {
         $('#servingList tr.odd').remove();
         $('#servingList tr.even').remove();
-        var availHeight = ($('#content').height() - 20) * 0.5 - $('#servingListTitle').height() - 15;
+        var availHeight = ($('#content').height() - 20) * 0.5 - $('#servingListTitle').height() - 4;
         var j, num = Math.floor(availHeight / 43) - 1;
         for (var i = 0; i < num; i++) {
             j = sListIter * num + i;
@@ -209,12 +209,15 @@
             		    $('#resumeBtn').attr('disabled', 'disabled');
             		    $('#holdBtn').attr('disabled', false);
             		    $('#sendToWorkshopBtn').attr('disabled', false); 
+            		    start = new Date();
+                        timer();
             		}
             		else {
             		    $('#callBtn').attr('disabled', false);
             		    $('#holdBtn').attr('disabled', 'disabled');
             		    $('#resumeBtn').attr('disabled', 'disabled');
             		    $('#sendToWorkshopBtn').attr('disabled', 'disabled');
+            		    start = 0;
             		}
             		$('#currentNo').text(currServe ? currServe.order.registerNum : '')
             	}
@@ -308,7 +311,30 @@
     	}
     })
     
-    //getServeQueue();
-    //getServeQueues();
-    //getOrderList();    
+    // Timer
+    var start = 0;
+    function timer() {
+        if(0 == start) {
+            $('#timerMinutes').text(0 + "'");
+            $('#timerSeconds').text(0 + "''");
+            return;
+        }
+        var now = new Date();
+        $('#timerMinutes').text(getMinutes(now) + "'");
+        $('#timerSeconds').text(getSeconds(now) + "''");
+        setTimeout(function() {
+            timer()
+        }, 1000);
+    }
+    
+    function getMinutes(now) {
+        var diff = now - start;
+        return Math.floor(diff / 60000);
+    }
+    
+    function getSeconds(now) {        
+        var diff = now - start;
+        var minutes = getMinutes(now);
+        return Math.floor((diff - minutes * 60000) / 1000);
+    }
 })(jQuery);;
