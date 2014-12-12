@@ -16,6 +16,23 @@ var WELCOME = 'WELCOME';
 var EST_TIME = 'Est. Time';
 var PLEASE_PROCEED_TO = 'Please Proceed to';
 
+var CUSTOMER_JOB_PROGRESS_BOARD = 'CUSTOMER JOB PROGRESS BOARD';
+var ESTIMATED_END_TIME = 'Estimated End<br />Time';
+var JOB_STATUS = 'Job Status';
+
+var MECHANIC_UPDATE_JOB_PROGRESS = 'MECHANIC UPDATE JOB PROGRESS';
+var INPUT_EDIT_DATA = 'Input/Edit Data';
+var ID_MECHANIC = 'ID Mechanic';
+var ROOF_NO = 'Roof No.';
+var SERVICE_ADVISOR ='Service Advisor';
+var JOB_TYPE = 'Job Type';
+var WARRANTY = 'Warranty';
+var SUB_CONTRACT = 'Sub Contract';
+var JOB_PROCESS = 'Job Process';
+var START = 'START';
+var FINISH = 'FINISH';
+var IN_PROGRESS = 'IN PROGRESS'
+
 var CHANGE_PASSW0RD = 'Change Password';
 var LOGOUT = 'Logout';
 var SA_QUE_CALLING_BOARD = 'SA QUE CALLING BOARD';

@@ -114,7 +114,8 @@
                     getOrderList : {
                         url : "order.do?action=alllist",
                         args : [ 
-                                 "status"
+                                 "status",
+                                 "startStatus"
                         ]
                     }
                 },
