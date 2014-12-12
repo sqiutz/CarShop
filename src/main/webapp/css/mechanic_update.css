@@ -23,25 +23,22 @@ span.s2 {
 	color:#ffffff;
 }
 span.s1 {	
-	line-height:33px;
+	line-height:28px;
 }
-span.blue {
-	background:url(../img/background-blue.png);
-	background-repeat:no-repeat;
-	background-size:cover;
-	-moz-background-size:cover;
+div.green {
+	background-color:#cce29c;
+	border:1px solid #A4CB4E;
+	text-align:center;
 }
-span.purple-dark {
-	background:url(../img/background-purple-dark.png);
-	background-repeat:no-repeat;
-	background-size:cover;
-	-moz-background-size:cover;
+div.blue {
+	background-color:#6ed2dd;
+	border:1px solid #2DB1C0;
+	text-align:center;
 }
-span.purple-light {
-	background:url(../img/background-purple-light.png);
-	background-repeat:no-repeat;
-	background-size:cover;
-	-moz-background-size:cover;
+div.yellow {
+	background-color:#edb17e;
+	border:1px solid #E07C24;
+	text-align:center
 }
 span.yellow {
 	background:url(../img/background-yellow.png);
