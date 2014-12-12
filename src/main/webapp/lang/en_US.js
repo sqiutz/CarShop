@@ -16,6 +16,10 @@ var WELCOME = 'WELCOME';
 var EST_TIME = 'Est. Time';
 var PLEASE_PROCEED_TO = 'Please Proceed to';
 
+var CUSTOMER_JOB_PROGRESS_BOARD = 'CUSTOMER JOB PROGRESS BOARD';
+var ESTIMATED_END_TIME = 'Estimated End<br />Time';
+var JOB_STATUS = 'Job Status';
+
 var CHANGE_PASSW0RD = 'Change Password';
 var LOGOUT = 'Logout';
 var SA_QUE_CALLING_BOARD = 'SA QUE CALLING BOARD';

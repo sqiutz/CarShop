@@ -156,7 +156,7 @@
     	$('#remaining').text(orders ? orders.length : 0);
         $('#waitingList tr.odd').remove();
         $('#waitingList tr.even').remove();
-        var availHeight = ($('#content').height() - 20) * 0.5 - $('#waitingListTitle').height() - 15;
+        var availHeight = ($('#content').height() - 20) * 0.5 - $('#waitingListTitle').height() - 4;
         var j, num = Math.floor(availHeight / 43) - 1;
         for (var i = 0; i < num; i++) {
             j = oListIter * num + i;
@@ -337,4 +337,4 @@
         var minutes = getMinutes(now);
         return Math.floor((diff - minutes * 60000) / 1000);
     }
-})(jQuery);;
+})(jQuery);
