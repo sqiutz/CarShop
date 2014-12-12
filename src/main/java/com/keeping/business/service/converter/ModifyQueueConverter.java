@@ -13,12 +13,17 @@ public class ModifyQueueConverter {
 
 		ModifyQueue modifyQueue = new ModifyQueue();
 		
+		modifyQueue.setId(modifyQueueDo.getId());
 		modifyQueue.setCreateTime(modifyQueueDo.getCreateTime());
 		modifyQueue.setEndTime(modifyQueueDo.getEndTime());
 		modifyQueue.setStartTime(modifyQueueDo.getStartTime());
 		modifyQueue.setStep(modifyQueueDo.getStep());
 		modifyQueue.setOrderId(modifyQueueDo.getOrderId());
 		modifyQueue.setUserId(modifyQueueDo.getUserId());
+		modifyQueue.setIsSubContract(modifyQueueDo.getIsSubContract());
+		modifyQueue.setIsWarrant(modifyQueueDo.getIsWarrant());
+		modifyQueue.setJobType(modifyQueueDo.getJobType());
+		modifyQueue.setTechnician(modifyQueueDo.getTechnician());
 		
 		return modifyQueue;
 	}
@@ -36,6 +41,11 @@ public class ModifyQueueConverter {
 		modifyQueueDo.setStartTime(modifyQueue.getStartTime());
 		modifyQueueDo.setStep(modifyQueue.getStep());
 		modifyQueueDo.setUserId(modifyQueue.getUserId());
+		modifyQueueDo.setId(modifyQueue.getId());
+		modifyQueueDo.setIsSubContract(modifyQueue.getIsSubContract());
+		modifyQueueDo.setIsWarrant(modifyQueue.getIsWarrant());
+		modifyQueueDo.setJobType(modifyQueue.getJobType());
+		modifyQueueDo.setTechnician(modifyQueue.getTechnician());
 		
 		return modifyQueueDo;
 	}
