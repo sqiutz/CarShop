@@ -11,10 +11,11 @@
 		<result column="MODIFY_TIME" property="modifyTime" />
 		<result column="START_TIME" property="startTime" />
 		<result column="END_TIME" property="endTime" />
+		<result column="ELAPSE_TIME" property="elapseTime" />
 	</resultMap>
 	
 	<sql id="Base_Column_List">
-		ID,STEP,USER_ID,ORDER_ID,CREATE_TIME,MODIFY_TIME,START_TIME,END_TIME
+		ID,STEP,USER_ID,ORDER_ID,CREATE_TIME,MODIFY_TIME,START_TIME,END_TIME,ELAPSE_TIME
 	</sql>
 
 	<select id="queryByServeQueuestep" resultMap="ServeQueueDoMap" 
@@ -66,6 +67,9 @@
 			<if test="modifyTime != null">
 				MODIFY_TIME,
 			</if>
+			<if test="elapseTime != null">
+				ELAPSE_TIME,
+			</if>
 			CREATE_TIME,
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -86,6 +90,9 @@
 			</if>
 			<if test="modifyTime != null">
 				#{modifyTime},
+			</if>
+			<if test="elapseTime != null">
+				#{elapseTime},
 			</if>
 			now(),
 		</trim>
@@ -111,6 +118,9 @@
 			</if>
 			<if test="endTime != null">
 				END_TIME = #{endTime},
+			</if>
+			<if test="elapseTime != null">
+				ELAPSE_TIME = #{elapseTime},
 			</if>
 		</set>
 		WHERE 

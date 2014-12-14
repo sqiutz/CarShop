@@ -320,6 +320,7 @@ public class ServeQueueController {
 					
 					ServeQueue serveQueue = new ServeQueue();
 					serveQueue.setStartTime(dateTime);
+					serveQueue.setEndTime(dateTime);
 					serveQueue.setModifyTime(dateTime);
 					serveQueue.setOrderId(order.getId());
 					serveQueue.setStep(BusinessCenterServeQueueStatus.SERVEQUEUE_STATUS_SERVING.getId());
@@ -411,6 +412,17 @@ public class ServeQueueController {
 						orderService.updateOrder(order);
 					}
 					
+					Date now = new Date();
+					java.sql.Timestamp dateTime = new java.sql.Timestamp(now.getTime());
+					
+					Long timeInterval = dateTime.getTime() - serveQueue.getStartTime().getTime();
+					Integer elapseTime = new Integer(timeInterval.intValue());
+					elapseTime = serveQueue.getElapseTime() + elapseTime;
+					
+					serveQueue.setElapseTime(elapseTime);
+					serveQueue.setStartTime(dateTime);
+					serveQueue.setEndTime(dateTime);
+					serveQueue.setModifyTime(dateTime);
 					serveQueue.setStep(BusinessCenterServeQueueStatus.SERVEQUEUE_STATUS_HOLD.getId());
 					serveQueueService.updateServeQueue(serveQueue);
 				}else{
@@ -497,6 +509,7 @@ public class ServeQueueController {
 					Date now = new Date();
 					java.sql.Timestamp dateTime = new java.sql.Timestamp(now.getTime());
 					
+					serveQueue.setStartTime(dateTime);
 					serveQueue.setModifyTime(dateTime);
 					serveQueue.setUserId(loginUser.getId());
 					serveQueue.setStep(BusinessCenterServeQueueStatus.SERVEQUEUE_STATUS_SERVING.getId());
@@ -565,6 +578,11 @@ public class ServeQueueController {
 				Date now = new Date();
 				java.sql.Timestamp dateTime = new java.sql.Timestamp(now.getTime());
 				
+				Long timeInterval = dateTime.getTime() - serveQueue.getStartTime().getTime();
+				Integer elapseTime = new Integer(timeInterval.intValue());
+				elapseTime = serveQueue.getElapseTime() + elapseTime;
+				
+				serveQueue.setElapseTime(elapseTime);
 				serveQueue.setEndTime(dateTime);
 				serveQueue.setStep(BusinessCenterServeQueueStatus.SERVEQUEUE_STATUS_SEND.getId());
 				

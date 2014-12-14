@@ -105,6 +105,7 @@ CREATE TABLE `TBL_SERVEQUEUE` (
   `step` bigint(10) NOT NULL,     /*0: start; 1: hold; 2: end*/
   `user_id` bigint(10) NOT NULL,
   `order_id` bigint(10) NOT NULL UNIQUE,
+  `elapse_time` bigint(10) NOT NULL DEFAULT 0,
   `create_time` timestamp NOT NULL DEFAULT '1990-01-01 00:00:00',
   `modify_time` timestamp NOT NULL DEFAULT '2014-01-01 00:00:00',
   `start_time` timestamp  NOT NULL DEFAULT '1990-01-01 00:00:00',

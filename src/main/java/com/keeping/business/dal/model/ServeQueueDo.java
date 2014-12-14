@@ -15,11 +15,13 @@ public class ServeQueueDo {
     private Timestamp startTime;
     
     private Timestamp endTime;
-  
+        
+    private Integer elapseTime;
+
     private Integer userId;
     
     private Integer orderId;  
-    
+ 
 	public Integer getStep() {
 		return step;
 	}
@@ -82,6 +84,14 @@ public class ServeQueueDo {
 
 	public void setModifyTime(Timestamp modifyTime) {
 		this.modifyTime = modifyTime;
+	}
+
+	public Integer getElapseTime() {
+		return elapseTime;
+	}
+
+	public void setElapseTime(Integer elapseTime) {
+		this.elapseTime = elapseTime;
 	}
 
 }
