@@ -31,6 +31,7 @@ import com.keeping.business.service.UserService;
 import com.keeping.business.web.controller.converter.JsonConverter;
 import com.keeping.business.web.controller.converter.ReorgQueue;
 import com.keeping.business.web.controller.converter.WebUserConverter;
+import com.keeping.business.web.controller.model.EstimationTime;
 import com.keeping.business.web.controller.model.LoginReq;
 import com.keeping.business.web.controller.model.ModifyQueue;
 import com.keeping.business.web.controller.model.Order;
@@ -128,6 +129,43 @@ public class ServeQueueController {
 
 		return JsonConverter.getResultObject(code, msg, serveQueueList);
 	}
+	
+	@RequestMapping(params = "action=getestimationtime")
+	@ResponseBody
+	public WebResultList<EstimationTime> getAllEstimationTime(HttpServletRequest request, HttpServletResponse response) {
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
+		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
+
+		List<EstimationTime> estimationTimes = new ArrayList<EstimationTime>();
+		try {
+			String jsonStr = request.getParameter("param");
+			EstimationTime estimationTime = JsonConverter.getFromJsonString(jsonStr,
+					EstimationTime.class);
+			if (null == estimationTime) {
+				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
+				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
+				logger.error("< ServeQueueController.getAllEstimationTime() > 查询订单时间信息请求信息不正确: " + estimationTime.getStartTime());
+			} else {
+				
+				estimationTimes = serveQueueService.getElapseTimeByTime(estimationTime.getStartTime(), estimationTime.getEndTime());
+				
+			}
+		} catch (BusinessServiceException ex) {
+			code = ex.getErrorCode();
+			msg = ex.getErrorMessage();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			System.out.println(e.getStackTrace());
+			code = BusinessCenterResCode.SYS_ERROR.getCode();
+			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
+			logger.error("< ServeQueueController.getAllEstimationTime() > 获取排队列表预估时间失败."
+					+ e.getMessage());
+		}
+
+		return JsonConverter.getResultObject(code, msg, estimationTimes);
+	}
+
 
 	@RequestMapping(params = "action=getone")
 	@ResponseBody

@@ -1,5 +1,7 @@
 package com.keeping.business.service.impl;
 
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +15,7 @@ import com.keeping.business.dal.model.ServeQueueDo;
 import com.keeping.business.service.ServeQueueService;
 import com.keeping.business.service.converter.ServeQueueConverter;
 import com.keeping.business.web.controller.UserController;
+import com.keeping.business.web.controller.model.EstimationTime;
 import com.keeping.business.web.controller.model.ServeQueue;
 
 public class ServeQueueServiceImpl implements ServeQueueService{
@@ -76,6 +79,26 @@ public class ServeQueueServiceImpl implements ServeQueueService{
 		}
 		
 		return serveQueues;
+	}
+	
+
+	public List<EstimationTime> getElapseTimeByTime(Date startTime, Date endTime) {
+		// TODO Auto-generated method stub
+		ServeQueue serveQueue = new ServeQueue();
+		Timestamp startTimestap =  new java.sql.Timestamp(startTime.getTime());
+		Timestamp endTimestap =  new java.sql.Timestamp(endTime.getTime());
+		serveQueue.setStartTime(startTimestap);
+		serveQueue.setEndTime(endTimestap);
+		
+		List<EstimationTime> estimationTimes = new ArrayList<EstimationTime>();
+		
+		Integer start = startTime.getDay();
+		Integer end = endTime.getDay();
+		for(int i = start; i<=end; i++){
+		}
+		
+		return estimationTimes;
+		
 	}
 	
 	public ServeQueue getServeQueueById(Integer id)

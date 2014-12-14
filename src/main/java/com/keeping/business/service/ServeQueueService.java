@@ -1,8 +1,10 @@
 package com.keeping.business.service;
 
+import java.sql.Date;
 import java.util.List;
 
 import com.keeping.business.common.exception.BusinessServiceException;
+import com.keeping.business.web.controller.model.EstimationTime;
 import com.keeping.business.web.controller.model.ServeQueue;
 
 public interface ServeQueueService {
@@ -18,5 +20,7 @@ public interface ServeQueueService {
     public void updateServeQueue(ServeQueue serveQueue) throws BusinessServiceException;
     
     public List<ServeQueue> getServeQueueByStepAndUserId(ServeQueue serveQueue) throws BusinessServiceException;
+    
+    public List<EstimationTime> getElapseTimeByTime(Date startTime, Date endTime);
     
 }
