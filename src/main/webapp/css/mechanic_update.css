@@ -3,15 +3,24 @@ div.green {
 	border-radius: 4px;
 	text-align:center;
 }
+div.green:hover {
+	background-color:#AED161;
+}
 div.blue {
 	background-color:#6ed2dd;
 	border-radius: 4px;
 	text-align:center;
 }
+div.blue:hover {
+	background-color:#30BFCF;
+}
 div.yellow {
 	background-color:#edb17e;
 	border-radius: 4px;
 	text-align:center
+}
+div.yellow:hover {
+	background-color:#E3893B;
 }
 div.yellow-dark {
 	background-color:#CFBF8C;
