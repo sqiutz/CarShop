@@ -71,7 +71,41 @@ define([], function() {
 					options.success();
 				}
 			});
-		}
+		},
+        // 获取单个modify queue
+		getModifyQueue : function(options) {
+            $.common.ajax("getModifyQueue", {
+                data : options.data,
+                success : function(data) {
+                    options.success(data);
+                }
+            });
+        },
+        // Start, Hold and Finish in mechanic update
+        mStart : function(options) {
+            $.common.ajax("mStart", {
+                data : options.data,
+                success : function(data) {
+                    options.success(data);
+                }
+            });
+        },
+        mHold : function(options) {
+            $.common.ajax("mHold", {
+                data : options.data,
+                success : function(data) {
+                    options.success(data);
+                }
+            });
+        },
+        mFinish : function(options) {
+            $.common.ajax("mFinish", {
+                data : options.data,
+                success : function(data) {
+                    options.success(data);
+                }
+            });
+        }
 	};
 
 	$.OrderInfo = OrderInfo;

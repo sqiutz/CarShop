@@ -234,7 +234,7 @@ insert into tbl_user set user_name = 'SA-04', is_admin = 0, passwd = 'passw0rd',
 -- insert into tbl_order set status=0, registerNumber='B-001', queueNumber='B1831TOK', estimationTime=4, start_time='2014-12-02 12:02:06', end_time='2014-12-02 12:12:26';
 -- insert into tbl_order set status=0, registerNumber='N-001', queueNumber='B1093MN', estimationTime=5;
 -- insert into tbl_order set status=0, registerNumber='B-002', queueNumber='B8763HJ', estimationTime=6;
-insert into tbl_order set status=1, registerNumber='B-003', queueNumber='B1001AC', estimationTime=7;
+insert into tbl_order set status=1, registerNumber='B-003', queueNumber='B1001AC', estimationTime=7, roofNumber='roof-001';
 insert into tbl_order set status=1, registerNumber='B-002', queueNumber='B1002AC', estimationTime=8;
 insert into tbl_order set status=1, registerNumber='B-001', queueNumber='B1003AC', estimationTime=4;
 insert into tbl_order set status=1, registerNumber='N-001', queueNumber='B1001NC', estimationTime=5;
@@ -246,6 +246,8 @@ insert into tbl_servequeue set step=0, user_id=6, order_id=3;
 -- insert into tbl_servequeue set step=1, user_id=7, order_id=5;
 -- insert into tbl_servequeue set step=1, user_id=8, order_id=8;
 -- insert into tbl_servequeue set step=1, user_id=9, order_id=9;
+
+insert into tbl_modifyqueue set step=1, user_id=6, order_id=3,isWarrant=1;
 
 insert into tbl_property set name='COUNTER_NUM', value='5';
 insert into tbl_property set name='LANGUAGE', value='en_US';

@@ -31,7 +31,9 @@ var SUB_CONTRACT = 'Sub Contract';
 var JOB_PROCESS = 'Job Process';
 var START = 'START';
 var FINISH = 'FINISH';
-var IN_PROGRESS = 'IN PROGRESS'
+var IN_PROGRESS = 'IN PROGRESS';
+var ON_HOLD = 'ON HOLD';
+var FINISHED = 'FINISHED';
 
 var CHANGE_PASSW0RD = 'Change Password';
 var LOGOUT = 'Logout';

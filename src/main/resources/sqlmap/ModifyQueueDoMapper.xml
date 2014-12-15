@@ -12,12 +12,12 @@
 		<result column="END_TIME" property="endTime" />
 		<result column="JOBTYPE" property="jobType" />
 		<result column="TECHNICIAN" property="technician" />
-		<result column="ISWARRANT" property="isWarrent" />
+		<result column="ISWARRANT" property="isWarrant" />
 		<result column="ISSUBCONTRACT" property="isSubContract" />
 	</resultMap>
 	
 	<sql id="Base_Column_List">
-		ID,STEP,USER_ID,ORDER_ID,CREATE_TIME,START_TIME,END_TIME,JOBTYPE,TECHNICIAN,ISWARRRANT,ISSUBCONTRACT
+		ID,STEP,USER_ID,ORDER_ID,CREATE_TIME,START_TIME,END_TIME,JOBTYPE,TECHNICIAN,ISWARRANT,ISSUBCONTRACT
 	</sql>
 
 	<select id="queryByModifyQueuestep" resultMap="ModifyQueueDoMap" 

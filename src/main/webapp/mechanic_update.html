@@ -49,13 +49,13 @@
 							<label id='jobTypeLabel' for='jobType' class=""></label>
 							<input id='jobType' name='jobType' type='text'>
 						</div>
-						<div id='rWarranty'>
+						<div>
 							<label>&nbsp;</label>
-							<input type='radio' name='contractType' value='warranty' />
+							<input id='isWarranty' type='checkbox' name='contractType' value='warranty'/><text id='rWarranty'></text>
 						</div>
-						<div id='rSubContract'>
+						<div>
 							<label>&nbsp;</label>
-							<input type='radio' name='contractType' value='subContract' />
+							<input id='isSubContract' type='checkbox' name='contractType' value='subContract' /><text id='rSubContract'></text>
 						</div>
 					</form>
 				</div>
@@ -68,19 +68,19 @@
 					</div>
 					<div style='margin-top:10px'>
 						<div class='inline' style='width:76px;height:36px;text-align:center;'>
-							<svg width='36px' height='36px'>
+							<svg id='startBtn' class='btn' width='36px' height='36px'>
 								<circle cx='18' cy='18' r='18' fill='#edb17e'></circle>
 								<text x='12' y='24' fill='#ffffff' font-size='24px'>1</text>
 							</svg>
 						</div>
 						<div class='inline' style='width:76px;height:36px;text-align:center;'>
-							<svg width='36px' height='36px'>
+							<svg id='holdBtn' class='btn' width='36px' height='36px'>
 								<circle cx='18' cy='18' r='18' fill='#6ed2dd'></circle>
 								<text x='12' y='24' fill='#ffffff' font-size='24px'>2</text>
 							</svg>
 						</div>
 						<div class='inline' style='width:76px;height:36px;text-align:center;'>
-							<svg width='36px' height='36px'>
+							<svg id='finishBtn' class='btn' width='36px' height='36px'>
 								<circle cx='18' cy='18' r='18' fill='#cce29c'></circle>
 								<text x='12' y='24' fill='#ffffff' font-size='24px'>3</text>
 							</svg>

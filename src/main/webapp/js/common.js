@@ -117,6 +117,32 @@
                                  "status",
                                  "startStatus"
                         ]
+                    },
+                    // 获取modify queue
+                    getModifyQueue : {
+                        url : "modifyqueue.do?action=getone",
+                        args : [ 
+                                 "id"
+                        ]
+                    },
+                    // Start, Hold and Finish in mechanic update
+                    mStart : {
+                        url : "modifyqueue.do?action=start",
+                        args : [ 
+                                 "id"
+                        ]
+                    },
+                    mHold : {
+                        url : "modifyqueue.do?action=hold",
+                        args : [ 
+                                 "id"
+                        ]
+                    },
+                    mFinish : {
+                        url : "modifyqueue.do?action=finish",
+                        args : [ 
+                                 "id"
+                        ]
                     }
                 },
                 ajax : function(key, args) {
