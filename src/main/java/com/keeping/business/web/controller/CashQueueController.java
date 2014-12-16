@@ -112,7 +112,7 @@ public class CashQueueController {
 					+ e.getMessage());
 		}
 		
-		return JsonConverter.getResultObject(code, msg, cashQueue);
+		return JsonConverter.getResultObject(code, msg, cashQueues);
 	}
 	
 	@RequestMapping(params = "action=getone")
