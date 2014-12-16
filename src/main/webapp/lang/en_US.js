@@ -35,6 +35,12 @@ var IN_PROGRESS = 'IN PROGRESS';
 var ON_HOLD = 'ON HOLD';
 var FINISHED = 'FINISHED';
 
+var CAR_WASH_QUEU_BOARD = 'CAR WASH QUEU BOARD';
+var STOP = 'STOP';
+var CANCEL = 'CANCEL';
+var NEXT_ON_QUE = 'NEXT on QUE';
+var PROMISE_TIME = 'Promise Time';
+
 var CHANGE_PASSW0RD = 'Change Password';
 var LOGOUT = 'Logout';
 var SA_QUE_CALLING_BOARD = 'SA QUE CALLING BOARD';

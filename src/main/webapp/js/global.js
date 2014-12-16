@@ -51,3 +51,14 @@ function loadLang(url, complete) {
         head.appendChild(script);
     }
 }
+
+function getTimeStr(time) {
+    if(undefined === time || null === time) {
+        return '';
+    }
+    var data = new Date(time);
+    var hours = data.getHours(); 
+    var minutes = data.getMinutes();
+    return (hours < 10 ? '0' : '') + hours + ':' + 
+        (minutes < 10 ? '0' : '') + minutes;
+}

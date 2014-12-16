@@ -27,9 +27,9 @@
             $('#rWarranty').text(WARRANTY);
             $('#rSubContract').text(SUB_CONTRACT);
             $('#jobProcess').text(JOB_PROCESS);
-            $('#startBtn').text(START);
-            $('#holdBtn').text(HOLD);
-            $('#finishBtn').text(FINISH);
+            $('#startBtn').text(START).attr('title', START);
+            $('#holdBtn').text(HOLD).attr('title', HOLD);
+            $('#finishBtn').text(FINISH).attr('title', FINISH);
         });
     }
     

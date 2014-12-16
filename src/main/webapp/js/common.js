@@ -143,6 +143,32 @@
                         args : [ 
                                  "id"
                         ]
+                    },
+                    // 获取洗车列表
+                    getCarWashQueues : {
+                        url : "cashqueue.do?action=getone",
+                        args : [ 
+                                 "id"
+                        ]
+                    },
+                    // Start, Stop and Cancel in car wash
+                    cStart : {
+                        url : "cashqueue.do?action=start",
+                        args : [ 
+                                 "id"
+                        ]
+                    },
+                    cStop : {
+                        url : "cashqueue.do?action=stop",
+                        args : [ 
+                                 "id"
+                        ]
+                    },
+                    cCancel : {
+                        url : "cashqueue.do?action=cancel",
+                        args : [ 
+                                 "id"
+                        ]
                     }
                 },
                 ajax : function(key, args) {

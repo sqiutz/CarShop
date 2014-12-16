@@ -105,7 +105,46 @@ define([], function() {
                     options.success(data);
                 }
             });
-        }
+        },
+        // 获取洗车列表
+        getCarWashQueues : function(options) {
+            var carWashlist;
+            $.common.ajax("getCarWashQueues", {
+                data : options.data,
+                success : function(data) {
+                    carWashlist = [data.obj];
+                    options.success(carWashlist);
+                },
+                error : function(error) {
+                    options.success();
+                }
+            });
+        },
+        // Start, Stop and Cancel in car wash
+        cStart : function(options) {
+            $.common.ajax("cStart", {
+                data : options.data,
+                success : function(data) {
+                    options.success(data);
+                }
+            });
+        },
+        cStop : function(options) {
+            $.common.ajax("cStop", {
+                data : options.data,
+                success : function(data) {
+                    options.success(data);
+                }
+            });
+        },
+        cCancel : function(options) {
+            $.common.ajax("cCancel", {
+                data : options.data,
+                success : function(data) {
+                    options.success(data);
+                }
+            });
+        },
 	};
 
 	$.OrderInfo = OrderInfo;
