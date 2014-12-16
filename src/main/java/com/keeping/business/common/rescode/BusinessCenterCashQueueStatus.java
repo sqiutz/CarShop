@@ -4,7 +4,7 @@ public enum BusinessCenterCashQueueStatus {
 
 	CASHQUEUE_STATUS_MODIFYING(0, "modifying"),
 	CASHQUEUE_STATUS_START(1, "start"),
-	CASHQUEUE_STATUS_HOLD(2, "hold"),
+	CASHQUEUE_STATUS_CANCEL(2, "cancel"),
 	CASHQUEUE_STATUS_FINISH(3, "finish");
 	
 	private Integer id;

@@ -58,6 +58,63 @@ public class CashQueueController {
 	@Resource
 	private UserService userService;
 
+	@RequestMapping(params = "action=alllist")
+	@ResponseBody
+	public WebResultList<CashQueue> getCashQueues(HttpServletRequest request, HttpServletResponse response) {
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
+		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
+
+		List<CashQueue> cashQueues = new ArrayList<CashQueue>();
+		
+		try {
+			
+			String jsonStr = request.getParameter("param");
+			StepObject step = JsonConverter.getFromJsonString(jsonStr,
+					StepObject.class);
+			
+			if (null == step || step.getStep() == null) {
+				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
+				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
+				logger.error("< CashQueueController.getCashQueue() > 获取维修订单请求信息不正确: " + step.getStep());
+			} else {
+				
+				cashQueues = cashQueueService.getCashQueueByStep(Integer.parseInt(step.getStep()));
+				
+				List<Integer> userIdList = new ArrayList<Integer>();
+				List<Integer> orderIdList = new ArrayList<Integer>();
+				List<User> users = new ArrayList<User>();
+				for (int i=0; i<cashQueues.size(); i++){
+					userIdList.add(cashQueues.get(i).getUserId());
+					orderIdList.add(cashQueues.get(i).getOrderId());
+					
+					User user = userService.getByUserId(userIdList.get(i));
+					users.add(user);
+				}
+				
+				if(cashQueues.size() > 0){
+					
+					List<Order> orders = orderService.getByOrdersId(orderIdList);
+					
+					ReorgQueue.reorgCashQueue(cashQueues, users, orders);
+				}
+				
+			}
+		} catch (BusinessServiceException ex) {
+			code = ex.getErrorCode();
+			msg = ex.getErrorMessage();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			System.out.println(e.getStackTrace());
+			code = BusinessCenterResCode.SYS_ERROR.getCode();
+			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
+			logger.error("< CashQueueController.getCashQueue() > 获取维修列表失败."
+					+ e.getMessage());
+		}
+		
+		return JsonConverter.getResultObject(code, msg, cashQueue);
+	}
+	
 	@RequestMapping(params = "action=getone")
 	@ResponseBody
 	public WebResultObject<CashQueue> getCashQueue(HttpServletRequest request, HttpServletResponse response) {
@@ -166,9 +223,9 @@ public class CashQueueController {
 		}
 	}
 	
-	@RequestMapping(params = "action=hold")
+	@RequestMapping(params = "action=cancel")
 	@ResponseBody
-	public WebResult hold(HttpServletRequest request,
+	public WebResult cancel(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
@@ -183,7 +240,7 @@ public class CashQueueController {
 			if (StringUtil.isNull(jsonStr) || cashQueue == null) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
-				logger.error("< CashQueueController.hold() > 订单维修订单信息为空或没有权限。"
+				logger.error("< CashQueueController.cancel() > 订单维修订单信息为空或没有权限。"
 						+ jsonStr);
 			} else{
 				
@@ -191,7 +248,7 @@ public class CashQueueController {
 				
 				if (cashQueue != null){
 					
-					cashQueue.setStep(BusinessCenterCashQueueStatus.CASHQUEUE_STATUS_HOLD.getId());
+					cashQueue.setStep(BusinessCenterCashQueueStatus.CASHQUEUE_STATUS_CANCEL.getId());
 					cashQueueService.updateCashQueue(cashQueue);
 				}else{
 					code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
@@ -207,7 +264,7 @@ public class CashQueueController {
 			System.out.println(e.getStackTrace());
 			code = BusinessCenterResCode.SYS_ERROR.getCode();
 			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
-			logger.error("< CashQueueController.hold() > 挂起任务失败."
+			logger.error("< CashQueueController.cancel() > 挂起任务失败."
 					+ e.getMessage());
 		}
 
@@ -215,7 +272,7 @@ public class CashQueueController {
 		try {
 			return JsonConverter.getResultSignal(code, msg);
 		} catch (Exception e) {
-			logger.error("< CashQueueController.hold() > 挂起任务返回出错."
+			logger.error("< CashQueueController.cancel() > 挂起任务返回出错."
 					+ e.getMessage());
 			throw e;
 		}
