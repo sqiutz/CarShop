@@ -13,6 +13,7 @@ public class CashQueueConverter {
 
 		CashQueue cashQueue = new CashQueue();
 		
+		cashQueue.setId(cashQueueDo.getId());
 		cashQueue.setCreateTime(cashQueueDo.getCreateTime());
 		cashQueue.setEndTime(cashQueueDo.getEndTime());
 		cashQueue.setStartTime(cashQueueDo.getStartTime());
@@ -31,6 +32,7 @@ public class CashQueueConverter {
 		
 		CashQueueDo cashQueueDo = new CashQueueDo();
 		
+		cashQueueDo.setId(cashQueue.getId());
 		cashQueueDo.setEndTime(cashQueue.getEndTime());
 		cashQueueDo.setOrderId(cashQueue.getOrderId());
 		cashQueueDo.setStartTime(cashQueue.getStartTime());
