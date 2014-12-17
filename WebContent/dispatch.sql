@@ -249,7 +249,7 @@ insert into tbl_servequeue set step=0, user_id=6, order_id=3;
 
 insert into tbl_modifyqueue set step=1, user_id=6, order_id=3,isWarrant=1;
 
-insert into tbl_cashqueue set step=1, user_id=6, order_id=3;
+insert into tbl_cashqueue set step=0, user_id=6, order_id=3;
 
 insert into tbl_property set name='COUNTER_NUM', value='5';
 insert into tbl_property set name='LANGUAGE', value='en_US';

@@ -78,8 +78,16 @@
     
     var setCurrentCarWashQue = function(queue) {
         if(queue) {
-            defaultId = queue.id;
+            $('#startBtn').attr('disabled', false);
+            $('#cancelBtn').attr('disabled', false);
+            $('#finishBtn').attr('disabled', false);
         }
+        else {
+            $('#startBtn').attr('disabled', 'disabled');
+            $('#cancelBtn').attr('disabled', 'disabled');
+            $('#finishBtn').attr('disabled', 'disabled');
+        }
+        defaultId = queue ? queue.id : 0;
         $('#currRegNo').text(queue && queue.order ? queue.order.registerNum : '');
         $('#currQueNo').text(queue && queue.order ? queue.order.queueNum : '');
     };
@@ -88,14 +96,14 @@
     var getCarWashList = function() {
         $.OrderInfo.getCarWashQueues({
             data : {
-                step : 1
+                step : 0
             },
             success : createCarWashList
         });
     };
     
     $('#startBtn').bind('click', function() {
-        $.OrderInfo.mStart({
+        $.OrderInfo.cStart({
             data : {
                 id : selectedId ? selectedId : defaultId
             },
@@ -107,7 +115,7 @@
         });
     });    
     $('#cancelBtn').bind('click', function() {
-        $.OrderInfo.mHold({
+        $.OrderInfo.cCancel({
             data : {
                 id : selectedId ? selectedId : defaultId
             },
@@ -119,7 +127,7 @@
         });
     });
     $('#finishBtn').bind('click', function() {
-        $.OrderInfo.mFinish({
+        $.OrderInfo.cFinish({
             data : {
                 id : selectedId ? selectedId : defaultId
             },

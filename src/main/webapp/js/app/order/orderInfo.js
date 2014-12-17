@@ -129,8 +129,8 @@ define([], function() {
                 }
             });
         },
-        cStop : function(options) {
-            $.common.ajax("cStop", {
+        cFinish : function(options) {
+            $.common.ajax("cFinish", {
                 data : options.data,
                 success : function(data) {
                     options.success(data);

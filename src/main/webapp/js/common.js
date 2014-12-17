@@ -158,8 +158,8 @@
                                  "id"
                         ]
                     },
-                    cStop : {
-                        url : "cashqueue.do?action=stop",
+                    cFinish : {
+                        url : "cashqueue.do?action=finish",
                         args : [ 
                                  "id"
                         ]
