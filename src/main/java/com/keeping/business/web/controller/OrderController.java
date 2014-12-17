@@ -82,6 +82,38 @@ public class OrderController {
 		return JsonConverter.getResultObject(code, msg, orderList);
 	}
 	
+	@RequestMapping(params = "action=allbooklist")
+	@ResponseBody
+	public WebResultList<Order> getAllBookOrders(HttpServletRequest request,HttpServletResponse response) {
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
+		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
+
+		List<Order> orderList = null;
+		
+		try {
+			String jsonStr = request.getParameter("param");
+			StatusObject status = JsonConverter.getFromJsonString(jsonStr, StatusObject.class);
+			if (status == null) {
+				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
+				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
+				logger.error("< OrderController.getAllOrders() > 获取订单状态不正确." + status + " : " + BusinessCenterOrderStatus.ORDER_STATUS_WAIT.getStatus());
+			} else {
+					orderList = orderService.getOrdersByBook(status.getIsBook());
+
+			}
+		}catch (BusinessServiceException ex) {
+			code = ex.getErrorCode();
+			msg = ex.getErrorMessage();
+		}catch (Exception e) {
+			code = BusinessCenterResCode.SYS_ERROR.getCode();
+			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
+			logger.error("< OrderController.getAllOrders() > 获取订单列表失败." + e.getMessage());
+		}
+
+		return JsonConverter.getResultObject(code, msg, orderList);
+	}
+	
 	/**
      * 预约订单
      * 

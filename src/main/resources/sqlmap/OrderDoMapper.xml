@@ -30,6 +30,15 @@
 		STATUS = #{status}
 	</select>
 	
+	<select id="queryByOrderbook" resultMap="OrderDoMap" 
+		parameterType="java.lang.Integer">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM TBL_ORDER
+		WHERE
+		STATUS = 1 and IS_BOOK = #{isBook}
+	</select>
+	
 	<select id="getAllOrders" resultMap="OrderDoMap" 
 		parameterType="java.lang.Integer">
 		SELECT 

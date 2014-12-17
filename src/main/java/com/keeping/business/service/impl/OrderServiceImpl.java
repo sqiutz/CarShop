@@ -55,6 +55,25 @@ public class OrderServiceImpl implements OrderService {
 
 		return orders_front;
 	}
+	
+
+	public List<Order> getOrdersByBook(Integer book)
+			throws BusinessServiceException {
+		// TODO Auto-generated method stub
+		List<Order> orders_front = new ArrayList<Order>();
+		List<OrderDo> orderDoes = orderDao.queryByOrderbook(book);
+
+		if (orderDoes == null) {
+			return orders_front;
+		} else {
+			for (int i = 0; i < orderDoes.size(); i++) {
+				orders_front.add(OrderConverter.getOrder(orderDoes.get(i)));
+			}
+		}
+
+		return orders_front;
+	}
+
 
 
 	public List<Order> getAllOrders(Integer startStatus) {
