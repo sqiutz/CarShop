@@ -6,7 +6,6 @@ define(["md5"],function(){
 				//options.data.passwd=hex_md5(options.data.passwd);
 			}
 			$.common.ajax("userLogin", {
-				type:"POST",
 				data:options.data,
 				success:function(data){					
 				    options.success(data);					
@@ -52,16 +51,6 @@ define(["md5"],function(){
                 }
             });
         },
-        //获取用户信息
-        getUserByName : function(options) {
-            $.common.ajax("modifyUser", {
-                type:"POST",
-                data:options.data,
-                success:function(data){                 
-                    options.success(data);                  
-                }
-            });
-        },
 		//检测用户是否已经登录
 		checkLogin : function(options){
 		    $.common.ajax("checkLogin", {
@@ -74,7 +63,6 @@ define(["md5"],function(){
 		// 获取用户对应的柜台
 		checkCounter : function(options){
 		    $.common.ajax("checkCounter", {
-                type:"POST",
                 data:options.data,
                 success:function(data){                 
                     options.success(data);                  
@@ -84,7 +72,6 @@ define(["md5"],function(){
 		// 获取配置信息
 		getProperty : function(options){
             $.common.ajax("getProperty", {
-                type:"POST",
                 data:options.data,
                 success:function(data){                 
                     options.success(data);                  

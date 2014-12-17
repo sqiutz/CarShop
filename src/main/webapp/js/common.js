@@ -62,13 +62,6 @@
                                  "isBooker"
                         ]
                     },
-                    // 获取用户信息
-                    getUserByName : {
-                        url : "user.do?action=modifyuser",
-                        args : [ 
-                                 "userName", // 账号
-                        ]
-                    },
                     // 获取服务队列
                     getServeQueues : {
                         url : "servequeue.do?action=alllist",

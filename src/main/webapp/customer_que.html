@@ -41,14 +41,29 @@
 				</div>
 
 				<div class='box rAlign' style='width:545px;padding-right:40px'>
-					<div id='waitingListTitle' class='blue h3' style='width:545px;'></div>			
-					<table id='waitingList' class="queue blue" style='width:535px'>
-						<tr>
-							<th id='regNoCol'></th>
-							<th id='queNoCol'></th>
-							<th id='estTimeCol'></th>
-						</tr>
-					</table>
+					<div id='waitingListTitle' class='blue h3' style='width:545px;'></div>
+					<div style='display:inline-block;width:266px;margin-left:5px;'>
+						<table id='waitingList' class="queue blue" style='width:266px'>
+							<tr class='hd'>
+								<td id='booking' colSpan='2'></td>
+							</tr>
+							<tr>
+								<th id='regNoCol'></th>
+								<th id='estTimeCol'></th>
+							</tr>
+						</table>
+					</div>	
+					<div style='display:inline-block;width:266px;'>
+						<table id='nonBookingList' class="queue blue" style='width:266px'>
+							<tr class='hd'>
+								<td id='nonBooking' colSpan='2'></td>
+							</tr>
+							<tr>
+								<th id='nRegNoCol'></th>
+								<th id='nEstTimeCol'></th>
+							</tr>
+						</table>
+					</div>
 				</div>
 			</div>
 
