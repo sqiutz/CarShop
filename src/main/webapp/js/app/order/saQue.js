@@ -86,7 +86,7 @@
                         if(!currServe) {
                             $('#resumeBtn').attr('disabled', false);
                         }
-                    })
+                    });
                 }                
             }
             $('<td></td>').text(serve && serve.order ? serve.order.registerNum : '').appendTo(tr);

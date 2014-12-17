@@ -112,7 +112,7 @@ define([], function() {
             $.common.ajax("getCarWashQueues", {
                 data : options.data,
                 success : function(data) {
-                    carWashlist = [data.obj];
+                    carWashlist = data.resList;
                     options.success(carWashlist);
                 },
                 error : function(error) {

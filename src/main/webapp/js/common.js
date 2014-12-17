@@ -146,9 +146,9 @@
                     },
                     // 获取洗车列表
                     getCarWashQueues : {
-                        url : "cashqueue.do?action=getone",
+                        url : "cashqueue.do?action=alllist",
                         args : [ 
-                                 "id"
+                                 "step"
                         ]
                     },
                     // Start, Stop and Cancel in car wash

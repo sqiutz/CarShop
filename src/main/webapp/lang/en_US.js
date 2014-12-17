@@ -36,7 +36,6 @@ var ON_HOLD = 'ON HOLD';
 var FINISHED = 'FINISHED';
 
 var CAR_WASH_QUEU_BOARD = 'CAR WASH QUEU BOARD';
-var STOP = 'STOP';
 var CANCEL = 'CANCEL';
 var NEXT_ON_QUE = 'NEXT on QUE';
 var PROMISE_TIME = 'Promise Time';

@@ -20,7 +20,7 @@
             $('#title').text(CAR_WASH_QUEU_BOARD);
             $('#currentNoLabel').text(CURRENT_NUMBER);
             $('#startBtn').text(START).attr('title', START);
-            $('#stopBtn').text(STOP).attr('title', STOP);
+            $('#finishBtn').text(FINISH).attr('title', FINISH);
             $('#cancelBtn').text(CANCEL).attr('title', CANCEL);            
             $('#nextOnQue').text(NEXT_ON_QUE);
             $('#regNoCol').text(REG_NO);
@@ -32,6 +32,7 @@
     
     var cListIter = 0, interval = 3000;
     // 创建洗车列表
+    var selectedId = 0, defaultId = 0;
     var createCarWashList = function(queues) {
         $('#carWashList tr.odd').remove();
         $('#carWashList tr.even').remove();
@@ -41,10 +42,21 @@
         for (var i = 0; i < num; i++) {
             j = cListIter * num + i;
             var queue = queues && j < queues.length ? queues[j] : null;
+            if(0 === i && 0 === selectedId) {
+                setCurrentCarWashQue(queue);
+            }
             var tr = $('<tr></tr>').attr('class', i % 2 === 0 ? 'odd' : 'even')
                     .appendTo($('#carWashList'));
             if(queue) {
                 tr.addClass('hoverable').val(queue.id);
+                if(queue.id === parseInt(selectedId)) {
+                    tr.addClass('selected');
+                }
+                tr.bind('click', function() {
+                    $('#carWashList tr').removeClass('selected');
+                    $(this).addClass('selected');
+                    selectedId = $(this).val();
+                })
             }
             $('<td></td>').text(queue && queue.order ? queue.order.registerNum : '').appendTo(tr);
             $('<td></td>').text(queue && queue.order ? queue.order.queueNum : '').appendTo(tr);
@@ -64,15 +76,60 @@
         }
     };
     
+    var setCurrentCarWashQue = function(queue) {
+        if(queue) {
+            defaultId = queue.id;
+        }
+        $('#currRegNo').text(queue && queue.order ? queue.order.registerNum : '');
+        $('#currQueNo').text(queue && queue.order ? queue.order.queueNum : '');
+    };
+    
     // 获取洗车列表
     var getCarWashList = function() {
         $.OrderInfo.getCarWashQueues({
             data : {
-                id : 3
+                step : 1
             },
             success : createCarWashList
         });
     };
+    
+    $('#startBtn').bind('click', function() {
+        $.OrderInfo.mStart({
+            data : {
+                id : selectedId ? selectedId : defaultId
+            },
+            success : function(data) {
+                if(data.code == '000000') {
+                    
+                }
+            }
+        });
+    });    
+    $('#cancelBtn').bind('click', function() {
+        $.OrderInfo.mHold({
+            data : {
+                id : selectedId ? selectedId : defaultId
+            },
+            success : function(data) {
+                if(data.code == '000000') {
+                    
+                }
+            }
+        });
+    });
+    $('#finishBtn').bind('click', function() {
+        $.OrderInfo.mFinish({
+            data : {
+                id : selectedId ? selectedId : defaultId
+            },
+            success : function(data) {
+                if(data.code == '000000') {
+                    
+                }
+            }
+        });
+    });
     
     getCarWashList();
 })(jQuery);
