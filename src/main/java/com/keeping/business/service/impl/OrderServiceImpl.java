@@ -123,6 +123,20 @@ public class OrderServiceImpl implements OrderService {
 		return order;
 	}
 	
+	public Order getOrdersByQueueNum(String queueNumber) {
+		// TODO Auto-generated method stub
+		Order order = null;
+		OrderDo orderDo = orderDao.queryOrderByQueueNum(queueNumber);
+
+		if (orderDo == null){
+			return new Order();
+		}else{
+			order = OrderConverter.getOrder(orderDo);
+		}
+		
+		return order;
+	}
+	
 	public Order queryOrderById(Integer id) throws BusinessServiceException {
 		// TODO Auto-generated method stub
 		Order order = null;
@@ -159,6 +173,5 @@ public class OrderServiceImpl implements OrderService {
 	public void setOrderDao(OrderDao orderDao) {
 		this.orderDao = orderDao;
 	}
-
 
 }

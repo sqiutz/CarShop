@@ -25,5 +25,7 @@ public interface OrderService {
 	public List<Order> getByOrdersId(List<Integer> orderIdList) throws BusinessServiceException;
 	
 	public List<Order> getAllOrders(Integer startStatus);
+	
+	public Order getOrdersByQueueNum(String queueNumber);
 
 }

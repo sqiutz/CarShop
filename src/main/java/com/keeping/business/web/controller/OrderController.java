@@ -23,10 +23,12 @@ import com.keeping.business.common.util.StringUtil;
 import com.keeping.business.service.OrderService;
 import com.keeping.business.web.controller.converter.JsonConverter;
 import com.keeping.business.web.controller.model.Order;
+import com.keeping.business.web.controller.model.OrderObject;
 import com.keeping.business.web.controller.model.StatusObject;
 import com.keeping.business.web.controller.model.UserProfile;
 import com.keeping.business.web.controller.model.WebResult;
 import com.keeping.business.web.controller.model.WebResultList;
+import com.keeping.business.web.controller.model.WebResultObject;
 
 @Controller
 @RequestMapping("/order.do")
@@ -112,6 +114,39 @@ public class OrderController {
 		}
 
 		return JsonConverter.getResultObject(code, msg, orderList);
+	}
+	
+	@RequestMapping(params = "action=getone")
+	@ResponseBody
+	public WebResultObject<Order> getOrder(HttpServletRequest request,HttpServletResponse response) {
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
+		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
+
+		Order order = new Order();
+		
+		try {
+			String jsonStr = request.getParameter("param");
+			OrderObject orderObject = JsonConverter.getFromJsonString(jsonStr, OrderObject.class);
+			if (orderObject == null || orderObject.getQueueNumber() == null) {
+				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
+				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
+				logger.error("< OrderController.getOrder() > 获取订单状态不正确." + orderObject.getQueueNumber() + " : " + BusinessCenterOrderStatus.ORDER_STATUS_WAIT.getStatus());
+			} else {
+				
+				order = orderService.getOrdersByQueueNum(orderObject.getQueueNumber());
+
+			}
+		}catch (BusinessServiceException ex) {
+			code = ex.getErrorCode();
+			msg = ex.getErrorMessage();
+		}catch (Exception e) {
+			code = BusinessCenterResCode.SYS_ERROR.getCode();
+			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
+			logger.error("< OrderController.getOrder() > 获取订单列表失败." + e.getMessage());
+		}
+
+		return JsonConverter.getResultObject(code, msg, order);
 	}
 	
 	/**
@@ -200,13 +235,13 @@ public class OrderController {
 			
 			if (StringUtil.isNull(bookNum)) {
 				order.setStartTime(dateTime);
-				order.setStatus(1);    //1: start to wait for serve queue
+				order.setStatus(BusinessCenterOrderStatus.ORDER_STATUS_WAIT.getId());    //1: start to wait for serve queue
 				order.setIsBook(0);
 				orderService.addOrder(order);
 			}else {
 				order = orderService.queryOrderByBookNum(bookNum);
 				order.setStartTime(dateTime);
-				order.setStatus(1);
+				order.setStatus(BusinessCenterOrderStatus.ORDER_STATUS_WAIT.getId());
 				orderService.updateOrder(order);
 			}
 		}catch (BusinessServiceException ex) {
