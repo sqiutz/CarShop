@@ -466,7 +466,12 @@ table.blue {
 }
 table.blue th {	
 	color:#30BFCF;
-	border-color:#30BFCF;
+	font-weight:bold;
+}
+table.blue tr.hd {
+	font-style:normal;
+	font-weight:bold;
+	color:#30BFCF;
 }
 table.blue tr.odd {
 	background-color:#c1ecf1;

@@ -13,8 +13,10 @@ var CUSTOMER_JOB_PROGRESS_BOARD_DESC = 'Show the customer job progress list';
 
 var CUSTOMER_QUE_STATUS_BOARD = 'CUSTOMER QUE STATUS BOARD';
 var WELCOME = 'WELCOME';
-var EST_TIME = 'Est. Time';
+var EST_WAIT = 'Est. Wait';
 var PLEASE_PROCEED_TO = 'Please Proceed to';
+var BOOKING = 'BOOKING';
+var NON_BOOKING = 'NON-BOOKING';
 
 var CUSTOMER_JOB_PROGRESS_BOARD = 'CUSTOMER JOB PROGRESS BOARD';
 var ESTIMATED_END_TIME = 'Estimated End<br />Time';
