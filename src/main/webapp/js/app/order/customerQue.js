@@ -116,7 +116,8 @@
 	var getOrderList = function() {
 		$.OrderInfo.getOrderList({
 			data : {
-				status : 1
+				status : 1,
+				isBook : 0
 			},
 			success : createWaitingList
 		});
@@ -155,7 +156,8 @@
     var getNonBookingList = function() {
         $.OrderInfo.getOrderList({
             data : {
-                status : 1
+                status : 1,
+                isBook : 1
             },
             success : createNonBookingList
         });

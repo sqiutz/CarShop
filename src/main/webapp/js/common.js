@@ -108,7 +108,8 @@
                         url : "order.do?action=alllist",
                         args : [ 
                                  "status",
-                                 "startStatus"
+                                 "startStatus",
+                                 "isBook"
                         ]
                     },
                     // 获取modify queue

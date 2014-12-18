@@ -238,6 +238,8 @@ insert into tbl_order set status=1, registerNumber='B1001AC', queueNumber='B-003
 insert into tbl_order set status=1, registerNumber='B1002AC', queueNumber='B-002', estimationTime=8;
 insert into tbl_order set status=1, registerNumber='B1003AC', queueNumber='B-001', estimationTime=4;
 insert into tbl_order set status=1, registerNumber='B1001NC', queueNumber='N-001', estimationTime=5;
+insert into tbl_order set status=1, registerNumber='B2001NC', queueNumber='N-002', estimationTime=4, is_book=1;
+insert into tbl_order set status=1, registerNumber='B3001NC', queueNumber='N-003', estimationTime=5, is_book=1;
 
 insert into tbl_servequeue set step=0, user_id=6, order_id=3;
 -- insert into tbl_servequeue set step=0, user_id=7, order_id=4;
