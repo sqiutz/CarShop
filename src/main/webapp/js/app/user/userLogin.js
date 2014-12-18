@@ -29,6 +29,10 @@
             $('#carWashDesc').text(CAR_WASH_QUE_BOARD_DESC);
             $('#customerJobTitle').text(CUSTOMER_JOB_PROGRESS_BOARD);
             $('#customerJobDesc').text(CUSTOMER_JOB_PROGRESS_BOARD_DESC);
+            $('#greetCustomerTitle').text(GREET_CUSTOMER);
+            $('#greetCustomerDesc').text(GREET_CUSTOMER_DESC);
+            $('#finalInspecTitle').text(FINAL_INSPECTION);
+            $('#finalInspecDesc').text(FINAL_INSPECTION_DESC);
         });
     }
     
