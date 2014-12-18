@@ -137,6 +137,21 @@ public class OrderServiceImpl implements OrderService {
 		return order;
 	}
 	
+
+	public Order getOrdersByRegNum(String registerNumber) {
+		// TODO Auto-generated method stub
+		Order order = null;
+		OrderDo orderDo = orderDao.queryOrderByRegisterNum(registerNumber);
+
+		if (orderDo == null){
+			return new Order();
+		}else{
+			order = OrderConverter.getOrder(orderDo);
+		}
+		
+		return order;
+	}
+	
 	public Order queryOrderById(Integer id) throws BusinessServiceException {
 		// TODO Auto-generated method stub
 		Order order = null;
@@ -173,5 +188,6 @@ public class OrderServiceImpl implements OrderService {
 	public void setOrderDao(OrderDao orderDao) {
 		this.orderDao = orderDao;
 	}
+
 
 }

@@ -79,7 +79,7 @@ DROP TABLE IF EXISTS `TBL_ORDER`;
 CREATE TABLE `TBL_ORDER` (
   `id` bigint(10) NOT NULL AUTO_INCREMENT,
   `status` bigint(10) NOT NULL DEFAULT 0,            /*0: subscribe; 1: serve start; */
-  `registerNumber` varchar(48) DEFAULT NULL,
+  `registerNumber` varchar(48) DEFAULT NULL UNIQUE,
   `queueNumber` varchar(48) DEFAULT NULL,   
   `roofNumber` varchar(48) DEFAULT NULL,
   `estimationTime` bigint(10) DEFAULT NULL,

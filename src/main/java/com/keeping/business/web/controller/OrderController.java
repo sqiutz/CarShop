@@ -134,7 +134,7 @@ public class OrderController {
 				logger.error("< OrderController.getOrder() > 获取订单状态不正确." + orderObject.getQueueNumber() + " : " + BusinessCenterOrderStatus.ORDER_STATUS_WAIT.getStatus());
 			} else {
 				
-				order = orderService.getOrdersByQueueNum(orderObject.getQueueNumber());
+				order = orderService.getOrdersByRegNum(orderObject.getRegisterNumber());
 
 			}
 		}catch (BusinessServiceException ex) {

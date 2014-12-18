@@ -27,5 +27,7 @@ public interface OrderService {
 	public List<Order> getAllOrders(Integer startStatus);
 	
 	public Order getOrdersByQueueNum(String queueNumber);
+	
+	public Order getOrdersByRegNum(String registerNumber);
 
 }
