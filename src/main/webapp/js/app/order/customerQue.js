@@ -114,7 +114,7 @@
 
 	// 获取订单列表
 	var getOrderList = function() {
-		$.OrderInfo.getOrderList({
+		$.OrderInfo.getBookedOrderList({
 			data : {
 				status : 1,
 				isBook : 0
@@ -154,7 +154,7 @@
     
     // 获取NonBooking订单列表
     var getNonBookingList = function() {
-        $.OrderInfo.getOrderList({
+        $.OrderInfo.getBookedOrderList({
             data : {
                 status : 1,
                 isBook : 1

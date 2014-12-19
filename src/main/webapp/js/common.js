@@ -108,9 +108,16 @@
                         url : "order.do?action=alllist",
                         args : [ 
                                  "status",
+                                 "startStatus"
+                        ]
+                    },
+                    getBookedOrderList : {
+                        url : "order.do?action=allbooklist",
+                        args : [ 
+                                 "status",
                                  "startStatus",
                                  "isBook"
-                        ]
+                        ]                        
                     },
                     // 获取modify queue
                     getModifyQueue : {

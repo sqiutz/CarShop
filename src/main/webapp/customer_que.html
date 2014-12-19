@@ -15,8 +15,7 @@
     function layoutMe() {
         var res = layout();
         var headerH = res[0], footerH = res[1], contentH = res[2];
-        var contentLeftH = contentRightH = contentH - $('#welcome').height();
-        var imgH = contentRightH - $('#proceedDiv').height() - 25;
+        var imgH = contentH - $('#welcome').height() - $('#proceedDiv').height() - 30;
         $('.vedio').css('height', imgH + 'px');
     }
 
