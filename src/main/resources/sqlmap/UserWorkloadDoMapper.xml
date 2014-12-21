@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.keeping.business.dal.dao.UserWorkloadDao">
+
+	<resultMap id="UserWorkloadDoMap" type="UserWorkloadDo">
+		<id column="ID" property="id" />
+		<result column="USER_ID" property="userId" />
+		<result column="MODIFYQUEUE_ID" property="modifyqueueId" />
+		<result column="HUMANRESOURCE" property="humanResource" />
+		<result column="GENERALREPAIRE" property="generalRepaire" />
+		<result column="ADDITIONALHOURS" property="additionalHours" />
+		<result column="COMMENT" property="comment" />
+		<result column="ALLOCATEDTIME" property="allocatedTime" />
+		<result column="CREATE_TIME" property="createTime" />
+		<result column="MODIFY_TIME" property="modifyTime" />
+		<result column="START_TIME" property="startTime" />
+		<result column="END_TIME" property="endTime" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		ID,USER_ID,MODIFYQUEUE_ID,HUMANRESOURCE,GENERALREPAIRE,ADDITIONALHOURS,COMMENT,ALLOCATEDTIME,CREATE_TIME,MODIFY_TIME,START_TIME,END_TIME
+	</sql>
+
+	<select id="queryByUserWorkloadUserid" resultMap="UserWorkloadDoMap" >
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM TBL_USERWORKLOAD
+		WHERE
+		USER_ID = #{userId} and CREATE_TIME = #{createTime}
+	</select>
+	
+	<select id="queryAllUsers" resultMap="UserWorkloadDoMap" >
+		SELECT 
+		DISTINCT(USER_ID)
+		FROM TBL_USERWORKLOAD
+		WHERE
+		CREATE_TIME = #{createTime}
+	</select>
+	
+	<insert id="addUserWorkload" parameterType="UserWorkloadDo">
+		INSERT INTO TBL_USERWORKLOAD 
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				USER_ID,
+			</if>
+			<if test="registerNum != null">
+				MODIFYQUEUE_ID,
+			</if>
+			<if test="queueNum != null">
+				HUMANRESOURCE,
+			</if>
+			<if test="roofNum != null">
+				GENERALREPAIRE,
+			</if>
+			<if test="bookNum != null">
+				ADDITIONALHOURS,
+			</if>
+			<if test="estimationTime != null">
+				COMMENT,
+			</if>
+			<if test="promiseTime != null">
+				ALLOCATEDTIME,
+			</if>
+			<if test="startTime != null">
+				CREATE_TIME,
+			</if>
+			<if test="endTime != null">
+				MODIFY_TIME,
+			</if>
+			<if test="isBook != null">
+				START_TIME,
+			</if>
+			<if test="isBook != null">
+				END_TIME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				#{userId},
+			</if>
+			<if test="modifyqueueId != null">
+				#{modifyqueueId},
+			</if>
+			<if test="humanResource != null">
+				#{humanResource},
+			</if>
+			<if test="generalRepaire != null">
+				#{generalRepaire},
+			</if>
+			<if test="additionalHours != null">
+				#{additionalHours},
+			</if>
+			<if test="comment != null">
+				#{comment},
+			</if>
+			<if test="createTime != null">
+				#{createTime},
+			</if>
+			<if test="modifyTime != null">
+				#{modifyTime},
+			</if>
+			<if test="startTime != null">
+				#{startTime},
+			</if>
+			<if test="endTime != null">
+				#{endTime},
+			</if>
+			<if test="allocatedTime != null">
+				#{allocatedTime},
+			</if>
+		</trim>
+	</insert>
+	
+	<update id="updateUserWorkload" parameterType="UserWorkloadDo">
+		UPDATE TBL_USERWORKLOAD
+		<set>
+			<if test="userId != null">
+				USER_ID = #{userId},
+			</if>
+			<if test="modifyqueueId != null">
+				MODIFYQUEUE_ID = #{modifyqueueId},
+			</if>
+			<if test="humanResource != null">
+				HUMANRESOURCE = #{humanResource},
+			</if>
+			<if test="generalRepaire != null">
+				GENERALREPAIRE = #{generalRepaire},
+			</if>
+			<if test="additionalHours != null">
+				ADDITIONALHOURS = #{additionalHours},
+			</if>
+			<if test="comment != null">
+				COMMENT = #{comment},
+			</if>
+			<if test="allocatedTime != null">
+				ALLOCATEDTIME = #{allocatedTime},
+			</if>
+			<if test="createTime != null">
+				CREATETIME = #{createTime},
+			</if>
+			<if test="modifyTime != null">
+				MODIFYTIME = #{modifyTime},
+			</if>
+			<if test="startTime != null">
+				START_TIME = #{startTime},
+			</if>
+			<if test="endTime != null">
+				END_TIME = #{endTime},
+			</if>
+		</set>
+		WHERE 
+		ID = #{id}
+	</update>
+	
+</mapper>

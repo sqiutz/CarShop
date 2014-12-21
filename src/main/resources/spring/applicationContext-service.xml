@@ -40,6 +40,10 @@
 	<bean id="propertyService" class="com.keeping.business.service.impl.PropertyServiceImpl">
 		<property name="PropertyDao" ref="propertyDao" />
 	</bean>
+	
+	<bean id="userWorkloadService" class="com.keeping.business.service.impl.UserWorkloadServiceImpl">
+		<property name="UserWorkloadDao" ref="userWorkloadDao" />
+	</bean>
 
 	
 </beans>
