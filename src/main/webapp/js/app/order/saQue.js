@@ -41,6 +41,19 @@
             $('#wRegNoCol').text(REG_NO);
             $('#wQueNoCol').text(QUE_NO);
             $('#queStartCol').text(QUE_START);
+            
+            $('#legendTitle').text(INPUT_EDIT_DATA);
+            $('#regNoLabel').text(REG_NO);
+            $('#additionTimeLabel').text(ADDITION_TIME);
+            $('#roofNoLabel').text(ROOF_NO);
+            $('#serviceAdvisorLabel').text(SERVICE_ADVISOR);
+            $('#jobTypeLabel').text(JOB_TYPE);
+            $('#rWarranty').text(WARRANTY);
+            $('#rSubContract').text(SUB_CONTRACT);
+            $('#promiseTimeRefLabel').text(PROMISE_TIME + ' - ' + REFERENCE);
+            $('#promiseTimeLabel').text(PROMISE_TIME);
+            $('#finishBtn').text(FINISH).attr('title', FINISH);
+            $('#backBtn').text(BACK).attr('title', BACK);
         });
     }
     
@@ -264,18 +277,13 @@
     });
     
     // send
-    /*$('#sendToWorkshopBtn').bind('click', function() {
-        $.OrderInfo.send({
-            data : {
-                id : currServe.id               
-            },
-            success : function(data) {
-                if(data.code == '000000') {
-                    getServeQueue();
-                }                
-            }
-        });
-    })*/
+    $('#nextBtn').bind('click', function() {
+    	location.href = 'sa_promise_time.html';
+    });
+    // send
+    $('#backBtn').bind('click', function() {
+    	location.href = 'sa_que.html';
+    })
         
     $('#holdListLink').bind('click', function() {
     	if('unselected' === $('#holdListTab').attr('class')) {

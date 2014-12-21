@@ -40,6 +40,10 @@ var FINISH = 'FINISH';
 var IN_PROGRESS = 'IN PROGRESS';
 var ON_HOLD = 'ON HOLD';
 var FINISHED = 'FINISHED';
+var ADDITION_TIME = 'Addition Time';
+var PROMISE_TIME = 'Promise Time';
+var REFERENCE = 'Reference';
+var BACK = 'BACK';
 
 var CAR_WASH_QUEU_BOARD = 'CAR WASH QUEU BOARD';
 var CANCEL = 'CANCEL';

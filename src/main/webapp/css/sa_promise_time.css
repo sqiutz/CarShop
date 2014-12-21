@@ -1,0 +1,27 @@
+table.timeRef {
+	margin:30px auto;
+	border-collapse: collapse;
+	color:#ffffff;
+	font-size:22px;
+	text-align:center;
+}
+table.timeRef td {
+	border:2px solid #ffffff;
+}
+div.timeslot {
+	border-radius: 4px;
+	line-height:26px;
+	margin:auto;
+}
+div.timeslot.blue {
+	background-color:#2DB1C0;
+}
+div.timeslot.green {
+	background-color:#A4CB4E;
+}
+div.timeslot.red {
+	background-color:#B33737;
+}
+div.timeslot.gray {
+	background-color:gray;
+}

@@ -1,0 +1,226 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
+<title>SA SETTING PROMISE TIME</title>
+
+<link rel="stylesheet" type="text/css" href="css/global.css">
+<link rel="stylesheet" type="text/css" href="css/sa_promise_time.css">
+
+<script src="js/lib/jquery-2.1.1.min.js"></script>
+<script src="js/global.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		layout();
+		$(window).resize(layout);
+	});
+</script>
+
+<script data-main="js/main" src="js/lib/require.min.js"
+	type="text/javascript"></script>
+</head>
+<body data-js="order/saQue">
+	<div id='headerTop' class='header-top'>
+		<div class='header-top-lf'>
+			<span id='helloUserName' class='hello inline'></span>
+		</div>
+		<div class='header-top-rg'>
+			<a id='changePwd' class='header-top' title='Change Password'
+				href='change_password.html'></a> <a id='logout' class='header-top'
+				title='Logout' href='index.html'></a>
+		</div>
+	</div>
+	<div id='container' class='container'>
+		<div id='header' class='header'>
+			<span id='title' class='h1'></span>
+		</div>
+		<div id='content' class='content'>
+			<fieldset style='width:920px;'>
+				<legend id='legendTitle'></legend>
+				<div class='content_lf' style='width:430px;'>
+					<form>
+						<div>
+							<label id='regNoLabel' for='regNo'></label>
+							<input id='regNo' name='regNo' type='text'>
+						</div>
+						<div>
+							<label id='serviceAdvisorLabel' for='serviceAdvisor'></label>
+							<input id='serviceAdvisor' name='serviceAdvisor' type='text'>
+						</div>
+						<div>
+							<label id='roofNoLabel' for='roofNo'></label>
+							<input id='roofNo' name='roofNo' type='text'>
+						</div>						
+					</form>
+				</div>
+				<div class='content_rg' style='width:430px;'>
+					<form>
+						<div>
+							<label id='jobTypeLabel' for='jobType' class=""></label>
+							<input id='jobType' name='jobType' type='text'>
+						</div>
+						<div>
+							<label id='additionTimeLabel' for='additionTime'></label>
+							<input id='additionTime' name='additionTime' type='text'>
+						</div>
+						<div>
+							<label>&nbsp;</label>
+							<input id='isWarranty' type='checkbox' name='contractType' value='warranty'/><text id='rWarranty'></text>
+						</div>
+						<div>
+							<label>&nbsp;</label>
+							<input id='isSubContract' type='checkbox' name='contractType' value='subContract' /><text id='rSubContract'></text>
+						</div>
+					</form>
+				</div>
+				
+				<label id='promiseTimeRefLabel' style='width:430px;font-size:18px;font-weight:bold;'></label>
+				<table class='timeRef' style='width:960px'>
+				<tr style='background-color:#d998cb;line-height:54px;'>
+					<td>&nbsp;</td>
+					<td colSpan='2'>07:00</td>
+					<td colSpan='2'>08:00</td>
+					<td colSpan='2'>09:00</td>
+					<td colSpan='2'>10:00</td>
+					<td colSpan='2'>11:00</td>
+					<td colSpan='2'>12:00</td>
+					<td colSpan='2'>13:00</td>
+					<td colSpan='2'>14:00</td>
+					<td colSpan='2'>15:00</td>
+					<td colSpan='2'>16:00</td>
+					<td colSpan='2'>17:00</td>
+				</tr>
+				<tr style='background-color:#e3e3e3;'>
+					<td style='background-color:#d998cb;'>EM-1</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td colSpan='4'>
+						<div class='timeslot blue'>E-01</div>
+					</td>					
+					<td colSpan='2'>
+						<div class='timeslot green'>E-02</div>
+					</td>
+					<td colSpan='4'>
+						<div class='timeslot gray'>&nbsp;</div>
+					</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td style='background-color:#d998cb;'>EM-2</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td colSpan='2'>
+						<div class='timeslot red'>E-01</div>
+					</td>
+					<td colSpan='2'>
+						<div class='timeslot green'>E-01</div>
+					</td>
+					<td colSpan='6'>
+						<div class='timeslot blue'>E-02</div>
+					</td>
+					<td colSpan='4'>
+						<div class='timeslot gray'>&nbsp;</div>
+					</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr style='background-color:#e3e3e3;'>
+					<td style='background-color:#d998cb;'>A</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td colSpan='2'>
+						<div class='timeslot green'>R-02</div>
+					</td>
+					<td colSpan='2'>
+						<div class='timeslot red'>R-01</div>
+					</td>
+					<td>&nbsp;</td>
+					<td colSpan='6'>
+						<div class='timeslot green'>R-03</div>
+					</td>
+					<td colSpan='4'>
+						<div class='timeslot gray'>&nbsp;</div>
+					</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td style='background-color:#d998cb;'>B</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td colSpan='2'>
+						<div class='timeslot green'>R-01</div>
+					</td>
+					<td colSpan='6'>
+						<div class='timeslot blue'>R-02</div>
+					</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td colSpan='2'>
+						<div class='timeslot red'>R-02</div>
+					</td>
+					<td colSpan='2'>
+						<div class='timeslot blue'>R-03</div>
+					</td>
+					<td colSpan='4'>
+						<div class='timeslot gray'>&nbsp;</div>
+					</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr style='background-color:#e3e3e3;'>
+					<td style='background-color:#d998cb;'>C</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td colSpan='6'>
+						<div class='timeslot blue'>R-01</div>
+					</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td colSpan='2'>
+						<div class='timeslot red'>R-03</div>
+					</td>					
+					<td colSpan='4'>
+						<div class='timeslot gray'>&nbsp;</div>
+					</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+			</table>
+			<form>
+				<div>
+					<label id='promiseTimeLabel' for='promiseTime'></label>
+					<input id='promiseTime' name='promiseTime' type='text'>
+				</div>
+			</form>
+			
+			<div class='controller' style='width:960px;'>
+ 				<button id='finishBtn' class='blue-button' style='width:150px;height:57px'></button>
+ 				<button id='backBtn' class='blue-button' style='width:150px;height:57px'></button>
+			</div>
+			</fieldset>
+			
+		</div>
+	</div>
+</body>
