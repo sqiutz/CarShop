@@ -29,10 +29,9 @@
             $('#recallBtn').text(RECALL).attr('title', RECALL);
             $('#holdBtn').text(HOLD).attr('title', HOLD);
             $('#resumeBtn').text(RESUME).attr('title', RESUME);
-            $('#sendToWorkshopBtn').text(WORKSHOP).attr('title', SEND_TO_WORKSHOP);
-            $('#showDetails').text(SHOW_DETAILS + ' >>');
+            $('#nextBtn').text(NEXT).attr('title', NEXT);
             $('#servingListLink').text(NOW_SERVING + '...');
-            $('#holdListLink').text(HOLD_LIST);
+            $('#holdListLink').text(SUSPEND_LIST);
             $('#waitingListTitle').text(WAITING_LIST);
             $('#regNoCol').text(REG_NO);
             $('#queNoCol').text(QUE_NO);
@@ -208,7 +207,7 @@
             		    $('#callBtn').attr('disabled', 'disabled');
             		    $('#resumeBtn').attr('disabled', 'disabled');
             		    $('#holdBtn').attr('disabled', false);
-            		    $('#sendToWorkshopBtn').attr('disabled', false); 
+            		    $('#nextBtn').attr('disabled', false); 
             		    start = new Date();
                         timer();
             		}
@@ -216,10 +215,10 @@
             		    $('#callBtn').attr('disabled', false);
             		    $('#holdBtn').attr('disabled', 'disabled');
             		    $('#resumeBtn').attr('disabled', 'disabled');
-            		    $('#sendToWorkshopBtn').attr('disabled', 'disabled');
+            		    $('#nextBtn').attr('disabled', 'disabled');
             		    start = 0;
             		}
-            		$('#currentNo').text(currServe ? currServe.order.registerNum : '')
+            		$('#currentNo').text(currServe ? currServe.order.queueNum : '')
             	}
             }
     	});
@@ -265,7 +264,7 @@
     });
     
     // send
-    $('#sendToWorkshopBtn').bind('click', function() {
+    /*$('#sendToWorkshopBtn').bind('click', function() {
         $.OrderInfo.send({
             data : {
                 id : currServe.id               
@@ -276,7 +275,7 @@
                 }                
             }
         });
-    })
+    })*/
         
     $('#holdListLink').bind('click', function() {
     	if('unselected' === $('#holdListTab').attr('class')) {

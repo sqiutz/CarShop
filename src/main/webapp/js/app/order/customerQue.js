@@ -65,7 +65,7 @@
 	var createCurrServe = function(serves) {
 		if (serves && serves.length > 0) {
 			var curr = serves[0];
-			$('#currRegNum').text(curr.order.registerNum);
+			$('#currQueNum').text(curr.order.queueNum);
 			$('#currUserName').text(curr.user.counter);
 		}
 	};

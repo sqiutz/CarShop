@@ -17,8 +17,7 @@ function layout(minWidth, minHeight, contentPadding) {
     if(height < minHeight) {
     	height = minHeight
     }
-    height -= headerTopH;
-    $('#container').css('height', height + 'px');
+    height -= headerTopH;    
     var headerH = width * 0.085;    
     $('#header').css('height', headerH + 'px');
     $('#header').css('margin', '0px ' + width * 0.255 + 'px 0px' + width * 0.172 + 'px');
@@ -26,13 +25,14 @@ function layout(minWidth, minHeight, contentPadding) {
     var footerH = 0;
     if ($('#footer').length > 0) {
         footerH = width * 0.043;
+        $('#container').css('height', height + 'px');
         $('#footer').css('height', footerH + 'px');
     }
     if(undefined === contentPadding) {
     	contentPadding = 10
     }
-    var contentH = height - headerH - footerH - contentPadding;
-    $('#content').css('height', contentH + 'px');
+    var contentH = height - headerH - footerH - contentPadding;  	
+    $('#content').css('height', contentH + 'px');  
     return[width, height, contentH];
 }
 
