@@ -8,6 +8,8 @@ public class ServeQueue extends BaseQueue{
     private Integer elapseTime;
 	
     private Timestamp modifyTime;
+    
+    private Integer delayTime;
 
 	public Timestamp getModifyTime() {
 		return modifyTime;
@@ -23,6 +25,14 @@ public class ServeQueue extends BaseQueue{
 
 	public void setElapseTime(Integer elapseTime) {
 		this.elapseTime = elapseTime;
+	}
+
+	public Integer getDelayTime() {
+		return delayTime;
+	}
+
+	public void setDelayTime(Integer delayTime) {
+		this.delayTime = delayTime;
 	}
     
     

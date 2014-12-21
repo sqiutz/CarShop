@@ -98,6 +98,13 @@ public class ServeQueueController {
 					
 					User user = userService.getByUserId(userIdList.get(i));
 					users.add(user);
+					
+					Date now = new Date();
+					java.sql.Timestamp dateTime = new java.sql.Timestamp(now.getTime());
+					
+					Long timeInterval = dateTime.getTime() - serveQueueList.get(i).getStartTime().getTime();
+					Integer elapseTime = new Integer(timeInterval.intValue());
+					serveQueueList.get(i).setDelayTime(elapseTime);
 				}
 				
 				if(serveQueueList.size() > 0){
