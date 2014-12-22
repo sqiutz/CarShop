@@ -72,6 +72,7 @@ var REG_NO = 'Reg. No.';
 var QUE_NO = 'Que. No.';
 var SA = 'SA';
 var START_TIME = 'Start Time';
+var DELAY_TIME = 'Delay Time';
 var END_TIME = 'End Time';
 var QUE_START = 'Que Start';
 

@@ -417,22 +417,23 @@ div.blue {
 div.navg {
 	background-color:#B33737;
 	margin:0px auto 4px auto;
-	border:1px solid #B33737;
+	//border:1px solid #B33737;
 }
 .navg ul {
-	margin:0px;
+	margin:0px auto;
 	padding:0px;
 	list-style:none;
 }
 .navg ul li {
 	float:left;
 	margin:0px;
-	padding:0px;
-	color:#ffffff;
-}
-.navg ul li.unselected {
+	padding:0px;	
 	background-color:#ffffff;
 	color:#B33737;
+}
+.navg ul li.unselected {
+	background-color:#B33737;
+	color:#ffffff;
 }
 .navg ul li a {
 	display: block;
@@ -462,26 +463,26 @@ table.red tr.selected {
 }
 table.blue {		
 	font-style:italic;
-	border-color:#30BFCF;
+	border-color:#2098d1;
 }
 table.blue th {	
-	color:#30BFCF;
+	color:#2098d1;
 	font-weight:bold;
 }
 table.blue tr.hd {
 	font-style:normal;
 	font-weight:bold;
-	color:#30BFCF;
+	color:#2098d1;
 }
 table.blue tr.odd {
-	background-color:#c1ecf1;
+	background-color:#b1def3;//#c1ecf1;
 }
 table.blue tr.hoverable:hover {
-	background-color:#30BFCF;
+	background-color:#2098d1;
 	cursor:pointer;
 }
 table.blue tr.selected {
-	background-color:#2DB1C0;
+	background-color:#1d8bbf;
 }
 div.black-bg {
 	background-color:#231F20;

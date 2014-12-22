@@ -99,7 +99,7 @@
                             $('#resumeBtn').attr('disabled', false);
                         }
                     });
-                }                
+                }
             }
             $('<td></td>').text(serve && serve.order ? serve.order.registerNum : '').appendTo(tr);
             $('<td></td>').text(serve && serve.order ? serve.order.queueNum : '').appendTo(tr);
@@ -287,6 +287,7 @@
         
     $('#holdListLink').bind('click', function() {
     	if('unselected' === $('#holdListTab').attr('class')) {
+    	    $('#startTimeCol').text(DELAY_TIME);
     		sListIter = 0;
     		tab = 1;
     		selectedId = 0;
@@ -298,6 +299,7 @@
     
     $('#servingListLink').bind('click', function() {
     	if('unselected' === $('#servingListTab').attr('class')) {
+    	    $('#startTimeCol').text(START_TIME);
     		sListIter = 0;
     		tab = 0;
     		selectedId = 0;

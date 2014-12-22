@@ -38,54 +38,67 @@
 			<span id='title' class='h1'>SUZUKI SIAGA LEBIH MENGERTI KELUARGA</span>
 		</div>
 		<div id='content' class='content'>
-			<div id='content_lf' class='content_lf'>
-				<div class='box w1 rAlign'>
-						<div style='width:450px;margin:0px auto 8px auto;font-size:20px;font-weight:bold'>
-							<label for='groupBy' style='width:70px;line-height:25px'>Group:</label>
-							<select id='groupBy' name='groupBy'></select>
-						</div>
-					<table id='usersTbl' class="queue w1 green">
-						<tr>
-							<th>Group</th>
-							<th>Username</th>
-							<th>Is Admin</th>
-							<th>Is Active</th>
-						</tr>
-					</table>
+			<div class='navg' style='width:1200px;height:45px'>
+				<ul style='width:779px;height:45px'>
+						<li id='accountTab'><a id='accountLink' style='width:320px;height:45px'>ACCOUNT MANAGEMENT</a></li>
+						<li id='parameterTab' class='unselected'><a id='parameterLink' style='width:268px;height:45px'>SYSTEM PARAMETER</a></li>
+						<li id='suspendTab' class='unselected'><a id='suspendLink' style='width:191px;height:45px'>SUSPEND LIST</a></li>
+				</ul>
+			</div>
+			<div id='accountDiv' style='margin-top:20px'>
+				<div class='content_lf'>
+					<div class='box w1 rAlign'>
+							<div style='width:450px;margin:0px auto 10px auto;font-size:20px;font-weight:bold'>
+								<label for='groupBy' style='width:70px;line-height:25px'>Group:</label>
+								<select id='groupBy' name='groupBy'></select>
+							</div>
+						<table id='usersTbl' class="queue blue" style='width:450px'>
+							<tr>
+								<th>Group</th>
+								<th>Username</th>
+								<th>Is Admin</th>
+								<th>Is Active</th>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<div class='content_rg'>
+					<div class='w2'>
+						<fieldset class='w1'>
+							<legend>Add User</legend>
+							<form>
+								<div id='errMsg' class='errMsg'></div>
+								<div>
+									<label for='group'>Group</label>
+									<select id='group' name='group'></select>
+								</div>
+								<div id='userNameErrMsg' class='errMsg'></div>
+								<div>
+									<label for='username'>UserName</label>
+									<input id='username' name='username' type='text'>
+								</div>
+								<div id='pwdErrMsg' class='errMsg'></div>
+								<div>
+									<label for='password'>Password</label>
+									<input id='password' name='password' type='password'>
+								</div>
+								<div id='pwdConfErrMsg' class='errMsg'></div>
+								<div>
+									<label for='passwordConfirm'>Password Conf.</label>
+									<input id='passwordConfirm' name='passwordConfirm' type='password'>
+								</div>
+								<div class='controller'>
+									<span id='saveBtn' class='button-yellow inline' title='Save'>Save</span>
+								</div>
+							</form>
+						</fieldset>
+					</div>
 				</div>
 			</div>
-			<div class='content_rg'>
-				<div class='w2'>
-					<fieldset class='w1'>
-						<legend>Add User</legend>
-						<form>
-							<div id='errMsg' class='errMsg'></div>
-							<div>
-								<label for='group'>Group</label>
-								<select id='group' name='group'></select>
-							</div>
-							<div id='userNameErrMsg' class='errMsg'></div>
-							<div>
-								<label for='username'>UserName</label>
-								<input id='username' name='username' type='text'>
-							</div>
-							<div id='pwdErrMsg' class='errMsg'></div>
-							<div>
-								<label for='password'>Password</label>
-								<input id='password' name='password' type='password'>
-							</div>
-							<div id='pwdConfErrMsg' class='errMsg'></div>
-							<div>
-								<label for='passwordConfirm'>Password Conf.</label>
-								<input id='passwordConfirm' name='passwordConfirm' type='password'>
-							</div>
-							<div class='controller'>
-								<span id='saveBtn' class='button-yellow inline' title='Save'>Save</span>
-							</div>
-						</form>
-					</fieldset>
-				</div>
-			</div>			
+			
+			<div id='parameterDiv'>
+				
+			</div>		
 		</div>
 	</div>
 </body>
