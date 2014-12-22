@@ -1,4 +1,5 @@
 (function($) {   
+	$('#parameterDiv').hide();
 	var userGroup = {
 		groupNameMapper : {
 			0 : 'Admin',
@@ -240,4 +241,24 @@
 	});
 	
 	userGroup.getAllGroups();
+	
+	$('#accountLink').bind('click', function() {
+		if('unselected' === $('#accountTab').attr('class')) {			
+			$('#parameterTab').attr('class', 'unselected');
+			$('#suspendTab').attr('class', 'unselected');
+			$('#accountTab').attr('class', '');	
+			$('#parameterDiv').hide();
+			$('#accountDiv').show();			
+		}		
+	});
+	
+	$('#parameterLink').bind('click', function() {
+		if('unselected' === $('#parameterTab').attr('class')) {
+			$('#accountTab').attr('class', 'unselected');
+			$('#suspendTab').attr('class', 'unselected');
+			$('#parameterTab').attr('class', '');			
+			$('#accountDiv').hide();
+			$('#parameterDiv').show();
+		}		
+	});
 })(jQuery);

@@ -2,10 +2,10 @@ div.w2 {
 	width:500px;
 }
 a.toggle {
-	color:#1E90EF;
+	color:#0697DA;
 	font-weight:normal;
 	text-decoration:underline;
 }
 a.toggle:hover {
-	color:#4682B4;
+	color:rgb(0, 115, 182);
 }
