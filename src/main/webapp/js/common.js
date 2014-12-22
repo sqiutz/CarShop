@@ -170,6 +170,13 @@
                         args : [ 
                                  "id"
                         ]
+                    },
+                    // 获取工作调度
+                    getWorkload : {
+                        url : "userworkload.do?action=alllist",
+                        args : [ 
+                                 "today"
+                        ]
                     }
                 },
                 ajax : function(key, args) {

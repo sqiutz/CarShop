@@ -81,11 +81,16 @@ public class UserWorkloadQueueController {
 		User user = new User();
 		try {
 			String jsonStr = request.getParameter("param");
+			System.out.println("jsonStr: " + jsonStr);
 			DateObject date = JsonConverter.getFromJsonString(jsonStr,
 					DateObject.class);
 			if (null == date) {
-				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
-				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
+				System.out.println("date is null");
+				date = new DateObject();
+				date.setToday(new Date());
+				System.out.println(date.getToday().toString());
+				//code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
+				//msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
 				logger.error("< UserWorkloadQueueController.getAllUserWorkloads() > 获取服务订单列表请求信息不正确: " + date);
 			} else {
 				userIds = userWorkloadService.queryAllUsers(date.getToday());

@@ -158,6 +158,20 @@ define([], function() {
                 }
             });
         },
+        // 获取工作调度
+        getWorkload : function(options) {
+            var workload;
+            $.common.ajax("getWorkload", {
+                data : options.data,
+                success : function(data) {
+                    workload = data.resList;
+                    options.success(workload);
+                },
+                error : function(error) {
+                    options.success();
+                }
+            });
+        },
 	};
 
 	$.OrderInfo = OrderInfo;
