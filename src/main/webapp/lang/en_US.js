@@ -82,3 +82,9 @@ var NEXT = 'NEXT';
 var IS_BOOKER = 'Is Booker';
 var YES = 'Yes';
 var NO = 'No';
+
+var SAVE = 'Save';
+var COUNTER_NUMBER = 'COUNTER NUMBER';
+var LANGUAGE = 'LANGUAGE';
+var AVG_WAITING_TIME = 'AVG. WAITING TIME';
+var WAITING_TIME_BUFFER = 'WAITING TIME BUFFER';

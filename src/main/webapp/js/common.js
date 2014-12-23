@@ -31,6 +31,14 @@
                                  "name"
                         ]
                     },
+                    // 修改配置信息
+                    modifyProperty : {
+                        url : "property.do?action=modify",
+                        args : [ 
+                                 "name",
+                                 "value"
+                        ]
+                    },
                     // 获取用户组列表
                     getAllGroups : {
                         url : "user.do?action=allgroups"

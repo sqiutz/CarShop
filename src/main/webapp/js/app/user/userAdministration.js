@@ -1,5 +1,49 @@
 (function($) {   
 	$('#parameterDiv').hide();
+	
+	var params;
+	
+	applyLang();
+    $.UserInfo.getProperty({
+        data : {
+            name : 'LANGUAGE'
+        },
+        success : function(data) {
+            if (data.code == '000000') {
+                var langCode = data.obj.value;
+                applyLang(langCode);
+            }
+        }
+    });
+    
+    function applyLang(langCode) {
+        if(undefined === langCode || null === langCode) {
+            langCode = 'en_US';
+        }
+        loadLang('lang/' + langCode + '.js', function() {
+            params = [
+            {
+                name : 'LANGUAGE',
+                display : LANGUAGE
+            },
+            {
+                name : 'COUNTER_NUM',
+                display : COUNTER_NUMBER
+            },
+            {
+                name : 'AVG_WAITING_TIME',
+                display : AVG_WAITING_TIME
+            },
+            {
+                name : 'WAITING_TIME_BUFFER',
+                display : WAITING_TIME_BUFFER
+            }];
+            
+            $('#changePwd').text(CHANGE_PASSW0RD);
+            $('#logout').text(LOGOUT);
+        });
+    }
+    
 	var userGroup = {
 		groupNameMapper : {
 			0 : 'Admin',
@@ -251,7 +295,7 @@
 			$('#accountDiv').show();			
 		}		
 	});
-	
+
 	$('#parameterLink').bind('click', function() {
 		if('unselected' === $('#parameterTab').attr('class')) {
 			$('#accountTab').attr('class', 'unselected');
@@ -259,6 +303,54 @@
 			$('#parameterTab').attr('class', '');			
 			$('#accountDiv').hide();
 			$('#parameterDiv').show();
+			createParamsList();
 		}		
 	});
+	
+	var createParamsList = function() {
+	    $('#parameterDiv div').remove();
+	    for(var i = 0; i < params.length; i++) {
+	        var param = params[i];
+	        var div = $('<div></div>').attr('style', 'margin-bottom:8px').appendTo($('#parameterDiv'));
+	        $('<label></label>').attr('style', 'width:200px').text(param.display).appendTo(div);
+	        $('<input></input>').attr('type', 'text').attr('id', param.name).appendTo(div)
+	            .keyup(function() {
+	                var id = $(this).attr('id');
+	                $('#' + id + '_btn').show('normal');
+	            });
+	        $('<button></button>').text(SAVE).attr('title', SAVE)
+	            .attr('id', param.name + '_btn').attr('name', param.name).attr('class', 'blue-button')
+	            .attr('style', 'width:71px;height:27px;vertical-align:middle;margin-top:-2px;margin-left:20px;display:none')
+	            .appendTo(div)
+	            .bind('click', function() {
+	                var name = $(this).attr('name');
+	                var val = $('#' + name).val();
+	                var that = this;
+	                $.UserInfo.modifyProperty({
+	                    data : {
+	                        name : name,
+	                        value : val
+	                    },
+	                    success : function(data) {
+	                        if (data.code == '000000') {
+	                            $(that).hide('normal');
+	                        }
+	                    }
+	                });
+	            });
+	        
+	        $.UserInfo.getProperty({
+	            data : {
+	                name : param.name
+	            },
+	            success : function(data) {
+	                if (data.code == '000000') {
+	                    var name = data.obj.name;
+	                    var val = data.obj.value;
+	                    $('#' + name).val(val);
+	                }
+	            }
+	        });
+	    }
+	};
 })(jQuery);

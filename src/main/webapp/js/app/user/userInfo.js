@@ -54,7 +54,6 @@ define(["md5"],function(){
 		//检测用户是否已经登录
 		checkLogin : function(options){
 		    $.common.ajax("checkLogin", {
-                type:"POST",
                 success:function(data){                 
                     options.success(data);                  
                 }
@@ -72,6 +71,16 @@ define(["md5"],function(){
 		// 获取配置信息
 		getProperty : function(options){
             $.common.ajax("getProperty", {
+                data:options.data,
+                success:function(data){                 
+                    options.success(data);                  
+                }
+            });
+        },
+		// 修改配置信息
+        modifyProperty : function(options){
+            $.common.ajax("modifyProperty", {
+                type:"POST",
                 data:options.data,
                 success:function(data){                 
                     options.success(data);                  
