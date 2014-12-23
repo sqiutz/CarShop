@@ -29,6 +29,13 @@ CREATE TABLE `TBL_PROPERTY` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS `TBL_JOBTYPE`;
+CREATE TABLE `TBL_JOBTYPE` (
+  `id` bigint(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(48) NOT NULL UNIQUE,
+  `value` varchar(48) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for `TBL_USERGROUP`
