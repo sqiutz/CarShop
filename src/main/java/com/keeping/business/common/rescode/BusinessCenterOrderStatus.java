@@ -7,7 +7,8 @@ public enum BusinessCenterOrderStatus {
 	ORDER_STATUS_SERVE(2, "serve"),
 	ORDER_STATUS_MODIFY(3, "modify"),
 	ORDER_STATUS_WASH(4, "wash"),
-	ORDER_STATUS_HOLD(5, "hold");
+	ORDER_STATUS_HOLD(5, "hold"),
+	ORDER_STATUS_CANCEL(6, "cancel");
 	
 	private Integer id;
 	private String status;
