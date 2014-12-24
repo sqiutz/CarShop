@@ -56,6 +56,22 @@ public class JobTypeServiceImpl implements JobTypeService{
 		return JobTypeConverter.getJobType(jobtypeDo);
 	}
 
+	public List<JobType> queryAll() throws BusinessServiceException {
+		// TODO Auto-generated method stub
+		List<JobTypeDo> jobtypeDoes = jobtypeDao.queryAll();
+		List<JobType> jobtypes = new ArrayList<JobType>();
+		
+		if(null == jobtypeDoes) {
+			return jobtypes;
+		}
+		
+		for(int i=0; i<jobtypeDoes.size(); i++){
+			jobtypes.add(JobTypeConverter.getJobType(jobtypeDoes.get(i)));
+		}
+		
+		return jobtypes;
+	}
+	
 	public JobTypeDao getJobTypeDao() {
 		return jobtypeDao;
 	}
@@ -63,5 +79,6 @@ public class JobTypeServiceImpl implements JobTypeService{
 	public void setJobTypeDao(JobTypeDao jobtypeDao) {
 		this.jobtypeDao = jobtypeDao;
 	}
+
 
 }

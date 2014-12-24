@@ -1,5 +1,8 @@
 package com.keeping.business.web.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +24,7 @@ import com.keeping.business.web.controller.converter.JsonConverter;
 import com.keeping.business.web.controller.model.JobType;
 import com.keeping.business.web.controller.model.UserProfile;
 import com.keeping.business.web.controller.model.WebResult;
+import com.keeping.business.web.controller.model.WebResultList;
 import com.keeping.business.web.controller.model.WebResultObject;
 
 @Controller
@@ -33,6 +37,48 @@ public class JobTypeController {
 	/** 用户信息Service */
 	@Resource
 	private JobTypeService jobtypeService;
+	
+	@RequestMapping(params = "action=getall")
+	@ResponseBody
+	public WebResultList<JobType> getAllJobTypes(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
+		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
+		HttpSession session = request.getSession();
+		session.setMaxInactiveInterval(PlatformPar.sessionTimeout);
+
+		List<JobType> jobtypeList = new ArrayList<JobType>();
+		
+		try {
+			
+			jobtypeList = jobtypeService.queryAll();;
+				
+		} catch (BusinessServiceException ex) {
+			System.out.println(ex.getMessage());
+			System.out.println(ex.getStackTrace());
+			code = ex.getErrorCode();
+			msg = ex.getErrorMessage();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			System.out.println(e.getStackTrace());
+			code = BusinessCenterResCode.SYS_ERROR.getCode();
+			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
+			logger.error("< JobTypeController.getJobType() >  获取属性信息失败."
+					+ e.getMessage());
+		}
+
+		// 返回结果
+		try {
+			return JsonConverter.getResultObject(code, msg, jobtypeList);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			System.out.println(e.getStackTrace());
+			logger.error("< JobTypeController.getJobType() > 获取属性信息返回出错."
+					+ e.getMessage());
+			throw e;
+		}
+	}
 
 	@RequestMapping(params = "action=jobtype")
 	@ResponseBody

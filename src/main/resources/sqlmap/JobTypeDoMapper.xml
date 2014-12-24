@@ -20,6 +20,12 @@
 		</trim>
 	</sql>
 	
+	<select id="queryAll" resultMap="JobTypeDoMap" >
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM TBL_JobType
+	</select>
+	
 	<insert id="addJobType" parameterType="JobTypeDo">
 		INSERT INTO TBL_JobType 
 		<trim prefix="(" suffix=")" suffixOverrides=",">
