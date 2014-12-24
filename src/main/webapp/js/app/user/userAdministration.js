@@ -1,5 +1,6 @@
 (function($) {   
 	$('#parameterDiv').hide();
+	$('#suspendDiv').hide();
 	
 	var params;
 	
@@ -41,6 +42,13 @@
             
             $('#changePwd').text(CHANGE_PASSW0RD);
             $('#logout').text(LOGOUT);
+            
+            $('#regNoCol').text(REG_NO);
+            $('#queNoCol').text(QUE_NO);
+            $('#saCol').text(SA);
+            $('#startTimeCol').text(START_TIME);
+            $('#delayTimeCol').text(DELAY_TIME);
+            $('#endTimeCol').text(END_TIME);
         });
     }
     
@@ -292,6 +300,7 @@
 			$('#suspendTab').attr('class', 'unselected');
 			$('#accountTab').attr('class', '');	
 			$('#parameterDiv').hide();
+			$('#suspendDiv').hide();
 			$('#accountDiv').show();			
 		}		
 	});
@@ -302,10 +311,23 @@
 			$('#suspendTab').attr('class', 'unselected');
 			$('#parameterTab').attr('class', '');			
 			$('#accountDiv').hide();
+			$('#suspendDiv').hide();
 			$('#parameterDiv').show();
 			createParamsList();
 		}		
 	});
+	
+	$('#suspendLink').bind('click', function() {
+        if('unselected' === $('#suspendTab').attr('class')) { 
+            $('#suspendTab').attr('class', '');
+            $('#parameterTab').attr('class', 'unselected');            
+            $('#accountTab').attr('class', 'unselected'); 
+            $('#suspendDiv').show();
+            $('#parameterDiv').hide();            
+            $('#accountDiv').hide();  
+            getSuspendList();
+        }       
+    });
 	
 	var createParamsList = function() {
 	    $('#parameterDiv div').remove();
@@ -353,4 +375,36 @@
 	        });
 	    }
 	};
+	
+	var getSuspendList = function() {
+	    $.OrderInfo.getServeQueues({
+            data : {
+                step : 1
+            },
+            success : function(serves) {
+                $('#suspendList tr.odd').remove();
+                $('#suspendList tr.even').remove();
+                var num = serves && serves.length > 0 ? serves.length : 5;
+                for (var i = 0; i < num; i++) {
+                    var serve = serves && i < serves.length ? serves[i] : null;
+                    var tr = $('<tr></tr>').attr('class', i % 2 === 0 ? 'odd' : 'even')
+                            .appendTo($('#suspendList'));
+                    if(serve) {
+                        tr.val(serve.id);
+                    }
+                    $('<td></td>').text(serve && serve.order ? serve.order.registerNum : '').appendTo(tr);
+                    $('<td></td>').text(serve && serve.order ? serve.order.queueNum : '').appendTo(tr);
+                    $('<td></td>').text(serve && serve.user ? serve.user.userName : '').appendTo(tr);
+                    $('<td></td>').text(serve && serve.order ? getTimeStr(serve.order.delayTime) : '').appendTo(tr);
+                    $('<td></td>').text(serve && serve.order ? getTimeStr(serve.order.startTime) : '').appendTo(tr);
+                    $('<td></td>').text(serve && serve.order ? getTimeStr(serve.order.endTime) : '').appendTo(tr);
+                    var td = $('<td></td>').appendTo(tr);
+                    $('<a></a>').text(CANCEL).attr('class', 'toggle')
+                        .appendTo(td);
+                        //.attr('class', 'blue-button')
+                        //.attr('style', 'width:98px;height:30px;vertical-align:middle;margin-top:-2px;margin-left:20px;')                        
+                }
+            }
+        });
+	}
 })(jQuery);
