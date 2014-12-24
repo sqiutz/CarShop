@@ -254,8 +254,8 @@ insert into tbl_servequeue set step=0, user_id=6, order_id=3;
 -- insert into tbl_servequeue set step=0, user_id=7, order_id=4;
 -- insert into tbl_servequeue set step=0, user_id=8, order_id=5;
 -- insert into tbl_servequeue set step=0, user_id=9, order_id=6;
--- insert into tbl_servequeue set step=1, user_id=7, order_id=5;
--- insert into tbl_servequeue set step=1, user_id=8, order_id=8;
+insert into tbl_servequeue set step=1, user_id=7, order_id=5;
+insert into tbl_servequeue set step=1, user_id=8, order_id=8;
 -- insert into tbl_servequeue set step=1, user_id=9, order_id=9;
 
 insert into tbl_modifyqueue set step=1, user_id=6, order_id=3,isWarrant=1;
@@ -266,3 +266,7 @@ insert into tbl_property set name='LANGUAGE', value='en_US';
 insert into tbl_property set name='COUNTER_NUM', value='5';
 insert into tbl_property set name='AVG_WAITING_TIME', value='330';
 insert into tbl_property set name='WAITING_TIME_BUFFER', value='300';
+
+insert into TBL_JOBTYPE set name='Job Type A', value='60';
+insert into TBL_JOBTYPE set name='Job Type B', value='90';
+insert into TBL_JOBTYPE set name='Job Type C', value='120';
