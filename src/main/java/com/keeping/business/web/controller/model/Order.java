@@ -9,6 +9,8 @@ public class Order {
 
 	private Integer status;
 	
+	private String statusValue;
+	
     private Timestamp createTime;
     
     private Timestamp startTime;
@@ -123,6 +125,14 @@ public class Order {
 
 	public void setIsBook(Integer isBook) {
 		this.isBook = isBook;
+	}
+
+	public String getStatusValue() {
+		return statusValue;
+	}
+
+	public void setStatusValue(String statusValue) {
+		this.statusValue = statusValue;
 	}
     
 }

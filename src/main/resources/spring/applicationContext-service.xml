@@ -45,6 +45,10 @@
 		<property name="JobTypeDao" ref="jobtypeDao" />
 	</bean>
 	
+	<bean id="counterService" class="com.keeping.business.service.impl.CounterServiceImpl">
+		<property name="CounterDao" ref="counterDao" />
+	</bean>
+	
 	<bean id="userWorkloadService" class="com.keeping.business.service.impl.UserWorkloadServiceImpl">
 		<property name="UserWorkloadDao" ref="userWorkloadDao" />
 	</bean>

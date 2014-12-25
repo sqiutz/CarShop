@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.keeping.business.dal.dao.CounterDao">
+
+	<resultMap id="CounterDoMap" type="CounterDo">
+		<id column="ID" property="id" />
+		<result column="ISBOOK" property="isBook" />
+		<result column="NAME" property="name" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		ID,NAME,ISBOOK
+	</sql>
+
+	<sql id="QUERY_PARAM">
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="id !=null and id !=''">
+				AND ID = #{id}
+			</if>
+		</trim>
+	</sql>
+	
+	<select id="queryAll" resultMap="CounterDoMap" >
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM TBL_COUNTER
+	</select>
+	
+	<insert id="addCounter" parameterType="CounterDo">
+		INSERT INTO TBL_COUNTER 
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="name != null">
+				NAME,
+			</if>
+			<if test="isBook != null">
+				ISBOOK,
+			</if>
+		</trim>
+		<trim prefix="isBooks (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="name != null">
+				#{name},
+			</if>
+			<if test="isBook != null">
+				#{isBook},
+			</if>
+		</trim>
+	</insert>
+	
+	<update id="modifyCounter" parameterType="CounterDo">
+		UPDATE TBL_COUNTER
+		<set>
+			<if test="name != null">
+				NAME = #{name},
+			</if>
+			<if test="isBook != null">
+				ISBOOK = #{isBook},
+			</if>
+		</set>
+		WHERE 
+		NAME = #{name}
+	</update>
+
+	<select id="queryByKey" resultMap="CounterDoMap" 
+		parameterType="java.lang.String">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM TBL_COUNTER
+		WHERE
+		NAME = #{name}
+	</select>
+	
+</mapper>

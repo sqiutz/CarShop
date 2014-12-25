@@ -1,5 +1,6 @@
 package com.keeping.business.service.converter;
 
+import com.keeping.business.common.rescode.BusinessCenterOrderStatus;
 import com.keeping.business.dal.model.OrderDo;
 import com.keeping.business.web.controller.model.Order;
 
@@ -23,6 +24,8 @@ public class OrderConverter {
 		order.setStatus(orderDo.getStatus());
 		order.setBookNum(orderDo.getBookNum());
 		order.setIsBook(orderDo.getIsBook());
+		
+		order.setStatusValue((BusinessCenterOrderStatus.getById(orderDo.getStatus())).getStatus());
 		
 		return order;
 	}

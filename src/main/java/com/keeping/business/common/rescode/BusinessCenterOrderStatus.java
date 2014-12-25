@@ -25,4 +25,14 @@ public enum BusinessCenterOrderStatus {
 	public String getStatus(){
 		return status;
 	}
+	
+    public static BusinessCenterOrderStatus getById(Integer id) {
+        if (id == null)
+            return null;
+        for (BusinessCenterOrderStatus value : values()) {
+            if (value.getId() == id)
+                return value;
+        }
+        return null;
+    }
 }

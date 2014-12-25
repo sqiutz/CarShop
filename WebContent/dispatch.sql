@@ -37,6 +37,13 @@ CREATE TABLE `TBL_JOBTYPE` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS `TBL_COUNTER`;
+CREATE TABLE `TBL_COUNTER` (
+  `id` bigint(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(48) NOT NULL UNIQUE,
+  `isBook` bigint(10) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 -- ----------------------------
 -- Table structure for `TBL_USERGROUP`
 -- ----------------------------
