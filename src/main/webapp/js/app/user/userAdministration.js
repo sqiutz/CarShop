@@ -42,16 +42,23 @@
             
             $('#changePwd').text(CHANGE_PASSW0RD);
             $('#logout').text(LOGOUT);
-            
+            $('#title').text(SUZUKI_SIAGA_LEBIH_MENGERTI_KELUARGA);
+            $('#accountLink').text(ACCOUNT_MANAGEMENT);
+            $('#parameterLink').text(SYSTEM_PARAMETER);
+            $('#suspendLink').text(SUSPEND_LIST);
+            $('#legend').text(ADD_USER);
             $('#parameterListTitle').text(PARAMETER_CONF);
             $('#jobTypeListTitle').text(JOB_TYPE_CONF);
-            
+            $('#groupByLabel').text(GROUP + ':');
             $('#groupCol').text(GROUP);
             $('#usernameCol').text(USERNAME);
             $('#counterCol').text(COUNTER_NO);
             $('#isAdminCol').text(IS_ADMIN);
             $('#isActiveCol').text(IS_ACTIVE);
-
+            $('#groupLabel').text(GROUP);
+            $('#usernameLabel').text(USERNAME);
+            $('#pwdLabel').text(PASSWORD);
+            $('#pwdConfLabel').text(PASSWORD_CONF);
             $('#regNoCol').text(REG_NO);
             $('#queNoCol').text(QUE_NO);
             $('#saCol').text(SA);

@@ -29,36 +29,36 @@
 		<span id='helloUserName' class='hello inline'></span>
 		</div>
 		<div class='header-top-rg'>
-			<a class='header-top' title='Change Password' href='change_password.html'>Change Password</a>
-			<a id='logout' class='header-top' title='Logout' href='index.html'>Logout</a>
+			<a class='header-top' title='Change Password' href='change_password.html'></a>
+			<a id='logout' class='header-top' title='Logout' href='index.html'></a>
 		</div>
 	</div>
 	<div id='container' class='container'>		
 		<div id='header' class='header'>
-			<span id='title' class='h1'>SUZUKI SIAGA LEBIH MENGERTI KELUARGA</span>
+			<span id='title' class='h1'></span>
 		</div>
 		<div id='content' class='content'>
 			<div class='navg' style='width:1200px;height:45px'>
 				<ul style='width:779px;height:45px'>
-						<li id='accountTab'><a id='accountLink' style='width:320px;height:45px'>ACCOUNT MANAGEMENT</a></li>
-						<li id='parameterTab' class='unselected'><a id='parameterLink' style='width:268px;height:45px'>SYSTEM PARAMETER</a></li>
-						<li id='suspendTab' class='unselected'><a id='suspendLink' style='width:191px;height:45px'>SUSPEND LIST</a></li>
+						<li id='accountTab'><a id='accountLink' style='width:320px;height:45px'></a></li>
+						<li id='parameterTab' class='unselected'><a id='parameterLink' style='width:268px;height:45px'></a></li>
+						<li id='suspendTab' class='unselected'><a id='suspendLink' style='width:191px;height:45px'></a></li>
 				</ul>
 			</div>
 			<div id='accountDiv' style='margin-top:20px'>
 				<div class='content_lf'>
 					<div class='box rAlign' style='width:600px'>
 							<div style='width:500px;margin:0px auto 10px auto;font-size:20px;font-weight:bold'>
-								<label for='groupBy' style='width:70px;line-height:25px'>Group:</label>
+								<label id='groupByLabel' for='groupBy' style='width:70px;line-height:25px'></label>
 								<select id='groupBy' name='groupBy'></select>
 							</div>
 						<table id='usersTbl' class="queue blue" style='width:500px'>
 							<tr>
-								<th id='groupCol'>Group</th>
-								<th id='usernameCol'>Username</th>
-								<th id='counterCol'>Username</th>
-								<th id='isAdminCol'>Is Admin</th>
-								<th id='isActiveCol'>Is Active</th>
+								<th id='groupCol'></th>
+								<th id='usernameCol'></th>
+								<th id='counterCol'></th>
+								<th id='isAdminCol'></th>
+								<th id='isActiveCol'></th>
 							</tr>
 						</table>
 					</div>
@@ -66,26 +66,26 @@
 				<div class='content_rg'>
 					<div style='width:600px'>
 						<fieldset style='width:350px;padding:8px 60px 15px 80px;margin:0px auto'>
-							<legend>Add User</legend>
+							<legend id='legend'></legend>
 							<form>
 								<div id='errMsg' class='errMsg'></div>
 								<div>
-									<label for='group'>Group</label>
+									<label id='groupLabel' for='group'></label>
 									<select id='group' name='group'></select>
 								</div>
 								<div id='userNameErrMsg' class='errMsg'></div>
 								<div>
-									<label for='username'>UserName</label>
+									<label id='usernameLabel' for='username'></label>
 									<input id='username' name='username' type='text'>
 								</div>
 								<div id='pwdErrMsg' class='errMsg'></div>
 								<div>
-									<label for='password'>Password</label>
+									<label id='pwdLabel' for='password'></label>
 									<input id='password' name='password' type='password'>
 								</div>
 								<div id='pwdConfErrMsg' class='errMsg'></div>
 								<div>
-									<label for='passwordConfirm'>Password Conf.</label>
+									<label id='pwdConfLabel' for='passwordConfirm'></label>
 									<input id='passwordConfirm' name='passwordConfirm' type='password'>
 								</div>
 								<div class='controller'>

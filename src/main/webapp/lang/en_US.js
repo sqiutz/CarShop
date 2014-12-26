@@ -83,11 +83,16 @@ var IS_BOOKER = 'Is Booker';
 var YES = 'Yes';
 var NO = 'No';
 
+var ACCOUNT_MANAGEMENT = 'ACCOUNT MANAGEMENT';
+var SYSTEM_PARAMETER = 'SYSTEM PARAMETER';
+var SUSPEND_LIST = 'SUSPEND LIST';
 var PARAMETER_CONF = 'PARAMETER CONFIGURATION';
 var JOB_TYPE_CONF = 'JOB TYPE CONFIGURATION';
 var GROUP = 'Group';
+var ADD_USER = 'Add User';
 var IS_ADMIN = 'Is Admin';
 var IS_ACTIVE = 'Is Active';
+var PASSWORD_CONF = 'Password Conf';
 var RELEASE_COUNTER = 'Release this counter';
 var SAVE = 'Save';
 var DELETE = 'Delete';
