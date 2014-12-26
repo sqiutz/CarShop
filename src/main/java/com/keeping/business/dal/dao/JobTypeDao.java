@@ -12,6 +12,8 @@ public interface JobTypeDao{
 	
 	public void addJobType(JobTypeDo jobtypeDo);
 	
+	public void deleteJobType(Integer id);
+	
 	public void modifyJobType(JobTypeDo jobtypeDo);
 
 }

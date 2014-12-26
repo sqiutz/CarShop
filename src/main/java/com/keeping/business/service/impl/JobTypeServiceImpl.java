@@ -72,6 +72,11 @@ public class JobTypeServiceImpl implements JobTypeService{
 		return jobtypes;
 	}
 	
+	public void deleteJobType(Integer id) throws BusinessServiceException {
+		// TODO Auto-generated method stub
+		jobtypeDao.deleteJobType(id);
+	}
+	
 	public JobTypeDao getJobTypeDao() {
 		return jobtypeDao;
 	}
@@ -79,6 +84,5 @@ public class JobTypeServiceImpl implements JobTypeService{
 	public void setJobTypeDao(JobTypeDao jobtypeDao) {
 		this.jobtypeDao = jobtypeDao;
 	}
-
-
+	
 }

@@ -11,6 +11,8 @@ public interface JobTypeService {
     
     public void modifyJobType(JobType jobtype) throws BusinessServiceException;
     
+    public void deleteJobType(Integer id) throws BusinessServiceException;
+    
     public JobType queryByKey(String key) throws BusinessServiceException;
     
     public List<JobType> queryAll() throws BusinessServiceException;

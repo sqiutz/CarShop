@@ -75,4 +75,10 @@
 		NAME = #{name}
 	</select>
 	
+	<delete id="deleteJobType" parameterType="java.lang.Integer">
+		DELETE FROM TBL_JobType
+		WHERE 
+		ID = #{id}
+	</delete>
+	
 </mapper>

@@ -264,5 +264,64 @@ public class JobTypeController {
 		}
 	}
 
-	
+	@RequestMapping(params = "action=delete")
+	@ResponseBody
+	public WebResult deleteJobType(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+
+		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
+		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
+		HttpSession session = request.getSession();
+		session.setMaxInactiveInterval(PlatformPar.sessionTimeout);
+
+		response.setHeader("Access-Control-Allow-Origin", "*");
+
+		try {
+
+			UserProfile admin = (UserProfile) session
+					.getAttribute(PlatfromConstants.STR_USER_PROFILE);
+
+			// 验证请求参数
+			String jsonStr = request.getParameter("param");
+			JobType modifyJobType = JsonConverter.getFromJsonString(jsonStr,
+					JobType.class);
+
+			if (StringUtil.isNull(jsonStr) || modifyJobType == null ) {
+				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
+				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
+				logger.error("< JobTypeController.modifyJobType() > 修改属性为空或没有权限."
+						+ jsonStr);
+			} else if (null == session || null == admin || null == admin.getUserName()){
+				code = BusinessCenterResCode.SYS_INVILID_REQ.getCode();
+				msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
+				logger.error("< JobTypeController.modifyJobType() > session is null." + jsonStr);
+			} else if (admin.getIsAdmin() == 0){
+				code = BusinessCenterResCode.SYS_NO_ADMIN.getCode();
+				msg = BusinessCenterResCode.SYS_NO_ADMIN.getMsg();
+				logger.error("< JobTypeController.modifyJobType() > you are not admin." + jsonStr);
+			}
+			else{
+				//修改用户信息
+				jobtypeService.deleteJobType(modifyJobType.getId());
+			}
+		} catch (BusinessServiceException ex) {
+			code = ex.getErrorCode();
+			msg = ex.getErrorMessage();
+		} catch (Exception e) {
+			code = BusinessCenterResCode.SYS_ERROR.getCode();
+			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
+			logger.error("<  JobTypeController.modifyJobType() > 修改属性错误." + e.getMessage());
+		}
+
+		// 返回结果
+		try {
+			return JsonConverter.getResultSignal(code, msg);
+		} catch (Exception e) {
+			session.removeAttribute(PlatfromConstants.STR_USER_PROFILE);
+			session.invalidate();
+			logger.error("<  JobTypeController.modifyJobType()  > 修改属性返回出错."
+					+ e.getMessage());
+			throw e;
+		}
+	}
 }
