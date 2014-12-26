@@ -111,6 +111,13 @@
                                 "id"
                        ]
                     },
+                    // cancel
+                    cancel : {
+                        url : "servequeue.do?action=cancel",
+                        args : [ 
+                                "id"
+                       ]
+                    },
                     // 获取订单列表
                     getOrderList : {
                         url : "order.do?action=alllist",

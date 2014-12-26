@@ -389,9 +389,6 @@
                     var serve = serves && i < serves.length ? serves[i] : null;
                     var tr = $('<tr></tr>').attr('class', i % 2 === 0 ? 'odd' : 'even')
                             .appendTo($('#suspendList'));
-                    if(serve) {
-                        tr.val(serve.id);
-                    }
                     $('<td></td>').text(serve && serve.order ? serve.order.registerNum : '').appendTo(tr);
                     $('<td></td>').text(serve && serve.order ? serve.order.queueNum : '').appendTo(tr);
                     $('<td></td>').text(serve && serve.user ? serve.user.userName : '').appendTo(tr);
@@ -399,10 +396,23 @@
                     $('<td></td>').text(serve && serve.order ? getTimeStr(serve.order.startTime) : '').appendTo(tr);
                     $('<td></td>').text(serve && serve.order ? getTimeStr(serve.order.endTime) : '').appendTo(tr);
                     var td = $('<td></td>').appendTo(tr);
-                    $('<a></a>').text(CANCEL).attr('class', 'toggle')
-                        .appendTo(td);
-                        //.attr('class', 'blue-button')
-                        //.attr('style', 'width:98px;height:30px;vertical-align:middle;margin-top:-2px;margin-left:20px;')                        
+                    if(serve) {
+                        $('<a></a>').text(CANCEL).attr('id', 'serveId_' + serve.id).attr('class', 'toggle')
+                        .appendTo(td)
+                        .bind('click', function() {
+                            var id = this.id.split('_')[1];
+                            $.OrderInfo.cancel({
+                                data : {
+                                    id : id
+                                },
+                                success : function(data) {
+                                    if (data.code == '000000') {
+                                        getSuspendList();
+                                    }
+                                }
+                            });
+                        }); 
+                    }                                       
                 }
             }
         });

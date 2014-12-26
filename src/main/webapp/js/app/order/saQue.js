@@ -57,6 +57,19 @@
         });
     }
     
+    $.UserInfo.getProperty({
+        data : {
+            name : 'AVG_WAITING_TIME'
+        },
+        success : function(data) {
+            if (data.code == '000000') {
+                var num = data.obj.value * 1000;
+                $('#avgWaitingMins').text(getMins(num) + "''");
+                $('#avgWaitingSecs').text(getSecs(num) + "'");
+            }
+        }
+    });
+    
     var oListIter = 0, sListIter = 0, interval = 3000, tab = 0;
     var userProfile;
 	$.UserInfo.checkLogin({
@@ -104,7 +117,13 @@
             $('<td></td>').text(serve && serve.order ? serve.order.registerNum : '').appendTo(tr);
             $('<td></td>').text(serve && serve.order ? serve.order.queueNum : '').appendTo(tr);
             $('<td></td>').text(serve && serve.user ? serve.user.userName : '').appendTo(tr);
-            $('<td></td>').text(serve && serve.order ? getTimeStr(serve.order.startTime) : '').appendTo(tr);
+            if(0 === tab) {
+                $('<td></td>').text(serve && serve.order ? getTimeStr(serve.order.startTime) : '').appendTo(tr);
+            }
+            else {
+                $('<td></td>').text(serve ? 
+                        getMins(serve.delayTime) + "''" + getSecs(serve.delayTime) + "'" : '').appendTo(tr);
+            }
             $('<td></td>').text(serve && serve.order ? getTimeStr(serve.order.endTime) : '').appendTo(tr);
         }
         if (serves && j < serves.length - 1) {
@@ -231,7 +250,7 @@
             		    $('#nextBtn').attr('disabled', 'disabled');
             		    start = 0;
             		}
-            		$('#currentNo').text(currServe ? currServe.order.queueNum : '')
+            		$('#currentNo').text(currServe ? currServe.order.registerNum : '')
             	}
             }
     	});
@@ -327,12 +346,20 @@
     
     function getMinutes(now) {
         var diff = now - start;
-        return Math.floor(diff / 60000);
+        return getMins(diff);
     }
     
     function getSeconds(now) {        
         var diff = now - start;
-        var minutes = getMinutes(now);
-        return Math.floor((diff - minutes * 60000) / 1000);
+        return getSecs(diff);
+    }
+    
+    function getMins(diff) {
+        return Math.floor(diff / 60000);
+    }
+    
+    function getSecs(diff) {
+        var mins = getMins(diff);
+        return Math.floor((diff - mins * 60000) / 1000);
     }
 })(jQuery);

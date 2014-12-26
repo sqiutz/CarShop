@@ -58,6 +58,15 @@ define([], function() {
                 }
             });
         },
+        // cancel
+        cancel : function(options) {
+            $.common.ajax("cancel", {
+                data : options.data,
+                success : function(data) {
+                    options.success(data);
+                }
+            });
+        },
 		// 获取订单列表
 		getOrderList : function(options) {
 			var orderlist;
