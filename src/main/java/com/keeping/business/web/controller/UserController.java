@@ -449,7 +449,7 @@ public class UserController {
 				if(counter != null && counter.equals("") == false){
 					User existUser = userService.queryUserByCounter(counter);
 					if(existUser != null){
-						existUser.setCounter(existUser.getId().toString());
+						existUser.setCounter(null);
 						userService.modifyUser(existUser);
 					}
 				}
@@ -515,7 +515,7 @@ public class UserController {
 			} else{
 		
 				User existUser = userService.getByUserId(regUser.getId());
-				existUser.setCounter(existUser.getId().toString());
+				existUser.setCounter(null);
 				
 				//修改用户信息
 				userService.modifyUser(existUser);
