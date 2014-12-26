@@ -83,11 +83,15 @@ var IS_BOOKER = 'Is Booker';
 var YES = 'Yes';
 var NO = 'No';
 
+var PARAMETER_CONF = 'PARAMETER CONFIGURATION';
+var JOB_TYPE_CONF = 'JOB TYPE CONFIGURATION';
 var GROUP = 'Group';
 var IS_ADMIN = 'Is Admin';
 var IS_ACTIVE = 'Is Active';
 var RELEASE_COUNTER = 'Release this counter';
 var SAVE = 'Save';
+var DELETE = 'Delete';
+var ADD = 'Add';
 var COUNTER_NUMBER = 'COUNTER NUMBER';
 var LANGUAGE = 'LANGUAGE';
 var AVG_WAITING_TIME = 'AVG. WAITING TIME';

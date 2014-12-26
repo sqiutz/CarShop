@@ -43,6 +43,9 @@
             $('#changePwd').text(CHANGE_PASSW0RD);
             $('#logout').text(LOGOUT);
             
+            $('#parameterListTitle').text(PARAMETER_CONF);
+            $('#jobTypeListTitle').text(JOB_TYPE_CONF);
+            
             $('#groupCol').text(GROUP);
             $('#usernameCol').text(USERNAME);
             $('#counterCol').text(COUNTER_NO);
@@ -55,6 +58,7 @@
             $('#startTimeCol').text(START_TIME);
             $('#delayTimeCol').text(DELAY_TIME);
             $('#endTimeCol').text(END_TIME);
+            $('#addBtn').text(ADD).attr('title', ADD);
         });
     }
     
@@ -338,6 +342,7 @@
 			$('#suspendDiv').hide();
 			$('#parameterDiv').show();
 			createParamsList();
+			getJobTypeList();
 		}		
 	});
 	
@@ -354,20 +359,26 @@
     });
 	
 	var createParamsList = function() {
-	    $('#parameterDiv div').remove();
+	    $('#parameterListDiv div.list').remove();
 	    for(var i = 0; i < params.length; i++) {
 	        var param = params[i];
-	        var div = $('<div></div>').attr('style', 'margin-bottom:8px').appendTo($('#parameterDiv'));
+	        var div = $('<div></div>').attr('class', 'list')
+	            .appendTo($('#parameterListDiv'));
 	        $('<label></label>').attr('style', 'width:200px').text(param.display).appendTo(div);
 	        $('<input></input>').attr('type', 'text').attr('id', param.name).appendTo(div)
 	            .keyup(function() {
 	                var id = $(this).attr('id');
-	                $('#' + id + '_btn').show('normal');
+	                if($(this).val()) {	                    
+	                    $('#' + id + '_btn').attr('disabled', false);
+	                }
+	                else {
+	                    $('#' + id + '_btn').attr('disabled', 'disabled');
+	                }
 	            });
 	        $('<button></button>').text(SAVE).attr('title', SAVE)
 	            .attr('id', param.name + '_btn').attr('name', param.name).attr('class', 'blue-button')
-	            .attr('style', 'width:71px;height:27px;vertical-align:middle;margin-top:-2px;margin-left:20px;display:none')
-	            .appendTo(div)
+	            .attr('style', 'width:71px;height:27px;vertical-align:middle;margin-top:-2px;margin-left:25px;')
+	            .attr('disabled', 'disabled').appendTo(div)
 	            .bind('click', function() {
 	                var name = $(this).attr('name');
 	                var val = $('#' + name).val();
@@ -379,7 +390,7 @@
 	                    },
 	                    success : function(data) {
 	                        if (data.code == '000000') {
-	                            $(that).hide('normal');
+	                            $(that).attr('disabled', 'disabled')
 	                        }
 	                    }
 	                });
@@ -400,6 +411,125 @@
 	    }
 	};
 	
+	var getJobTypeList = function() {
+	    $.OrderInfo.getJobTypes({
+	        success : createJobTypeList,
+	        error : createJobTypeList
+	    });
+	}
+	
+	var createJobTypeList = function(jobTypes) {
+	    $('#jobTypeListDiv div.list').remove();
+	    for(var i = 0; i < jobTypes.length; i++) {
+	        var jobType = jobTypes[i];
+	        var div = $('<div></div>').attr('class', 'list')
+                .appendTo($('#jobTypeListDiv'));
+	        $('<label></label>').attr('style', 'width:200px').attr('id', 'labelId_' + jobType.id)
+	            .text(jobType.name).appendTo(div);
+	        var sel = $('<select></select>').attr('id', 'selId_' + jobType.id)
+	            .attr('style', 'width:77px').appendTo(div)
+	            .bind('change', function() {
+	                var id = this.id.split('_')[1];
+	                $('#btnSaveId_' + id).attr('disabled', false);
+	            });
+	        var val = 0;
+	        for(var j = 1; j < 19; j++) {
+	            $('<option></option>').val(j * 30).text(j * 30).appendTo(sel);
+	            if(jobType.value == j * 30) {
+	                val = j * 30;
+	            }
+	        }
+	        sel.val(val);
+	        $('<button></button>').text(SAVE).attr('title', SAVE)
+                .attr('id', 'btnSaveId_' + jobType.id).attr('class', 'blue-button')
+                .attr('style', 'width:71px;height:27px;vertical-align:middle;margin-top:-2px;margin-left:25px;')
+                .attr('disabled', 'disabled').appendTo(div)
+                .bind('click', function() {
+                    var id = this.id.split('_')[1];
+                    var name = $('#labelId_' + id).text();
+                    var value = $('#selId_' + id).val();
+                    $.OrderInfo.modifyJobType({
+                        data : {
+                            id : id, 
+                            name : name,
+                            value : value
+                        },
+                        success : function(data) {
+                            if (data.code == '000000') {
+                                getJobTypeList();
+                            }
+                        }
+                    });
+                });
+	        $('<button></button>').text(DELETE).attr('title', DELETE)
+                .attr('id', 'btnDelId_' + jobType.id).attr('class', 'blue-button')
+                .attr('style', 'width:71px;height:27px;vertical-align:middle;margin-top:-2px;margin-left:4px;')
+                .appendTo(div)
+                .bind('click', function() {
+                    var id = this.id.split('_')[1];
+                    $.OrderInfo.deleteJobType({
+                        data : {
+                            id : id
+                        },
+                        success : function(data) {
+                            if (data.code == '000000') {
+                                getJobTypeList();
+                            }
+                        }
+                    });
+                });
+	    }
+	};
+	
+	$('#addBtn').bind('click', function() {
+	    $(this).attr('disabled', 'disabled');
+	    var div = $('<div></div>').attr('class', 'list').attr('id', 'jobTypeDiv')
+            .appendTo($('#jobTypeListDiv'));
+	    $('<input></input>').attr('type', 'text').attr('id', 'jobTypeName').appendTo(div)
+            .keyup(function() {
+                if($(this).val()) {
+                    $('#jobTypeSaveBtn').attr('disabled', false);
+                } 
+                else {
+                    $('#jobTypeSaveBtn').attr('disabled', 'disabled');
+                }
+            });
+	    var sel = $('<select></select>').attr('id', 'jobTypeVal')
+            .attr('style', 'width:77px;margin-left:48px').appendTo(div);
+        for(var j = 1; j < 19; j++) {
+            $('<option></option>').val(j * 30).text(j * 30).appendTo(sel);
+        }
+        $('<button></button>').text(SAVE).attr('title', SAVE)
+            .attr('id', 'jobTypeSaveBtn').attr('class', 'blue-button')
+            .attr('style', 'width:71px;height:27px;vertical-align:middle;margin-top:-2px;margin-left:25px;')
+            .attr('disabled', 'disabled').appendTo(div)
+            .bind('click', function() {
+                var name = $('#jobTypeName').val();
+                var value = $('#jobTypeVal').val();
+                $.OrderInfo.addJobType({
+                    data : {
+                        name : name,
+                        value : value
+                    },
+                    success : function(data) {
+                        if (data.code == '000000') {
+                            $('#addBtn').attr('disabled', false);
+                            $('#jobTypeDiv').remove();
+                            getJobTypeList();
+                        }
+                    }
+                });
+            });
+        $('<button></button>').text(DELETE).attr('title', DELETE)
+            .attr('id', 'jobTypeDelBtn').attr('class', 'blue-button')
+            .attr('style', 'width:71px;height:27px;vertical-align:middle;margin-top:-2px;margin-left:4px;')
+            .appendTo(div)
+            .bind('click', function() {
+                $('#addBtn').attr('disabled', false);
+                $('#jobTypeDiv').remove();
+            });
+	});
+	
 	var getSuspendList = function() {
 	    $.OrderInfo.getServeQueues({
             data : {
@@ -416,7 +546,8 @@
                     $('<td></td>').text(serve && serve.order ? serve.order.registerNum : '').appendTo(tr);
                     $('<td></td>').text(serve && serve.order ? serve.order.queueNum : '').appendTo(tr);
                     $('<td></td>').text(serve && serve.user ? serve.user.userName : '').appendTo(tr);
-                    $('<td></td>').text(serve && serve.order ? getTimeStr(serve.order.delayTime) : '').appendTo(tr);
+                    $('<td></td>').text(serve ? 
+                            getMins(serve.delayTime) + "''" + getSecs(serve.delayTime) + "'" : '').appendTo(tr);
                     $('<td></td>').text(serve && serve.order ? getTimeStr(serve.order.startTime) : '').appendTo(tr);
                     $('<td></td>').text(serve && serve.order ? getTimeStr(serve.order.endTime) : '').appendTo(tr);
                     var td = $('<td></td>').appendTo(tr);
@@ -440,5 +571,14 @@
                 }
             }
         });
-	}
+	};
+	
+	function getMins(diff) {
+        return Math.floor(diff / 60000);
+    }
+    
+    function getSecs(diff) {
+        var mins = getMins(diff);
+        return Math.floor((diff - mins * 60000) / 1000);
+    }
 })(jQuery);

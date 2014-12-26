@@ -198,6 +198,34 @@
                         args : [ 
                                  "today"
                         ]
+                    },
+                    // 获取Job Type列表
+                    getJobTypes : {
+                        url : "jobtype.do?action=getall"
+                    },
+                    // 添加Job Type
+                    addJobType : {
+                        url : "jobtype.do?action=add",
+                        args : [ 
+                                "name",
+                                "value"
+                       ]
+                    },
+                    // 修改Job Type
+                    modifyJobType : {
+                        url : "jobtype.do?action=modify",
+                        args : [ 
+                                "id",
+                                "name",
+                                "value"
+                       ]
+                    },
+                    // 删除Job Type
+                    deleteJobType : {
+                        url : "jobtype.do?action=delete",
+                        args : [ 
+                                "id",
+                       ]
                     }
                 },
                 ajax : function(key, args) {

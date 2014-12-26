@@ -181,6 +181,49 @@ define([], function() {
                 }
             });
         },
+        // 获取Job Type列表
+        getJobTypes : function(options) {
+            var jobTypes;
+            $.common.ajax("getJobTypes", {
+                success : function(data) {
+                    jobTypes = data.resList
+                    options.success(jobTypes);
+                },
+                error : function(error) {
+                    options.success();
+                }
+            });
+        },
+        // 添加Job Type
+        addJobType : function(options) {
+            $.common.ajax("addJobType", {
+                type:"POST",
+                data:options.data,
+                success:function(data){                 
+                    options.success(data);                  
+                }
+            });
+        },
+        // 修改Job Type
+        modifyJobType : function(options) {
+            $.common.ajax("modifyJobType", {
+                type:"POST",
+                data:options.data,
+                success:function(data){                 
+                    options.success(data);                  
+                }
+            });
+        },
+        // 删除Job Type
+        deleteJobType : function(options) {
+            $.common.ajax("deleteJobType", {
+                type:"POST",
+                data:options.data,
+                success:function(data){                 
+                    options.success(data);                  
+                }
+            });
+        }
 	};
 
 	$.OrderInfo = OrderInfo;
