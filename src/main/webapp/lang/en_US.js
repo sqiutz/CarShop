@@ -83,6 +83,10 @@ var IS_BOOKER = 'Is Booker';
 var YES = 'Yes';
 var NO = 'No';
 
+var GROUP = 'Group';
+var IS_ADMIN = 'Is Admin';
+var IS_ACTIVE = 'Is Active';
+var RELEASE_COUNTER = 'Release this counter';
 var SAVE = 'Save';
 var COUNTER_NUMBER = 'COUNTER NUMBER';
 var LANGUAGE = 'LANGUAGE';

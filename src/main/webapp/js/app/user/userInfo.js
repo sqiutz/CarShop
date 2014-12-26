@@ -51,6 +51,15 @@ define(["md5"],function(){
                 }
             });
         },
+        disableCounter : function(options) {
+            $.common.ajax("disableCounter", {
+                type:"POST",
+                data:options.data,
+                success:function(data){                 
+                    options.success(data);                  
+                }
+            });
+        },
 		//检测用户是否已经登录
 		checkLogin : function(options){
 		    $.common.ajax("checkLogin", {

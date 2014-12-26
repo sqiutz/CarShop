@@ -47,24 +47,25 @@
 			</div>
 			<div id='accountDiv' style='margin-top:20px'>
 				<div class='content_lf'>
-					<div class='box w1 rAlign'>
-							<div style='width:450px;margin:0px auto 10px auto;font-size:20px;font-weight:bold'>
+					<div class='box rAlign' style='width:600px'>
+							<div style='width:500px;margin:0px auto 10px auto;font-size:20px;font-weight:bold'>
 								<label for='groupBy' style='width:70px;line-height:25px'>Group:</label>
 								<select id='groupBy' name='groupBy'></select>
 							</div>
-						<table id='usersTbl' class="queue blue" style='width:450px'>
+						<table id='usersTbl' class="queue blue" style='width:500px'>
 							<tr>
-								<th>Group</th>
-								<th>Username</th>
-								<th>Is Admin</th>
-								<th>Is Active</th>
+								<th id='groupCol'>Group</th>
+								<th id='usernameCol'>Username</th>
+								<th id='counterCol'>Username</th>
+								<th id='isAdminCol'>Is Admin</th>
+								<th id='isActiveCol'>Is Active</th>
 							</tr>
 						</table>
 					</div>
 				</div>
 				<div class='content_rg'>
-					<div class='w2'>
-						<fieldset class='w1'>
+					<div style='width:600px'>
+						<fieldset style='width:350px;padding:8px 60px 15px 80px;'>
 							<legend>Add User</legend>
 							<form>
 								<div id='errMsg' class='errMsg'></div>

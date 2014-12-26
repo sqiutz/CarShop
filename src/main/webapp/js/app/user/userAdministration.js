@@ -43,6 +43,12 @@
             $('#changePwd').text(CHANGE_PASSW0RD);
             $('#logout').text(LOGOUT);
             
+            $('#groupCol').text(GROUP);
+            $('#usernameCol').text(USERNAME);
+            $('#counterCol').text(COUNTER_NO);
+            $('#isAdminCol').text(IS_ADMIN);
+            $('#isActiveCol').text(IS_ACTIVE);
+
             $('#regNoCol').text(REG_NO);
             $('#queNoCol').text(QUE_NO);
             $('#saCol').text(SA);
@@ -208,9 +214,27 @@
 					j++ % 2 === 0 ? 'odd' : 'even').appendTo(table);
 			$("<td>" + userGroup.getGroupNameById(u.groupId) + "</td>").appendTo(tr);
 			$("<td>" + u.userName + "</td>").appendTo(tr);
+			var td = $('<td></td>').appendTo(tr);
+			if(u.counter) {
+			    $('<a></a>').text(u.counter).attr('id', 'uId_' + u.id).attr('class', 'toggle')
+                .attr('title', RELEASE_COUNTER).appendTo(td)
+                .bind('click', function() {
+                    var id = this.id.split('_')[1];
+                    $.UserInfo.disableCounter({
+                        data : {
+                            id : id
+                        },
+                        success : function(data) {
+                            if(data.code == '000000') {
+                                user.getAllUsers();
+                            }                            
+                        }
+                    });
+                });
+			}			
 			$("<td>" + (u.isAdmin ? 'Yes' : 'No') + "</td>")
 					.appendTo(tr);
-			var td = $("<td></td>").appendTo(tr);
+			var td = $("<td></td>").appendTo(tr);			
 			$("<a class='toggle' id='userId_" + i + "'>" + (u.isValid ? 'Yes' : 'No') + "</a>")
 					.appendTo(td)
 					.bind('click', function(){

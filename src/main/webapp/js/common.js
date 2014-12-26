@@ -70,6 +70,12 @@
                                  "isBooker"
                         ]
                     },
+                    disableCounter : {
+                        url : "user.do?action=disablecounter",
+                        args : [ 
+                                "id"
+                       ]
+                    },
                     // 获取服务队列
                     getServeQueues : {
                         url : "servequeue.do?action=alllist",
