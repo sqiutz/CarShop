@@ -140,6 +140,13 @@
                                  "isBook"
                         ]                        
                     },
+                    // 获取单个订单
+                    getOrder : {
+                    	url : "order.do?action=getone",
+                        args : [ 
+                                 "registerNumber"
+                        ]
+                    },
                     // 获取modify queue
                     getModifyQueue : {
                         url : "modifyqueue.do?action=getone",

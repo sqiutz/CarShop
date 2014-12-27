@@ -59,6 +59,7 @@
             $('#usernameLabel').text(USERNAME);
             $('#pwdLabel').text(PASSWORD);
             $('#pwdConfLabel').text(PASSWORD_CONF);
+            $('#saveBtn').text(SAVE).attr('title', SAVE);
             $('#regNoCol').text(REG_NO);
             $('#queNoCol').text(QUE_NO);
             $('#saCol').text(SA);
@@ -554,7 +555,7 @@
                     $('<td></td>').text(serve && serve.order ? serve.order.queueNum : '').appendTo(tr);
                     $('<td></td>').text(serve && serve.user ? serve.user.userName : '').appendTo(tr);
                     $('<td></td>').text(serve ? 
-                            getMins(serve.delayTime) + "''" + getSecs(serve.delayTime) + "'" : '').appendTo(tr);
+                            getMins(serve.delayTime) + "'" + getSecs(serve.delayTime) + "''" : '').appendTo(tr);
                     $('<td></td>').text(serve && serve.order ? getTimeStr(serve.order.startTime) : '').appendTo(tr);
                     $('<td></td>').text(serve && serve.order ? getTimeStr(serve.order.endTime) : '').appendTo(tr);
                     var td = $('<td></td>').appendTo(tr);

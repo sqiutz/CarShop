@@ -1,4 +1,9 @@
 (function($) {
+	$('#callBtn').attr('disabled', 'disabled');
+	$('#recallBtn').attr('disabled', 'disabled');
+    $('#resumeBtn').attr('disabled', 'disabled');
+    $('#holdBtn').attr('disabled', 'disabled');
+    $('#nextBtn').attr('disabled', 'disabled');
     applyLang();
     $.UserInfo.getProperty({
         data : {
@@ -64,8 +69,8 @@
         success : function(data) {
             if (data.code == '000000') {
                 var num = data.obj.value * 1000;
-                $('#avgWaitingMins').text(getMins(num) + "''");
-                $('#avgWaitingSecs').text(getSecs(num) + "'");
+                $('#avgWaitingMins').text(getMins(num) + "'");
+                $('#avgWaitingSecs').text(getSecs(num) + "''");
             }
         }
     });
@@ -122,7 +127,7 @@
             }
             else {
                 $('<td></td>').text(serve ? 
-                        getMins(serve.delayTime) + "''" + getSecs(serve.delayTime) + "'" : '').appendTo(tr);
+                        getMins(serve.delayTime) + "'" + getSecs(serve.delayTime) + "''" : '').appendTo(tr);
             }
             $('<td></td>').text(serve && serve.order ? getTimeStr(serve.order.endTime) : '').appendTo(tr);
         }
@@ -185,6 +190,9 @@
     // 创建订单列表
     var createWaitingList = function(orders) {
     	$('#remaining').text(orders ? orders.length : 0);
+    	if(!currServe && orders && orders.length > 0) {
+    		$('#callBtn').attr('disabled', false);
+    	}
         $('#waitingList tr.odd').remove();
         $('#waitingList tr.even').remove();
         var availHeight = ($('#content').height() - 20) * 0.5 - $('#waitingListTitle').height() - 4;
@@ -244,13 +252,14 @@
                         timer();
             		}
             		else {
-            		    $('#callBtn').attr('disabled', false);
             		    $('#holdBtn').attr('disabled', 'disabled');
             		    $('#resumeBtn').attr('disabled', 'disabled');
             		    $('#nextBtn').attr('disabled', 'disabled');
             		    start = 0;
             		}
-            		$('#currentNo').text(currServe ? currServe.order.registerNum : '')
+            		$('#currentNo').text(currServe ? currServe.order.queueNum : '')
+            		$('#waitingMins').text(currServe ? getMins(currServe.delayTime) + "'" : '');
+                    $('#waitingSecs').text(currServe ? getSecs(currServe.delayTime) + "''" : '');
             	}
             }
     	});

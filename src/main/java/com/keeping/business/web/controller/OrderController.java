@@ -128,7 +128,7 @@ public class OrderController {
 		try {
 			String jsonStr = request.getParameter("param");
 			OrderObject orderObject = JsonConverter.getFromJsonString(jsonStr, OrderObject.class);
-			if (orderObject == null || orderObject.getQueueNumber() == null) {
+			if (orderObject == null || orderObject.getRegisterNumber() == null) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
 				logger.error("< OrderController.getOrder() > 获取订单状态不正确." + orderObject.getQueueNumber() + " : " + BusinessCenterOrderStatus.ORDER_STATUS_WAIT.getStatus());

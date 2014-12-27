@@ -94,6 +94,15 @@ define([], function() {
                 }
             });
         },
+        // 获取单个订单
+        getOrder : function(options) {
+            $.common.ajax("getOrder", {
+            	data : options.data,
+                success : function(data) {
+                    options.success(data);
+                }
+            });
+        },
         // 获取单个modify queue
 		getModifyQueue : function(options) {
             $.common.ajax("getModifyQueue", {

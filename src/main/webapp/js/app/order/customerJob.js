@@ -51,7 +51,7 @@
             }
             $('<td></td>').text(order ? order.registerNum : '').appendTo(tr);
             $('<td></td>').text(order ? getEstEndTimeStr(order.startTime, order.estimationTime) : '').appendTo(tr);
-            $('<td></td>').text(order ? order.status : '').appendTo(tr);
+            $('<td></td>').text(order ? order.statusValue : '').appendTo(tr);
         }
         if (orders && j < orders.length - 1) {
             oListIter++;

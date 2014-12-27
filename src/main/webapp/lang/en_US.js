@@ -102,4 +102,9 @@ var LANGUAGE = 'LANGUAGE';
 var AVG_WAITING_TIME = 'AVG. WAITING TIME';
 var WAITING_TIME_BUFFER = 'WAITING TIME BUFFER';
 
-var QUEING_NUMBER = 'Queing Number'
+var QUEING_NUMBER = 'Queing Number';
+var KEY_IN_REGISTRATION_NUMBER = 'Please key in your registration number';
+var QUERY = 'Query';
+var BOOKED_TIME = 'You have booked at ';
+var QUE_WITH_NUMBER = "You're on the Queue with Number";
+var PRINT = 'PRINT';

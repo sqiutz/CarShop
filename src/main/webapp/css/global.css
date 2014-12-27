@@ -414,6 +414,18 @@ div.blue {
 	line-height:45px;
 	text-align:center;
 }
+div.green {
+	background-color:#A4CB4E;
+	margin:0px auto 4px auto;
+	line-height:45px;
+	text-align:center;
+}
+div.gray-light {
+	background-color:#e3e3e3;
+	margin:0px auto 4px auto;
+	line-height:45px;
+	text-align:center;
+}
 div.navg {
 	background-color:#B33737;
 	margin:0px auto 4px auto;
