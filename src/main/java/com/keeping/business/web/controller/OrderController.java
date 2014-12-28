@@ -221,28 +221,39 @@ public class OrderController {
      */
 	@RequestMapping(params = "action=start")
 	@ResponseBody
-	public WebResult startOrder(String bookNum, HttpServletRequest request,HttpServletResponse response) throws Exception {
+	public WebResult startOrder(HttpServletRequest request,HttpServletResponse response) throws Exception {
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		
 		try {
-			Order order = new Order();
 			
 			Date now = new Date();
 			java.sql.Timestamp dateTime = new java.sql.Timestamp(now.getTime());
 			
-			if (StringUtil.isNull(bookNum)) {
+			String jsonStr = request.getParameter("param");
+			Order order = JsonConverter.getFromJsonString(jsonStr, Order.class);
+			 
+			if (StringUtil.isNull(jsonStr) || null == order) {
+				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
+				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
+				logger.error("< OrderController.bookOrder() > 订单预约请求信息不正确。" + jsonStr);
+			}else{
+			
+			if (StringUtil.isNull(order.getBookNum())) {
 				order.setStartTime(dateTime);
 				order.setStatus(BusinessCenterOrderStatus.ORDER_STATUS_WAIT.getId());    //1: start to wait for serve queue
 				order.setIsBook(0);
 				orderService.addOrder(order);
 			}else {
-				order = orderService.queryOrderByBookNum(bookNum);
+				String registerNum = order.getRegisterNum();
+				order = orderService.queryOrderByBookNum(order.getBookNum());
 				order.setStartTime(dateTime);
+				order.setRegisterNum(registerNum);
 				order.setStatus(BusinessCenterOrderStatus.ORDER_STATUS_WAIT.getId());
 				orderService.updateOrder(order);
+			}
 			}
 		}catch (BusinessServiceException ex) {
 			code = ex.getErrorCode();

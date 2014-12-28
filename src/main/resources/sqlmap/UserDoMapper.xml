@@ -113,9 +113,7 @@
 			<if test="isValid != null">
 				IS_VALID = #{isValid},
 			</if>
-			<if test="counter != null">
 				COUNTER = #{counter},
-			</if>
 			<if test="isBooker != null">
 				ISBOOKER = #{isBooker},
 			</if>
