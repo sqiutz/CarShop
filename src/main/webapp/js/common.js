@@ -147,6 +147,13 @@
                                  "registerNumber"
                         ]
                     },
+                    // 下订单
+                    addOrder : {
+                    	url : "order.do?action=book",
+                        args : [ 
+                                 "registerNumber"
+                        ]
+                    },
                     // 获取modify queue
                     getModifyQueue : {
                         url : "modifyqueue.do?action=getone",

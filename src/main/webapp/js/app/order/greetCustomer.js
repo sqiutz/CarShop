@@ -24,6 +24,7 @@
             $('#bookedTime').text(BOOKED_TIME);
             $('#queNumberLabel').text(QUE_WITH_NUMBER);
             $('#printBtn').text(PRINT).attr('title', PRINT);
+            $('#bookBtn').text(BOOK).attr('title', BOOK);
         });
     } 
     
@@ -43,6 +44,19 @@
                 	$('#queNumber').text('');
                 }
     		}
+    	});
+    });
+    
+    $('#bookBtn').bind('click', function() {
+    	$.OrderInfo.addOrder({
+    		data : {
+    			registerNumber : $('#regNumber').val()
+    		},
+    		success : function(data) {
+    			if(data.code == '000000') {
+    				
+    			}
+        	}
     	});
     });
 })(jQuery);

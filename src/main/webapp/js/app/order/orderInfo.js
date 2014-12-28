@@ -103,6 +103,16 @@ define([], function() {
                 }
             });
         },
+        // 下订单
+        addOrder : function(options) {
+            $.common.ajax("addOrder", {
+            	type :"POST",
+            	data : options.data,
+                success : function(data) {
+                    options.success(data);
+                }
+            });
+        },
         // 获取单个modify queue
 		getModifyQueue : function(options) {
             $.common.ajax("getModifyQueue", {
