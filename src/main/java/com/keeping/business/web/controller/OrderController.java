@@ -244,6 +244,7 @@ public class OrderController {
 				Order order = orderService.getOrdersByRegNum(orderObject.getRegisterNumber());
 			
 			if (StringUtil.isNull(order.getBookNum())) {
+				order.setRegisterNum(orderObject.getRegisterNumber());
 				order.setStartTime(dateTime);
 				order.setStatus(BusinessCenterOrderStatus.ORDER_STATUS_WAIT.getId());    //1: start to wait for serve queue
 				order.setIsBook(0);
