@@ -233,13 +233,15 @@ public class OrderController {
 			java.sql.Timestamp dateTime = new java.sql.Timestamp(now.getTime());
 			
 			String jsonStr = request.getParameter("param");
-			Order order = JsonConverter.getFromJsonString(jsonStr, Order.class);
+			OrderObject orderObject = JsonConverter.getFromJsonString(jsonStr, OrderObject.class);
 			 
-			if (StringUtil.isNull(jsonStr) || null == order) {
+			if (StringUtil.isNull(jsonStr) || null == orderObject) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
 				logger.error("< OrderController.bookOrder() > 订单预约请求信息不正确。" + jsonStr);
 			}else{
+				
+				Order order = orderService.getOrdersByRegNum(orderObject.getRegisterNumber());
 			
 			if (StringUtil.isNull(order.getBookNum())) {
 				order.setStartTime(dateTime);
