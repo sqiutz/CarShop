@@ -148,8 +148,8 @@
                         ]
                     },
                     // 下订单
-                    addOrder : {
-                    	url : "order.do?action=book",
+                    startOrder : {
+                    	url : "order.do?action=start",
                         args : [ 
                                  "registerNumber"
                         ]

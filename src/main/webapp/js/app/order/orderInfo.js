@@ -104,8 +104,8 @@ define([], function() {
             });
         },
         // 下订单
-        addOrder : function(options) {
-            $.common.ajax("addOrder", {
+        startOrder : function(options) {
+            $.common.ajax("startOrder", {
             	type :"POST",
             	data : options.data,
                 success : function(data) {

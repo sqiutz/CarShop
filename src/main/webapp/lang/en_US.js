@@ -108,6 +108,5 @@ var QUERY = 'Query';
 var BOOKED_TIME = 'You have booked at ';
 var QUE_WITH_NUMBER = "You're on the Queue with Number";
 var PRINT = 'PRINT';
-var BOOK = 'BOOK';
 
 var CLOSE = 'CLOSE';
