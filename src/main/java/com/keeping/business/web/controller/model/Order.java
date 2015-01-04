@@ -27,6 +27,8 @@ public class Order {
     
     private Date promiseTime;
     
+    private Date bookTime;
+    
     private Integer estimationTime;
     
     private Integer isBook;
@@ -133,6 +135,14 @@ public class Order {
 
 	public void setStatusValue(String statusValue) {
 		this.statusValue = statusValue;
+	}
+
+	public Date getBookTime() {
+		return bookTime;
+	}
+
+	public void setBookTime(Date bookTime) {
+		this.bookTime = bookTime;
 	}
     
 }
