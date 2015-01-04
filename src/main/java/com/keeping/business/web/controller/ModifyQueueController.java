@@ -50,7 +50,7 @@ import com.keeping.business.web.controller.model.WebResultObject;
 public class ModifyQueueController {
 
 	/** 日志 */
-	private Logger logger = LoggerFactory.getLogger(UserController.class);
+//	private Logger logger = LoggerFactory.getLogger(UserController.class);
 
 	/** 用户信息Service */
 	@Resource
@@ -77,7 +77,7 @@ public class ModifyQueueController {
 			if (null == idObject || idObject.getId() == null) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
-				logger.error("< ModifyQueueController.getModifyQueue() > 获取维修订单请求信息不正确: " + idObject.getId());
+//				logger.error("< ModifyQueueController.getModifyQueue() > 获取维修订单请求信息不正确: " + idObject.getId());
 			} else {
 				
 				modifyQueue = modifyQueueService.getModifyQueueById(idObject.getId());
@@ -106,8 +106,8 @@ public class ModifyQueueController {
 			System.out.println(e.getStackTrace());
 			code = BusinessCenterResCode.SYS_ERROR.getCode();
 			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
-			logger.error("< ModifyQueueController.getModifyQueue() > 获取维修列表失败."
-					+ e.getMessage());
+//			logger.error("< ModifyQueueController.getModifyQueue() > 获取维修列表失败."
+//					+ e.getMessage());
 		}
 		
 		return JsonConverter.getResultObject(code, msg, modifyQueue);
@@ -130,8 +130,8 @@ public class ModifyQueueController {
 			if (StringUtil.isNull(jsonStr) || modifyQueue == null) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
-				logger.error("< ModifyQueueController.start() > 订单维修订单信息为空或没有权限。"
-						+ jsonStr);
+//				logger.error("< ModifyQueueController.start() > 订单维修订单信息为空或没有权限。"
+//						+ jsonStr);
 			} else{
 				
 				modifyQueue = modifyQueueService.getModifyQueueById(modifyQueue.getId());
@@ -154,16 +154,16 @@ public class ModifyQueueController {
 			System.out.println(e.getStackTrace());
 			code = BusinessCenterResCode.SYS_ERROR.getCode();
 			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
-			logger.error("< ModifyQueueController.start() > 挂起任务失败."
-					+ e.getMessage());
+//			logger.error("< ModifyQueueController.start() > 挂起任务失败."
+//					+ e.getMessage());
 		}
 
 		// 返回结果
 		try {
 			return JsonConverter.getResultSignal(code, msg);
 		} catch (Exception e) {
-			logger.error("< ModifyQueueController.start() > 挂起任务返回出错."
-					+ e.getMessage());
+//			logger.error("< ModifyQueueController.start() > 挂起任务返回出错."
+//					+ e.getMessage());
 			throw e;
 		}
 	}
@@ -185,8 +185,8 @@ public class ModifyQueueController {
 			if (StringUtil.isNull(jsonStr) || modifyQueue == null) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
-				logger.error("< ModifyQueueController.hold() > 订单维修订单信息为空或没有权限。"
-						+ jsonStr);
+//				logger.error("< ModifyQueueController.hold() > 订单维修订单信息为空或没有权限。"
+//						+ jsonStr);
 			} else{
 				
 				modifyQueue = modifyQueueService.getModifyQueueById(modifyQueue.getId());
@@ -209,16 +209,16 @@ public class ModifyQueueController {
 			System.out.println(e.getStackTrace());
 			code = BusinessCenterResCode.SYS_ERROR.getCode();
 			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
-			logger.error("< ModifyQueueController.hold() > 挂起任务失败."
-					+ e.getMessage());
+//			logger.error("< ModifyQueueController.hold() > 挂起任务失败."
+//					+ e.getMessage());
 		}
 
 		// 返回结果
 		try {
 			return JsonConverter.getResultSignal(code, msg);
 		} catch (Exception e) {
-			logger.error("< ModifyQueueController.hold() > 挂起任务返回出错."
-					+ e.getMessage());
+//			logger.error("< ModifyQueueController.hold() > 挂起任务返回出错."
+//					+ e.getMessage());
 			throw e;
 		}
 	}
@@ -240,8 +240,8 @@ public class ModifyQueueController {
 			if (StringUtil.isNull(jsonStr) || modifyQueue == null ) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
-				logger.error("< ModifyQueueController.finish() > 维修订单信息为空或没有权限。"
-						+ jsonStr);
+//				logger.error("< ModifyQueueController.finish() > 维修订单信息为空或没有权限。"
+//						+ jsonStr);
 			}else{
 				modifyQueue = modifyQueueService.getModifyQueueById(modifyQueue.getId());
 				Order order = orderService.queryOrderById(modifyQueue.getOrderId());
@@ -273,16 +273,16 @@ public class ModifyQueueController {
 			System.out.println(e.getStackTrace());
 			code = BusinessCenterResCode.SYS_ERROR.getCode();
 			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
-			logger.error("< ModifyQueueController.finish() > 维修订单发送清洗车间失败."
-					+ e.getMessage());
+//			logger.error("< ModifyQueueController.finish() > 维修订单发送清洗车间失败."
+//					+ e.getMessage());
 		}
 
 		// 返回结果
 		try {
 			return JsonConverter.getResultSignal(code, msg);
 		} catch (Exception e) {
-			logger.error("< ModifyQueueController.finish() > 发送清洗车间返回出错."
-					+ e.getMessage());
+//			logger.error("< ModifyQueueController.finish() > 发送清洗车间返回出错."
+//					+ e.getMessage());
 			throw e;
 		}
 	}

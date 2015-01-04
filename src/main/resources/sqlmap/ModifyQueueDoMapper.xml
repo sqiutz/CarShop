@@ -8,6 +8,7 @@
 		<result column="USER_ID" property="userId" />
 		<result column="ORDER_ID" property="orderId" />
 		<result column="CREATE_TIME" property="createTime" />
+		<result column="ASSIGN_TIME" property="assignTime" />
 		<result column="START_TIME" property="startTime" />
 		<result column="END_TIME" property="endTime" />
 		<result column="JOBTYPE" property="jobType" />
@@ -17,7 +18,7 @@
 	</resultMap>
 	
 	<sql id="Base_Column_List">
-		ID,STEP,USER_ID,ORDER_ID,CREATE_TIME,START_TIME,END_TIME,JOBTYPE,TECHNICIAN,ISWARRANT,ISSUBCONTRACT
+		ID,STEP,USER_ID,ORDER_ID,CREATE_TIME,START_TIME,END_TIME,ASSIGN_TIME,JOBTYPE,TECHNICIAN,ISWARRANT,ISSUBCONTRACT
 	</sql>
 
 	<select id="queryByModifyQueuestep" resultMap="ModifyQueueDoMap" 
@@ -62,6 +63,9 @@
 			<if test="startTime != null">
 				START_TIME,
 			</if>
+			<if test="assignTime != null">
+				ASSIGN_TIME,
+			</if>
 			<if test="endTime != null">
 				END_TIME,
 			</if>
@@ -91,6 +95,9 @@
 			</if>
 			<if test="startTime != null">
 				#{startTime},
+			</if>
+			<if test="assignTime != null">
+				#{assignTime},
 			</if>
 			<if test="endTime != null">
 				#{endTime},
@@ -125,6 +132,9 @@
 			</if>
 			<if test="startTime != null">
 				START_TIME = #{startTime},
+			</if>
+			<if test="assignTime != null">
+				ASSIGN_TIME = #{assignTime},
 			</if>
 			<if test="endTime != null">
 				END_TIME = #{endTime},

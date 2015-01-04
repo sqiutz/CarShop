@@ -2,6 +2,7 @@ package com.keeping.business.web.controller;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -24,6 +25,7 @@ import com.keeping.business.common.rescode.BusinessCenterUserGroup;
 import com.keeping.business.common.util.PlatformPar;
 import com.keeping.business.common.util.PlatfromConstants;
 import com.keeping.business.common.util.StringUtil;
+import com.keeping.business.service.JobTypeService;
 import com.keeping.business.service.ModifyQueueService;
 import com.keeping.business.service.OrderService;
 import com.keeping.business.service.ServeQueueService;
@@ -48,7 +50,7 @@ import com.keeping.business.web.controller.model.WebResultObject;
 public class ServeQueueController {
 
 	/** 日志 */
-	private Logger logger = LoggerFactory.getLogger(UserController.class);
+//	private Logger logger = LoggerFactory.getLogger(UserController.class);
 
 	/** 用户信息Service */
 	@Resource
@@ -59,6 +61,9 @@ public class ServeQueueController {
 	private OrderService orderService;
 	@Resource
 	private UserService userService;
+	@Resource
+	private JobTypeService jobtypeService;
+
 
 	/**
 	 * 获取订单列表
@@ -83,7 +88,7 @@ public class ServeQueueController {
 			if (null == step) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
-				logger.error("< ServeQueueController.getAllServeQueues() > 获取服务订单列表请求信息不正确: " + step);
+//				logger.error("< ServeQueueController.getAllServeQueues() > 获取服务订单列表请求信息不正确: " + step);
 			} else {
 				serveQueueList = serveQueueService.getServeQueueByStep(Integer.parseInt(step.getStep()));
 				System.out.println("retrun from serveQueueService " + serveQueueList.size());
@@ -130,8 +135,8 @@ public class ServeQueueController {
 			System.out.println(e.getStackTrace());
 			code = BusinessCenterResCode.SYS_ERROR.getCode();
 			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
-			logger.error("< ServeQueueController.getAllServeQueues() > 获取排队列表失败."
-					+ e.getMessage());
+//			logger.error("< ServeQueueController.getAllServeQueues() > 获取排队列表失败."
+//					+ e.getMessage());
 		}
 
 		return JsonConverter.getResultObject(code, msg, serveQueueList);
@@ -152,7 +157,7 @@ public class ServeQueueController {
 			if (null == estimationTime) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
-				logger.error("< ServeQueueController.getAllEstimationTime() > 查询订单时间信息请求信息不正确: " + estimationTime.getStartTime());
+//				logger.error("< ServeQueueController.getAllEstimationTime() > 查询订单时间信息请求信息不正确: " + estimationTime.getStartTime());
 			} else {
 				
 				estimationTimes = serveQueueService.getElapseTimeByTime(estimationTime.getStartTime(), estimationTime.getEndTime());
@@ -166,8 +171,8 @@ public class ServeQueueController {
 			System.out.println(e.getStackTrace());
 			code = BusinessCenterResCode.SYS_ERROR.getCode();
 			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
-			logger.error("< ServeQueueController.getAllEstimationTime() > 获取排队列表预估时间失败."
-					+ e.getMessage());
+//			logger.error("< ServeQueueController.getAllEstimationTime() > 获取排队列表预估时间失败."
+//					+ e.getMessage());
 		}
 
 		return JsonConverter.getResultObject(code, msg, estimationTimes);
@@ -194,11 +199,11 @@ public class ServeQueueController {
 			if (null == step) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
-				logger.error("< ServeQueueController.getServeQueue() > 获取服务订单请求信息不正确: " + step);
+//				logger.error("< ServeQueueController.getServeQueue() > 获取服务订单请求信息不正确: " + step);
 			} else if (null == session || null == logUser || null == logUser.getUserName()){
 				code = BusinessCenterResCode.SYS_INVILID_REQ.getCode();
 				msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
-				logger.error("< ServeQueueController.getServeQueue() > session is null." + jsonStr);
+//				logger.error("< ServeQueueController.getServeQueue() > session is null." + jsonStr);
 			}  
 			else {
 				ServeQueue serveQueue = new ServeQueue();
@@ -243,8 +248,8 @@ public class ServeQueueController {
 			System.out.println(e.getStackTrace());
 			code = BusinessCenterResCode.SYS_ERROR.getCode();
 			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
-			logger.error("< ServeQueueController.getAllServeQueues() > 获取排队列表失败."
-					+ e.getMessage());
+//			logger.error("< ServeQueueController.getAllServeQueues() > 获取排队列表失败."
+//					+ e.getMessage());
 		}
 
 		return JsonConverter.getResultObject(code, msg, serveQueueList);
@@ -269,7 +274,7 @@ public class ServeQueueController {
 			if (null == step) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
-				logger.error("< ServeQueueController.getServeQueue() > 获取服务订单请求信息不正确: " + step);
+//				logger.error("< ServeQueueController.getServeQueue() > 获取服务订单请求信息不正确: " + step);
 			} else {
 				
 				serveQueueList = serveQueueService.getServeQueueByStep(BusinessCenterServeQueueStatus.SERVEQUEUE_STATUS_SERVING.getId());
@@ -301,8 +306,8 @@ public class ServeQueueController {
 			System.out.println(e.getStackTrace());
 			code = BusinessCenterResCode.SYS_ERROR.getCode();
 			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
-			logger.error("< ServeQueueController.getAllServeQueues() > 获取排队列表失败."
-					+ e.getMessage());
+//			logger.error("< ServeQueueController.getAllServeQueues() > 获取排队列表失败."
+//					+ e.getMessage());
 		}
 
 		return JsonConverter.getResultObject(code, msg, serveQueueList.get(0));
@@ -342,11 +347,11 @@ public class ServeQueueController {
 			if (null == session || null == loginUser || null == loginUser.getUserName()){
 				code = BusinessCenterResCode.SYS_INVILID_REQ.getCode();
 				msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
-				logger.error("< ServeQueueController.call() > session is null。");
+//				logger.error("< ServeQueueController.call() > session is null。");
 			} else if (null == loginUser.getGroupName() && loginUser.getGroupName()!= BusinessCenterUserGroup.SYS_SERVICER.getGroupName()){
 				code = BusinessCenterResCode.SYS_NO_ADMIN.getCode();
 				msg = BusinessCenterResCode.SYS_NO_ADMIN.getMsg();
-				logger.error("< ServeQueueController.call() > you are not role。");
+//				logger.error("< ServeQueueController.call() > you are not role。");
 			}else{
 				
 				ServeQueue serveQueueV = new ServeQueue();
@@ -396,16 +401,16 @@ public class ServeQueueController {
 			System.out.println(e.getStackTrace());
 			code = BusinessCenterResCode.SYS_ERROR.getCode();
 			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
-			logger.error("< OrderController.startOrder() > 取号预约失败."
-					+ e.getMessage());
+//			logger.error("< OrderController.startOrder() > 取号预约失败."
+//					+ e.getMessage());
 		}
 
 		// 返回结果
 		try {
 			return JsonConverter.getResultSignal(code, msg);
 		} catch (Exception e) {
-			logger.error("< OrderController.startOrder() > 取号预约返回出错."
-					+ e.getMessage());
+//			logger.error("< OrderController.startOrder() > 取号预约返回出错."
+//					+ e.getMessage());
 			throw e;
 		}
 	}
@@ -442,16 +447,16 @@ public class ServeQueueController {
 			if (StringUtil.isNull(jsonStr) || serveQueue == null) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
-				logger.error("< ServeQueueController.hold() > 订单信息为空或没有权限。"
-						+ jsonStr);
+//				logger.error("< ServeQueueController.hold() > 订单信息为空或没有权限。"
+//						+ jsonStr);
 			} else if (null == session || null == loginUser || null == loginUser.getUserName()){
 				code = BusinessCenterResCode.SYS_INVILID_REQ.getCode();
 				msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
-				logger.error("< ServeQueueController.hold() > session is null。");
+//				logger.error("< ServeQueueController.hold() > session is null。");
 			} else if (null == loginUser.getGroupName() && loginUser.getGroupName()!= BusinessCenterUserGroup.SYS_SERVICER.getGroupName()){
 				code = BusinessCenterResCode.SYS_NO_ADMIN.getCode();
 				msg = BusinessCenterResCode.SYS_NO_ADMIN.getMsg();
-				logger.error("< ServeQueueController.hold() > you are not role。");
+//				logger.error("< ServeQueueController.hold() > you are not role。");
 			}else{
 				
 				serveQueue = serveQueueService.getServeQueueById(serveQueue.getId());
@@ -491,16 +496,16 @@ public class ServeQueueController {
 			System.out.println(e.getStackTrace());
 			code = BusinessCenterResCode.SYS_ERROR.getCode();
 			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
-			logger.error("< ServeQueueController.hold() > 挂起任务失败."
-					+ e.getMessage());
+//			logger.error("< ServeQueueController.hold() > 挂起任务失败."
+//					+ e.getMessage());
 		}
 
 		// 返回结果
 		try {
 			return JsonConverter.getResultSignal(code, msg);
 		} catch (Exception e) {
-			logger.error("< ServeQueueController.hold() > 挂起任务返回出错."
-					+ e.getMessage());
+//			logger.error("< ServeQueueController.hold() > 挂起任务返回出错."
+//					+ e.getMessage());
 			throw e;
 		}
 	}
@@ -536,16 +541,16 @@ public class ServeQueueController {
 			if (StringUtil.isNull(jsonStr) || serveQueue == null) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
-				logger.error("< ServeQueueController.hold() > 订单信息为空或没有权限。"
-						+ jsonStr);
+//				logger.error("< ServeQueueController.hold() > 订单信息为空或没有权限。"
+//						+ jsonStr);
 			} else if (null == session || null == loginUser || null == loginUser.getUserName()){
 				code = BusinessCenterResCode.SYS_INVILID_REQ.getCode();
 				msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
-				logger.error("< ServeQueueController.hold() > session is null。");
+//				logger.error("< ServeQueueController.hold() > session is null。");
 			} else if (null == loginUser.getGroupName() && loginUser.getGroupName()!= BusinessCenterUserGroup.SYS_SERVICER.getGroupName()){
 				code = BusinessCenterResCode.SYS_NO_ADMIN.getCode();
 				msg = BusinessCenterResCode.SYS_NO_ADMIN.getMsg();
-				logger.error("< ServeQueueController.hold() > you are not role。");
+//				logger.error("< ServeQueueController.hold() > you are not role。");
 			}else{
 			
 				serveQueue = serveQueueService.getServeQueueById(serveQueue.getId());
@@ -579,16 +584,16 @@ public class ServeQueueController {
 			System.out.println(e.getStackTrace());
 			code = BusinessCenterResCode.SYS_ERROR.getCode();
 			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
-			logger.error("< ServeQueueController.cancelhold() > 取号预约失败."
-					+ e.getMessage());
+//			logger.error("< ServeQueueController.cancelhold() > 取号预约失败."
+//					+ e.getMessage());
 		}
 
 		// 返回结果
 		try {
 			return JsonConverter.getResultSignal(code, msg);
 		} catch (Exception e) {
-			logger.error("< ServeQueueController.startOrder() > 取号预约返回出错."
-					+ e.getMessage());
+//			logger.error("< ServeQueueController.startOrder() > 取号预约返回出错."
+//					+ e.getMessage());
 			throw e;
 		}
 	}
@@ -615,16 +620,16 @@ public class ServeQueueController {
 			if (StringUtil.isNull(jsonStr) || serveQueue == null) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
-				logger.error("< ServeQueueController.cancel() > 订单信息为空或没有权限。"
-						+ jsonStr);
+//				logger.error("< ServeQueueController.cancel() > 订单信息为空或没有权限。"
+//						+ jsonStr);
 			} else if (null == session || null == loginUser || null == loginUser.getUserName()){
 				code = BusinessCenterResCode.SYS_INVILID_REQ.getCode();
 				msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
-				logger.error("< ServeQueueController.cancel() > session is null。");
+//				logger.error("< ServeQueueController.cancel() > session is null。");
 			} else if (null == loginUser.getGroupName() && loginUser.getGroupName()!= BusinessCenterUserGroup.SYS_ADMIN.getGroupName()){
 				code = BusinessCenterResCode.SYS_NO_ADMIN.getCode();
 				msg = BusinessCenterResCode.SYS_NO_ADMIN.getMsg();
-				logger.error("< ServeQueueController.cancel() > you are not role。");
+//				logger.error("< ServeQueueController.cancel() > you are not role。");
 			}else{
 			
 				serveQueue = serveQueueService.getServeQueueById(serveQueue.getId());
@@ -657,16 +662,16 @@ public class ServeQueueController {
 			System.out.println(e.getStackTrace());
 			code = BusinessCenterResCode.SYS_ERROR.getCode();
 			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
-			logger.error("< ServeQueueController.cancel() > 取号预约失败."
-					+ e.getMessage());
+//			logger.error("< ServeQueueController.cancel() > 取号预约失败."
+//					+ e.getMessage());
 		}
 
 		// 返回结果
 		try {
 			return JsonConverter.getResultSignal(code, msg);
 		} catch (Exception e) {
-			logger.error("< ServeQueueController.cancel() > 取号预约返回出错."
-					+ e.getMessage());
+//			logger.error("< ServeQueueController.cancel() > 取号预约返回出错."
+//					+ e.getMessage());
 			throw e;
 		}
 	}
@@ -687,20 +692,20 @@ public class ServeQueueController {
 			UserProfile logUser = (UserProfile) session
 					.getAttribute(PlatfromConstants.STR_USER_PROFILE);
 			
-			ServeQueue serveQueue = JsonConverter.getFromJsonString(jsonStr,
+			ServeQueue serveQueueObject = JsonConverter.getFromJsonString(jsonStr,
 					ServeQueue.class);
 
-			if (StringUtil.isNull(jsonStr) || serveQueue == null ) {
+			if (StringUtil.isNull(jsonStr) || serveQueueObject == null ) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
-				logger.error("< ServeQueueController.sendWorkShop() > 发送车间信息为空或没有权限。"
-						+ jsonStr);
+//				logger.error("< ServeQueueController.sendWorkShop() > 发送车间信息为空或没有权限。"
+//						+ jsonStr);
 			} else if (null == session || null == logUser || null == logUser.getUserName()){
 				code = BusinessCenterResCode.SYS_INVILID_REQ.getCode();
 				msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
-				logger.error("< ServeQueueController.sendWorkShop() > session is null。");
+//				logger.error("< ServeQueueController.sendWorkShop() > session is null。");
 			} else{
-				serveQueue = serveQueueService.getServeQueueById(serveQueue.getId());
+				ServeQueue serveQueue = serveQueueService.getServeQueueById(serveQueueObject.getId());
 				Order order = orderService.queryOrderById(serveQueue.getOrderId());
 				order.setStatus(BusinessCenterOrderStatus.ORDER_STATUS_MODIFY.getId());
 				orderService.updateOrder(order);              //修改订单状态
@@ -719,9 +724,15 @@ public class ServeQueueController {
 				serveQueueService.updateServeQueue(serveQueue);   //添加ServeQueue订单
 				
 				ModifyQueue modifyQueue = new ModifyQueue();
+				
+				GregorianCalendar gc = new GregorianCalendar();
+				gc.set(gc.YEAR, gc.MONTH, gc.DAY_OF_MONTH, serveQueueObject.getHour(), serveQueueObject.getMinute());
+				
+				modifyQueue.setAssignTime(gc.getTime());
 				modifyQueue.setStep(BusinessCenterModifyQueueStatus.MODIFYQUEUE_STATUS_MODIFYING.getId());
 				modifyQueue.setOrderId(serveQueue.getOrderId());
 				modifyQueue.setUserId(logUser.getId());
+				modifyQueue.setJobType(serveQueue.getJobType());
 				
 				modifyQueueService.addModifyQueue(modifyQueue);
 			}
@@ -735,16 +746,16 @@ public class ServeQueueController {
 			System.out.println(e.getStackTrace());
 			code = BusinessCenterResCode.SYS_ERROR.getCode();
 			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
-			logger.error("< OrderController.sendWorkShop() > 发送车间失败."
-					+ e.getMessage());
+//			logger.error("< OrderController.sendWorkShop() > 发送车间失败."
+//					+ e.getMessage());
 		}
 
 		// 返回结果
 		try {
 			return JsonConverter.getResultSignal(code, msg);
 		} catch (Exception e) {
-			logger.error("< OrderController.sendWorkShop() > 发送车间返回出错."
-					+ e.getMessage());
+//			logger.error("< OrderController.sendWorkShop() > 发送车间返回出错."
+//					+ e.getMessage());
 			throw e;
 		}
 	}

@@ -30,7 +30,7 @@ public class UserWorkloadServiceImpl implements UserWorkloadService {
 	private UserWorkloadDao userWorkloadDao;
 
 	/** 日志 */
-	private Logger logger = LoggerFactory.getLogger(UserController.class);
+//	private Logger logger = LoggerFactory.getLogger(UserController.class);
 
 	public List<UserWorkload> queryByUserWorkloadUserid(Integer userId)
 			throws BusinessServiceException {

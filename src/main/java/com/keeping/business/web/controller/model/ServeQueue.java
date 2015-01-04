@@ -10,6 +10,12 @@ public class ServeQueue extends BaseQueue{
     private Timestamp modifyTime;
     
     private Integer delayTime;
+    
+    private Integer hour;
+    
+    private Integer minute;
+    
+    private String jobType;
 
 	public Timestamp getModifyTime() {
 		return modifyTime;
@@ -33,6 +39,30 @@ public class ServeQueue extends BaseQueue{
 
 	public void setDelayTime(Integer delayTime) {
 		this.delayTime = delayTime;
+	}
+
+	public Integer getHour() {
+		return hour;
+	}
+
+	public void setHour(Integer hour) {
+		this.hour = hour;
+	}
+
+	public Integer getMinute() {
+		return minute;
+	}
+
+	public void setMinute(Integer minute) {
+		this.minute = minute;
+	}
+
+	public String getJobType() {
+		return jobType;
+	}
+
+	public void setJobType(String jobType) {
+		this.jobType = jobType;
 	}
     
     

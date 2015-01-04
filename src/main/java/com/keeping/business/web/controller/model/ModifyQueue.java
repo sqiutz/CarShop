@@ -1,5 +1,7 @@
 package com.keeping.business.web.controller.model;
 
+import java.util.Date;
+
 
 public class ModifyQueue extends BaseQueue{
 
@@ -10,6 +12,8 @@ public class ModifyQueue extends BaseQueue{
 	private Integer isSubContract;
 	
 	private String technician;
+	
+	private Date assignTime;
 
 	public String getJobType() {
 		return jobType;
@@ -41,6 +45,14 @@ public class ModifyQueue extends BaseQueue{
 
 	public void setTechnician(String technician) {
 		this.technician = technician;
+	}
+
+	public Date getAssignTime() {
+		return assignTime;
+	}
+
+	public void setAssignTime(Date assignTime) {
+		this.assignTime = assignTime;
 	}
     
 }

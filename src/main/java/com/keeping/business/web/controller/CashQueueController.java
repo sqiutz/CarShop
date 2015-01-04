@@ -48,7 +48,7 @@ import com.keeping.business.web.controller.model.WebResultObject;
 public class CashQueueController {
 
 	/** 日志 */
-	private Logger logger = LoggerFactory.getLogger(UserController.class);
+//	private Logger logger = LoggerFactory.getLogger(UserController.class);
 
 	/** 用户信息Service */
 	@Resource
@@ -76,7 +76,7 @@ public class CashQueueController {
 			if (null == step || step.getStep() == null) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
-				logger.error("< CashQueueController.getCashQueue() > 获取维修订单请求信息不正确: " + step.getStep());
+//				logger.error("< CashQueueController.getCashQueue() > 获取维修订单请求信息不正确: " + step.getStep());
 			} else {
 				
 				cashQueues = cashQueueService.getCashQueueByStep(Integer.parseInt(step.getStep()));
@@ -108,8 +108,7 @@ public class CashQueueController {
 			System.out.println(e.getStackTrace());
 			code = BusinessCenterResCode.SYS_ERROR.getCode();
 			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
-			logger.error("< CashQueueController.getCashQueue() > 获取维修列表失败."
-					+ e.getMessage());
+//			logger.error("< CashQueueController.getCashQueue() > 获取维修列表失败." + e.getMessage());
 		}
 		
 		return JsonConverter.getResultObject(code, msg, cashQueues);
@@ -132,7 +131,7 @@ public class CashQueueController {
 			if (null == idObject || idObject.getId() == null) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
-				logger.error("< CashQueueController.getCashQueue() > 获取维修订单请求信息不正确: " + idObject.getId());
+//				logger.error("< CashQueueController.getCashQueue() > 获取维修订单请求信息不正确: " + idObject.getId());
 			} else {
 				
 				cashQueue = cashQueueService.getCashQueueById(idObject.getId());
@@ -161,8 +160,7 @@ public class CashQueueController {
 			System.out.println(e.getStackTrace());
 			code = BusinessCenterResCode.SYS_ERROR.getCode();
 			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
-			logger.error("< CashQueueController.getCashQueue() > 获取维修列表失败."
-					+ e.getMessage());
+//			logger.error("< CashQueueController.getCashQueue() > 获取维修列表失败." + e.getMessage());
 		}
 		
 		return JsonConverter.getResultObject(code, msg, cashQueue);
@@ -185,8 +183,7 @@ public class CashQueueController {
 			if (StringUtil.isNull(jsonStr) || cashQueue == null) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
-				logger.error("< CashQueueController.start() > 订单维修订单信息为空或没有权限。"
-						+ jsonStr);
+//				logger.error("< CashQueueController.start() > 订单维修订单信息为空或没有权限。" + jsonStr);
 			} else{
 				
 				cashQueue = cashQueueService.getCashQueueById(cashQueue.getId());
@@ -209,16 +206,14 @@ public class CashQueueController {
 			System.out.println(e.getStackTrace());
 			code = BusinessCenterResCode.SYS_ERROR.getCode();
 			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
-			logger.error("< CashQueueController.start() > 挂起任务失败."
-					+ e.getMessage());
+//			logger.error("< CashQueueController.start() > 挂起任务失败." + e.getMessage());
 		}
 
 		// 返回结果
 		try {
 			return JsonConverter.getResultSignal(code, msg);
 		} catch (Exception e) {
-			logger.error("< CashQueueController.start() > 挂起任务返回出错."
-					+ e.getMessage());
+//			logger.error("< CashQueueController.start() > 挂起任务返回出错." + e.getMessage());
 			throw e;
 		}
 	}
@@ -240,8 +235,7 @@ public class CashQueueController {
 			if (StringUtil.isNull(jsonStr) || cashQueue == null) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
-				logger.error("< CashQueueController.cancel() > 订单维修订单信息为空或没有权限。"
-						+ jsonStr);
+//				logger.error("< CashQueueController.cancel() > 订单维修订单信息为空或没有权限。" + jsonStr);
 			} else{
 				
 				cashQueue = cashQueueService.getCashQueueById(cashQueue.getId());
@@ -264,16 +258,14 @@ public class CashQueueController {
 			System.out.println(e.getStackTrace());
 			code = BusinessCenterResCode.SYS_ERROR.getCode();
 			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
-			logger.error("< CashQueueController.cancel() > 挂起任务失败."
-					+ e.getMessage());
+//			logger.error("< CashQueueController.cancel() > 挂起任务失败." + e.getMessage());
 		}
 
 		// 返回结果
 		try {
 			return JsonConverter.getResultSignal(code, msg);
 		} catch (Exception e) {
-			logger.error("< CashQueueController.cancel() > 挂起任务返回出错."
-					+ e.getMessage());
+//			logger.error("< CashQueueController.cancel() > 挂起任务返回出错." + e.getMessage());
 			throw e;
 		}
 	}
@@ -295,8 +287,7 @@ public class CashQueueController {
 			if (StringUtil.isNull(jsonStr) || cashQueue == null ) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
-				logger.error("< CashQueueController.finish() > 维修订单信息为空或没有权限。"
-						+ jsonStr);
+//				logger.error("< CashQueueController.finish() > 维修订单信息为空或没有权限。" + jsonStr);
 			}else{
 				cashQueue = cashQueueService.getCashQueueById(cashQueue.getId());
 				Order order = orderService.queryOrderById(cashQueue.getOrderId());
@@ -322,16 +313,14 @@ public class CashQueueController {
 			System.out.println(e.getStackTrace());
 			code = BusinessCenterResCode.SYS_ERROR.getCode();
 			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
-			logger.error("< CashQueueController.finish() > 维修订单发送清洗车间失败."
-					+ e.getMessage());
+//			logger.error("< CashQueueController.finish() > 维修订单发送清洗车间失败." + e.getMessage());
 		}
 
 		// 返回结果
 		try {
 			return JsonConverter.getResultSignal(code, msg);
 		} catch (Exception e) {
-			logger.error("< CashQueueController.finish() > 发送清洗车间返回出错."
-					+ e.getMessage());
+//			logger.error("< CashQueueController.finish() > 发送清洗车间返回出错." + e.getMessage());
 			throw e;
 		}
 	}

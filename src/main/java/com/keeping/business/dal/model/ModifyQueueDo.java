@@ -26,6 +26,8 @@ public class ModifyQueueDo {
     
     private String technician;
     
+    private Timestamp assignTime;
+    
 	public Integer getStep() {
 		return step;
 	}
@@ -112,6 +114,14 @@ public class ModifyQueueDo {
 
 	public void setTechnician(String technician) {
 		this.technician = technician;
+	}
+
+	public Timestamp getAssignTime() {
+		return assignTime;
+	}
+
+	public void setAssignTime(Timestamp assignTime) {
+		this.assignTime = assignTime;
 	}
 
 }

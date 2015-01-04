@@ -37,7 +37,7 @@ import com.keeping.business.web.controller.model.WebResultObject;
 public class UserController {
 
 	/** 日志 */
-	private Logger logger = LoggerFactory.getLogger(UserController.class);
+//	private Logger logger = LoggerFactory.getLogger(UserController.class);
 
 	/** 用户信息Service */
 	@Resource
@@ -66,7 +66,7 @@ public class UserController {
 			if (StringUtil.isNull(jsonStr) || req == null) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
-				logger.error("< UserController.login() > 登录请求信息不正确." + jsonStr);
+//				logger.error("< UserController.login() > 登录请求信息不正确." + jsonStr);
 			} else {
 				userProfile = WebUserConverter.getUserProfile(userService
 						.login(req.getUsername(), req.getPasswd()));
@@ -86,7 +86,7 @@ public class UserController {
 		} catch (Exception e) {
 			code = BusinessCenterResCode.SYS_ERROR.getCode();
 			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
-			logger.error("< UserController.login() > 登录错误." + e.getMessage());
+//			logger.error("< UserController.login() > 登录错误." + e.getMessage());
 		}
 
 		// 返回结果
@@ -95,7 +95,7 @@ public class UserController {
 		} catch (Exception e) {
 			session.removeAttribute(PlatfromConstants.STR_USER_PROFILE);
 			session.invalidate();
-			logger.error("< UserController.login() > 登录返回出错." + e.getMessage());
+//			logger.error("< UserController.login() > 登录返回出错." + e.getMessage());
 			throw e;
 		}
 
@@ -128,7 +128,7 @@ public class UserController {
 		} catch (Exception e) {
 			code = BusinessCenterResCode.SYS_ERROR.getCode();
 			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
-			logger.error("< UserController.login() > 登录错误." + e.getMessage());
+//			logger.error("< UserController.login() > 登录错误." + e.getMessage());
 		}
 
 		// 返回结果
@@ -137,7 +137,7 @@ public class UserController {
 		} catch (Exception e) {
 			session.removeAttribute(PlatfromConstants.STR_USER_PROFILE);
 			session.invalidate();
-			logger.error("< UserController.login() > 登录返回出错." + e.getMessage());
+//			logger.error("< UserController.login() > 登录返回出错." + e.getMessage());
 			throw e;
 		}
 
@@ -163,14 +163,14 @@ public class UserController {
 		catch (Exception e) {
 			code = BusinessCenterResCode.SYS_ERROR.getCode();
 			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
-			logger.error("< UserController.checkLogin() > 获取登录信息错误." + e.getMessage());
+//			logger.error("< UserController.checkLogin() > 获取登录信息错误." + e.getMessage());
 		}
 		
 		try {
 			return JsonConverter.getResultObject(code, msg, userProfile);
 		}
 		catch (Exception e) {
-			logger.error("< UserController.checkLogin() > 登录信息返回出错." + e.getMessage());
+//			logger.error("< UserController.checkLogin() > 登录信息返回出错." + e.getMessage());
 			throw e;
 		}
 	}
@@ -194,13 +194,13 @@ public class UserController {
 			if (counter == null ) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
-				logger.error("< UserController.checkCounter() > 信息为空或没有权限."
-						+ counter);
+//				logger.error("< UserController.checkCounter() > 信息为空或没有权限."
+//						+ counter);
 			} 
 			else if (null == session || null == logUser || null == logUser.getUserName()){
 				code = BusinessCenterResCode.SYS_INVILID_REQ.getCode();
 				msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
-				logger.error("< UserController.checkCounter() > session is null." + counter.getCounter());
+//				logger.error("< UserController.checkCounter() > session is null." + counter.getCounter());
 			}else{
 				// 检查用户名是否已经存在
 				user = userService.queryUserByCounter(counter.getCounter());
@@ -215,14 +215,14 @@ public class UserController {
 		catch (Exception e) {
 			code = BusinessCenterResCode.SYS_ERROR.getCode();
 			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
-			logger.error("< UserController.checkCounter() > 获取登录信息错误." + e.getMessage());
+//			logger.error("< UserController.checkCounter() > 获取登录信息错误." + e.getMessage());
 		}
 		
 		try {
 			return JsonConverter.getResultObject(code, msg, user);
 		}
 		catch (Exception e) {
-			logger.error("< UserController.checkCounter() > 登录信息返回出错." + e.getMessage());
+//			logger.error("< UserController.checkCounter() > 登录信息返回出错." + e.getMessage());
 			throw e;
 		}
 	}
@@ -252,16 +252,16 @@ public class UserController {
 		} catch (Exception e) {
 			code = BusinessCenterResCode.SYS_ERROR.getCode();
 			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
-			logger.error("< UserController.getAllUsers() > 获取用户列表失败."
-					+ e.getMessage());
+//			logger.error("< UserController.getAllUsers() > 获取用户列表失败."
+//					+ e.getMessage());
 		}
 
 		// 返回结果
 		try {
 			return JsonConverter.getResultObject(code, msg, userProfileList);
 		} catch (Exception e) {
-			logger.error("< UserController.getAllUsers() > 获取用户列表返回出错."
-					+ e.getMessage());
+//			logger.error("< UserController.getAllUsers() > 获取用户列表返回出错."
+//					+ e.getMessage());
 			throw e;
 		}
 	}
@@ -291,18 +291,18 @@ public class UserController {
 			if (StringUtil.isNull(jsonStr) || regUser == null ) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
-				logger.error("< UserController.addUser() > 注册用户信息为空或没有权限."
-						+ jsonStr);
+//				logger.error("< UserController.addUser() > 注册用户信息为空或没有权限."
+//						+ jsonStr);
 			} 
 			else if (null == session || null == admin || null == admin.getUserName()){
 				code = BusinessCenterResCode.SYS_INVILID_REQ.getCode();
 				msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
-				logger.error("< UserController.addUser() > session is null." + jsonStr);
+//				logger.error("< UserController.addUser() > session is null." + jsonStr);
 			} 
 			else if (admin.getIsAdmin() == 0){
 				code = BusinessCenterResCode.SYS_NO_ADMIN.getCode();
 				msg = BusinessCenterResCode.SYS_NO_ADMIN.getMsg();
-				logger.error("< UserController.addUser() > you are not admin." + jsonStr);
+//				logger.error("< UserController.addUser() > you are not admin." + jsonStr);
 			}
 			else{
 				regUser.setIsAdmin(0);
@@ -325,7 +325,7 @@ public class UserController {
 		} catch (Exception e) {
 			code = BusinessCenterResCode.SYS_ERROR.getCode();
 			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
-			logger.error("< UserController.login() > 添加用户错误" + e.getMessage());
+//			logger.error("< UserController.login() > 添加用户错误" + e.getMessage());
 		}
 
 		// 返回结果
@@ -334,8 +334,8 @@ public class UserController {
 		} catch (Exception e) {
 			session.removeAttribute(PlatfromConstants.STR_USER_PROFILE);
 			session.invalidate();
-			logger.error("< UserController.addUser() > 添加用户返回出错."
-					+ e.getMessage());
+//			logger.error("< UserController.addUser() > 添加用户返回出错."
+//					+ e.getMessage());
 			throw e;
 		}
 	}
@@ -364,18 +364,18 @@ public class UserController {
 			if (StringUtil.isNull(jsonStr) || regUser == null ) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
-				logger.error("< UserController.deleteUser() > 注册用户信息为空或没有权限."
-						+ jsonStr);
+//				logger.error("< UserController.deleteUser() > 注册用户信息为空或没有权限."
+//						+ jsonStr);
 			} 
 			else if (null == session || null == admin || null == admin.getUserName()){
 				code = BusinessCenterResCode.SYS_INVILID_REQ.getCode();
 				msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
-				logger.error("< UserController.deleteUser() > session is null." + jsonStr);
+//				logger.error("< UserController.deleteUser() > session is null." + jsonStr);
 			} 
 			else if (admin.getIsAdmin() == 0){
 				code = BusinessCenterResCode.SYS_NO_ADMIN.getCode();
 				msg = BusinessCenterResCode.SYS_NO_ADMIN.getMsg();
-				logger.error("< UserController.deleteUser() > you are not admin." + jsonStr);
+//				logger.error("< UserController.deleteUser() > you are not admin." + jsonStr);
 			}
 			else{
 
@@ -396,7 +396,7 @@ public class UserController {
 		} catch (Exception e) {
 			code = BusinessCenterResCode.SYS_ERROR.getCode();
 			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
-			logger.error("< UserController.deleteUser() > 删除用户错误" + e.getMessage());
+//			logger.error("< UserController.deleteUser() > 删除用户错误" + e.getMessage());
 		}
 
 		// 返回结果
@@ -405,8 +405,8 @@ public class UserController {
 		} catch (Exception e) {
 			session.removeAttribute(PlatfromConstants.STR_USER_PROFILE);
 			session.invalidate();
-			logger.error("< UserController.deleteUser() > 删除用户返回出错."
-					+ e.getMessage());
+//			logger.error("< UserController.deleteUser() > 删除用户返回出错."
+//					+ e.getMessage());
 			throw e;
 		}
 	}
@@ -437,12 +437,12 @@ public class UserController {
 			if (StringUtil.isNull(jsonStr) || regUser == null ) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
-				logger.error("< UserController.modifyUser() > 修改用户信息为空或没有权限."
-						+ jsonStr);
+//				logger.error("< UserController.modifyUser() > 修改用户信息为空或没有权限."
+//						+ jsonStr);
 			} else if (null == session || null == admin || null == admin.getUserName()){
 				code = BusinessCenterResCode.SYS_INVILID_REQ.getCode();
 				msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
-				logger.error("< UserController.modifyUser() > session is null." + jsonStr);
+//				logger.error("< UserController.modifyUser() > session is null." + jsonStr);
 			} else{
 		
 				String counter = regUser.getCounter();
@@ -465,7 +465,7 @@ public class UserController {
 		} catch (Exception e) {
 			code = BusinessCenterResCode.SYS_ERROR.getCode();
 			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
-			logger.error("< UserController.modifyUser() > 修改用户错误." + e.getMessage());
+//			logger.error("< UserController.modifyUser() > 修改用户错误." + e.getMessage());
 		}
 
 		// 返回结果
@@ -474,8 +474,8 @@ public class UserController {
 		} catch (Exception e) {
 			session.removeAttribute(PlatfromConstants.STR_USER_PROFILE);
 			session.invalidate();
-			logger.error("< UserController.addUser() > 修改用户返回出错."
-					+ e.getMessage());
+//			logger.error("< UserController.addUser() > 修改用户返回出错."
+//					+ e.getMessage());
 			throw e;
 		}
 	}
@@ -506,12 +506,12 @@ public class UserController {
 			if (StringUtil.isNull(jsonStr) || regUser == null ) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
-				logger.error("< UserController.modifyUser() > 修改用户信息为空或没有权限."
-						+ jsonStr);
+//				logger.error("< UserController.modifyUser() > 修改用户信息为空或没有权限."
+//						+ jsonStr);
 			} else if (null == session || null == admin || null == admin.getUserName()){
 				code = BusinessCenterResCode.SYS_INVILID_REQ.getCode();
 				msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
-				logger.error("< UserController.modifyUser() > session is null." + jsonStr);
+//				logger.error("< UserController.modifyUser() > session is null." + jsonStr);
 			} else{
 		
 				User existUser = userService.getByUserId(regUser.getId());
@@ -528,7 +528,7 @@ public class UserController {
 		} catch (Exception e) {
 			code = BusinessCenterResCode.SYS_ERROR.getCode();
 			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
-			logger.error("< UserController.modifyUser() > 修改用户错误." + e.getMessage());
+//			logger.error("< UserController.modifyUser() > 修改用户错误." + e.getMessage());
 		}
 
 		// 返回结果
@@ -537,8 +537,8 @@ public class UserController {
 		} catch (Exception e) {
 			session.removeAttribute(PlatfromConstants.STR_USER_PROFILE);
 			session.invalidate();
-			logger.error("< UserController.addUser() > 修改用户返回出错."
-					+ e.getMessage());
+//			logger.error("< UserController.addUser() > 修改用户返回出错."
+//					+ e.getMessage());
 			throw e;
 		}
 	}
@@ -564,16 +564,16 @@ public class UserController {
 		} catch (Exception e) {
 			code = BusinessCenterResCode.SYS_ERROR.getCode();
 			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
-			logger.error("< UserController.getAllGroup() > 获取用户组列表失败."
-					+ e.getMessage());
+//			logger.error("< UserController.getAllGroup() > 获取用户组列表失败."
+//					+ e.getMessage());
 		}
 
 		// 返回结果
 		try {
 			return JsonConverter.getResultObject(code, msg, groupList);
 		} catch (Exception e) {
-			logger.error("< UserController.getAllGroup() > 获取用户组列表返回出错."
-					+ e.getMessage());
+//			logger.error("< UserController.getAllGroup() > 获取用户组列表返回出错."
+//					+ e.getMessage());
 			throw e;
 		}
 	}
@@ -599,16 +599,16 @@ public class UserController {
 			if (StringUtil.isNull(jsonStr) || userGroup == null ) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
-				logger.error("< UserController.addGroup() > parameter is null."
-						+ jsonStr);
+//				logger.error("< UserController.addGroup() > parameter is null."
+//						+ jsonStr);
 			} else if (null == session || null == admin || null == admin.getUserName()){
 				code = BusinessCenterResCode.SYS_INVILID_REQ.getCode();
 				msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
-				logger.error("< UserController.addGroup() > session is null." + jsonStr);
+//				logger.error("< UserController.addGroup() > session is null." + jsonStr);
 			} else if (admin.getIsAdmin() == 0){
 				code = BusinessCenterResCode.SYS_NO_ADMIN.getCode();
 				msg = BusinessCenterResCode.SYS_NO_ADMIN.getMsg();
-				logger.error("< UserController.addGroup() > you are not admin." + jsonStr);
+//				logger.error("< UserController.addGroup() > you are not admin." + jsonStr);
 			}else{
 				// 注册
 				userGroupService.addGroup(userGroup);
@@ -619,16 +619,16 @@ public class UserController {
 		} catch (Exception e) {
 			code = BusinessCenterResCode.SYS_ERROR.getCode();
 			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
-			logger.error("< UserController.addGroup() > 获取用户组列表失败."
-					+ e.getMessage());
+//			logger.error("< UserController.addGroup() > 获取用户组列表失败."
+//					+ e.getMessage());
 		}
 
 		// 返回结果
 		try {
 			return JsonConverter.getResultSignal(code, msg);
 		} catch (Exception e) {
-			logger.error("< UserController.addGroup() > 获取用户组列表返回出错."
-					+ e.getMessage());
+//			logger.error("< UserController.addGroup() > 获取用户组列表返回出错."
+//					+ e.getMessage());
 			throw e;
 		}
 	}
@@ -650,16 +650,16 @@ public class UserController {
 			if (id == null) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
-				logger.error("< UserController.deleteGroup() > parameter is null。"
-						+ id);
+//				logger.error("< UserController.deleteGroup() > parameter is null。"
+//						+ id);
 			} else if (null == session || null == admin || null == admin.getUserName()){
 				code = BusinessCenterResCode.SYS_INVILID_REQ.getCode();
 				msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
-				logger.error("< UserController.deleteGroup() > session is null");
+//				logger.error("< UserController.deleteGroup() > session is null");
 			} else if (admin.getIsAdmin() == 0){
 				code = BusinessCenterResCode.SYS_NO_ADMIN.getCode();
 				msg = BusinessCenterResCode.SYS_NO_ADMIN.getMsg();
-				logger.error("< UserController.deleteGroup() > you are not admin");
+//				logger.error("< UserController.deleteGroup() > you are not admin");
 			}else{
 				// 注册
 				userGroupService.deleteGroup(id);
@@ -670,16 +670,16 @@ public class UserController {
 		} catch (Exception e) {
 			code = BusinessCenterResCode.SYS_ERROR.getCode();
 			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
-			logger.error("< UserController.deleteGroup() > fail to delete user group."
-					+ e.getMessage());
+//			logger.error("< UserController.deleteGroup() > fail to delete user group."
+//					+ e.getMessage());
 		}
 
 		// 返回结果
 		try {
 			return JsonConverter.getResultSignal(code, msg);
 		} catch (Exception e) {
-			logger.error("< UserController.deleteGroup() > fail to delete user group."
-					+ e.getMessage());
+//			logger.error("< UserController.deleteGroup() > fail to delete user group."
+//					+ e.getMessage());
 			throw e;
 		}
 	}

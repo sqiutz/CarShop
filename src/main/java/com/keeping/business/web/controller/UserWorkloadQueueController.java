@@ -52,7 +52,7 @@ import com.keeping.business.web.controller.model.WebResultObject;
 public class UserWorkloadQueueController {
 
 	/** 日志 */
-	private Logger logger = LoggerFactory.getLogger(UserController.class);
+//	private Logger logger = LoggerFactory.getLogger(UserController.class);
 
 	/** 用户信息Service */
 	@Resource
@@ -91,7 +91,7 @@ public class UserWorkloadQueueController {
 				System.out.println(date.getToday().toString());
 				//code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				//msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
-				logger.error("< UserWorkloadQueueController.getAllUserWorkloads() > 获取服务订单列表请求信息不正确: " + date);
+//				logger.error("< UserWorkloadQueueController.getAllUserWorkloads() > 获取服务订单列表请求信息不正确: " + date);
 			} else {
 				userIds = userWorkloadService.queryAllUsers(date.getToday());
 				
@@ -116,8 +116,8 @@ public class UserWorkloadQueueController {
 			System.out.println(e.getStackTrace());
 			code = BusinessCenterResCode.SYS_ERROR.getCode();
 			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
-			logger.error("< UserWorkloadQueueController.getAllUserWorkloads() > 获取排队列表失败."
-					+ e.getMessage());
+//			logger.error("< UserWorkloadQueueController.getAllUserWorkloads() > 获取排队列表失败."
+//					+ e.getMessage());
 		}
 
 		return JsonConverter.getResultObject(code, msg, userWorkloadLists);

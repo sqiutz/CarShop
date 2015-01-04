@@ -18,7 +18,7 @@ import com.keeping.business.web.controller.model.User;
 public class UserServiceImpl implements UserService{
 	
 	/**日志 */
-	private Logger logger = LoggerFactory.getLogger(UserController.class);
+//	private Logger logger = LoggerFactory.getLogger(UserController.class);
 	
 	/**用户信息DAO */
     private UserDao userDao;
@@ -41,18 +41,18 @@ public class UserServiceImpl implements UserService{
 	public User login(String username, String passwd) throws BusinessServiceException {
 		UserDo userDo = userDao.queryByUsername(username);
 		if (userDo == null) {
-    		logger.error("用户名或者密码错误！" + BusinessCenterResCode.LOGIN_USER_NOT_EXIST.getMsg());
+//    		logger.error("用户名或者密码错误！" + BusinessCenterResCode.LOGIN_USER_NOT_EXIST.getMsg());
     		throw new BusinessServiceException(BusinessCenterResCode.LOGIN_USER_NOT_EXIST.getCode(),
     				BusinessCenterResCode.LOGIN_USER_NOT_EXIST.getMsg());
 		}
 		if ((userDo.getIsValid() == 0)) {
-    		logger.error("用户名或者密码错误！" + BusinessCenterResCode.LOGIN_USER_NOT_ALIVE.getMsg());
+//    		logger.error("用户名或者密码错误！" + BusinessCenterResCode.LOGIN_USER_NOT_ALIVE.getMsg());
     		throw new BusinessServiceException(BusinessCenterResCode.LOGIN_USER_NOT_ALIVE.getCode(),
     				BusinessCenterResCode.LOGIN_USER_NOT_ALIVE.getMsg());
 		}
     	if (!userDo.getPasswd().equals(passwd)) {//failure
     		System.out.println(passwd);
-    		logger.error("用户名或者密码错误！" + BusinessCenterResCode.LOGIN_PASSWORD_NOT_RIGHT.getMsg());
+//    		logger.error("用户名或者密码错误！" + BusinessCenterResCode.LOGIN_PASSWORD_NOT_RIGHT.getMsg());
     		throw new BusinessServiceException(BusinessCenterResCode.LOGIN_PASSWORD_NOT_RIGHT.getCode(),
     				BusinessCenterResCode.LOGIN_PASSWORD_NOT_RIGHT.getMsg());
     	}    	

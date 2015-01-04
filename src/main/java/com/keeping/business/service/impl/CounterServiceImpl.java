@@ -23,7 +23,7 @@ import com.keeping.business.web.controller.model.User;
 public class CounterServiceImpl implements CounterService{
 	
 	/**日志 */
-	private Logger logger = LoggerFactory.getLogger(UserController.class);
+//	private Logger logger = LoggerFactory.getLogger(UserController.class);
 	
 	/**用户信息DAO */
     private CounterDao counterDao;

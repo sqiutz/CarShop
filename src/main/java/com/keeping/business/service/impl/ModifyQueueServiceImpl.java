@@ -17,7 +17,7 @@ import com.keeping.business.web.controller.model.ModifyQueue;
 public class ModifyQueueServiceImpl implements ModifyQueueService{
 
 	/**日志 */
-	private Logger logger = LoggerFactory.getLogger(UserController.class);
+//	private Logger logger = LoggerFactory.getLogger(UserController.class);
 	
 	/**服务列表DAO */
 	private ModifyQueueDao modifyQueueDao;

@@ -28,7 +28,7 @@ import com.keeping.business.web.controller.model.WebResultObject;
 public class PropertyController {
 
 	/** 日志 */
-	private Logger logger = LoggerFactory.getLogger(PropertyController.class);
+//	private Logger logger = LoggerFactory.getLogger(PropertyController.class);
 
 	/** 用户信息Service */
 	@Resource
@@ -54,8 +54,8 @@ public class PropertyController {
 			if (propertyReq == null || propertyReq.getName() == null) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
-				logger.error("< PropertyController.getProperty() > 获取属性信息为空或没有权限."
-						+ jsonStr);
+//				logger.error("< PropertyController.getProperty() > 获取属性信息为空或没有权限."
+//						+ jsonStr);
 			}else{
 				System.out.println("enter service");
 				property = propertyService.queryByKey(propertyReq.getName());
@@ -70,8 +70,8 @@ public class PropertyController {
 			System.out.println(e.getStackTrace());
 			code = BusinessCenterResCode.SYS_ERROR.getCode();
 			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
-			logger.error("< PropertyController.getProperty() >  获取属性信息失败."
-					+ e.getMessage());
+//			logger.error("< PropertyController.getProperty() >  获取属性信息失败."
+//					+ e.getMessage());
 		}
 
 		// 返回结果
@@ -80,8 +80,8 @@ public class PropertyController {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			System.out.println(e.getStackTrace());
-			logger.error("< PropertyController.getProperty() > 获取属性信息返回出错."
-					+ e.getMessage());
+//			logger.error("< PropertyController.getProperty() > 获取属性信息返回出错."
+//					+ e.getMessage());
 			throw e;
 		}
 	}
@@ -111,18 +111,18 @@ public class PropertyController {
 			if (StringUtil.isNull(jsonStr) || addProperty == null ) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
-				logger.error("< PropertyController.addProperty() > 属性信息为空或没有权限."
-						+ jsonStr);
+//				logger.error("< PropertyController.addProperty() > 属性信息为空或没有权限."
+//						+ jsonStr);
 			} 
 			else if (null == session || null == admin || null == admin.getUserName()){
 				code = BusinessCenterResCode.SYS_INVILID_REQ.getCode();
 				msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
-				logger.error("< PropertyController.addProperty() > session is null." + jsonStr);
+//				logger.error("< PropertyController.addProperty() > session is null." + jsonStr);
 			} 
 			else if (admin.getIsAdmin() == 0){
 				code = BusinessCenterResCode.SYS_NO_ADMIN.getCode();
 				msg = BusinessCenterResCode.SYS_NO_ADMIN.getMsg();
-				logger.error("< PropertyController.addProperty() > you are not admin." + jsonStr);
+//				logger.error("< PropertyController.addProperty() > you are not admin." + jsonStr);
 			}
 			else{
 				// 检查用户名是否已经存在
@@ -142,7 +142,7 @@ public class PropertyController {
 		} catch (Exception e) {
 			code = BusinessCenterResCode.SYS_ERROR.getCode();
 			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
-			logger.error("< UserController.login() > 添加用户错误" + e.getMessage());
+//			logger.error("< UserController.login() > 添加用户错误" + e.getMessage());
 		}
 
 		// 返回结果
@@ -151,8 +151,8 @@ public class PropertyController {
 		} catch (Exception e) {
 			session.removeAttribute(PlatfromConstants.STR_USER_PROFILE);
 			session.invalidate();
-			logger.error("< UserController.addUser() > 添加用户返回出错."
-					+ e.getMessage());
+//			logger.error("< UserController.addUser() > 添加用户返回出错."
+//					+ e.getMessage());
 			throw e;
 		}
 	}
@@ -182,16 +182,16 @@ public class PropertyController {
 			if (StringUtil.isNull(jsonStr) || modifyProperty == null ) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
-				logger.error("< PropertyController.modifyProperty() > 修改属性为空或没有权限."
-						+ jsonStr);
+//				logger.error("< PropertyController.modifyProperty() > 修改属性为空或没有权限."
+//						+ jsonStr);
 			} else if (null == session || null == admin || null == admin.getUserName()){
 				code = BusinessCenterResCode.SYS_INVILID_REQ.getCode();
 				msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
-				logger.error("< PropertyController.modifyProperty() > session is null." + jsonStr);
+//				logger.error("< PropertyController.modifyProperty() > session is null." + jsonStr);
 			} else if (admin.getIsAdmin() == 0){
 				code = BusinessCenterResCode.SYS_NO_ADMIN.getCode();
 				msg = BusinessCenterResCode.SYS_NO_ADMIN.getMsg();
-				logger.error("< PropertyController.modifyProperty() > you are not admin." + jsonStr);
+//				logger.error("< PropertyController.modifyProperty() > you are not admin." + jsonStr);
 			}
 			else{
 				//修改用户信息
@@ -203,7 +203,7 @@ public class PropertyController {
 		} catch (Exception e) {
 			code = BusinessCenterResCode.SYS_ERROR.getCode();
 			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
-			logger.error("<  PropertyController.modifyProperty() > 修改属性错误." + e.getMessage());
+//			logger.error("<  PropertyController.modifyProperty() > 修改属性错误." + e.getMessage());
 		}
 
 		// 返回结果
@@ -212,8 +212,8 @@ public class PropertyController {
 		} catch (Exception e) {
 			session.removeAttribute(PlatfromConstants.STR_USER_PROFILE);
 			session.invalidate();
-			logger.error("<  PropertyController.modifyProperty()  > 修改属性返回出错."
-					+ e.getMessage());
+//			logger.error("<  PropertyController.modifyProperty()  > 修改属性返回出错."
+//					+ e.getMessage());
 			throw e;
 		}
 	}

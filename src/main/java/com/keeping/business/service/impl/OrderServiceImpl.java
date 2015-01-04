@@ -23,7 +23,7 @@ public class OrderServiceImpl implements OrderService {
 	private OrderDao orderDao;
 
 	/** 日志 */
-	private Logger logger = LoggerFactory.getLogger(UserController.class);
+//	private Logger logger = LoggerFactory.getLogger(UserController.class);
 
 	public Order queryFirstForServeQueue(Integer isBook) throws BusinessServiceException {
 		// TODO Auto-generated method stub

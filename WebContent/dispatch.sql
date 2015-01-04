@@ -153,6 +153,7 @@ CREATE TABLE `TBL_MODIFYQUEUE` (
   `isWarrant` smallint(1) NOT NULL DEFAULT 0,
   `isSubContract` smallint(1) NOT NULL DEFAULT 0,
   `comment` varchar(512) DEFAULT NULL,
+  `assign_time` timestamp NOT NULL DEFAULT '1990-01-01 00:00:00',
   `create_time` timestamp NOT NULL DEFAULT '1990-01-01 00:00:00',
   `start_time` timestamp  NOT NULL DEFAULT '1990-01-01 00:00:00',
   `end_time` timestamp  NOT NULL DEFAULT '1990-01-01 00:00:00',
@@ -256,6 +257,7 @@ insert into tbl_order set status=1, registerNumber='B1003AC', queueNumber='B-001
 insert into tbl_order set status=1, registerNumber='B1001NC', queueNumber='N-001', estimationTime=5;
 insert into tbl_order set status=1, registerNumber='B2001NC', queueNumber='N-002', estimationTime=4, is_book=1;
 insert into tbl_order set status=1, registerNumber='B3001NC', queueNumber='N-003', estimationTime=5, is_book=1;
+insert into tbl_order set status=0, registerNumber='B000001', estimationTime=5, is_book=1;
 
 insert into tbl_servequeue set step=0, user_id=6, order_id=3;
 -- insert into tbl_servequeue set step=0, user_id=7, order_id=4;
