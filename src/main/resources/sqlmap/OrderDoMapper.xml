@@ -11,6 +11,7 @@
 		<result column="BOOKNUMBER" property="bookNum" />
 		<result column="ESTIMATIONTIME" property="estimationTime" />
 		<result column="PROMISETIME" property="promiseTime" />
+		<result column="BOOKTIME" property="bookTime" />
 		<result column="CREATE_TIME" property="createTime" />
 		<result column="START_TIME" property="startTime" />
 		<result column="END_TIME" property="endTime" />
@@ -18,7 +19,7 @@
 	</resultMap>
 	
 	<sql id="Base_Column_List">
-		ID,STATUS,REGISTERNUMBER,QUEUENUMBER,ROOFNUMBER,BOOKNUMBER,ESTIMATIONTIME,PROMISETIME,CREATE_TIME,START_TIME,END_TIME,IS_BOOK
+		ID,STATUS,REGISTERNUMBER,QUEUENUMBER,ROOFNUMBER,BOOKNUMBER,ESTIMATIONTIME,PROMISETIME,BOOKTIME,CREATE_TIME,START_TIME,END_TIME,IS_BOOK
 	</sql>
 
 	<select id="queryByOrderstatus" resultMap="OrderDoMap" 
@@ -119,6 +120,9 @@
 			<if test="promiseTime != null">
 				PROMISETIME,
 			</if>
+			<if test="bookTime != null">
+				BOOKTIME,
+			</if>
 			<if test="startTime != null">
 				START_TIME,
 			</if>
@@ -151,6 +155,9 @@
 			</if>
 			<if test="promiseTime != null">
 				#{promiseTime},
+			</if>
+			<if test="bookTime != null">
+				#{bookTime},
 			</if>
 			<if test="startTime != null">
 				#{startTime},
@@ -188,6 +195,9 @@
 			</if>
 			<if test="promiseTime != null">
 				PROMISETIME = #{promiseTime},
+			</if>
+			<if test="bookTime != null">
+				BOOKTIME = #{bookTime},
 			</if>
 			<if test="startTime != null">
 				START_TIME = #{startTime},

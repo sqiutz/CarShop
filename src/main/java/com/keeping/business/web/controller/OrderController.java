@@ -180,6 +180,10 @@ public class OrderController {
 			
 			String jsonStr = request.getParameter("param");
 			Order order = JsonConverter.getFromJsonString(jsonStr, Order.class);
+			
+			Date now = new Date();
+			java.sql.Timestamp dateTime = new java.sql.Timestamp(now.getTime());
+			java.sql.Date sqlDate = new java.sql.Date(now.getTime());
 			 
 			if (StringUtil.isNull(jsonStr) || null == order) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
@@ -190,7 +194,8 @@ public class OrderController {
 				msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
 //				logger.error("< OrderController.bookOrder() > session为空。" + jsonStr);
 			} else {
-				 String bookNumber = System.currentTimeMillis() + "";
+				 String bookNumber = dateTime.toString();
+				 order.setBookTime(sqlDate);
 				 order.setBookNum(bookNumber);
 				 order.setIsBook(1);
 				 orderService.addOrder(order);

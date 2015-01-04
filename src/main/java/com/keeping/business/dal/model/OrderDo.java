@@ -25,6 +25,8 @@ public class OrderDo {
     
     private Date promiseTime;
     
+    private Date bookTime;
+    
     private Integer estimationTime;
     
     private Integer isBook;
@@ -123,5 +125,13 @@ public class OrderDo {
 
 	public void setIsBook(Integer isBook) {
 		this.isBook = isBook;
+	}
+
+	public Date getBookTime() {
+		return bookTime;
+	}
+
+	public void setBookTime(Date bookTime) {
+		this.bookTime = bookTime;
 	}
 }

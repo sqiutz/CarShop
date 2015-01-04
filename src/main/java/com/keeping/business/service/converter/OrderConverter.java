@@ -48,6 +48,7 @@ public class OrderConverter {
 		orderDo.setEndTime(order.getEndTime());
 		orderDo.setBookNum(order.getBookNum());
 		orderDo.setIsBook(order.getIsBook());
+		orderDo.setBookTime(order.getBookTime());
 		
 		return orderDo;
 	}
