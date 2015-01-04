@@ -2,6 +2,7 @@ package com.keeping.business.common.util;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -13,6 +14,14 @@ public class StringUtil {
 	public final static String regExpStr = "[\\s|\\#|\\%|\\$|\\&|\\'|\\@|\\+|\\*|\\?|\\(|\\)|\\[|\\]|<|>|/|^|!|~]";
 	public final static String regExpStr2 = "[\\s|\\#|\\%|\\$|\\&|\\'|\\@|\\+|\\*|\\?|\\(|\\)|\\[|\\]|<|>|/|^|!|~|.|,|;]";
 
+	private static AtomicInteger val = new AtomicInteger(4);
+	
+	public static String getNext(int startValue) {
+		val = new AtomicInteger(startValue);
+		int nextVal = val.incrementAndGet();
+		return String.format("%03d", nextVal);
+	}
+	
 	public static  boolean isSpecialChar(char c){
 		for (int i=0;i<specialChar.length;i++){
 			if (specialChar[i] == c)
