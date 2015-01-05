@@ -33,7 +33,10 @@
     		},
     		success : function(data) {
                 if(data.code == '000000') {
-                    $('#regNumber').val('');
+                    //$('#regNumber').val('');
+                    var order = data.obj;
+                    $('#bookedTime').text(BOOKED_TIME + (order ? getTimeStr(order.bookTime) : ''));
+                    $('#queNumber').text(order ? order.queueNum : '');
                 }                
     		}
     	});
