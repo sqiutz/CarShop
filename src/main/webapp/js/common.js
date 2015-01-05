@@ -114,7 +114,14 @@
                     send : {
                         url : "servequeue.do?action=send",
                         args : [ 
-                                "id"
+                                "id",
+                                "roofNum",
+                                "jobType",
+                                "additionTime",
+                                "isWarrant",
+                                "isSubContract",
+                                "hour",
+                                "minute"
                        ]
                     },
                     // cancel

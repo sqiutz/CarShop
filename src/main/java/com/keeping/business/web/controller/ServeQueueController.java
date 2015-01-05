@@ -722,7 +722,7 @@ public class ServeQueueController {
 				Order order = orderService.queryOrderById(serveQueue.getOrderId());
 				order.setStatus(BusinessCenterOrderStatus.ORDER_STATUS_MODIFY.getId());
 				order.setRoofNum(serveQueueObject.getRoofNum());
-				order.setPromiseTime(serveQueueObject.getPromistTime());
+				order.setPromiseTime(serveQueueObject.getPromiseTime());
 				orderService.updateOrder(order);              //修改订单状态
 				
 				ModifyQueue modifyQueue = new ModifyQueue();

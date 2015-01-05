@@ -43,6 +43,7 @@
                 $("#helloUserName").text(
                         'Hello ' + (userProfile ? userProfile.userName : ''));
                 $('#userName').text(userProfile ? userProfile.userName : ''); 
+                $('#serviceAdvisor').val(userProfile ? userProfile.userName : '');
             }
         }
     });
@@ -61,13 +62,65 @@
         var w = workload;
     }
     
+    var getJobType = function() {
+        $.OrderInfo.getJobTypes({
+            success : createJobTypeList
+        });
+        
+        function createJobTypeList(jobTypes) {
+            for(var i = 0; i < jobTypes.length; i++) {
+                var jobType = jobTypes[i];
+                var sel = $('#jobType');
+                $('<option></option>').val(jobType.name).text(jobType.name + ' (' + jobType.value + ' mins)')
+                    .appendTo(sel);
+            }
+        }
+    }
+    
+    var serveId = $.cookie('serveId');
+    $('#regNo').val($.cookie('registerNum'));
+    
+    $('#roofNo').keyup(function() {
+        var disabled = false;
+        if($('#roofNo').val().length == 0) {
+            disabled = 'disabled';
+        }
+        else if($('#regNo').val().length == 0) {
+            disabled = 'disabled';
+        }
+        else if($('#serviceAdvisor').val().length == 0) {
+            disabled = 'disabled';
+        }
+        else if($('#jobType').val().length == 0) {
+            disabled = 'disabled';
+        }
+        $('#finishBtn').attr('disabled', disabled);
+    });
+    
     // send
-    $('#nextBtn').bind('click', function() {
-        location.href = 'sa_promise_time.html';
+    $('#finishBtn').bind('click', function() {
+        $.OrderInfo.send({
+            data : {
+                id : serveId,
+                roofNum : $('#roofNo').val(),
+                jobType : $('#jobType').val(),
+                additionTime : $('#additionTime').val(),
+                hour : $('#promiseTime').val().split(':')[0],
+                minute : $('#promiseTime').val().split(':')[1],
+                isWarrant : $('#isWarranty').is(':checked') ? 1 : 0,
+                isSubContract : $('#isSubContract').is(':checked') ? 1 : 0
+            },
+            success : function(data) {
+                if (data.code == '000000') {
+                    
+                }
+            }
+        });
     });
     $('#backBtn').bind('click', function() {
         location.href = 'sa_que.html';
     });
     
     getWorkload();
+    getJobType();
 })(jQuery);
