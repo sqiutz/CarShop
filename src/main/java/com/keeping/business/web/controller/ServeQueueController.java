@@ -726,9 +726,12 @@ public class ServeQueueController {
 				orderService.updateOrder(order);              //修改订单状态
 				
 				ModifyQueue modifyQueue = new ModifyQueue();
-				GregorianCalendar gc = new GregorianCalendar();
-				gc.set(gc.YEAR, gc.MONTH, gc.DAY_OF_MONTH, serveQueueObject.getHour(), serveQueueObject.getMinute());
-				modifyQueue.setAssignTime(gc.getTime());
+				
+				Date date = new Date();
+				date.setHours(serveQueueObject.getHour());
+				date.setMinutes(serveQueueObject.getMinute());
+				date.setSeconds(0);
+				modifyQueue.setAssignTime(date);
 				modifyQueue.setStep(BusinessCenterModifyQueueStatus.MODIFYQUEUE_STATUS_MODIFYING.getId());
 				modifyQueue.setOrderId(serveQueue.getOrderId());
 				modifyQueue.setUserId(logUser.getId());

@@ -23,9 +23,9 @@ public class OrderDo {
     
     private String bookNum;
     
-    private Date promiseTime;
+    private Timestamp promiseTime;
     
-    private Date bookTime;
+    private Timestamp bookTime;
     
     private Integer estimationTime;
     
@@ -87,11 +87,11 @@ public class OrderDo {
 		this.queueNum = queueNum;
 	}
 
-	public Date getPromiseTime() {
+	public Timestamp getPromiseTime() {
 		return promiseTime;
 	}
 
-	public void setPromiseTime(Date promiseTime) {
+	public void setPromiseTime(Timestamp promiseTime) {
 		this.promiseTime = promiseTime;
 	}
 
@@ -127,11 +127,11 @@ public class OrderDo {
 		this.isBook = isBook;
 	}
 
-	public Date getBookTime() {
+	public Timestamp getBookTime() {
 		return bookTime;
 	}
 
-	public void setBookTime(Date bookTime) {
+	public void setBookTime(Timestamp bookTime) {
 		this.bookTime = bookTime;
 	}
 }

@@ -27,7 +27,7 @@ public class ModifyQueueDo {
     
     private String technician;
     
-    private Date assignTime;
+    private Timestamp assignTime;
     
     private Integer additionTime;
     
@@ -119,11 +119,11 @@ public class ModifyQueueDo {
 		this.technician = technician;
 	}
 
-	public Date getAssignTime() {
+	public Timestamp getAssignTime() {
 		return assignTime;
 	}
 
-	public void setAssignTime(Date assignTime) {
+	public void setAssignTime(Timestamp assignTime) {
 		this.assignTime = assignTime;
 	}
 
