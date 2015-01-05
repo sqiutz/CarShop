@@ -22,7 +22,7 @@ public class ServeQueue extends BaseQueue{
 	
 	private String roofNum;
 	
-	private Date promistTime;
+	private Date promiseTime;
 	
 	private Integer isWarrant;
 	
@@ -92,12 +92,12 @@ public class ServeQueue extends BaseQueue{
 		this.roofNum = roofNum;
 	}
 
-	public Date getPromistTime() {
-		return promistTime;
+	public Date getPromiseTime() {
+		return promiseTime;
 	}
 
 	public void setPromistTime(Date promistTime) {
-		this.promistTime = promistTime;
+		this.promiseTime = promistTime;
 	}
 
 	public Integer getIsWarrant() {

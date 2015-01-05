@@ -77,6 +77,7 @@
         }
     }
     
+    var serveId = $.cookie('serveId');
     $('#regNo').val($.cookie('registerNum'));
     
     $('#roofNo').keyup(function() {
@@ -93,15 +94,28 @@
         else if($('#jobType').val().length == 0) {
             disabled = 'disabled';
         }
-        else if($('#additionTime').val().length == 0) {
-            disabled = 'disabled';
-        }
         $('#finishBtn').attr('disabled', disabled);
     });
     
     // send
     $('#finishBtn').bind('click', function() {
-        
+        $.OrderInfo.send({
+            data : {
+                id : serveId,
+                roofNum : $('#roofNo').val(),
+                jobType : $('#jobType').val(),
+                additionTime : $('#additionTime').val(),
+                hour : $('#promiseTime').val().split(':')[0],
+                minute : $('#promiseTime').val().split(':')[1],
+                isWarrant : $('#isWarranty').is(':checked') ? 1 : 0,
+                isSubContract : $('#isSubContract').is(':checked') ? 1 : 0
+            },
+            success : function(data) {
+                if (data.code == '000000') {
+                    
+                }
+            }
+        });
     });
     $('#backBtn').bind('click', function() {
         location.href = 'sa_que.html';
