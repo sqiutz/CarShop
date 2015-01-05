@@ -42,11 +42,11 @@
 					<form>
 						<div>
 							<label id='regNoLabel' for='regNo'></label>
-							<input id='regNo' name='regNo' type='text'>
+							<input id='regNo' name='regNo' type='text' disabled='disabled'>
 						</div>
 						<div>
 							<label id='serviceAdvisorLabel' for='serviceAdvisor'></label>
-							<input id='serviceAdvisor' name='serviceAdvisor' type='text'>
+							<input id='serviceAdvisor' name='serviceAdvisor' type='text' disabled='disabled'>
 						</div>
 						<div>
 							<label id='roofNoLabel' for='roofNo'></label>
@@ -58,11 +58,17 @@
 					<form>
 						<div>
 							<label id='jobTypeLabel' for='jobType' class=""></label>
-							<input id='jobType' name='jobType' type='text'>
+							<select id='jobType' name='jobType'></select>
 						</div>
 						<div>
 							<label id='additionTimeLabel' for='additionTime'></label>
-							<input id='additionTime' name='additionTime' type='text'>
+							<select id='additionTime' name='additionTime'>
+								<option value='0'>0 mins</option>
+								<option value='0.5'>30 mins</option>
+								<option value='1'>60 mins</option>
+								<option value='1.5'>90 mins</option>
+								<option value='2'>120 mins</option>
+							</select>
 						</div>
 						<div>
 							<label>&nbsp;</label>
@@ -211,12 +217,35 @@
 			<form>
 				<div>
 					<label id='promiseTimeLabel' for='promiseTime'></label>
-					<input id='promiseTime' name='promiseTime' type='text'>
+					<select id='promiseTime' name='promiseTime'>
+						<option value='07:00'>07:00</option>
+						<option value='07:30'>07:30</option>
+						<option value='08:00'>08:00</option>
+						<option value='08:30'>08:30</option>
+						<option value='09:00'>09:00</option>
+						<option value='09:30'>09:30</option>
+						<option value='10:00'>10:00</option>
+						<option value='10:30'>10:30</option>
+						<option value='11:00'>11:00</option>
+						<option value='11:30'>11:30</option>
+						<option value='12:00'>12:00</option>
+						<option value='12:30'>12:30</option>
+						<option value='13:00'>13:00</option>
+						<option value='13:30'>13:30</option>
+						<option value='14:00'>14:00</option>
+						<option value='14:30'>14:30</option>
+						<option value='15:00'>15:00</option>
+						<option value='15:30'>15:30</option>
+						<option value='16:00'>16:00</option>
+						<option value='16:30'>16:30</option>
+						<option value='17:00'>17:00</option>
+						<option value='17:30'>17:30</option>
+					</select>
 				</div>
 			</form>
 			
 			<div class='controller' style='width:960px;'>
- 				<button id='finishBtn' class='blue-button' style='width:150px;height:57px'></button>
+ 				<button id='finishBtn' class='blue-button' style='width:150px;height:57px' disabled='disabled'></button>
  				<button id='backBtn' class='blue-button' style='width:150px;height:57px'></button>
 			</div>
 			</fieldset>

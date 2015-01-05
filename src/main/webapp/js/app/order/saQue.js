@@ -244,6 +244,7 @@
             	if(data.code == '000000') {
             	    currServe = data.resList[0];
             		if(currServe) {
+            		    $.cookie('registerNum', currServe.order.registerNum);
             		    $('#callBtn').attr('disabled', 'disabled');
             		    $('#resumeBtn').attr('disabled', 'disabled');
             		    $('#holdBtn').attr('disabled', false);
@@ -252,6 +253,7 @@
                         timer();
             		}
             		else {
+            		    $.cookie('registerNum', '', {expires: -1});
             		    $('#holdBtn').attr('disabled', 'disabled');
             		    $('#resumeBtn').attr('disabled', 'disabled');
             		    $('#nextBtn').attr('disabled', 'disabled');
