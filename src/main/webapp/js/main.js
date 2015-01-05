@@ -1,6 +1,6 @@
 ﻿//基本配置
 var conf={
-    domain:"http://localhost:8085/business/"
+    domain:"http://localhost:8080/business/"
 };
 
 //路径定义
