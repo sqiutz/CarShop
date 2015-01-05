@@ -84,7 +84,7 @@
 		<include refid="Base_Column_List" />
 		FROM TBL_ORDER
 		WHERE
-		REGISTERNUMBER = #{registerNum}
+		REGISTERNUMBER = #{registerNum} and STATUS = #{0}
 	</select>
 	
 	<select id="queryOrderById" resultMap="OrderDoMap" 

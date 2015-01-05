@@ -1,6 +1,7 @@
 package com.keeping.business.web.controller.model;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 
 public class ServeQueue extends BaseQueue{
@@ -16,6 +17,16 @@ public class ServeQueue extends BaseQueue{
     private Integer minute;
     
     private String jobType;
+    
+	private Integer additionTime;
+	
+	private String roofNum;
+	
+	private Date promistTime;
+	
+	private Integer isWarrant;
+	
+	private Integer isSubContract;
 
 	public Timestamp getModifyTime() {
 		return modifyTime;
@@ -63,6 +74,46 @@ public class ServeQueue extends BaseQueue{
 
 	public void setJobType(String jobType) {
 		this.jobType = jobType;
+	}
+
+	public Integer getAdditionTime() {
+		return additionTime;
+	}
+
+	public void setAdditionTime(Integer additionTime) {
+		this.additionTime = additionTime;
+	}
+
+	public String getRoofNum() {
+		return roofNum;
+	}
+
+	public void setRoofNum(String roofNum) {
+		this.roofNum = roofNum;
+	}
+
+	public Date getPromistTime() {
+		return promistTime;
+	}
+
+	public void setPromistTime(Date promistTime) {
+		this.promistTime = promistTime;
+	}
+
+	public Integer getIsWarrant() {
+		return isWarrant;
+	}
+
+	public void setIsWarrant(Integer isWarrant) {
+		this.isWarrant = isWarrant;
+	}
+
+	public Integer getIsSubContract() {
+		return isSubContract;
+	}
+
+	public void setIsSubContract(Integer isSubContract) {
+		this.isSubContract = isSubContract;
 	}
     
     

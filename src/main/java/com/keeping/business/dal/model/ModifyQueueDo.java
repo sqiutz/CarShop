@@ -28,6 +28,8 @@ public class ModifyQueueDo {
     
     private Timestamp assignTime;
     
+    private Integer additionTime;
+    
 	public Integer getStep() {
 		return step;
 	}
@@ -122,6 +124,14 @@ public class ModifyQueueDo {
 
 	public void setAssignTime(Timestamp assignTime) {
 		this.assignTime = assignTime;
+	}
+
+	public Integer getAdditionTime() {
+		return additionTime;
+	}
+
+	public void setAdditionTime(Integer additionTime) {
+		this.additionTime = additionTime;
 	}
 
 }

@@ -257,7 +257,7 @@ public class OrderController {
 				
 				order = orderService.getOrdersByRegNum(orderObject.getRegisterNumber());
 			
-				if (StringUtil.isNull(order.getBookNum())) {
+				if (StringUtil.isNull(order.getBookNum()) && order.getId() == null) {
 					order.setRegisterNum(orderObject.getRegisterNumber());
 					order.setStartTime(dateTime);
 					order.setStatus(BusinessCenterOrderStatus.ORDER_STATUS_WAIT.getId());    //1: start to wait for serve queue
@@ -272,7 +272,6 @@ public class OrderController {
 					orderService.addOrder(order);
 				}else {
 					String registerNum = order.getRegisterNum();
-					order = orderService.queryOrderByBookNum(order.getBookNum());
 					order.setStartTime(dateTime);
 					order.setRegisterNum(registerNum);
 					order.setStatus(BusinessCenterOrderStatus.ORDER_STATUS_WAIT.getId());

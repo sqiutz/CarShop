@@ -14,6 +14,12 @@ public class ModifyQueue extends BaseQueue{
 	private String technician;
 	
 	private Date assignTime;
+	
+	private Integer additionTime;
+	
+	private String roofNum;
+	
+	private Date promistTime;
 
 	public String getJobType() {
 		return jobType;
@@ -53,6 +59,30 @@ public class ModifyQueue extends BaseQueue{
 
 	public void setAssignTime(Date assignTime) {
 		this.assignTime = assignTime;
+	}
+
+	public Integer getAdditionTime() {
+		return additionTime;
+	}
+
+	public void setAdditionTime(Integer additionTime) {
+		this.additionTime = additionTime;
+	}
+
+	public String getRoofNum() {
+		return roofNum;
+	}
+
+	public void setRoofNum(String roofNum) {
+		this.roofNum = roofNum;
+	}
+
+	public Date getPromistTime() {
+		return promistTime;
+	}
+
+	public void setPromistTime(Date promistTime) {
+		this.promistTime = promistTime;
 	}
     
 }

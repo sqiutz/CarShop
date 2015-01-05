@@ -1,6 +1,7 @@
 package com.keeping.business.service.converter;
 
 import com.keeping.business.common.rescode.BusinessCenterOrderStatus;
+import com.keeping.business.common.util.TimeUtil;
 import com.keeping.business.dal.model.OrderDo;
 import com.keeping.business.web.controller.model.Order;
 
@@ -43,12 +44,12 @@ public class OrderConverter {
 		orderDo.setRoofNum(order.getRoofNum());
 		orderDo.setRegisterNum(order.getRegisterNum());
 		orderDo.setQueueNum(order.getQueueNum());
-		orderDo.setPromiseTime(order.getPromiseTime());
+		orderDo.setPromiseTime(TimeUtil.transferFromUtilToSql(order.getPromiseTime()));
 		orderDo.setEstimationTime(order.getEstimationTime());
 		orderDo.setEndTime(order.getEndTime());
 		orderDo.setBookNum(order.getBookNum());
 		orderDo.setIsBook(order.getIsBook());
-		orderDo.setBookTime(order.getBookTime());
+		orderDo.setBookTime(TimeUtil.transferFromUtilToSql(order.getBookTime()));
 		
 		return orderDo;
 	}

@@ -706,9 +706,6 @@ public class ServeQueueController {
 //				logger.error("< ServeQueueController.sendWorkShop() > session is null。");
 			} else{
 				ServeQueue serveQueue = serveQueueService.getServeQueueById(serveQueueObject.getId());
-				Order order = orderService.queryOrderById(serveQueue.getOrderId());
-				order.setStatus(BusinessCenterOrderStatus.ORDER_STATUS_MODIFY.getId());
-				orderService.updateOrder(order);              //修改订单状态
 				
 				Date now = new Date();
 				java.sql.Timestamp dateTime = new java.sql.Timestamp(now.getTime());
@@ -720,20 +717,25 @@ public class ServeQueueController {
 				serveQueue.setElapseTime(elapseTime);
 				serveQueue.setEndTime(dateTime);
 				serveQueue.setStep(BusinessCenterServeQueueStatus.SERVEQUEUE_STATUS_SEND.getId());
-				
 				serveQueueService.updateServeQueue(serveQueue);   //添加ServeQueue订单
 				
-				ModifyQueue modifyQueue = new ModifyQueue();
+				Order order = orderService.queryOrderById(serveQueue.getOrderId());
+				order.setStatus(BusinessCenterOrderStatus.ORDER_STATUS_MODIFY.getId());
+				order.setRoofNum(serveQueueObject.getRoofNum());
+				order.setPromiseTime(serveQueueObject.getPromistTime());
+				orderService.updateOrder(order);              //修改订单状态
 				
+				ModifyQueue modifyQueue = new ModifyQueue();
 				GregorianCalendar gc = new GregorianCalendar();
 				gc.set(gc.YEAR, gc.MONTH, gc.DAY_OF_MONTH, serveQueueObject.getHour(), serveQueueObject.getMinute());
-				
 				modifyQueue.setAssignTime(gc.getTime());
 				modifyQueue.setStep(BusinessCenterModifyQueueStatus.MODIFYQUEUE_STATUS_MODIFYING.getId());
 				modifyQueue.setOrderId(serveQueue.getOrderId());
 				modifyQueue.setUserId(logUser.getId());
 				modifyQueue.setJobType(serveQueue.getJobType());
-				
+				modifyQueue.setAdditionTime(serveQueueObject.getAdditionTime());
+				modifyQueue.setIsSubContract(serveQueue.getIsSubContract());
+				modifyQueue.setIsWarrant(serveQueueObject.getIsWarrant());
 				modifyQueueService.addModifyQueue(modifyQueue);
 			}
 		} catch (BusinessServiceException ex) {
