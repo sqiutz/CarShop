@@ -714,6 +714,11 @@ public class ServeQueueController {
 				Integer elapseTime = new Integer(timeInterval.intValue());
 				elapseTime = serveQueue.getElapseTime() + elapseTime;
 				
+				Date date = new Date();
+				date.setHours(serveQueueObject.getHour());
+				date.setMinutes(serveQueueObject.getMinute());
+				date.setSeconds(0);
+				
 				serveQueue.setElapseTime(elapseTime);
 				serveQueue.setEndTime(dateTime);
 				serveQueue.setStep(BusinessCenterServeQueueStatus.SERVEQUEUE_STATUS_SEND.getId());
@@ -722,15 +727,11 @@ public class ServeQueueController {
 				Order order = orderService.queryOrderById(serveQueue.getOrderId());
 				order.setStatus(BusinessCenterOrderStatus.ORDER_STATUS_MODIFY.getId());
 				order.setRoofNum(serveQueueObject.getRoofNum());
-				order.setPromiseTime(serveQueueObject.getPromiseTime());
+				order.setPromiseTime(date);
 				orderService.updateOrder(order);              //修改订单状态
 				
 				ModifyQueue modifyQueue = new ModifyQueue();
 				
-				Date date = new Date();
-				date.setHours(serveQueueObject.getHour());
-				date.setMinutes(serveQueueObject.getMinute());
-				date.setSeconds(0);
 				modifyQueue.setAssignTime(date);
 				modifyQueue.setStep(BusinessCenterModifyQueueStatus.MODIFYQUEUE_STATUS_MODIFYING.getId());
 				modifyQueue.setOrderId(serveQueue.getOrderId());
