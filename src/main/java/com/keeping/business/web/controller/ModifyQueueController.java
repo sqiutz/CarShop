@@ -39,6 +39,7 @@ import com.keeping.business.web.controller.model.ModifyQueue;
 import com.keeping.business.web.controller.model.Order;
 import com.keeping.business.web.controller.model.ServeQueue;
 import com.keeping.business.web.controller.model.StepObject;
+import com.keeping.business.web.controller.model.TodayModifyQueue;
 import com.keeping.business.web.controller.model.User;
 import com.keeping.business.web.controller.model.UserProfile;
 import com.keeping.business.web.controller.model.WebResult;
@@ -60,6 +61,52 @@ public class ModifyQueueController {
 	@Resource
 	private UserService userService;
 
+	@RequestMapping(params = "action=gettoday")
+	@ResponseBody
+	public WebResultList<TodayModifyQueue> getTodayModifyQueue(HttpServletRequest request, HttpServletResponse response) {
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
+		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
+		
+		List<TodayModifyQueue> todayModifyQueues = new ArrayList<TodayModifyQueue>();
+		
+		try {
+		
+			Date now = new Date();
+			List<Integer> userIds = modifyQueueService.getAllTodayWorkers(now);
+			ModifyQueue modifyQueue = new ModifyQueue();
+			modifyQueue.setAssignTime(now);
+
+			for(int i=0; i<userIds.size(); i++){
+				
+				TodayModifyQueue todayModifyQueue = new TodayModifyQueue();
+				
+				User user = userService.getByUserId(userIds.get(i));
+				
+				modifyQueue.setUserId(user.getId());
+				List<ModifyQueue> modifyQueues = modifyQueueService.getModifyQueueByUserId(modifyQueue);
+				
+				todayModifyQueue.setUsername(user.getUserName());
+				
+				todayModifyQueues.add(todayModifyQueue);
+				
+			}
+				
+		} catch (BusinessServiceException ex) {
+			code = ex.getErrorCode();
+			msg = ex.getErrorMessage();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			System.out.println(e.getStackTrace());
+			code = BusinessCenterResCode.SYS_ERROR.getCode();
+			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
+//			logger.error("< ModifyQueueController.getModifyQueue() > 获取维修列表失败."
+//					+ e.getMessage());
+		}
+		
+		return JsonConverter.getResultObject(code, msg, todayModifyQueues);
+	}
+	
 	@RequestMapping(params = "action=getone")
 	@ResponseBody
 	public WebResultObject<ModifyQueue> getModifyQueue(HttpServletRequest request, HttpServletResponse response) {

@@ -15,5 +15,9 @@ public interface ModifyQueueDao extends BaseDao<ModifyQueueDo>{
 	public void updateModifyQueue(ModifyQueueDo modifyQueueDo);
 	
 	public ModifyQueueDo queryByModifyQueueid(Integer id);
+	
+	public List<Integer> getAllWorkers(ModifyQueueDo modifyQueueDo);
+	
+	public List<ModifyQueueDo> queryByModifyQueueUserId(ModifyQueueDo modifyQueueDo);
 
 }

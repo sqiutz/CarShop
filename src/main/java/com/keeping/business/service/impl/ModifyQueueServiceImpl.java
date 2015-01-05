@@ -1,5 +1,6 @@
 package com.keeping.business.service.impl;
 
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +42,22 @@ public class ModifyQueueServiceImpl implements ModifyQueueService{
 //		return modifyQueue;
 //	}
 
+	@Override
+	public List<Integer> getAllTodayWorkers(java.util.Date now) {
+		// TODO Auto-generated method stub
+		
+		List<Integer> userIds = new ArrayList<Integer>();
+		
+		java.sql.Date date = new java.sql.Date(now.getTime());
+		
+		ModifyQueueDo modifyQueueDo = new ModifyQueueDo();
+		modifyQueueDo.setAssignTime(date);
+		
+		userIds = modifyQueueDao.getAllWorkers(modifyQueueDo);
+		
+		return userIds;
+	}
+
 	public void addModifyQueue(ModifyQueue modifyQueue)
 			throws BusinessServiceException {
 		// TODO Auto-generated method stub
@@ -77,6 +94,25 @@ public class ModifyQueueServiceImpl implements ModifyQueueService{
 		return modifyQueues;
 	}
 	
+
+	@Override
+	public List<ModifyQueue> getModifyQueueByUserId(ModifyQueue modifyQueue) {
+		// TODO Auto-generated method stub
+		ModifyQueueDo modifyQueueDo = ModifyQueueConverter.getModifyQueueDo(modifyQueue);
+		List<ModifyQueueDo> modifyQueueDoes = modifyQueueDao.queryByModifyQueueUserId(modifyQueueDo);
+		List<ModifyQueue> modifyQueues = new ArrayList<ModifyQueue>();
+		
+		if (modifyQueueDoes == null){
+			return modifyQueues;
+		}
+		
+		for (int i = 0; i < modifyQueueDoes.size(); i++){
+			modifyQueues.add(ModifyQueueConverter.getModifyQueue(modifyQueueDoes.get(i)));
+		}
+		
+		return modifyQueues;
+	}
+
 
 
 	public ModifyQueue getModifyQueueById(Integer id)
@@ -120,7 +156,6 @@ public class ModifyQueueServiceImpl implements ModifyQueueService{
 	public void setModifyQueueDao(ModifyQueueDao modifyQueueDao) {
 		this.modifyQueueDao = modifyQueueDao;
 	}
-
 
 
 }

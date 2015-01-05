@@ -2,6 +2,7 @@ package com.keeping.business.service.converter;
 
 import java.sql.Date;
 
+import com.keeping.business.common.util.TimeUtil;
 import com.keeping.business.dal.model.ModifyQueueDo;
 import com.keeping.business.web.controller.model.ModifyQueue;
 
@@ -38,7 +39,7 @@ public class ModifyQueueConverter {
 		
 		ModifyQueueDo modifyQueueDo = new ModifyQueueDo();
 		
-		modifyQueueDo.setAssignTime(new java.sql.Timestamp(modifyQueue.getAssignTime().getTime()));
+		modifyQueueDo.setAssignTime(TimeUtil.transferFromUtilToSql(modifyQueue.getAssignTime()));
 		
 		modifyQueueDo.setEndTime(modifyQueue.getEndTime());
 		modifyQueueDo.setOrderId(modifyQueue.getOrderId());

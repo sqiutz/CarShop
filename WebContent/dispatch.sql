@@ -155,10 +155,10 @@ CREATE TABLE `TBL_MODIFYQUEUE` (
   `isSubContract` smallint(1) NOT NULL DEFAULT 0,
   `comment` varchar(512) DEFAULT NULL,
   `addition_time` bigint(10) DEFAULT NULL DEFAULT 0,
-  `assign_time` timestamp NOT NULL DEFAULT '1990-01-01 00:00:00',
-  `create_time` timestamp NOT NULL DEFAULT '1990-01-01 00:00:00',
-  `start_time` timestamp  NOT NULL DEFAULT '1990-01-01 00:00:00',
-  `end_time` timestamp  NOT NULL DEFAULT '1990-01-01 00:00:00',
+  `assign_time` datetime NOT NULL DEFAULT '1990-01-01 00:00:00',
+  `create_time` datetime NOT NULL DEFAULT '1990-01-01 00:00:00',
+  `start_time` datetime  NOT NULL DEFAULT '1990-01-01 00:00:00',
+  `end_time` datetime  NOT NULL DEFAULT '1990-01-01 00:00:00',
   INDEX user_ind (user_id),
     FOREIGN KEY (user_id)
     REFERENCES TBL_USER (id)

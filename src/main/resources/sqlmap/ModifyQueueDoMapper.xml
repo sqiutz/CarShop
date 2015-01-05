@@ -32,6 +32,22 @@
 		order by START_TIME desc
 	</select>
 	
+	<select id="queryByModifyQueueUserId" resultMap="ModifyQueueDoMap" >
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM TBL_MODIFYQUEUE
+		WHERE
+		USER_ID = #{userId} and ASSIGN_TIME = #{assignTime}
+	</select>
+	
+	<select id="getAllWorkers" resultMap="ModifyQueueDoMap">
+		SELECT 
+		USER_ID
+		FROM TBL_MODIFYQUEUE
+		WHERE
+		ASSIGN_TIME = #{assignTime}
+	</select>
+	
 	<select id="queryByModifyQueueid" resultMap="ModifyQueueDoMap" 
 		parameterType="java.lang.Integer">
 		SELECT 

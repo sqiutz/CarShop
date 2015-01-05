@@ -224,7 +224,7 @@ public class ServeQueueController {
 					users.add(user);
 					
 					Date now = new Date();
-					java.sql.Timestamp dateTime = new java.sql.Timestamp(now.getTime());
+					java.sql.Date dateTime = new java.sql.Date(now.getTime());
 					
 					Long timeInterval = dateTime.getTime() - serveQueueList.get(i).getStartTime().getTime();
 					Integer elapseTime = new Integer(timeInterval.intValue());

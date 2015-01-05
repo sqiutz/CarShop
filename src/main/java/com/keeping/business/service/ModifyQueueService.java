@@ -19,4 +19,8 @@ public interface ModifyQueueService {
     
     public List<ModifyQueue> getModifyQueueByStepAndUserId(ModifyQueue modifyQueue) throws BusinessServiceException;
     
+    public List<Integer> getAllTodayWorkers(java.util.Date now);
+    
+    public List<ModifyQueue> getModifyQueueByUserId(ModifyQueue modifyQueue);
+    
 }

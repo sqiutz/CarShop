@@ -1,5 +1,6 @@
 package com.keeping.business.dal.model;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 public class ModifyQueueDo {
@@ -26,7 +27,7 @@ public class ModifyQueueDo {
     
     private String technician;
     
-    private Timestamp assignTime;
+    private Date assignTime;
     
     private Integer additionTime;
     
@@ -118,11 +119,11 @@ public class ModifyQueueDo {
 		this.technician = technician;
 	}
 
-	public Timestamp getAssignTime() {
+	public Date getAssignTime() {
 		return assignTime;
 	}
 
-	public void setAssignTime(Timestamp assignTime) {
+	public void setAssignTime(Date assignTime) {
 		this.assignTime = assignTime;
 	}
 
