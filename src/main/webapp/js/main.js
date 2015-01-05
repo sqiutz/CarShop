@@ -1,6 +1,6 @@
 ﻿//基本配置
 var conf={
-    domain:"http://localhost:8085/business/"
+    domain:"http://localhost:8080/business/"
 };
 
 //路径定义
@@ -9,12 +9,13 @@ require.config({
     paths : {
         common : 'common',
         jquery : 'lib/jquery-2.1.1.min',
+        cookie : 'lib/jquery.cookie',
         userInfo:'app/user/userInfo',
         orderInfo:'app/order/orderInfo',
         md5:'lib/md5'
     }
 });
-require(["jquery", "common"],function($, common){
+require(["jquery", "common", "cookie"],function($, common){
     $(function(){
         function layout() {
             var width = $('#container').width();
