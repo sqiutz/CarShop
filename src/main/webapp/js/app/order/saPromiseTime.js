@@ -49,11 +49,7 @@
     });
     
     var getWorkload = function() {
-        var today = new Date();
-        $.OrderInfo.getWorkload({
-            data : {
-                today : today.toLocaleDateString()
-            },
+        $.OrderInfo.getModifyQueue({
             success : refreshWorkload
         });
     }

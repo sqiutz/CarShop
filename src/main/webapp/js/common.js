@@ -214,11 +214,8 @@
                         ]
                     },
                     // 获取工作调度
-                    getWorkload : {
-                        url : "userworkload.do?action=alllist",
-                        args : [ 
-                                 "today"
-                        ]
+                    getModifyQueue: {
+                        url : "modifyqueue.do?action=gettoday"
                     },
                     // 获取Job Type列表
                     getJobTypes : {

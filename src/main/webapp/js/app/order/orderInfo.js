@@ -187,13 +187,12 @@ define([], function() {
             });
         },
         // 获取工作调度
-        getWorkload : function(options) {
-            var workload;
-            $.common.ajax("getWorkload", {
-                data : options.data,
+        getModifyQueue : function(options) {
+            var queues;
+            $.common.ajax("getModifyQueue", {
                 success : function(data) {
-                    workload = data.resList;
-                    options.success(workload);
+                    queues = data.resList;
+                    options.success(queues);
                 },
                 error : function(error) {
                     options.success();

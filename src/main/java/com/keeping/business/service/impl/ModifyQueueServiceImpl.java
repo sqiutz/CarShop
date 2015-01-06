@@ -42,7 +42,6 @@ public class ModifyQueueServiceImpl implements ModifyQueueService{
 //		return modifyQueue;
 //	}
 
-	@Override
 	public List<Integer> getAllTodayWorkers(java.util.Date now) {
 		// TODO Auto-generated method stub
 		
@@ -95,7 +94,6 @@ public class ModifyQueueServiceImpl implements ModifyQueueService{
 	}
 	
 
-	@Override
 	public List<ModifyQueue> getModifyQueueByUserId(ModifyQueue modifyQueue) {
 		// TODO Auto-generated method stub
 		ModifyQueueDo modifyQueueDo = ModifyQueueConverter.getModifyQueueDo(modifyQueue);
