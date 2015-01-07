@@ -3,9 +3,10 @@ package com.keeping.business.common.rescode;
 public enum BusinessCenterModifyQueueStatus {
 
 	MODIFYQUEUE_STATUS_MODIFYING(0, "modifying"),
-	MODIFYQUEUE_STATUS_START(1, "start"),
-	MODIFYQUEUE_STATUS_HOLD(2, "hold"),
-	MODIFYQUEUE_STATUS_FINISH(3, "finish");
+	MODIFYQUEUE_STATUS_READY(1, "ready"),
+	MODIFYQUEUE_STATUS_START(2, "start"),
+	MODIFYQUEUE_STATUS_HOLD(3, "hold"),
+	MODIFYQUEUE_STATUS_FINISH(4, "finish");
 	
 	private Integer id;
 	private String status;
