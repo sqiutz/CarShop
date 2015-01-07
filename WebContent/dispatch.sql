@@ -154,7 +154,7 @@ CREATE TABLE `TBL_MODIFYQUEUE` (
   `isWarrant` smallint(1) NOT NULL DEFAULT 0,
   `isSubContract` smallint(1) NOT NULL DEFAULT 0,
   `comment` varchar(512) DEFAULT NULL,
-  `addition_time` bigint(10) DEFAULT NULL DEFAULT 0,
+  `addition_time` float(10) DEFAULT NULL,
   `assign_time` datetime NOT NULL DEFAULT '1990-01-01 00:00:00',
   `create_time` datetime NOT NULL DEFAULT '1990-01-01 00:00:00',
   `start_time` datetime  NOT NULL DEFAULT '1990-01-01 00:00:00',

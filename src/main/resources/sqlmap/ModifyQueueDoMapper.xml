@@ -20,7 +20,7 @@
 	</resultMap>
 	
 	<sql id="Base_Column_List">
-		ID,STEP,USER_ID,ORDER_ID,CREATE_TIME,START_TIME,END_TIME,ASSIGN_TIME,JOBTYPE,TECHNICIAN,ISWARRANT,ISSUBCONTRACT,ADDITION_TIME
+		ID,STEP,USER_ID,ORDER_ID,CREATE_TIME,START_TIME,END_TIME,ASSIGN_TIME,ASSIGN_DATE,JOBTYPE,TECHNICIAN,ISWARRANT,ISSUBCONTRACT,ADDITION_TIME
 	</sql>
 
 	<select id="queryByModifyQueuestep" resultMap="ModifyQueueDoMap" 
@@ -84,6 +84,9 @@
 			<if test="assignTime != null">
 				ASSIGN_TIME,
 			</if>
+			<if test="assignDate != null">
+				ASSIGN_DATE,
+			</if>
 			<if test="additionTime != null">
 				ADDITION_TIME,
 			</if>
@@ -117,11 +120,14 @@
 			<if test="startTime != null">
 				#{startTime},
 			</if>
-			<if test="additionTime != null">
-				#{additionTime},
-			</if>
 			<if test="assignTime != null">
 				#{assignTime},
+			</if>
+			<if test="assignDate != null">
+				#{assignDate},
+			</if>
+			<if test="additionTime != null">
+				#{additionTime},
 			</if>
 			<if test="endTime != null">
 				#{endTime},
@@ -162,6 +168,9 @@
 			</if>
 			<if test="assignTime != null">
 				ASSIGN_TIME = #{assignTime},
+			</if>
+			<if test="assignDate != null">
+				ASSIGN_DATE = #{assignDate},
 			</if>
 			<if test="endTime != null">
 				END_TIME = #{endTime},

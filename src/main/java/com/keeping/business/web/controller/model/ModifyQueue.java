@@ -15,7 +15,7 @@ public class ModifyQueue extends BaseQueue{
 	
 	private Date assignTime;
 	
-	private Integer additionTime;
+	private Float additionTime;
 	
 	private String roofNum;
 	
@@ -65,11 +65,11 @@ public class ModifyQueue extends BaseQueue{
 		this.assignTime = assignTime;
 	}
 
-	public Integer getAdditionTime() {
+	public Float getAdditionTime() {
 		return additionTime;
 	}
 
-	public void setAdditionTime(Integer additionTime) {
+	public void setAdditionTime(Float additionTime) {
 		this.additionTime = additionTime;
 	}
 

@@ -31,7 +31,7 @@ public class ModifyQueueDo {
     
     private Date assignDate;
     
-    private Integer additionTime;
+    private Float additionTime;
     
 	public Integer getStep() {
 		return step;
@@ -129,11 +129,11 @@ public class ModifyQueueDo {
 		this.assignTime = assignTime;
 	}
 
-	public Integer getAdditionTime() {
+	public Float getAdditionTime() {
 		return additionTime;
 	}
 
-	public void setAdditionTime(Integer additionTime) {
+	public void setAdditionTime(Float additionTime) {
 		this.additionTime = additionTime;
 	}
 

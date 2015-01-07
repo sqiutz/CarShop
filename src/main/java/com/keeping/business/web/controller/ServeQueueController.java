@@ -737,7 +737,7 @@ public class ServeQueueController {
 				modifyQueue.setOrderId(serveQueue.getOrderId());
 				modifyQueue.setUserId(logUser.getId());
 				modifyQueue.setJobType(serveQueue.getJobType());
-				modifyQueue.setAdditionTime(serveQueueObject.getAdditionTime());
+				modifyQueue.setAdditionTime(Float.parseFloat(serveQueueObject.getAdditionTime()));
 				modifyQueue.setIsSubContract(serveQueue.getIsSubContract());
 				modifyQueue.setIsWarrant(serveQueueObject.getIsWarrant());
 				modifyQueueService.addModifyQueue(modifyQueue);

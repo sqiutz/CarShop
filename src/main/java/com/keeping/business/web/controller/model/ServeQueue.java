@@ -18,7 +18,7 @@ public class ServeQueue extends BaseQueue{
     
     private String jobType;
     
-	private Integer additionTime;
+	private String additionTime;
 	
 	private String roofNum;
 	
@@ -76,11 +76,11 @@ public class ServeQueue extends BaseQueue{
 		this.jobType = jobType;
 	}
 
-	public Integer getAdditionTime() {
+	public String getAdditionTime() {
 		return additionTime;
 	}
 
-	public void setAdditionTime(Integer additionTime) {
+	public void setAdditionTime(String additionTime) {
 		this.additionTime = additionTime;
 	}
 
