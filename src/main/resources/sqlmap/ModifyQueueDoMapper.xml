@@ -43,7 +43,7 @@
 	
 	<select id="getAllWorkers" resultType="java.lang.Integer" parameterType="java.sql.Date">
 		SELECT 
-		USER_ID
+		DISTINCT(USER_ID)
 		FROM TBL_MODIFYQUEUE
 		WHERE
 		date(ASSIGN_TIME) = #{date};
