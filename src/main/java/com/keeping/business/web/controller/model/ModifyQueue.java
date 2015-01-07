@@ -20,6 +20,10 @@ public class ModifyQueue extends BaseQueue{
 	private String roofNum;
 	
 	private Date promistTime;
+	
+	private Date assignDate;
+	
+	private Float load;
 
 	public String getJobType() {
 		return jobType;
@@ -83,6 +87,22 @@ public class ModifyQueue extends BaseQueue{
 
 	public void setPromistTime(Date promistTime) {
 		this.promistTime = promistTime;
+	}
+
+	public Date getAssignDate() {
+		return assignDate;
+	}
+
+	public void setAssignDate(Date assignDate) {
+		this.assignDate = assignDate;
+	}
+
+	public Float getLoad() {
+		return load;
+	}
+
+	public void setLoad(Float load) {
+		this.load = load;
 	}
     
 }

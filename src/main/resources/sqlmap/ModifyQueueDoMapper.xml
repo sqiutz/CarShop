@@ -10,6 +10,7 @@
 		<result column="CREATE_TIME" property="createTime" />
 		<result column="ADDITION_TIME" property="additionTime" />
 		<result column="ASSIGN_TIME" property="assignTime" />
+		<result column="ASSIGN_DATE" property="assignDate" />
 		<result column="START_TIME" property="startTime" />
 		<result column="END_TIME" property="endTime" />
 		<result column="JOBTYPE" property="jobType" />
@@ -37,15 +38,15 @@
 		<include refid="Base_Column_List" />
 		FROM TBL_MODIFYQUEUE
 		WHERE
-		USER_ID = #{userId} and ASSIGN_TIME = #{assignTime}
+		USER_ID = #{userId} and date(ASSIGN_TIME) = #{assignDate}
 	</select>
 	
-	<select id="getAllWorkers" resultMap="ModifyQueueDoMap">
+	<select id="getAllWorkers" resultType="java.lang.Integer" parameterType="java.sql.Date">
 		SELECT 
 		USER_ID
 		FROM TBL_MODIFYQUEUE
 		WHERE
-		ASSIGN_TIME = #{assignTime}
+		date(ASSIGN_TIME) = #{date};
 	</select>
 	
 	<select id="queryByModifyQueueid" resultMap="ModifyQueueDoMap" 

@@ -29,6 +29,8 @@ public class ModifyQueueDo {
     
     private Timestamp assignTime;
     
+    private Date assignDate;
+    
     private Integer additionTime;
     
 	public Integer getStep() {
@@ -133,6 +135,14 @@ public class ModifyQueueDo {
 
 	public void setAdditionTime(Integer additionTime) {
 		this.additionTime = additionTime;
+	}
+
+	public Date getAssignDate() {
+		return assignDate;
+	}
+
+	public void setAssignDate(Date assignDate) {
+		this.assignDate = assignDate;
 	}
 
 }

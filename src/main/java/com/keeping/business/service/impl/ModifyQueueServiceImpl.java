@@ -47,12 +47,11 @@ public class ModifyQueueServiceImpl implements ModifyQueueService{
 		
 		List<Integer> userIds = new ArrayList<Integer>();
 		
-		java.sql.Timestamp date = new java.sql.Timestamp(now.getTime());
+		java.sql.Date date = new java.sql.Date(now.getTime());
 		
 		ModifyQueueDo modifyQueueDo = new ModifyQueueDo();
-		modifyQueueDo.setAssignTime(date);
 		
-		userIds = modifyQueueDao.getAllWorkers(modifyQueueDo);
+		userIds = modifyQueueDao.getAllWorkers(date);
 		
 		return userIds;
 	}

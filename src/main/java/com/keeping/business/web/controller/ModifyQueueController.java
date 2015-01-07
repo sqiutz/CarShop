@@ -25,6 +25,7 @@ import com.keeping.business.common.rescode.BusinessCenterUserGroup;
 import com.keeping.business.common.util.PlatformPar;
 import com.keeping.business.common.util.PlatfromConstants;
 import com.keeping.business.common.util.StringUtil;
+import com.keeping.business.service.JobTypeService;
 import com.keeping.business.service.ModifyQueueService;
 import com.keeping.business.service.OrderService;
 import com.keeping.business.service.ServeQueueService;
@@ -60,6 +61,9 @@ public class ModifyQueueController {
 	private OrderService orderService;
 	@Resource
 	private UserService userService;
+	@Resource
+	private JobTypeService jobtypeService;
+	
 
 	@RequestMapping(params = "action=gettoday")
 	@ResponseBody
@@ -75,18 +79,26 @@ public class ModifyQueueController {
 			Date now = new Date();
 			List<Integer> userIds = modifyQueueService.getAllTodayWorkers(now);
 			ModifyQueue modifyQueue = new ModifyQueue();
-			modifyQueue.setAssignTime(now);
+			modifyQueue.setAssignDate(now);
 
 			for(int i=0; i<userIds.size(); i++){
 				
 				TodayModifyQueue todayModifyQueue = new TodayModifyQueue();
 				
 				User user = userService.getByUserId(userIds.get(i));
-				
 				modifyQueue.setUserId(user.getId());
 				List<ModifyQueue> modifyQueues = modifyQueueService.getModifyQueueByUserId(modifyQueue);
 				
+				for (int j=0; j<modifyQueues.size(); j++){
+					
+					Float load = Float.parseFloat(jobtypeService.queryByKey(modifyQueues.get(j).getJobType()).getValue());
+					load = load + modifyQueues.get(j).getAdditionTime();
+					
+					modifyQueues.get(j).setLoad(load);
+				}
+				
 				todayModifyQueue.setUsername(user.getUserName());
+				todayModifyQueue.setModifyQueues(modifyQueues);
 				
 				todayModifyQueues.add(todayModifyQueue);
 				

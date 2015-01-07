@@ -158,6 +158,7 @@ CREATE TABLE `TBL_MODIFYQUEUE` (
   `assign_time` datetime NOT NULL DEFAULT '1990-01-01 00:00:00',
   `create_time` datetime NOT NULL DEFAULT '1990-01-01 00:00:00',
   `start_time` datetime  NOT NULL DEFAULT '1990-01-01 00:00:00',
+  `assign_date` datetime  NOT NULL DEFAULT '1990-01-01 00:00:00',
   `end_time` datetime  NOT NULL DEFAULT '1990-01-01 00:00:00',
   INDEX user_ind (user_id),
     FOREIGN KEY (user_id)

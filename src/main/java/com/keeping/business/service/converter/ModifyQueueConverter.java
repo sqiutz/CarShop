@@ -27,6 +27,9 @@ public class ModifyQueueConverter {
 		modifyQueue.setIsWarrant(modifyQueueDo.getIsWarrant());
 		modifyQueue.setJobType(modifyQueueDo.getJobType());
 		modifyQueue.setTechnician(modifyQueueDo.getTechnician());
+		modifyQueue.setAssignDate(TimeUtil.transferFromSqlToUtilDate(modifyQueueDo.getAssignDate()));
+		modifyQueue.setAdditionTime(modifyQueueDo.getAdditionTime());
+		modifyQueue.setAssignTime(TimeUtil.transferFromSqlToUtil(modifyQueueDo.getAssignTime()));
 		
 		return modifyQueue;
 	}
@@ -51,6 +54,8 @@ public class ModifyQueueConverter {
 		modifyQueueDo.setIsWarrant(modifyQueue.getIsWarrant());
 		modifyQueueDo.setJobType(modifyQueue.getJobType());
 		modifyQueueDo.setTechnician(modifyQueue.getTechnician());
+		modifyQueueDo.setAssignDate(TimeUtil.transferFromUtilToSqlDate(modifyQueue.getAssignDate()));
+		modifyQueueDo.setAdditionTime(modifyQueue.getAdditionTime());
 		
 		return modifyQueueDo;
 	}
