@@ -255,20 +255,20 @@ insert into tbl_user set user_name = 'SA-04', is_admin = 0, passwd = 'passw0rd',
 -- insert into tbl_order set status=0, registerNumber='B-001', queueNumber='B1831TOK', estimationTime=4, start_time='2014-12-02 12:02:06', end_time='2014-12-02 12:12:26';
 -- insert into tbl_order set status=0, registerNumber='N-001', queueNumber='B1093MN', estimationTime=5;
 -- insert into tbl_order set status=0, registerNumber='B-002', queueNumber='B8763HJ', estimationTime=6;
-insert into tbl_order set status=1, registerNumber='B1001AC', queueNumber='B-003', estimationTime=7, roofNumber='roof-001', promiseTime='2014-12-16 12:02:06';
-insert into tbl_order set status=1, registerNumber='B1002AC', queueNumber='B-002', estimationTime=8;
-insert into tbl_order set status=1, registerNumber='B1003AC', queueNumber='B-001', estimationTime=4;
-insert into tbl_order set status=1, registerNumber='B1001NC', queueNumber='N-001', estimationTime=5;
-insert into tbl_order set status=1, registerNumber='B2001NC', queueNumber='N-002', estimationTime=4, is_book=1;
-insert into tbl_order set status=1, registerNumber='B3001NC', queueNumber='N-003', estimationTime=5, is_book=1;
-insert into tbl_order set status=0, registerNumber='B000001', estimationTime=5, is_book=1;
+-- insert into tbl_order set status=1, registerNumber='B1001AC', queueNumber='B-003', estimationTime=7, roofNumber='roof-001', promiseTime='2014-12-16 12:02:06';
+-- insert into tbl_order set status=1, registerNumber='B1002AC', queueNumber='B-002', estimationTime=8;
+-- insert into tbl_order set status=1, registerNumber='B1003AC', queueNumber='B-001', estimationTime=4;
+-- insert into tbl_order set status=1, registerNumber='B1001NC', queueNumber='N-001', estimationTime=5;
+-- insert into tbl_order set status=1, registerNumber='B2001NC', queueNumber='N-002', estimationTime=4, is_book=1;
+-- insert into tbl_order set status=1, registerNumber='B3001NC', queueNumber='N-003', estimationTime=5, is_book=1;
+-- insert into tbl_order set status=0, registerNumber='B000001', estimationTime=5, is_book=1;
 
---insert into tbl_servequeue set step=0, user_id=6, order_id=3;
+-- insert into tbl_servequeue set step=0, user_id=6, order_id=3;
 -- insert into tbl_servequeue set step=0, user_id=7, order_id=4;
 -- insert into tbl_servequeue set step=0, user_id=8, order_id=5;
 -- insert into tbl_servequeue set step=0, user_id=9, order_id=6;
---insert into tbl_servequeue set step=1, user_id=7, order_id=5;
---insert into tbl_servequeue set step=1, user_id=8, order_id=8;
+-- insert into tbl_servequeue set step=1, user_id=7, order_id=5;
+-- insert into tbl_servequeue set step=1, user_id=8, order_id=8;
 -- insert into tbl_servequeue set step=1, user_id=9, order_id=9;
 
 insert into tbl_modifyqueue set step=1, user_id=6, order_id=3,isWarrant=1;
@@ -280,6 +280,6 @@ insert into tbl_property set name='COUNTER_NUM', value='5';
 insert into tbl_property set name='AVG_WAITING_TIME', value='330';
 insert into tbl_property set name='WAITING_TIME_BUFFER', value='300';
 
-insert into TBL_JOBTYPE set name='Job Type A', value='60';
-insert into TBL_JOBTYPE set name='Job Type B', value='90';
-insert into TBL_JOBTYPE set name='Job Type C', value='120';
+insert into TBL_JOBTYPE set name='A', value='1';
+insert into TBL_JOBTYPE set name='B', value='1.5';
+insert into TBL_JOBTYPE set name='C', value='2';
