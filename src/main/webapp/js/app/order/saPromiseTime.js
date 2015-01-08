@@ -75,9 +75,13 @@
                 var td;
                 if(n >= k) {
                     for(var m = 0; m < n - k; m++) {
-                        $('<td></td>').appendTo(tr);
+                        $('<td></td>').html('&nbsp;')
+                            //.attr('style', 'width:39px')
+                            .appendTo(tr);
                     }
-                    td = $('<td></td>').attr('colSpan', l).appendTo(tr);
+                    td = $('<td></td>').attr('colSpan', l)
+                            //.attr('style', 'width:' + l * 39 + 'px')
+                            .appendTo(tr);
                     k = n + l;
                 }
                 else {
@@ -91,7 +95,9 @@
                 }
             }
             for(; k < 22; k ++) {
-                $('<td></td>').appendTo(tr);
+                $('<td></td>').html('&nbsp;')
+                    //.attr('style', 'width:39px')
+                    .appendTo(tr);
             }
         }
     }
