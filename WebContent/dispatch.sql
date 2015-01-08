@@ -148,7 +148,7 @@ CREATE TABLE `TBL_MODIFYQUEUE` (
   `id` bigint(10) NOT NULL AUTO_INCREMENT,
   `step` bigint(10) NOT NULL,
   `user_id` bigint(10) NOT NULL,
-  `modifier_id` bigint(10) NOT NULL,
+  `modifier_id` bigint(10) DEFAULT 0,
   `order_id` bigint(10) NOT NULL,
   `jobType` varchar(48) NOT NULL DEFAULT 'Job Type A',
   `technician` varchar(48) NOT NULL DEFAULT 'test',
