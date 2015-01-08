@@ -8,8 +8,15 @@ table.timeRef {
 table.timeRef td {
 	border:2px solid #ffffff;
 }
-tr .gray {
+tr.header {
 	background-color:#e3e3e3;
+	line-height:54px;
+}
+tr.even {
+	background-color:#e3e3e3;
+}
+td.header {
+	background-color:#d998cb;
 }
 div.timeslot {
 	border-radius: 4px;

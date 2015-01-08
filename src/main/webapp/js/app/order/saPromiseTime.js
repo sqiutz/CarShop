@@ -54,26 +54,44 @@
         });
     }
     
+    var color = ['red', 'green', 'blue'];
     var refreshWorkload = function(workloads) {
+        $('#timeRef tr.odd').remove();
+        $('#timeRef tr.even').remove();
         for(var i = 0; i < workloads.length; i++) {
             var workload = workloads[i];
-            var tr = $('<tr></tr>').attr('class', 'gray')
+            var tr = $('<tr></tr>').attr('class', i % 2 === 0 ? 'odd' : 'even')
                 .appendTo($('#timeRef'));
-            $('<td></td>').text(workload.username).appendTo(tr);
+            $('<td></td>').attr('class', 'header').text(workload.username).appendTo(tr);
             var queues = workload.modifyQueues;
-            var start = new Date();
-            start.setHours(7);
-            start.setMinutes(0);
-            start.setSeconds(0);
-            start.setMilliseconds(0);
-//            for(var j = 0, k = 0; j < 23; j++) {
-//                var begin = new Date(start.getTime() + j * 30 * 60 * 1000);
-//                while(k < queues.length) {
-//                    var queue 
-//                }
-//            }
-            for(var j = 0, k = 7; j < queues.length; j++) {
-                
+            for(var j = 0, k = 7, c = 0; j < queues.length; j++) {
+                var queue = queues[j];
+                var start = new Date(queue.assignTime);
+                var h = start.getHours(), m = start.getMinutes();
+                var n = h + (m < 30 ? 0 : 1), l = Math.ceil(queue.load / 0.5);
+                var td;
+                if(n >= k) {
+                    for(var m = 0; m < n - k; m++) {
+                        $('<td></td>').text('&nbsp;').appendTo(tr);
+                    }
+                    td = $('<td></td>').attr('colSpan', l).appendTo(tr);
+                    k = n + l;
+                }
+                else {
+                    if(n + l > k) {
+                        td = $('<td></td>').attr('colSpan', n + 1 - k).appendTo(tr);
+                        k = n + l;
+                    }
+                }
+                if(td) {
+                    $('<div></div>').attr('class', 'even ' + color[c++]).text(queue.mech).appendTo(td);
+                    if(c >= color.length) {
+                        c = 0;
+                    }
+                }
+            }
+            for(; k < 23; k ++) {
+                $('<td></td>').text('&nbsp;').appendTo(tr);
             }
         }
     }
@@ -87,7 +105,7 @@
             for(var i = 0; i < jobTypes.length; i++) {
                 var jobType = jobTypes[i];
                 var sel = $('#jobType');
-                $('<option></option>').val(jobType.name).text(jobType.name + ' (' + jobType.value + ' hour(s))')
+                $('<option></option>').val(jobType.name).text(jobType.name + ' - ' + jobType.value + ' hour(s)')
                     .appendTo(sel);
             }
         }
