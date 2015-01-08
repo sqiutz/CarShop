@@ -38,6 +38,18 @@ public class UserServiceImpl implements UserService{
 		return users;
 	}
 	
+
+	@Override
+	public List<User> queryAllByGroup(Integer groupId) throws BusinessServiceException {
+		// TODO Auto-generated method stub
+		List<UserDo> userDoes = userDao.queryAllByGroup(groupId);
+		List<User> users = new ArrayList<User>();
+		for (int i = 0; i < userDoes.size(); i++){
+			users.add(UserConverter.getUser(userDoes.get(i)));
+		}
+		return users;
+	}
+	
 	public User login(String username, String passwd) throws BusinessServiceException {
 		UserDo userDo = userDao.queryByUsername(username);
 		if (userDo == null) {
@@ -189,5 +201,6 @@ public class UserServiceImpl implements UserService{
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
 	}
+
 
 }

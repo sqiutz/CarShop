@@ -33,6 +33,8 @@ public class ModifyQueueDo {
     
     private Float additionTime;
     
+    private Integer modifierId;
+    
 	public Integer getStep() {
 		return step;
 	}
@@ -143,6 +145,14 @@ public class ModifyQueueDo {
 
 	public void setAssignDate(Date assignDate) {
 		this.assignDate = assignDate;
+	}
+
+	public Integer getModifierId() {
+		return modifierId;
+	}
+
+	public void setModifierId(Integer modifierId) {
+		this.modifierId = modifierId;
 	}
 
 }

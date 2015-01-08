@@ -24,6 +24,7 @@ import com.keeping.business.service.UserService;
 import com.keeping.business.web.controller.converter.JsonConverter;
 import com.keeping.business.web.controller.converter.WebUserConverter;
 import com.keeping.business.web.controller.model.CounterObject;
+import com.keeping.business.web.controller.model.IdObject;
 import com.keeping.business.web.controller.model.LoginReq;
 import com.keeping.business.web.controller.model.User;
 import com.keeping.business.web.controller.model.UserGroup;
@@ -266,6 +267,57 @@ public class UserController {
 		}
 	}
 
+	@RequestMapping(params = "action=alllistbygroup")
+	@ResponseBody
+	public WebResultList<UserProfile> getAllUsersByGroup(Integer status,
+			HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
+		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
+		HttpSession session = request.getSession();
+		session.setMaxInactiveInterval(PlatformPar.sessionTimeout);
+
+		List<User> userList = new ArrayList<User>();
+		List<UserProfile> userProfileList = new ArrayList<UserProfile>();
+
+		try {
+			
+			String jsonStr = request.getParameter("param");
+			IdObject idObject = JsonConverter.getFromJsonString(jsonStr,
+					IdObject.class);
+			
+			if (null == idObject || idObject.getId() == null) {
+				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
+				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
+//				logger.error("< ServeQueueController.getAllServeQueues() > 获取服务订单列表请求信息不正确: " + step);
+			} else {
+				userList = userService.queryAllByGroup(idObject.getId());
+				for (int i = 0; i < userList.size(); i++) {
+				userProfileList.add(WebUserConverter.getUserProfile(userList
+						.get(i)));
+				}
+			}
+		} catch (BusinessServiceException ex) {
+			code = ex.getErrorCode();
+			msg = ex.getErrorMessage();
+		} catch (Exception e) {
+			code = BusinessCenterResCode.SYS_ERROR.getCode();
+			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
+//			logger.error("< UserController.getAllUsers() > 获取用户列表失败."
+//					+ e.getMessage());
+		}
+
+		// 返回结果
+		try {
+			return JsonConverter.getResultObject(code, msg, userProfileList);
+		} catch (Exception e) {
+//			logger.error("< UserController.getAllUsers() > 获取用户列表返回出错."
+//					+ e.getMessage());
+			throw e;
+		}
+	}
+	
 	@RequestMapping(params = "action=add")
 	@ResponseBody
 	public WebResult addUser(HttpServletRequest request,

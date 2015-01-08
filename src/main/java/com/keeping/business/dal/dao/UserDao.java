@@ -8,6 +8,8 @@ public interface UserDao extends BaseDao<UserDo>{
 	
 	public List<UserDo> queryAll();
 	
+	public List<UserDo> queryAllByGroup(Integer groupId);
+	
 	public void addUser(UserDo userDo);
 	
 	public void deleteUser(Integer id);

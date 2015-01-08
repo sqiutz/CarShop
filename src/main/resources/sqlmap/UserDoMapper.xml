@@ -163,6 +163,13 @@
 		<include refid="Base_Column_List" />
 		FROM TBL_USER
 	</select>
+	
+	<select id="queryAllByGroup" resultMap="UserDoMap" parameterType="java.lang.Integer">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM TBL_USER
+		WHERE GROUP_ID = #{groupId}
+	</select>
 
 	<select id="queryByUserId" resultMap="UserDoMap" 
 		parameterType="java.lang.Integer">

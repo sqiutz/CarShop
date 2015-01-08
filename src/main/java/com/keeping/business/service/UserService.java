@@ -10,6 +10,8 @@ public interface UserService {
 
 	public List<User> queryAll();
 	
+	public List<User> queryAllByGroup(Integer groupId) throws BusinessServiceException;
+	
     public void addUser(User user) throws BusinessServiceException;
     
     public void deleteUser(User user) throws BusinessServiceException;

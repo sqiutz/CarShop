@@ -6,6 +6,7 @@
 	    <id column="ID" property="id" />
 		<result column="STEP" property="step" />
 		<result column="USER_ID" property="userId" />
+		<result column="MODIFIER_ID" property="modifierId" />
 		<result column="ORDER_ID" property="orderId" />
 		<result column="CREATE_TIME" property="createTime" />
 		<result column="ADDITION_TIME" property="additionTime" />
@@ -20,7 +21,7 @@
 	</resultMap>
 	
 	<sql id="Base_Column_List">
-		ID,STEP,USER_ID,ORDER_ID,CREATE_TIME,START_TIME,END_TIME,ASSIGN_TIME,ASSIGN_DATE,JOBTYPE,TECHNICIAN,ISWARRANT,ISSUBCONTRACT,ADDITION_TIME
+		ID,STEP,USER_ID,MODIFIER_ID,ORDER_ID,CREATE_TIME,START_TIME,END_TIME,ASSIGN_TIME,ASSIGN_DATE,JOBTYPE,TECHNICIAN,ISWARRANT,ISSUBCONTRACT,ADDITION_TIME
 	</sql>
 
 	<select id="queryByModifyQueuestep" resultMap="ModifyQueueDoMap" 
@@ -75,6 +76,9 @@
 			<if test="userId != null">
 				USER_ID,
 			</if>
+			<if test="modifierId != null">
+				MODIFIER_ID,
+			</if>
 			<if test="orderId != null">
 				ORDER_ID,
 			</if>
@@ -113,6 +117,9 @@
 			</if>
 			<if test="userId != null">
 				#{userId},
+			</if>
+			<if test="modifierId != null">
+				#{modifierId},
 			</if>
 			<if test="orderId != null">
 				#{orderId},
@@ -156,6 +163,9 @@
 			</if>
 			<if test="userId != null">
 				USER_ID = #{userId},
+			</if>
+			<if test="modifierId != null">
+				MODIFIER_ID = #{modifierId},
 			</if>
 			<if test="orderId != null">
 				ORDER_ID = #{orderId},

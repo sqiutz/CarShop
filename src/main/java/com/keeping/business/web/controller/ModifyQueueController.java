@@ -171,6 +171,61 @@ public class ModifyQueueController {
 		
 		return JsonConverter.getResultObject(code, msg, modifyQueue);
 	}
+	
+	@RequestMapping(params = "action=allocate")
+	@ResponseBody
+	public WebResultObject<ModifyQueue> allocateModifyQueue(HttpServletRequest request, HttpServletResponse response) {
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
+		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
+
+		ModifyQueue modifyQueue = new ModifyQueue();
+		
+		try {
+			
+			String jsonStr = request.getParameter("param");
+			ModifyQueue modifyQueueObject = JsonConverter.getFromJsonString(jsonStr,ModifyQueue.class);
+			
+			if (null == modifyQueueObject || modifyQueueObject.getId() == null) {
+				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
+				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
+//				logger.error("< ModifyQueueController.getModifyQueue() > 获取维修订单请求信息不正确: " + idObject.getId());
+			} else {
+				
+				modifyQueue = modifyQueueService.getModifyQueueById(modifyQueueObject.getId());
+				
+				if (modifyQueue != null && modifyQueue.getId() != null){
+					
+					modifyQueue.setUserId(modifyQueueObject.getUserId());
+					modifyQueue.setModifierId(modifyQueueObject.getModifierId());
+					modifyQueue.setJobType(modifyQueueObject.getJobType());
+					modifyQueue.setAdditionTime(modifyQueue.getAdditionTime());
+					modifyQueue.setTechnician(modifyQueueObject.getTechnician());
+					modifyQueue.setIsWarrant(modifyQueueObject.getIsWarrant());
+					modifyQueue.setIsSubContract(modifyQueueObject.getIsSubContract());
+					modifyQueue.setPromistTime(modifyQueueObject.getPromistTime());
+					
+					modifyQueueService.updateModifyQueue(modifyQueue);
+				}else{
+					code = BusinessCenterResCode.ORDER_NOT_EXIST.getCode();
+					msg = BusinessCenterResCode.ORDER_NOT_EXIST.getMsg();
+				}
+				
+			}
+		} catch (BusinessServiceException ex) {
+			code = ex.getErrorCode();
+			msg = ex.getErrorMessage();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			System.out.println(e.getStackTrace());
+			code = BusinessCenterResCode.SYS_ERROR.getCode();
+			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
+//			logger.error("< ModifyQueueController.getModifyQueue() > 获取维修列表失败."
+//					+ e.getMessage());
+		}
+		
+		return JsonConverter.getResultObject(code, msg, modifyQueue);
+	}
 
 	@RequestMapping(params = "action=start")
 	@ResponseBody
