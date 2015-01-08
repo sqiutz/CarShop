@@ -204,6 +204,7 @@ public class ModifyQueueController {
 					modifyQueue.setIsWarrant(modifyQueueObject.getIsWarrant());
 					modifyQueue.setIsSubContract(modifyQueueObject.getIsSubContract());
 					modifyQueue.setPromistTime(modifyQueueObject.getPromistTime());
+					modifyQueue.setStep(BusinessCenterModifyQueueStatus.MODIFYQUEUE_STATUS_READY.getId());
 					
 					modifyQueueService.updateModifyQueue(modifyQueue);
 				}else{
