@@ -9,10 +9,10 @@ table.timeRef td {
 	border:2px solid #ffffff;
 }
 tr.header {
-	background-color:#e3e3e3;
+	background-color:#d998cb;
 	line-height:54px;
 }
-tr.even {
+tr.odd {
 	background-color:#e3e3e3;
 }
 td.header {

@@ -56,42 +56,42 @@
     
     var color = ['red', 'green', 'blue'];
     var refreshWorkload = function(workloads) {
-        $('#timeRef tr.odd').remove();
-        $('#timeRef tr.even').remove();
+        $('#timeRefTable tr.odd').remove();
+        $('#timeRefTable tr.even').remove();
         for(var i = 0; i < workloads.length; i++) {
             var workload = workloads[i];
             var tr = $('<tr></tr>').attr('class', i % 2 === 0 ? 'odd' : 'even')
-                .appendTo($('#timeRef'));
+                .appendTo($('#timeRefTable'));
             $('<td></td>').attr('class', 'header').text(workload.username).appendTo(tr);
             var queues = workload.modifyQueues;
-            for(var j = 0, k = 7, c = 0; j < queues.length; j++) {
+            for(var j = 0, k = 0, c = 0; j < queues.length; j++) {
                 var queue = queues[j];
                 var start = new Date(queue.assignTime);
-                var h = start.getHours(), m = start.getMinutes();
-                var n = h + (m < 30 ? 0 : 1), l = Math.ceil(queue.load / 0.5);
+                var h = start.getHours(), m = start.getMinutes(), l = Math.ceil(queue.load / 0.5);
+                if(h < 7) {
+                    continue;
+                }
+                var n = (h - 7) * 2 + (m < 30 ? 0 : 1);
                 var td;
                 if(n >= k) {
                     for(var m = 0; m < n - k; m++) {
-                        $('<td></td>').text('&nbsp;').appendTo(tr);
+                        $('<td></td>').appendTo(tr);
                     }
                     td = $('<td></td>').attr('colSpan', l).appendTo(tr);
                     k = n + l;
                 }
                 else {
-                    if(n + l > k) {
-                        td = $('<td></td>').attr('colSpan', n + 1 - k).appendTo(tr);
-                        k = n + l;
-                    }
+                    continue;
                 }
                 if(td) {
-                    $('<div></div>').attr('class', 'even ' + color[c++]).text(queue.mech).appendTo(td);
+                    $('<div></div>').attr('class', 'timeslot ' + color[c++]).text(queue.technician).appendTo(td);
                     if(c >= color.length) {
                         c = 0;
                     }
                 }
             }
-            for(; k < 23; k ++) {
-                $('<td></td>').text('&nbsp;').appendTo(tr);
+            for(; k < 22; k ++) {
+                $('<td></td>').appendTo(tr);
             }
         }
     }
