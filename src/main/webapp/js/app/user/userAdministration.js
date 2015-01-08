@@ -442,9 +442,9 @@
 	            });
 	        var val = 0;
 	        for(var j = 1; j < 19; j++) {
-	            $('<option></option>').val(j * 30).text(j * 30).appendTo(sel);
-	            if(jobType.value == j * 30) {
-	                val = j * 30;
+	            $('<option></option>').val(j * 0.5).text(j * 0.5).appendTo(sel);
+	            if(jobType.value == j * 0.5) {
+	                val = j * 0.5;
 	            }
 	        }
 	        sel.val(val);
@@ -505,7 +505,7 @@
 	    var sel = $('<select></select>').attr('id', 'jobTypeVal')
             .attr('style', 'width:77px;margin-left:48px').appendTo(div);
         for(var j = 1; j < 19; j++) {
-            $('<option></option>').val(j * 30).text(j * 30).appendTo(sel);
+            $('<option></option>').val(j * 0.5).text(j * 0.5).appendTo(sel);
         }
         $('<button></button>').text(SAVE).attr('title', SAVE)
             .attr('id', 'jobTypeSaveBtn').attr('class', 'blue-button')

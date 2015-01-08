@@ -38,8 +38,6 @@ public class UserServiceImpl implements UserService{
 		return users;
 	}
 	
-
-	@Override
 	public List<User> queryAllByGroup(Integer groupId) throws BusinessServiceException {
 		// TODO Auto-generated method stub
 		List<UserDo> userDoes = userDao.queryAllByGroup(groupId);
