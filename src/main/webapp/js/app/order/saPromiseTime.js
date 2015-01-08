@@ -54,8 +54,28 @@
         });
     }
     
-    var refreshWorkload = function(workload) {
-        var w = workload;
+    var refreshWorkload = function(workloads) {
+        for(var i = 0; i < workloads.length; i++) {
+            var workload = workloads[i];
+            var tr = $('<tr></tr>').attr('class', 'gray')
+                .appendTo($('#timeRef'));
+            $('<td></td>').text(workload.username).appendTo(tr);
+            var queues = workload.modifyQueues;
+            var start = new Date();
+            start.setHours(7);
+            start.setMinutes(0);
+            start.setSeconds(0);
+            start.setMilliseconds(0);
+//            for(var j = 0, k = 0; j < 23; j++) {
+//                var begin = new Date(start.getTime() + j * 30 * 60 * 1000);
+//                while(k < queues.length) {
+//                    var queue 
+//                }
+//            }
+            for(var j = 0, k = 7; j < queues.length; j++) {
+                
+            }
+        }
     }
     
     var getJobType = function() {
@@ -67,7 +87,7 @@
             for(var i = 0; i < jobTypes.length; i++) {
                 var jobType = jobTypes[i];
                 var sel = $('#jobType');
-                $('<option></option>').val(jobType.name).text(jobType.name + ' (' + jobType.value + ' mins)')
+                $('<option></option>').val(jobType.name).text(jobType.name + ' (' + jobType.value + ' hour(s))')
                     .appendTo(sel);
             }
         }

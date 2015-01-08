@@ -8,6 +8,9 @@ table.timeRef {
 table.timeRef td {
 	border:2px solid #ffffff;
 }
+tr .gray {
+	background-color:#e3e3e3;
+}
 div.timeslot {
 	border-radius: 4px;
 	line-height:26px;

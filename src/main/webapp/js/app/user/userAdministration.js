@@ -441,7 +441,7 @@
 	                $('#btnSaveId_' + id).attr('disabled', false);
 	            });
 	        var val = 0;
-	        for(var j = 1; j < 19; j++) {
+	        for(var j = 1; j < 21; j++) {
 	            $('<option></option>').val(j * 0.5).text(j * 0.5).appendTo(sel);
 	            if(jobType.value == j * 0.5) {
 	                val = j * 0.5;
@@ -504,7 +504,7 @@
             });
 	    var sel = $('<select></select>').attr('id', 'jobTypeVal')
             .attr('style', 'width:77px;margin-left:48px').appendTo(div);
-        for(var j = 1; j < 19; j++) {
+        for(var j = 1; j < 21; j++) {
             $('<option></option>').val(j * 0.5).text(j * 0.5).appendTo(sel);
         }
         $('<button></button>').text(SAVE).attr('title', SAVE)
