@@ -30,6 +30,8 @@ public class UserWorkload {
 	
 	private Date allocatedTime;
 	
+	private Date assignDate;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -124,6 +126,14 @@ public class UserWorkload {
 
 	public void setAllocatedTime(Date allocatedTime) {
 		this.allocatedTime = allocatedTime;
+	}
+
+	public Date getAssignDate() {
+		return assignDate;
+	}
+
+	public void setAssignDate(Date assignDate) {
+		this.assignDate = assignDate;
 	}
 	
 	

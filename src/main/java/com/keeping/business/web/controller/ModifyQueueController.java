@@ -394,6 +394,11 @@ public class ModifyQueueController {
 				
 				modifyQueueService.updateModifyQueue(modifyQueue);   //更新modifyQueue订单
 				
+				UserWorkload userWorkload = userWorkloadService.queryByUserWorkloadQueueid(modifyQueue.getId());
+				now = new Date();
+				userWorkload.setStartTime(now);
+				userWorkloadService.updateUserWorkload(userWorkload);
+				
 				CashQueue cashQueue = new CashQueue();
 				cashQueue.setStep(BusinessCenterCashQueueStatus.CASHQUEUE_STATUS_MODIFYING.getId());
 				cashQueue.setOrderId(modifyQueue.getOrderId());

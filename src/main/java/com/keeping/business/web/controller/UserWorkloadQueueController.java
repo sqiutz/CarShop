@@ -34,6 +34,7 @@ import com.keeping.business.web.controller.converter.ReorgQueue;
 import com.keeping.business.web.controller.converter.WebUserConverter;
 import com.keeping.business.web.controller.model.DateObject;
 import com.keeping.business.web.controller.model.EstimationTime;
+import com.keeping.business.web.controller.model.IdObject;
 import com.keeping.business.web.controller.model.LoginReq;
 import com.keeping.business.web.controller.model.ModifyQueue;
 import com.keeping.business.web.controller.model.Order;
@@ -70,42 +71,26 @@ public class UserWorkloadQueueController {
 	 */
 	@RequestMapping(params = "action=alllist")
 	@ResponseBody
-	public WebResultList<UserWorkloadList> getAllUserWorkloads(HttpServletRequest request, HttpServletResponse response) {
+	public WebResultList<UserWorkload> getUserWorkload(HttpServletRequest request, HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
-
-		List<UserWorkloadList> userWorkloadLists = new ArrayList<UserWorkloadList>();
+		
 		List<UserWorkload> userWorkloads = new ArrayList<UserWorkload>();
-		List<Integer> userIds = new ArrayList<Integer>();
-		User user = new User();
 		try {
 			String jsonStr = request.getParameter("param");
-			System.out.println("jsonStr: " + jsonStr);
-			DateObject date = JsonConverter.getFromJsonString(jsonStr,
-					DateObject.class);
-			if (null == date) {
-				System.out.println("date is null");
-				date = new DateObject();
-				date.setToday(new Date());
-				System.out.println(date.getToday().toString());
-				//code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
-				//msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
+			
+			IdObject idObject = JsonConverter.getFromJsonString(jsonStr,
+					IdObject.class);
+			if (null == idObject) {
+				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
+				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
 //				logger.error("< UserWorkloadQueueController.getAllUserWorkloads() > 获取服务订单列表请求信息不正确: " + date);
 			} else {
-				userIds = userWorkloadService.queryAllUsers(date.getToday());
 				
-				UserWorkloadList userWorkloadList = new UserWorkloadList();
-				for (int i=0; i<userIds.size(); i++){
-					
-					userWorkloads = userWorkloadService.queryByUserWorkloadUserid(userIds.get(i));
-					user = userService.getByUserId(userIds.get(i));
-					
-					userWorkloadList.setUserName(user.getUserName());
-					userWorkloadList.setUserWorkloadList(userWorkloads);
-					
-					userWorkloadLists.add(userWorkloadList);
-				}
+				Date now = new Date();
+				idObject.setDate(now);
+				userWorkloads = userWorkloadService.queryByUserWorkloadUserid(idObject);
 				
 			}
 		} catch (BusinessServiceException ex) {
@@ -120,7 +105,7 @@ public class UserWorkloadQueueController {
 //					+ e.getMessage());
 		}
 
-		return JsonConverter.getResultObject(code, msg, userWorkloadLists);
+		return JsonConverter.getResultObject(code, msg, userWorkloads);
 	}
 
 }

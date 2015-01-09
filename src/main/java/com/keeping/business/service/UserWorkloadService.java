@@ -6,13 +6,14 @@ import java.util.List;
 
 import com.keeping.business.common.exception.BusinessServiceException;
 import com.keeping.business.dal.model.UserWorkloadDo;
+import com.keeping.business.web.controller.model.IdObject;
 import com.keeping.business.web.controller.model.Order;
 import com.keeping.business.web.controller.model.User;
 import com.keeping.business.web.controller.model.UserWorkload;
 
 public interface UserWorkloadService {
 
-    public List<UserWorkload> queryByUserWorkloadUserid(Integer userId) throws BusinessServiceException;
+    public List<UserWorkload> queryByUserWorkloadUserid(IdObject idObject) throws BusinessServiceException;
 	
 	public List<Integer> queryAllUsers(Date createTime);
 	

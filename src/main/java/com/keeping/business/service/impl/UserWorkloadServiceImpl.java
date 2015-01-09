@@ -20,6 +20,7 @@ import com.keeping.business.service.converter.OrderConverter;
 import com.keeping.business.service.converter.UserConverter;
 import com.keeping.business.service.converter.UserWorkloadConverter;
 import com.keeping.business.web.controller.UserController;
+import com.keeping.business.web.controller.model.IdObject;
 import com.keeping.business.web.controller.model.Order;
 import com.keeping.business.web.controller.model.User;
 import com.keeping.business.web.controller.model.UserWorkload;
@@ -32,13 +33,14 @@ public class UserWorkloadServiceImpl implements UserWorkloadService {
 	/** 日志 */
 //	private Logger logger = LoggerFactory.getLogger(UserController.class);
 
-	public List<UserWorkload> queryByUserWorkloadUserid(Integer userId)
+	public List<UserWorkload> queryByUserWorkloadUserid(IdObject idObject)
 			throws BusinessServiceException {
 		// TODO Auto-generated method stub
 		List<UserWorkload> userworkload_front = new ArrayList<UserWorkload>();
 		
 		UserWorkloadDo input = new UserWorkloadDo();
-		input.setUserId(userId);
+		input.setUserId(idObject.getId());
+		input.setAssignDate(idObject.getDate());
 		
 		List<UserWorkloadDo> userworkloadDoes = userWorkloadDao.queryByUserWorkloadUserid(input);
 

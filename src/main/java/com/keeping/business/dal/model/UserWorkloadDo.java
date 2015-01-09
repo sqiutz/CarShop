@@ -23,6 +23,14 @@ public class UserWorkloadDo {
 	
 	private Timestamp modifyTime;
 	
+	private Date assignDate;
+
+	private Timestamp startTime;
+	
+	private Timestamp endTime;
+	
+	private Timestamp allocatedTime;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -119,11 +127,12 @@ public class UserWorkloadDo {
 		this.allocatedTime = allocatedTime;
 	}
 
-	private Timestamp startTime;
-	
-	private Timestamp endTime;
-	
-	private Timestamp allocatedTime;
-	
+	public Date getAssignDate() {
+		return assignDate;
+	}
+
+	public void setAssignDate(Date assignDate) {
+		this.assignDate = assignDate;
+	}
 	
 }

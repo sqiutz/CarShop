@@ -15,10 +15,11 @@
 		<result column="MODIFY_TIME" property="modifyTime" />
 		<result column="START_TIME" property="startTime" />
 		<result column="END_TIME" property="endTime" />
+		<result column="ASSIGN_DATE" property="assignDate" />
 	</resultMap>
 	
 	<sql id="Base_Column_List">
-		ID,USER_ID,MODIFYQUEUE_ID,HUMANRESOURCE,GENERALREPAIRE,ADDITIONALHOURS,COMMENT,ALLOCATEDTIME,CREATE_TIME,MODIFY_TIME,START_TIME,END_TIME
+		ID,USER_ID,MODIFYQUEUE_ID,HUMANRESOURCE,GENERALREPAIRE,ADDITIONALHOURS,COMMENT,ALLOCATEDTIME,CREATE_TIME,MODIFY_TIME,START_TIME,END_TIME,ASSIGN_DATE
 	</sql>
 
 	<select id="queryByUserWorkloadUserid" resultMap="UserWorkloadDoMap" >
@@ -81,6 +82,9 @@
 			<if test="isBook != null">
 				END_TIME,
 			</if>
+			<if test="assignDate != null">
+				ASSIGN_DATE,
+			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="userId != null">
@@ -115,6 +119,9 @@
 			</if>
 			<if test="allocatedTime != null">
 				#{allocatedTime},
+			</if>
+			<if test="assignDate != null">
+				#{assignDate},
 			</if>
 		</trim>
 	</insert>
@@ -154,6 +161,9 @@
 			</if>
 			<if test="endTime != null">
 				END_TIME = #{endTime},
+			</if>
+			<if test="assignDate != null">
+				ASSIGN_DATE = #{assignDate},
 			</if>
 		</set>
 		WHERE 
