@@ -249,7 +249,7 @@
             		    $('#resumeBtn').attr('disabled', 'disabled');
             		    $('#holdBtn').attr('disabled', false);
             		    $('#nextBtn').attr('disabled', false); 
-            		    start = new Date(currServe.createTime);
+            		    start = new Date(currServe.startTime);
                         timer();
             		}
             		else {

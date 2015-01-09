@@ -8,24 +8,22 @@
 <link rel="stylesheet" type="text/css" href="css/global.css">
 <link rel="stylesheet" type="text/css" href="css/foreman_job.css">
 
-<script src="js/jquery-2.1.1.min.js"></script>
-<script src="js/d3-v3.4.11.js"></script>
+<script src="js/lib/jquery-2.1.1.min.js"></script>
+<script src="js/lib/d3-v3.4.11.js"></script>
 
 <script src="js/global.js"></script>
 <script src="js/chart.js"></script>
 
 <script type="text/javascript">
-    function layout() {
-        var width = $('.container').width();
-        var height = $('.container').height();
-       	layoutHeaderFooter(width, height);
-	var marginLeft = $('#content_lf').width() - $('#content_lf_box').width() * 0.5 - 230;
-	$('#chartContainer').css('margin-left', marginLeft + 'px');
+    function layoutMe() {
+       	layout();
+		var marginLeft = $('#content_lf').width() - $('#content_lf_box').width() * 0.5 - 230;
+		$('#chartContainer').css('margin-left', marginLeft + 'px');
     }
 
     $(document).ready(function() {
-        layout();
-        $(window).resize(layout);
+        layoutMe();
+        $(window).resize(layoutMe);
         drawChart('chart1', 0.35);
         drawChart('chart2', 0.50);
         drawChart('chart3', 0.60);
@@ -35,15 +33,15 @@
 </script>
 </head>
 <body>
-	<div class='container'>
-		<div class='header'>
+	<div id='container' class='container'>
+		<div id='headerTop' class='header'>
 			<span id='title' class='h1'>FOREMAN JOB DISTRIBUTION LIST</span>
 		</div>
 		<div id='content' class='content'>
 			<div id='content_lf' class='content_lf'>
 				<div id='content_lf_box' class='box w1 rAlign'>
-					<span class='t2 green h3'>NEXT ON QUE</span>
-					<table class="w1 green">
+					<div class='blue h3' style='width:450px;height:45px'>NEXT ON QUE</div>
+					<table class="queue blue" style='width:450px'>
 						<tr>
 							<th>Reg. No.</th>
 							<th>Que. No.</th>
@@ -126,12 +124,12 @@
 						<label for='promiseTime'>Promise Time</label>
 						<input id='promiseTime' name='promiseTime' type='text'><br />
 						
-					</div>
-					<div>
-						<label>&nbsp;</label>
-						<button class='yellow' title='ALLOCATION'>ALLOCATION</button>
-					</div>
+					</div>					
           			</form>
+          			<div>
+						<label>&nbsp;</label>
+						<button class='blue-button' style='width:152px;height:48px'>ALLOCATION</button>
+					</div>
 				</fieldset>
 				</div>
 			</div>
