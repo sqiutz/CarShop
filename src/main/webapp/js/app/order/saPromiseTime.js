@@ -76,11 +76,9 @@
                 if(n >= k) {
                     for(var m = 0; m < n - k; m++) {
                         $('<td></td>').html('&nbsp;')
-                            //.attr('style', 'width:39px')
                             .appendTo(tr);
                     }
                     td = $('<td></td>').attr('colSpan', l)
-                            //.attr('style', 'width:' + l * 39 + 'px')
                             .appendTo(tr);
                     k = n + l;
                 }
@@ -96,7 +94,6 @@
             }
             for(; k < 22; k ++) {
                 $('<td></td>').html('&nbsp;')
-                    //.attr('style', 'width:39px')
                     .appendTo(tr);
             }
         }
@@ -152,7 +149,7 @@
             },
             success : function(data) {
                 if (data.code == '000000') {
-                    
+                    location.href = 'foreman_job.html';
                 }
             }
         });

@@ -1,0 +1,270 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
+<title>FOREMAN JOB DISTRIBUTION LIST</title>
+
+<link rel="stylesheet" type="text/css" href="css/global.css">
+<link rel="stylesheet" type="text/css" href="css/foreman_job.css">
+
+<script src="js/jquery-2.1.1.min.js"></script>
+<script src="js/d3-v3.4.11.js"></script>
+
+<script src="js/global.js"></script>
+<script src="js/chart.js"></script>
+
+<script type="text/javascript">
+    function layout() {
+        var width = $('.container').width();
+        var height = $('.container').height();
+       	layoutHeaderFooter(width, height);
+	var marginLeft = $('#content_lf').width() - $('#content_lf_box').width() * 0.5 - 230;
+	$('#chartContainer').css('margin-left', marginLeft + 'px');
+    }
+
+    $(document).ready(function() {
+        layout();
+        $(window).resize(layout);
+        drawChart('chart1', 0.35);
+        drawChart('chart2', 0.50);
+        drawChart('chart3', 0.60);
+        drawChart('chart4', 0.75);
+        drawChart('chart5', 0.40);
+    });
+</script>
+</head>
+<body>
+	<div class='container'>
+		<div class='header'>
+			<span id='title' class='h1'>FOREMAN JOB DISTRIBUTION LIST</span>
+		</div>
+		<div id='content' class='content'>
+			<div id='content_lf' class='content_lf'>
+				<div id='content_lf_box' class='box w1 rAlign'>
+					<span class='t2 green h3'>NEXT ON QUE</span>
+					<table class="w1 green">
+						<tr>
+							<th>Reg. No.</th>
+							<th>Que. No.</th>
+							<th>Time Send</th>
+						</tr>
+						<tr class='odd'>
+							<td>B1001AC</td>
+							<td>B-003</td>
+							<td>09:00</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr class='odd'>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr class='odd'>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+
+					</table>
+				</div>
+			</div>
+			<div class='content_rg'>
+				<div class='w2'>
+				<fieldset>
+					<legend>Input/Edit Data</legend>
+					<form>
+					<div>
+       						<label for='regNo'>Reg. No.</label>
+ 						<input id='regNo' name='regNo' type='text'><br />
+					</div>
+					<div>
+					<label for='idMechanic'>ID Mechanic</label>
+					<input id='idMechanic' name='idMechanic' type='text'><br />
+					</div>
+					<div>
+              					<label for='roofNo'>Roof No.</label>
+						<input id='roofNo' name='roofNo' type='text'><br />
+					</div>
+					<div>
+						<label for='serviceAdvisor'>Service Advisor</label>
+						<input id='serviceAdvisor' name='serviceAdvisor' type='text'><br />
+					</div>
+					<div>
+						<label for='jobType' class="">Job Type</label>
+						<select id='jobType' name='jobType'>
+                    					<option>Job Type-1</option>
+                    					<option>Job Type-2</option>
+                  				</select>
+					</div>
+					<div>
+						<label>&nbsp;</label>
+						<input type='radio' name='contractType' value='warranty' />Warranty<br />
+					</div>
+					<div>
+						<label>&nbsp;</label>
+						<input type='radio' name='contractType' value='subContract' />Sub Contract<br />
+					</div>
+					<div>
+						<label for='technician'>Technician</label>
+						<select id='technician' name='technician'>
+                    					<option>Tech. A</option>
+                    					<option>Tech. B</option>
+                    					<option>Tech. C</option>
+                  				</select>
+					</div>
+					<div>
+						<label for='promiseTime'>Promise Time</label>
+						<input id='promiseTime' name='promiseTime' type='text'><br />
+						
+					</div>
+					<div>
+						<label>&nbsp;</label>
+						<button class='yellow' title='ALLOCATION'>ALLOCATION</button>
+					</div>
+          			</form>
+				</fieldset>
+				</div>
+			</div>
+			<div id='chartContainer' class='box-black-light'>
+				<div class='cAlign h3'>WORK LOAD<br /></div>
+				<div class='donuts'>
+					<div class='donut'><div id='chart1' class='box-black-dark'></div><div class='cAlign h3'>EM-1</div></div>	
+					<div class='donut'><div id='chart2' class='box-black-dark'></div><div class='cAlign h3'>EM-2</div></div>
+					<div class='donut'><div id='chart3' class='box-black-dark'></div><div class='cAlign h3'>Tech. A</div></div>
+					<div class='donut'><div id='chart4' class='box-black-dark'></div><div class='cAlign h3'>Tech. B</div></div>
+					<div class='donut'><div id='chart5' class='box-black-dark'></div><div class='cAlign h3'>Tech. C</div></div>				
+				</div>
+			</div>
+			
+				<table class='workload'>
+						<tr style='background-color:rgb(197,217,241);'>
+							<td style='color:#ff0000;border-color:#000000;font-weight:bold;font-style:normal;'>1</td>
+							<td colSpan='2' style='font-weight:bold;font-style:normal;border-right:0px;'>Technician:</td>
+							<td colSpan='4' style='text-align:left;border-left:0px;border-right:0px;'>Tech A</td>
+							<td style='font-style:normal;border-left:0px;border-right:0px;'>Hr. Taken</td>
+							<td colSpan='5' style='text-align:left;border-left:0px;border-right:0px;'>10,15</td>
+							<td colSpan='3' style='font-weight:bold;font-style:normal;text-align:left;border-left:0px;'>Bay No.3</td>
+						</tr>
+						<tr style='background-color:rgb(197,217,241);font-style:normal;'>
+							<td>No.</td>
+							<td>Reg. No.</td>
+							<td>Roof<br />No.</td>
+							<td>Service<br />Advisor</td>
+							<td>Periodic<br />Service</td>
+							<td>Hr. Need</td>
+							<td>Additional<br />Hours</td>
+							<td>General<br />Repair</td>
+							<td>Warranty</td>
+							<td>Sub-<br />contract</td>
+							<td>Time<br />Allocated</td>
+							<td>Promise<br />Time</td>
+							<td>Start<br />Time</td>
+							<td>Time On<br />Hold</td>
+							<td>Finish<br />Time</td>
+							<td>Remarks</td>
+						</tr>
+						<tr style='background-color:rgb(215,228,188);'>
+							<td style='background-color:rgb(197,217,241);font-style:normal;'>1</td>
+							<td>B1831TOK</td>
+							<td>07</td>
+							<td>33</td>
+							<td>(B) 30K</td>
+							<td>1, 2</td>
+							<td>&nbsp;</td>
+							<td>2</td>
+							<td>No</td>
+							<td>No</td>
+							<td>8:20</td>
+							<td>11:00</td>
+							<td>8:30</td>
+							<td>&nbsp;</td>
+							<td>10:00</td>
+							<td>Ready for Inspection</td>
+						</tr>
+						<tr style='background-color:rgb(215,228,188);'>
+							<td style='background-color:rgb(197,217,241);font-style:normal;'>2</td>
+							<td>B1001AC</td>
+							<td>18</td>
+							<td>13</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>2</td>
+							<td>No</td>
+							<td>No</td>
+							<td>8:30</td>
+							<td>11:00</td>
+							<td>17:00</td>
+							<td>&nbsp;</td>
+							<td>18:00</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr style='background-color:rgb(255,192,0);'>
+							<td style='background-color:rgb(197,217,241);font-style:normal;'>3</td>
+							<td>B8763</td>
+							<td>5</td>
+							<td>13</td>
+							<td>(A) 5K</td>
+							<td>0,75</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>No</td>
+							<td>No</td>
+							<td>9:00</td>
+							<td>12:00</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>10:45</td>
+							<td>Ready for Inspection</td>
+						</tr>
+						<tr style='background-color:rgb(255,192,0);'>
+							<td style='background-color:rgb(197,217,241);font-style:normal;'>4</td>
+							<td>B3321</td>
+							<td>14</td>
+							<td>26</td>
+							<td>(B) 30K</td>
+							<td>1,2</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>No</td>
+							<td>No</td>
+							<td>9:15</td>
+							<td>14:00</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>13:35</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr style='background-color:rgb(255,0,0);'>
+							<td style='background-color:rgb(197,217,241);font-style:normal;'>5</td>
+							<td>B10931MN</td>
+							<td>22</td>
+							<td>25</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>3</td>
+							<td>Yes</td>
+							<td>No</td>
+							<td>9:20</td>
+							<td>17:00</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>16:00</td>
+							<td>&nbsp;</td>
+						</tr>
+					</table>
+				
+		</div>
+	</div>
+</body>
