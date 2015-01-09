@@ -33,6 +33,7 @@ div.box-black-dark {
 	height:160px;
 }
 table.workload {
+	border-collapse:collapse;
 	margin:20px auto;
 	font-size:18px;
 	font-style:italic;

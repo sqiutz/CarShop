@@ -45,8 +45,7 @@
             $('#endTimeCol').text(END_TIME);
             $('#wRegNoCol').text(REG_NO);
             $('#wQueNoCol').text(QUE_NO);
-            $('#queStartCol').text(QUE_START);
-            
+            $('#queStartCol').text(QUE_START);            
             $('#legendTitle').text(INPUT_EDIT_DATA);
             $('#regNoLabel').text(REG_NO);
             $('#additionTimeLabel').text(ADDITION_TIME);
@@ -250,7 +249,7 @@
             		    $('#resumeBtn').attr('disabled', 'disabled');
             		    $('#holdBtn').attr('disabled', false);
             		    $('#nextBtn').attr('disabled', false); 
-            		    start = new Date();
+            		    start = new Date(currServe.startTime);
                         timer();
             		}
             		else {
@@ -260,6 +259,7 @@
             		    $('#resumeBtn').attr('disabled', 'disabled');
             		    $('#nextBtn').attr('disabled', 'disabled');
             		    start = 0;
+            		    $.cookie('timerStartTime', '', {expires: -1});
             		}
             		$('#currentNo').text(currServe ? currServe.order.queueNum : '')
             		$('#waitingMins').text(currServe ? getMins(currServe.delayTime) + "'" : '');
