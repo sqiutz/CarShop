@@ -30,11 +30,13 @@ import com.keeping.business.service.ModifyQueueService;
 import com.keeping.business.service.OrderService;
 import com.keeping.business.service.ServeQueueService;
 import com.keeping.business.service.UserService;
+import com.keeping.business.service.UserWorkloadService;
 import com.keeping.business.web.controller.converter.JsonConverter;
 import com.keeping.business.web.controller.converter.ReorgQueue;
 import com.keeping.business.web.controller.converter.WebUserConverter;
 import com.keeping.business.web.controller.model.CashQueue;
 import com.keeping.business.web.controller.model.IdObject;
+import com.keeping.business.web.controller.model.JobType;
 import com.keeping.business.web.controller.model.LoginReq;
 import com.keeping.business.web.controller.model.ModifyQueue;
 import com.keeping.business.web.controller.model.Order;
@@ -43,6 +45,7 @@ import com.keeping.business.web.controller.model.StepObject;
 import com.keeping.business.web.controller.model.TodayModifyQueue;
 import com.keeping.business.web.controller.model.User;
 import com.keeping.business.web.controller.model.UserProfile;
+import com.keeping.business.web.controller.model.UserWorkload;
 import com.keeping.business.web.controller.model.WebResult;
 import com.keeping.business.web.controller.model.WebResultList;
 import com.keeping.business.web.controller.model.WebResultObject;
@@ -63,8 +66,9 @@ public class ModifyQueueController {
 	private UserService userService;
 	@Resource
 	private JobTypeService jobtypeService;
+	@Resource
+	private UserWorkloadService userWorkloadService;
 	
-
 	@RequestMapping(params = "action=gettoday")
 	@ResponseBody
 	public WebResultList<TodayModifyQueue> getTodayModifyQueue(HttpServletRequest request, HttpServletResponse response) {
@@ -205,8 +209,21 @@ public class ModifyQueueController {
 					modifyQueue.setIsSubContract(modifyQueueObject.getIsSubContract());
 					modifyQueue.setPromistTime(modifyQueueObject.getPromistTime());
 					modifyQueue.setStep(BusinessCenterModifyQueueStatus.MODIFYQUEUE_STATUS_READY.getId());
-					
 					modifyQueueService.updateModifyQueue(modifyQueue);
+					
+					Integer generalRepaire = 0;
+					JobType jobType = jobtypeService.queryByKey(modifyQueue.getJobType());
+					if(jobType != null){
+						generalRepaire = Integer.parseInt(jobType.getValue());
+					}
+					UserWorkload userWorkload = new UserWorkload();
+					userWorkload.setModifyqueueId(modifyQueue.getId());
+					userWorkload.setUserId(modifyQueue.getModifierId());
+					userWorkload.setAdditionalHours(modifyQueue.getAdditionTime());
+					userWorkload.setGeneralRepaire(generalRepaire);
+					userWorkload.setAllocatedTime(modifyQueue.getAssignTime());
+					userWorkloadService.addUserWorkload(userWorkload);
+					
 				}else{
 					code = BusinessCenterResCode.ORDER_NOT_EXIST.getCode();
 					msg = BusinessCenterResCode.ORDER_NOT_EXIST.getMsg();

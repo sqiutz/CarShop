@@ -1,5 +1,6 @@
 package com.keeping.business.service.converter;
 
+import com.keeping.business.common.util.TimeUtil;
 import com.keeping.business.dal.model.UserWorkloadDo;
 import com.keeping.business.web.controller.model.UserWorkload;
 
@@ -16,7 +17,7 @@ public class UserWorkloadConverter {
 		userWorkload.setEndTime(userWorkloadDo.getEndTime());
 		userWorkload.setStartTime(userWorkloadDo.getStartTime());
 		userWorkload.setModifyTime(userWorkloadDo.getModifyTime());
-		userWorkload.setAllocatedTime(userWorkloadDo.getAllocatedTime());
+		userWorkload.setAllocatedTime(TimeUtil.transferFromSqlToUtil(userWorkloadDo.getAllocatedTime()));
 		userWorkload.setComment(userWorkloadDo.getComment());
 		userWorkload.setAdditionalHours(userWorkloadDo.getAdditionalHours());
 		userWorkload.setGeneralRepaire(userWorkloadDo.getGeneralRepaire());
@@ -39,7 +40,7 @@ public class UserWorkloadConverter {
 		userWorkloadDo.setEndTime(userWorkload.getEndTime());
 		userWorkloadDo.setStartTime(userWorkload.getStartTime());
 		userWorkloadDo.setModifyTime(userWorkload.getModifyTime());
-		userWorkloadDo.setAllocatedTime(userWorkload.getAllocatedTime());
+		userWorkloadDo.setAllocatedTime(TimeUtil.transferFromUtilToSql(userWorkload.getAllocatedTime()));
 		userWorkloadDo.setComment(userWorkload.getComment());
 		userWorkloadDo.setAdditionalHours(userWorkload.getAdditionalHours());
 		userWorkloadDo.setGeneralRepaire(userWorkload.getGeneralRepaire());

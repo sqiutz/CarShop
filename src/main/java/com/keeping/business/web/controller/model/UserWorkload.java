@@ -16,13 +16,19 @@ public class UserWorkload {
 	
 	private Integer generalRepaire;
 	
-	private Integer additionalHours;
+	private Float additionalHours;
 	
 	private String comment; 
 	
 	private Date createTime;
 	
 	private Timestamp modifyTime;
+
+	private Timestamp startTime;
+	
+	private Timestamp endTime;
+	
+	private Date allocatedTime;
 	
 	public Integer getId() {
 		return id;
@@ -64,11 +70,11 @@ public class UserWorkload {
 		this.generalRepaire = generalRepaire;
 	}
 
-	public Integer getAdditionalHours() {
+	public Float getAdditionalHours() {
 		return additionalHours;
 	}
 
-	public void setAdditionalHours(Integer additionalHours) {
+	public void setAdditionalHours(Float additionalHours) {
 		this.additionalHours = additionalHours;
 	}
 
@@ -112,19 +118,13 @@ public class UserWorkload {
 		this.endTime = endTime;
 	}
 
-	public Timestamp getAllocatedTime() {
+	public Date getAllocatedTime() {
 		return allocatedTime;
 	}
 
-	public void setAllocatedTime(Timestamp allocatedTime) {
+	public void setAllocatedTime(Date allocatedTime) {
 		this.allocatedTime = allocatedTime;
 	}
-
-	private Timestamp startTime;
-	
-	private Timestamp endTime;
-	
-	private Timestamp allocatedTime;
 	
 	
 }

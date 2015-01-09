@@ -15,7 +15,7 @@ public class UserWorkloadDo {
 	
 	private Integer generalRepaire;
 	
-	private Integer additionalHours;
+	private Float additionalHours;
 	
 	private String comment; 
 	
@@ -63,11 +63,11 @@ public class UserWorkloadDo {
 		this.generalRepaire = generalRepaire;
 	}
 
-	public Integer getAdditionalHours() {
+	public Float getAdditionalHours() {
 		return additionalHours;
 	}
 
-	public void setAdditionalHours(Integer additionalHours) {
+	public void setAdditionalHours(Float additionalHours) {
 		this.additionalHours = additionalHours;
 	}
 
