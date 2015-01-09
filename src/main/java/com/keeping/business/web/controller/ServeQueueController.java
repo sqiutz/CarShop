@@ -215,26 +215,29 @@ public class ServeQueueController {
 				List<Integer> orderIdList = new ArrayList<Integer>();
 				List<User> users = new ArrayList<User>();
 				for (int i=0; i<serveQueueList.size(); i++){
-					System.out.println("serveQueueList.get(i).getUserId() " + serveQueueList.get(i).getUserId());
+					
 					userIdList.add(serveQueueList.get(i).getUserId());
-					System.out.println("serveQueueList.get(i).getOrderId() " + serveQueueList.get(i).getOrderId());
+					
 					orderIdList.add(serveQueueList.get(i).getOrderId());
 				
 					User user = userService.getByUserId(userIdList.get(i));
 					users.add(user);
 					
-					Date now = new Date();
-					java.sql.Date dateTime = new java.sql.Date(now.getTime());
-					
-					Long timeInterval = dateTime.getTime() - serveQueueList.get(i).getStartTime().getTime();
-					Integer elapseTime = new Integer(timeInterval.intValue());
-					serveQueueList.get(i).setDelayTime(elapseTime);
 				}
 				
 				if(serveQueueList.size() > 0){
 
 					List<Order> orders = orderService.getByOrdersId(orderIdList);
-					System.out.println("retrun from orderService " + orders.size());
+					
+					for(int j=0; j<orders.size(); j++){
+						
+						Date now = new Date();
+						java.sql.Date dateTime = new java.sql.Date(now.getTime());
+						
+						Long timeInterval = dateTime.getTime() - orders.get(j).getStartTime().getTime();
+						Integer elapseTime = new Integer(timeInterval.intValue());
+						serveQueueList.get(j).setDelayTime(elapseTime);
+					}
 					
 					ReorgQueue.reorgServeQueue(serveQueueList, users, orders);   //need to verify
 				}

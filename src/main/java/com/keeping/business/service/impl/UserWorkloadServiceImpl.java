@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.keeping.business.common.exception.BusinessServiceException;
+import com.keeping.business.common.util.TimeUtil;
 import com.keeping.business.dal.dao.OrderDao;
 import com.keeping.business.dal.dao.UserWorkloadDao;
 import com.keeping.business.dal.model.OrderDo;
@@ -40,7 +41,7 @@ public class UserWorkloadServiceImpl implements UserWorkloadService {
 		
 		UserWorkloadDo input = new UserWorkloadDo();
 		input.setUserId(idObject.getId());
-		input.setAssignDate(idObject.getDate());
+		input.setAssignDate(TimeUtil.transferFromUtilToSqlDate(idObject.getDate()));
 		
 		List<UserWorkloadDo> userworkloadDoes = userWorkloadDao.queryByUserWorkloadUserid(input);
 
@@ -60,7 +61,6 @@ public class UserWorkloadServiceImpl implements UserWorkloadService {
 		List<Integer> userIds = new ArrayList<Integer>();
 		
 		UserWorkloadDo input = new UserWorkloadDo();
-		input.setCreateTime(createTime);
 		
 		userIds = userWorkloadDao.queryAllUsers(input);
 		

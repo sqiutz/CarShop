@@ -27,7 +27,7 @@
 		<include refid="Base_Column_List" />
 		FROM TBL_USERWORKLOAD
 		WHERE
-		USER_ID = #{userId} and CREATE_TIME = #{createTime}
+		USER_ID = #{userId} and date(ASSIGN_DATE) = #{assignDate}
 	</select>
 	
 	<select id="queryByUserWorkloadQueueid" resultMap="UserWorkloadDoMap" parameterType="java.lang.Integer" >

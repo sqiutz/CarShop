@@ -1,7 +1,7 @@
 package com.keeping.business.dal.model;
 
 import java.sql.Timestamp;
-import java.util.Date;
+import java.sql.Date;
 
 public class UserWorkloadDo {
 
@@ -11,7 +11,7 @@ public class UserWorkloadDo {
 	
 	private Integer modifyqueueId;
 	
-	private String humanResource;
+	private Float humanResource;
 	
 	private Integer generalRepaire;
 	
@@ -19,7 +19,7 @@ public class UserWorkloadDo {
 	
 	private String comment; 
 	
-	private Date createTime;
+	private Timestamp createTime;
 	
 	private Timestamp modifyTime;
 	
@@ -55,11 +55,11 @@ public class UserWorkloadDo {
 		this.modifyqueueId = modifyqueueId;
 	}
 
-	public String getHumanResource() {
+	public Float getHumanResource() {
 		return humanResource;
 	}
 
-	public void setHumanResource(String humanResource) {
+	public void setHumanResource(Float humanResource) {
 		this.humanResource = humanResource;
 	}
 
@@ -87,11 +87,11 @@ public class UserWorkloadDo {
 		this.comment = comment;
 	}
 
-	public Date getCreateTime() {
+	public Timestamp getCreateTime() {
 		return createTime;
 	}
 
-	public void setCreateTime(Date createTime) {
+	public void setCreateTime(Timestamp createTime) {
 		this.createTime = createTime;
 	}
 

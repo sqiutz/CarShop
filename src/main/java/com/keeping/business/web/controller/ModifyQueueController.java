@@ -222,6 +222,7 @@ public class ModifyQueueController {
 					userWorkload.setAdditionalHours(modifyQueue.getAdditionTime());
 					userWorkload.setGeneralRepaire(generalRepaire);
 					userWorkload.setAllocatedTime(modifyQueue.getAssignTime());
+					userWorkload.setHumanResource(modifyQueue.getLoad());
 					userWorkloadService.addUserWorkload(userWorkload);
 					
 				}else{

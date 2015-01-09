@@ -13,7 +13,7 @@ public class UserWorkloadConverter {
 		
 		UserWorkload userWorkload = new UserWorkload();
 		userWorkload.setId(userWorkloadDo.getId());
-		userWorkload.setCreateTime(userWorkloadDo.getCreateTime());
+		userWorkload.setCreateTime(TimeUtil.transferFromSqlToUtil(userWorkloadDo.getCreateTime()));
 		userWorkload.setEndTime(TimeUtil.transferFromSqlToUtil(userWorkloadDo.getEndTime()));
 		userWorkload.setStartTime(TimeUtil.transferFromSqlToUtil(userWorkloadDo.getStartTime()));
 		userWorkload.setModifyTime(userWorkloadDo.getModifyTime());
@@ -22,8 +22,6 @@ public class UserWorkloadConverter {
 		userWorkload.setAdditionalHours(userWorkloadDo.getAdditionalHours());
 		userWorkload.setGeneralRepaire(userWorkloadDo.getGeneralRepaire());
 		userWorkload.setHumanResource(userWorkloadDo.getHumanResource());
-		
-
 		
 		return userWorkload;
 	}
@@ -36,7 +34,7 @@ public class UserWorkloadConverter {
 		UserWorkloadDo userWorkloadDo = new UserWorkloadDo();
 		
 		userWorkloadDo.setId(userWorkload.getId());
-		userWorkloadDo.setCreateTime(userWorkload.getCreateTime());
+		userWorkloadDo.setCreateTime(TimeUtil.transferFromUtilToSql(userWorkload.getCreateTime()));
 		userWorkloadDo.setEndTime(TimeUtil.transferFromUtilToSql(userWorkload.getEndTime()));
 		userWorkloadDo.setStartTime(TimeUtil.transferFromUtilToSql(userWorkload.getStartTime()));
 		userWorkloadDo.setModifyTime(userWorkload.getModifyTime());

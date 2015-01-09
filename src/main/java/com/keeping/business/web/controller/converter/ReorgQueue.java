@@ -34,6 +34,7 @@ public class ReorgQueue {
 		for (int i = 0; i < baseQueues.size(); i++) {
 				baseQueues.get(i).setUser(users.get(i));
 				baseQueues.get(i).setOrder(orders.get(i));
+
 		}
 
 		return;
