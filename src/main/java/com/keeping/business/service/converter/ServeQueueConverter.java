@@ -1,5 +1,6 @@
 package com.keeping.business.service.converter;
 
+import com.keeping.business.common.util.TimeUtil;
 import com.keeping.business.dal.model.ServeQueueDo;
 import com.keeping.business.web.controller.model.ServeQueue;
 
@@ -16,8 +17,8 @@ public class ServeQueueConverter {
 		serveQueue.setId(serveQueueDo.getId());
 		serveQueue.setCreateTime(serveQueueDo.getCreateTime());
 		serveQueue.setModifyTime(serveQueueDo.getModifyTime());
-		serveQueue.setEndTime(serveQueueDo.getEndTime());
-		serveQueue.setStartTime(serveQueueDo.getStartTime());
+		serveQueue.setEndTime(TimeUtil.transferFromSqlToUtil(serveQueueDo.getEndTime()));
+		serveQueue.setStartTime(TimeUtil.transferFromSqlToUtil(serveQueueDo.getStartTime()));
 		serveQueue.setStep(serveQueueDo.getStep());
 		serveQueue.setOrderId(serveQueueDo.getOrderId());
 		serveQueue.setUserId(serveQueueDo.getUserId());
@@ -35,9 +36,9 @@ public class ServeQueueConverter {
 		ServeQueueDo serveQueueDo = new ServeQueueDo();
 		
 		serveQueueDo.setId(serveQueue.getId());
-		serveQueueDo.setEndTime(serveQueue.getEndTime());
+		serveQueueDo.setEndTime(TimeUtil.transferFromUtilToSql(serveQueue.getEndTime()));
 		serveQueueDo.setOrderId(serveQueue.getOrderId());
-		serveQueueDo.setStartTime(serveQueue.getStartTime());
+		serveQueueDo.setStartTime(TimeUtil.transferFromUtilToSql(serveQueue.getStartTime()));
 		serveQueueDo.setCreateTime(serveQueue.getCreateTime());
 		serveQueueDo.setStep(serveQueue.getStep());
 		serveQueueDo.setUserId(serveQueue.getUserId());

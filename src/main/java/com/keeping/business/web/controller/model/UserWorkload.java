@@ -32,6 +32,8 @@ public class UserWorkload {
 	
 	private Date assignDate;
 	
+	private Float totalLoad;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -134,6 +136,14 @@ public class UserWorkload {
 
 	public void setAssignDate(Date assignDate) {
 		this.assignDate = assignDate;
+	}
+
+	public Float getTotalLoad() {
+		return totalLoad;
+	}
+
+	public void setTotalLoad(Float totalLoad) {
+		this.totalLoad = totalLoad;
 	}
 	
 }

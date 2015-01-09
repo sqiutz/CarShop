@@ -27,7 +27,7 @@ public class ServeQueue extends BaseQueue{
 	private Integer isWarrant;
 	
 	private Integer isSubContract;
-
+	
 	public Timestamp getModifyTime() {
 		return modifyTime;
 	}

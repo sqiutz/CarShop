@@ -18,8 +18,8 @@ public class ModifyQueueConverter {
 		
 		modifyQueue.setId(modifyQueueDo.getId());
 		modifyQueue.setCreateTime(modifyQueueDo.getCreateTime());
-		modifyQueue.setEndTime(modifyQueueDo.getEndTime());
-		modifyQueue.setStartTime(modifyQueueDo.getStartTime());
+		modifyQueue.setEndTime(TimeUtil.transferFromUtilToSql(modifyQueueDo.getEndTime()));
+		modifyQueue.setStartTime(TimeUtil.transferFromUtilToSql(modifyQueueDo.getStartTime()));
 		modifyQueue.setStep(modifyQueueDo.getStep());
 		modifyQueue.setOrderId(modifyQueueDo.getOrderId());
 		modifyQueue.setUserId(modifyQueueDo.getUserId());
@@ -45,9 +45,9 @@ public class ModifyQueueConverter {
 		
 		modifyQueueDo.setAssignTime(TimeUtil.transferFromUtilToSql(modifyQueue.getAssignTime()));
 		
-		modifyQueueDo.setEndTime(modifyQueue.getEndTime());
+		modifyQueueDo.setEndTime(TimeUtil.transferFromUtilToSql(modifyQueue.getEndTime()));
 		modifyQueueDo.setOrderId(modifyQueue.getOrderId());
-		modifyQueueDo.setStartTime(modifyQueue.getStartTime());
+		modifyQueueDo.setStartTime(TimeUtil.transferFromUtilToSql(modifyQueue.getStartTime()));
 		modifyQueueDo.setStep(modifyQueue.getStep());
 		modifyQueueDo.setUserId(modifyQueue.getUserId());
 		modifyQueueDo.setId(modifyQueue.getId());

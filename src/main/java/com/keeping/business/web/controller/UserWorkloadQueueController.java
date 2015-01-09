@@ -69,7 +69,7 @@ public class UserWorkloadQueueController {
 	 * @return
 	 * @return N/A
 	 */
-	@RequestMapping(params = "action=alllist")
+	@RequestMapping(params = "action=getone")
 	@ResponseBody
 	public WebResultList<UserWorkload> getUserWorkload(HttpServletRequest request, HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
@@ -107,5 +107,45 @@ public class UserWorkloadQueueController {
 
 		return JsonConverter.getResultObject(code, msg, userWorkloads);
 	}
+	
+	@RequestMapping(params = "action=getallload")
+	@ResponseBody
+	public WebResultList<UserWorkload> getAllUserWorkload(HttpServletRequest request, HttpServletResponse response) {
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
+		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
+		
+		List<UserWorkload> userWorkloads = new ArrayList<UserWorkload>();
+		try {
+			String jsonStr = request.getParameter("param");
+			
+			IdObject idObject = JsonConverter.getFromJsonString(jsonStr,
+					IdObject.class);
+			if (null == idObject) {
+				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
+				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
+//				logger.error("< UserWorkloadQueueController.getAllUserWorkloads() > 获取服务订单列表请求信息不正确: " + date);
+			} else {
+				
+				Date now = new Date();
+				idObject.setDate(now);
+				userWorkloads = userWorkloadService.queryByUserWorkloadUserid(idObject);
+				
+			}
+		} catch (BusinessServiceException ex) {
+			code = ex.getErrorCode();
+			msg = ex.getErrorMessage();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			System.out.println(e.getStackTrace());
+			code = BusinessCenterResCode.SYS_ERROR.getCode();
+			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
+//			logger.error("< UserWorkloadQueueController.getAllUserWorkloads() > 获取排队列表失败."
+//					+ e.getMessage());
+		}
+
+		return JsonConverter.getResultObject(code, msg, userWorkloads);
+	}
+
 
 }
