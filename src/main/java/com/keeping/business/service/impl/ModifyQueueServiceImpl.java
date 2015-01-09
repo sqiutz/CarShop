@@ -8,12 +8,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.keeping.business.common.exception.BusinessServiceException;
+import com.keeping.business.common.util.TimeUtil;
 import com.keeping.business.dal.dao.ModifyQueueDao;
 import com.keeping.business.dal.model.ModifyQueueDo;
 import com.keeping.business.service.ModifyQueueService;
 import com.keeping.business.service.converter.ModifyQueueConverter;
 import com.keeping.business.web.controller.UserController;
 import com.keeping.business.web.controller.model.ModifyQueue;
+import com.keeping.business.web.controller.model.StepObject;
 
 public class ModifyQueueServiceImpl implements ModifyQueueService{
 
@@ -75,10 +77,14 @@ public class ModifyQueueServiceImpl implements ModifyQueueService{
 		modifyQueueDao.updateModifyQueue(ModifyQueueConverter.getModifyQueueDo(modifyQueue));
 	}
 
-	public List<ModifyQueue> getModifyQueueByStep(Integer step)
+	public List<ModifyQueue> getModifyQueueByStep(StepObject step)
 			throws BusinessServiceException {
 		// TODO Auto-generated method stub
-		List<ModifyQueueDo> modifyQueueDoes = modifyQueueDao.queryByModifyQueuestep(step);
+		ModifyQueueDo modifyQueueDo = new ModifyQueueDo();
+		modifyQueueDo.setStep(Integer.parseInt(step.getStep()));
+		modifyQueueDo.setAssignDate(TimeUtil.transferFromUtilToSqlDate(step.getToday()));
+		
+		List<ModifyQueueDo> modifyQueueDoes = modifyQueueDao.queryByModifyQueuestep(modifyQueueDo);
 		List<ModifyQueue> modifyQueues = new ArrayList<ModifyQueue>();
 		
 		if (modifyQueueDoes == null){

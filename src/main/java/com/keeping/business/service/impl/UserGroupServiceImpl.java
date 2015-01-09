@@ -23,9 +23,20 @@ public class UserGroupServiceImpl implements UserGroupService{
 			return userGroup;
 		}
 		
-		return UserGroupConverter.getUserGroup(userGroupDo);
+		return UserGroupConverter.getUserGroup(userGroupDo);	
+	}
+	
+	@Override
+	public UserGroup queryByName(String groupName) {
+		// TODO Auto-generated method stub
+		UserGroupDo userGroupDo = userGroupDao.queryByName(groupName);
+		UserGroup userGroup = new UserGroup();;
 		
+		if(userGroupDo == null){
+			return userGroup;
+		}
 		
+		return UserGroupConverter.getUserGroup(userGroupDo);	
 	}
 
 	public List<UserGroup> queryAll() {
@@ -69,7 +80,5 @@ public class UserGroupServiceImpl implements UserGroupService{
 	public void setUserGroupDao(UserGroupDao userGroupDao) {
 		this.userGroupDao = userGroupDao;
 	}
-
-
 
 }

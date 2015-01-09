@@ -4,10 +4,11 @@ import java.util.List;
 
 import com.keeping.business.common.exception.BusinessServiceException;
 import com.keeping.business.web.controller.model.ModifyQueue;
+import com.keeping.business.web.controller.model.StepObject;
 
 public interface ModifyQueueService {
 
-    public List<ModifyQueue> getModifyQueueByStep(Integer step) throws BusinessServiceException;
+    public List<ModifyQueue> getModifyQueueByStep(StepObject step) throws BusinessServiceException;
     
     public ModifyQueue getModifyQueueById(Integer id) throws BusinessServiceException;
     

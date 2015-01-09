@@ -13,5 +13,7 @@ public interface UserGroupDao extends BaseDao<UserGroupDo>{
 	public void deleteGroup(Integer id);
 	
 	public UserGroupDo queryById(Integer id);
+	
+	public UserGroupDo queryByName(String groupName);
 
 }

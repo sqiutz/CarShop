@@ -24,13 +24,12 @@
 		ID,STEP,USER_ID,MODIFIER_ID,ORDER_ID,CREATE_TIME,START_TIME,END_TIME,ASSIGN_TIME,ASSIGN_DATE,JOBTYPE,TECHNICIAN,ISWARRANT,ISSUBCONTRACT,ADDITION_TIME
 	</sql>
 
-	<select id="queryByModifyQueuestep" resultMap="ModifyQueueDoMap" 
-		parameterType="java.lang.Integer">
+	<select id="queryByModifyQueuestep" resultMap="ModifyQueueDoMap" >
 		SELECT 
 		<include refid="Base_Column_List" />
 		FROM TBL_MODIFYQUEUE
 		WHERE
-		STEP = #{step}
+		STEP = #{step} and date(ASSIGN_DATE) = #{assignDate}
 		order by START_TIME desc
 	</select>
 	

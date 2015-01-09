@@ -6,7 +6,7 @@ import com.keeping.business.dal.model.ModifyQueueDo;
 
 public interface ModifyQueueDao extends BaseDao<ModifyQueueDo>{
 
-	public List<ModifyQueueDo> queryByModifyQueuestep(Integer step);
+	public List<ModifyQueueDo> queryByModifyQueuestep(ModifyQueueDo modifyQueueDo);
 	
 	public void addModifyQueue(ModifyQueueDo modifyQueueDo);
 	

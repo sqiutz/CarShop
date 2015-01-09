@@ -735,6 +735,7 @@ public class ServeQueueController {
 				
 				ModifyQueue modifyQueue = new ModifyQueue();
 				
+				modifyQueue.setAssignDate(now);
 				modifyQueue.setAssignTime(date);
 				modifyQueue.setStep(BusinessCenterModifyQueueStatus.MODIFYQUEUE_STATUS_MODIFYING.getId());
 				modifyQueue.setOrderId(serveQueue.getOrderId());

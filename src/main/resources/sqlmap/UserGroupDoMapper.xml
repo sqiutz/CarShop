@@ -26,6 +26,14 @@
 		ID = #{id}
 	</select>
 	
+	<select id="queryByName" resultMap="UserGroupDoMap" parameterType="java.lang.String">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM TBL_USERGROUP
+		WHERE
+		GROUP_NAME = #{groupName}
+	</select>
+	
 	<insert id="insertGroup" parameterType="UserGroupDo">
 		INSERT INTO TBL_USERGROUP 
 		<trim prefix="(" suffix=")" suffixOverrides=",">

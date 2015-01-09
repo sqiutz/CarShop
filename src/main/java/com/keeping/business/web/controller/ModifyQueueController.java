@@ -123,6 +123,69 @@ public class ModifyQueueController {
 		return JsonConverter.getResultObject(code, msg, todayModifyQueues);
 	}
 	
+	@RequestMapping(params = "action=alllist")
+	@ResponseBody
+	public WebResultList<ModifyQueue> getAllModifyQueues(HttpServletRequest request, HttpServletResponse response) {
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
+		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
+
+		List<ModifyQueue> modifyQueueList = new ArrayList<ModifyQueue>();
+		try {
+			String jsonStr = request.getParameter("param");
+			StepObject step = JsonConverter.getFromJsonString(jsonStr,
+					StepObject.class);
+			
+			if (null == step) {
+				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
+				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
+//				logger.error("< ServeQueueController.getAllServeQueues() > 获取服务订单列表请求信息不正确: " + step);
+			} else {
+				modifyQueueList = modifyQueueService.getModifyQueueByStep(step);
+				
+				List<Integer> userIdList = new ArrayList<Integer>();
+				List<Integer> orderIdList = new ArrayList<Integer>();
+				List<User> users = new ArrayList<User>();
+				for (int i=0; i<modifyQueueList.size(); i++){
+					
+					userIdList.add(modifyQueueList.get(i).getUserId());
+					
+					orderIdList.add(modifyQueueList.get(i).getOrderId());
+					
+					User user = userService.getByUserId(userIdList.get(i));
+					users.add(user);
+	
+				}
+				
+				if(modifyQueueList.size() > 0){
+					
+					List<Order> orders = orderService.getByOrdersId(orderIdList);
+					
+					if(step.getIsBook() != null && 1 == step.getIsBook()){
+						ReorgQueue.reorgModifyQueue(modifyQueueList, users, orders);
+					}else if (step.getIsBook() != null && step.getIsBook() == 0){
+						ReorgQueue.reorgModifyQueue(modifyQueueList, users, orders);   
+					}else{
+						ReorgQueue.reorgModifyQueue(modifyQueueList, users, orders);
+					}
+				}
+				
+			}
+		} catch (BusinessServiceException ex) {
+			code = ex.getErrorCode();
+			msg = ex.getErrorMessage();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			System.out.println(e.getStackTrace());
+			code = BusinessCenterResCode.SYS_ERROR.getCode();
+			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
+//			logger.error("< ServeQueueController.getAllServeQueues() > 获取排队列表失败."
+//					+ e.getMessage());
+		}
+
+		return JsonConverter.getResultObject(code, msg, modifyQueueList);
+	}
+	
 	@RequestMapping(params = "action=getone")
 	@ResponseBody
 	public WebResultObject<ModifyQueue> getModifyQueue(HttpServletRequest request, HttpServletResponse response) {

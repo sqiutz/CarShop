@@ -14,4 +14,6 @@ public interface UserGroupService {
 	
 	public UserGroup queryById(Integer id);
 	
+	public UserGroup queryByName(String groupName);
+	
 }

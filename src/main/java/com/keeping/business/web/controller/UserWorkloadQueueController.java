@@ -27,6 +27,7 @@ import com.keeping.business.common.util.StringUtil;
 import com.keeping.business.service.ModifyQueueService;
 import com.keeping.business.service.OrderService;
 import com.keeping.business.service.ServeQueueService;
+import com.keeping.business.service.UserGroupService;
 import com.keeping.business.service.UserService;
 import com.keeping.business.service.UserWorkloadService;
 import com.keeping.business.web.controller.converter.JsonConverter;
@@ -41,6 +42,7 @@ import com.keeping.business.web.controller.model.Order;
 import com.keeping.business.web.controller.model.ServeQueue;
 import com.keeping.business.web.controller.model.StepObject;
 import com.keeping.business.web.controller.model.User;
+import com.keeping.business.web.controller.model.UserGroup;
 import com.keeping.business.web.controller.model.UserProfile;
 import com.keeping.business.web.controller.model.UserWorkload;
 import com.keeping.business.web.controller.model.UserWorkloadList;
@@ -60,6 +62,8 @@ public class UserWorkloadQueueController {
 	private UserWorkloadService userWorkloadService;
 	@Resource
 	private UserService userService;
+	@Resource
+	private UserGroupService usergroupService;
 
 	/**
 	 * 获取订单列表
@@ -127,7 +131,9 @@ public class UserWorkloadQueueController {
 //				logger.error("< UserWorkloadQueueController.getAllUserWorkloads() > 获取服务订单列表请求信息不正确: " + date);
 			} else {
 				
-				List<User> users = userService.queryAllByGroup(idObject.getId());
+				UserGroup userGroup = usergroupService.queryByName(idObject.getName());
+				
+				List<User> users = userService.queryAllByGroup(userGroup.getId());
 				
 				Date now = new Date();
 				idObject.setDate(now);
