@@ -141,6 +141,8 @@ public class ModifyQueueController {
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
 //				logger.error("< ServeQueueController.getAllServeQueues() > 获取服务订单列表请求信息不正确: " + step);
 			} else {
+				Date now = new Date();
+				step.setToday(now);
 				modifyQueueList = modifyQueueService.getModifyQueueByStep(step);
 				
 				List<Integer> userIdList = new ArrayList<Integer>();
