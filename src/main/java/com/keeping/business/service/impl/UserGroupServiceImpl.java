@@ -26,7 +26,6 @@ public class UserGroupServiceImpl implements UserGroupService{
 		return UserGroupConverter.getUserGroup(userGroupDo);	
 	}
 	
-	@Override
 	public UserGroup queryByName(String groupName) {
 		// TODO Auto-generated method stub
 		UserGroupDo userGroupDo = userGroupDao.queryByName(groupName);

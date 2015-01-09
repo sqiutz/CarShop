@@ -81,8 +81,7 @@ public class UserWorkloadServiceImpl implements UserWorkloadService {
 
 		userWorkloadDao.updateUserWorkload(userWorkloadDo);
 	}
-	
-	@Override
+
 	public UserWorkload queryByUserWorkloadQueueid(Integer modifyqueueId) {
 		// TODO Auto-generated method stub
 		UserWorkload userWorkload = new UserWorkload();

@@ -187,9 +187,23 @@ define([], function() {
             });
         },
         // 获取工作调度
-        getModifyQueue : function(options) {
+        getTodayModifyQueue : function(options) {
             var queues;
-            $.common.ajax("getModifyQueue", {
+            $.common.ajax("getTodayModifyQueue", {
+                success : function(data) {
+                    queues = data.resList;
+                    options.success(queues);
+                },
+                error : function(error) {
+                    options.success();
+                }
+            });
+        },
+        // 获取工作调度列表
+        getModifyQueues : function(options) {
+            var queues;
+            $.common.ajax("getModifyQueues", {
+                data : options.data,
                 success : function(data) {
                     queues = data.resList;
                     options.success(queues);

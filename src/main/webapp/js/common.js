@@ -168,6 +168,13 @@
                                  "id"
                         ]
                     },
+                    // 获取modifyqueue list
+                    getModifyQueues : {
+                        url : "modifyqueue.do?action=alllist",
+                        args : [ 
+                                 "step"
+                        ]
+                    },
                     // Start, Hold and Finish in mechanic update
                     mStart : {
                         url : "modifyqueue.do?action=start",
@@ -214,7 +221,7 @@
                         ]
                     },
                     // 获取工作调度
-                    getModifyQueue: {
+                    getTodayModifyQueue: {
                         url : "modifyqueue.do?action=gettoday"
                     },
                     // 获取Job Type列表

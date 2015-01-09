@@ -49,7 +49,7 @@
     });
     
     var getWorkload = function() {
-        $.OrderInfo.getModifyQueue({
+        $.OrderInfo.getTodayModifyQueue({
             success : refreshWorkload
         });
     }
@@ -149,7 +149,7 @@
             },
             success : function(data) {
                 if (data.code == '000000') {
-                    location.href = 'foreman_job.html';
+                    location.href = 'sa_que.html';
                 }
             }
         });
