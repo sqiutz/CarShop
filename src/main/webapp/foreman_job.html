@@ -19,6 +19,8 @@
        	layout();
 		var marginLeft = $('#content_lf').width() - $('#content_lf_box').width() * 0.5 - 230;
 		$('#chartContainer').css('margin-left', marginLeft + 'px');
+		marginLeft = marginLeft - ($('#workloadTable').width() -  $('#chartContainer').width()) * 0.5;
+		$('#workloadTable').css('margin-left', marginLeft + 'px');
     }
 
     $(document).ready(function() {
@@ -42,43 +44,17 @@
 		<div id='content' class='content'>
 			<div id='content_lf' class='content_lf'>
 				<div id='content_lf_box' class='box w1 rAlign'>
-					<div class='blue h3' style='width:450px;height:45px'>NEXT ON QUE</div>
-					<table class="queue blue" style='width:450px'>
+					<div id='queueTitle' class='blue h3' style='width:450px;height:45px'>NEXT ON QUE</div>
+					<table id='modifyQueue' class="queue blue" style='width:450px'>
 						<tr>
 							<th>Reg. No.</th>
 							<th>Que. No.</th>
 							<th>Time Send</th>
 						</tr>
-						<tr class='odd'>
-							<td>B1001AC</td>
-							<td>B-003</td>
-							<td>09:00</td>
-						</tr>
-						<tr>
-							<td>&nbsp;</td>
-							<td>&nbsp;</td>
-							<td>&nbsp;</td>
-						</tr>
-						<tr class='odd'>
-							<td>&nbsp;</td>
-							<td>&nbsp;</td>
-							<td>&nbsp;</td>
-						</tr>
-						<tr>
-							<td>&nbsp;</td>
-							<td>&nbsp;</td>
-							<td>&nbsp;</td>
-						</tr>
-						<tr class='odd'>
-							<td>&nbsp;</td>
-							<td>&nbsp;</td>
-							<td>&nbsp;</td>
-						</tr>
-
 					</table>
 				</div>
 			</div>
-			<div class='content_rg'>
+			<div id='content_rg' class='content_rg'>
 				<div class='w2'>
 				<fieldset>
 					<legend>Input/Edit Data</legend>
@@ -146,7 +122,7 @@
 				</div>
 			</div>
 			
-				<table class='workload'>
+				<table id='workloadTable' class='workload' style='width:1100px'>
 						<tr style='background-color:rgb(197,217,241);'>
 							<td style='color:#ff0000;border-color:#000000;font-weight:bold;font-style:normal;'>1</td>
 							<td colSpan='2' style='font-weight:bold;font-style:normal;border-right:0px;'>Technician:</td>
