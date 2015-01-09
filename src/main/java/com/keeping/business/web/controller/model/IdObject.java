@@ -8,6 +8,8 @@ public class IdObject {
 	
 	private Date date;
 
+	private String name;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -22,6 +24,14 @@ public class IdObject {
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 }

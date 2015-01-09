@@ -8,6 +8,8 @@ public class UserWorkloadList {
 	
 	private String userName;
 	
+	private Float totalLoad;
+	
 	private List<UserWorkload> userWorkloadList;
 
 	public Integer getUserId() {
@@ -32,6 +34,14 @@ public class UserWorkloadList {
 
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+
+	public Float getTotalLoad() {
+		return totalLoad;
+	}
+
+	public void setTotalLoad(Float totalLoad) {
+		this.totalLoad = totalLoad;
 	}
 
 }

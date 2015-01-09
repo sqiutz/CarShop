@@ -127,10 +127,26 @@ public class UserWorkloadQueueController {
 //				logger.error("< UserWorkloadQueueController.getAllUserWorkloads() > 获取服务订单列表请求信息不正确: " + date);
 			} else {
 				
+				List<User> users = userService.queryAllByGroup(idObject.getId());
+				
 				Date now = new Date();
 				idObject.setDate(now);
-				userWorkloads = userWorkloadService.queryByUserWorkloadUserid(idObject);
 				
+				List<UserWorkloadList> workloadLists = new ArrayList<UserWorkloadList>();
+				
+				for(int i=0; i<users.size(); i++){
+				
+					UserWorkloadList userWorkloadList = new UserWorkloadList();
+					Float totalLost = Float.parseFloat("0");
+					userWorkloadList.setUserId(users.get(i).getId());
+					userWorkloadList.setUserName(users.get(i).getUserName());
+					userWorkloads = userWorkloadService.queryByUserWorkloadUserid(idObject);
+					for (int j=0; j<userWorkloads.size(); j++){
+						totalLost = totalLost + userWorkloads.get(j).getHumanResource();
+					}
+					userWorkloadList.setTotalLoad(totalLost);
+					workloadLists.add(userWorkloadList);
+				}
 			}
 		} catch (BusinessServiceException ex) {
 			code = ex.getErrorCode();

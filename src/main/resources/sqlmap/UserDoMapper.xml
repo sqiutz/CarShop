@@ -168,7 +168,7 @@
 		SELECT
 		<include refid="Base_Column_List" />
 		FROM TBL_USER
-		WHERE GROUP_ID = #{groupId}
+		WHERE GROUP_ID = #{groupId} and IS_VALID = #{isValid}
 	</select>
 
 	<select id="queryByUserId" resultMap="UserDoMap" 
