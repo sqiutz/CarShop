@@ -16,4 +16,6 @@ public interface UserWorkloadDao extends BaseDao<OrderDo>{
 	
 	public void updateUserWorkload(UserWorkloadDo userWorkloadDo);
 	
+	public UserWorkloadDo queryByUserWorkloadQueueid(Integer modifyqueueId);
+	
 }

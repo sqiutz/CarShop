@@ -29,6 +29,14 @@
 		USER_ID = #{userId} and CREATE_TIME = #{createTime}
 	</select>
 	
+	<select id="queryByUserWorkloadQueueid" resultMap="UserWorkloadDoMap" parameterType="java.lang.Integer" >
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM TBL_USERWORKLOAD
+		WHERE
+		MODIFYQUEUE_ID = #{modifyqueueId}
+	</select>
+	
 	<select id="queryAllUsers" resultMap="UserWorkloadDoMap" >
 		SELECT 
 		DISTINCT(USER_ID)

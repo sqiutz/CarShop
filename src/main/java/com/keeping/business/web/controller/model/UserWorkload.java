@@ -24,9 +24,9 @@ public class UserWorkload {
 	
 	private Timestamp modifyTime;
 
-	private Timestamp startTime;
+	private Date startTime;
 	
-	private Timestamp endTime;
+	private Date endTime;
 	
 	private Date allocatedTime;
 	
@@ -102,19 +102,19 @@ public class UserWorkload {
 		this.modifyTime = modifyTime;
 	}
 
-	public Timestamp getStartTime() {
+	public Date getStartTime() {
 		return startTime;
 	}
 
-	public void setStartTime(Timestamp startTime) {
+	public void setStartTime(Date startTime) {
 		this.startTime = startTime;
 	}
 
-	public Timestamp getEndTime() {
+	public Date getEndTime() {
 		return endTime;
 	}
 
-	public void setEndTime(Timestamp endTime) {
+	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
 	}
 

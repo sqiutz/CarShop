@@ -79,6 +79,17 @@ public class UserWorkloadServiceImpl implements UserWorkloadService {
 
 		userWorkloadDao.updateUserWorkload(userWorkloadDo);
 	}
+	
+	@Override
+	public UserWorkload queryByUserWorkloadQueueid(Integer modifyqueueId) {
+		// TODO Auto-generated method stub
+		UserWorkload userWorkload = new UserWorkload();
+		UserWorkloadDo userWorkloadDo = userWorkloadDao.queryByUserWorkloadQueueid(modifyqueueId);
+		
+		userWorkload = UserWorkloadConverter.getUserWorkload(userWorkloadDo);
+		
+		return userWorkload;
+	}
 
 	public UserWorkloadDao getUserWorkloadDao() {
 		return userWorkloadDao;
@@ -87,7 +98,5 @@ public class UserWorkloadServiceImpl implements UserWorkloadService {
 	public void setUserWorkloadDao(UserWorkloadDao userWorkloadDao) {
 		this.userWorkloadDao = userWorkloadDao;
 	}
-
-
 
 }

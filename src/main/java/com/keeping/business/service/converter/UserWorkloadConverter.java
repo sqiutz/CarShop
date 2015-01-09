@@ -14,8 +14,8 @@ public class UserWorkloadConverter {
 		UserWorkload userWorkload = new UserWorkload();
 		userWorkload.setId(userWorkloadDo.getId());
 		userWorkload.setCreateTime(userWorkloadDo.getCreateTime());
-		userWorkload.setEndTime(userWorkloadDo.getEndTime());
-		userWorkload.setStartTime(userWorkloadDo.getStartTime());
+		userWorkload.setEndTime(TimeUtil.transferFromSqlToUtil(userWorkloadDo.getEndTime()));
+		userWorkload.setStartTime(TimeUtil.transferFromSqlToUtil(userWorkloadDo.getStartTime()));
 		userWorkload.setModifyTime(userWorkloadDo.getModifyTime());
 		userWorkload.setAllocatedTime(TimeUtil.transferFromSqlToUtil(userWorkloadDo.getAllocatedTime()));
 		userWorkload.setComment(userWorkloadDo.getComment());
@@ -37,8 +37,8 @@ public class UserWorkloadConverter {
 		
 		userWorkloadDo.setId(userWorkload.getId());
 		userWorkloadDo.setCreateTime(userWorkload.getCreateTime());
-		userWorkloadDo.setEndTime(userWorkload.getEndTime());
-		userWorkloadDo.setStartTime(userWorkload.getStartTime());
+		userWorkloadDo.setEndTime(TimeUtil.transferFromUtilToSql(userWorkload.getEndTime()));
+		userWorkloadDo.setStartTime(TimeUtil.transferFromUtilToSql(userWorkload.getStartTime()));
 		userWorkloadDo.setModifyTime(userWorkload.getModifyTime());
 		userWorkloadDo.setAllocatedTime(TimeUtil.transferFromUtilToSql(userWorkload.getAllocatedTime()));
 		userWorkloadDo.setComment(userWorkload.getComment());

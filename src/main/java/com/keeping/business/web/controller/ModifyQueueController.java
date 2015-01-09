@@ -268,10 +268,16 @@ public class ModifyQueueController {
 				
 				modifyQueue = modifyQueueService.getModifyQueueById(modifyQueue.getId());
 				
-				if (modifyQueue != null){
+				UserWorkload userWorkload = userWorkloadService.queryByUserWorkloadQueueid(modifyQueue.getId());
+				
+				if (modifyQueue != null && userWorkload != null){
 					
 					modifyQueue.setStep(BusinessCenterModifyQueueStatus.MODIFYQUEUE_STATUS_START.getId());
 					modifyQueueService.updateModifyQueue(modifyQueue);
+					
+					Date now = new Date();
+					userWorkload.setStartTime(now);
+					userWorkloadService.updateUserWorkload(userWorkload);
 				}else{
 					code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 					msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();

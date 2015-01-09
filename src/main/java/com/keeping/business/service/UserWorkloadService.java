@@ -19,4 +19,6 @@ public interface UserWorkloadService {
 	public void addUserWorkload(UserWorkload userWorkload);
 	
 	public void updateUserWorkload(UserWorkload userWorkload);
+	
+	public UserWorkload queryByUserWorkloadQueueid(Integer modifyqueueId);
 }
