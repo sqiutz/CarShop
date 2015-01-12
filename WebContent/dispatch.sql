@@ -245,13 +245,16 @@ CREATE TABLE `TBL_USERWORKLOAD` (
 insert into tbl_usergroup set group_name = 0;
 insert into tbl_usergroup set group_name = 1;
 insert into tbl_usergroup set group_name = 2;
+insert into tbl_usergroup set group_name = 3;
 insert into tbl_user set user_name = 'admin', is_admin = 1, passwd = 'passw0rd', is_valid = 1, group_id = 3;
-insert into tbl_user set user_name = 'booker-1', is_admin = 0, passwd = 'passw0rd', is_valid = 1, group_id = 4;
-insert into tbl_user set user_name = 'booker-2', is_admin = 0, passwd = 'passw0rd', is_valid = 1, group_id = 4;
+insert into tbl_user set user_name = 'MGR-1', is_admin = 0, passwd = 'passw0rd', is_valid = 1, group_id = 4;
+insert into tbl_user set user_name = 'MGR-2', is_admin = 0, passwd = 'passw0rd', is_valid = 1, group_id = 4;
 insert into tbl_user set user_name = 'SA-01', is_admin = 0, passwd = 'passw0rd', is_valid = 1, group_id = 5, counter='COUNTER 1';
 insert into tbl_user set user_name = 'SA-02', is_admin = 0, passwd = 'passw0rd', is_valid = 1, group_id = 5, counter='COUNTER 2';
 insert into tbl_user set user_name = 'SA-03', is_admin = 0, passwd = 'passw0rd', is_valid = 1, group_id = 5, counter='COUNTER 3';
 insert into tbl_user set user_name = 'SA-04', is_admin = 0, passwd = 'passw0rd', is_valid = 1, group_id = 5, counter='COUNTER 4';
+insert into tbl_user set user_name = 'EM-1', is_admin = 0, passwd = 'passw0rd', is_valid = 1, group_id = 6;
+insert into tbl_user set user_name = 'EM-2', is_admin = 0, passwd = 'passw0rd', is_valid = 1, group_id = 6;
 
 -- insert into tbl_order set status=0, registerNumber='B-001', queueNumber='B1831TOK', estimationTime=4, start_time='2014-12-02 12:02:06', end_time='2014-12-02 12:12:26';
 -- insert into tbl_order set status=0, registerNumber='N-001', queueNumber='B1093MN', estimationTime=5;
@@ -272,9 +275,9 @@ insert into tbl_user set user_name = 'SA-04', is_admin = 0, passwd = 'passw0rd',
 -- insert into tbl_servequeue set step=1, user_id=8, order_id=8;
 -- insert into tbl_servequeue set step=1, user_id=9, order_id=9;
 
-insert into tbl_modifyqueue set step=1, user_id=6, order_id=3,isWarrant=1;
+-- insert into tbl_modifyqueue set step=1, user_id=6, order_id=3,isWarrant=1;
 
-insert into tbl_cashqueue set step=0, user_id=6, order_id=3;
+-- insert into tbl_cashqueue set step=0, user_id=6, order_id=3;
 
 insert into tbl_property set name='LANGUAGE', value='en_US';
 insert into tbl_property set name='COUNTER_NUM', value='5';

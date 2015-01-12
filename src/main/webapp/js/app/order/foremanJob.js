@@ -1,7 +1,7 @@
 (function($) {
    
     // 创建modifyque列表
-    var listIter = 0, interval = 3000, selectedId = 0, modifyQues;
+    var listIter = 0, interval = 3000, selectedId = 0, modifyQues, modifyQue;
     var createModifyQueue = function(queues) {
         modifyQues = queues;
         $('#modifyQueue tr.odd').remove();
@@ -22,7 +22,17 @@
                     $('#queue tr').removeClass('selected');
                     $(this).addClass('selected');
                     selectedId = $(this).val();
-                    
+                    for(var n = 0; n < modifyQues.length; n++) {
+                        var que = modifyQues[n];
+                        if(que.id == selectedId) {
+                            modifyQue = que;
+                            setCurrentModifyQue(modifyQue);
+                            if(users && users.length > 0) {
+                                $('#allocationBtn').attr('disabled', false);
+                            }
+                            break;
+                        }
+                    }
                 });
             }
             $('<td></td>').text(queue && queue.order ? queue.order.registerNum : '').appendTo(tr);
@@ -51,6 +61,45 @@
             success : createModifyQueue
         });
     };
+    
+    function setCurrentModifyQue(queue) {
+        $('#regNo').val(queue && queue.order ? queue.order.registerNum : '');
+        $('#roofNo').val(queue && queue.order ? queue.order.roofNum : '');
+        $('#serviceAdvisor').val(queue && queue.user ? queue.user.userName : '');
+        $('#jobType').val(queue ? queue.jobType + ' - ' + queue.jobtypeTime + ' hour(s)': '');
+        $('#additionTime').val(queue ? queue.additionTime + ' hour(s)' : '');
+        $('#isWarranty').attr("checked", queue && queue.isWarrant ? true : false);
+        $('#isSubContract').attr("checked", queue && queue.isSubContract ? true : false);
+        $('#promiseTime').val(queue && queue.order ? getTimeStr(queue.order.promiseTime) : '');
+    }
+    
+    var users;
+    $.UserInfo.getAllUsers({
+        success : function(data) {
+            users = data.resList;
+            for(var i = 0; i < users.length; i++) {
+                var user = users[i];
+                if(user.groupName == 1) {
+                    $('<option></option>').text(user.userName).val(user.id)
+                        .appendTo('#technician');
+                }
+            }
+        }
+    });
+    
+    $('#allocationBtn').bind('click', function() {
+        $.OrderInfo.allocate({
+            data : {
+                id : modifyQue.id,
+                modifierId : $('#technician').val()
+            },
+            success : function(data) {
+                if(data.code == '000000') {
+                    $('#allocationBtn').attr('disabled', 'disabled');
+                }
+            }
+        });
+    });
     
     getModifyQueues();
 })(jQuery);
