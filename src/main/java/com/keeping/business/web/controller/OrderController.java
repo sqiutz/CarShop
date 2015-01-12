@@ -21,11 +21,14 @@ import com.keeping.business.common.util.PlatformPar;
 import com.keeping.business.common.util.PlatfromConstants;
 import com.keeping.business.common.util.StringUtil;
 import com.keeping.business.service.OrderService;
+import com.keeping.business.service.PropertyService;
 import com.keeping.business.service.UserService;
 import com.keeping.business.web.controller.converter.JsonConverter;
 import com.keeping.business.web.controller.model.Order;
 import com.keeping.business.web.controller.model.OrderObject;
+import com.keeping.business.web.controller.model.Property;
 import com.keeping.business.web.controller.model.StatusObject;
+import com.keeping.business.web.controller.model.User;
 import com.keeping.business.web.controller.model.UserProfile;
 import com.keeping.business.web.controller.model.WebResult;
 import com.keeping.business.web.controller.model.WebResultList;
@@ -43,6 +46,8 @@ public class OrderController {
 	private OrderService orderService;
     @Resource
    	private UserService userService;
+    @Resource
+    private PropertyService propertyService;
     
     private static Integer nQueueNumber = 0;
     
@@ -262,20 +267,33 @@ public class OrderController {
 				order = orderService.getOrdersByRegNum(orderObject.getRegisterNumber());
 				
 				Integer totalBookedOrders = 0;
-				Integer totalWaitingOrders = 0;
-				Integer counterNumber = 0;
+				Integer bookCounterNum = 0;
+				Integer counterNum = 0;
 				Integer baseTime = 0;
 				Integer bufferTime = 0;
 				
 				Date today = new Date();
 				orderObject.setNow(now);
 				orderObject.setStatus(BusinessCenterOrderStatus.ORDER_STATUS_WAIT.getId());
+				User user = new User();
+				user.setGroupId(5);
 				if (StringUtil.isNull(order.getBookNum()) && order.getId() == null) {
 					orderObject.setIsBook(0);
+					user.setIsBooker(0);
 				}else{
 					orderObject.setIsBook(1);
+					user.setIsBooker(1);
 				}
 				totalBookedOrders = orderService.getOrderCountByStatusAndBook(orderObject);
+				bookCounterNum = userService.queryUserCountByGroupAndBook(user);
+				Property property = propertyService.queryByKey("COUNTER_NUM");
+				counterNum = Integer.parseInt(property.getValue());
+				property = propertyService.queryByKey("AVG_WAITING_TIME");
+				baseTime = Integer.parseInt(property.getValue());
+				property = propertyService.queryByKey("WAITING_TIME_BUFFER");
+				bufferTime = Integer.parseInt(property.getValue());
+				
+				Integer estimationTime = ((totalBookedOrders / bookCounterNum) + 1) * baseTime + bufferTime;
 			
 				if (StringUtil.isNull(order.getBookNum()) && order.getId() == null) {
 					order.setRegisterNum(orderObject.getRegisterNumber());
@@ -283,6 +301,7 @@ public class OrderController {
 					order.setStatus(BusinessCenterOrderStatus.ORDER_STATUS_WAIT.getId());    //1: start to wait for serve queue
 					order.setIsBook(0);
 					order.setAssignDate(today);
+					order.setEstimationTime(estimationTime);
 				
 					stringBuffer.append("N-");
 					stringBuffer.append(StringUtil.getNext(nQueueNumber));
@@ -296,6 +315,7 @@ public class OrderController {
 					order.setStartTime(dateTime);
 					order.setRegisterNum(registerNum);
 					order.setStatus(BusinessCenterOrderStatus.ORDER_STATUS_WAIT.getId());
+					order.setEstimationTime(estimationTime);
 				
 					stringBuffer.append("B-");
 					stringBuffer.append(StringUtil.getNext(bQueueNumber));

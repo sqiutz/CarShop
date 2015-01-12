@@ -8,6 +8,8 @@ import com.keeping.business.web.controller.model.User;
 
 public interface UserService {
 
+	public Integer queryUserCountByGroupAndBook(User user);
+	
 	public List<User> queryAll();
 	
 	public List<User> queryAllByGroup(Integer groupId) throws BusinessServiceException;

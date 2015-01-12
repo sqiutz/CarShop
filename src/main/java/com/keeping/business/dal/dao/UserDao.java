@@ -6,6 +6,8 @@ import com.keeping.business.dal.model.UserDo;
 
 public interface UserDao extends BaseDao<UserDo>{
 	
+	public Integer queryUserCountByGroupAndBook(UserDo userDo);
+	
 	public List<UserDo> queryAll();
 	
 	public List<UserDo> queryAllByGroup(Integer groupId);

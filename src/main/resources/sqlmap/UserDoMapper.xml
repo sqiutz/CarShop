@@ -135,6 +135,13 @@
 		USER_NAME = #{userName}
 	</select>
 	
+	<select id="queryUserCountByGroupAndBook" resultType="java.lang.Integer" >
+		SELECT COUNT(1)
+		FROM TBL_USER
+		WHERE
+		ISBOOKER = #{isBooker} and GROUP_ID = #{groupId}
+	</select>
+	
 	<select id="checkValidUsername" resultType="java.lang.Integer" 
 		parameterType="java.lang.String">
 		SELECT COUNT(1)

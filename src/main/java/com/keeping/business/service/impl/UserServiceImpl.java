@@ -22,6 +22,20 @@ public class UserServiceImpl implements UserService{
 	
 	/**用户信息DAO */
     private UserDao userDao;
+    
+	@Override
+	public Integer queryUserCountByGroupAndBook(User user) {
+		// TODO Auto-generated method stub
+		
+		UserDo userDo = new UserDo();
+		userDo.setIsBooker(user.getIsBooker());
+		userDo.setCounter(user.getCounter());
+		userDo.setGroupId(user.getGroupId());
+		
+		Integer total = userDao.queryUserCountByGroupAndBook(userDo);
+		
+		return total;
+	}
 
 	public int checkValidUsername(String username) {
 		// TODO Auto-generated method stub
