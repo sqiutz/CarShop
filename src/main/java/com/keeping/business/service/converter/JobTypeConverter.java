@@ -10,7 +10,7 @@ public class JobTypeConverter {
      */
     public static JobType getJobType(JobTypeDo jobtypeDo) {
         if (jobtypeDo == null) {
-            return null;
+            return new JobType();
         }
         JobType jobtype = new JobType();
         jobtype.setId(jobtypeDo.getId());

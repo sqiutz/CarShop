@@ -7,6 +7,8 @@ public class ModifyQueue extends BaseQueue{
 
 	private String jobType;
 	
+	private Float jobtypeTime;
+	
 	private Integer isWarrant;
 	
 	private Integer isSubContract;
@@ -113,6 +115,14 @@ public class ModifyQueue extends BaseQueue{
 
 	public void setModifierId(Integer modifierId) {
 		this.modifierId = modifierId;
+	}
+
+	public Float getJobtypeTime() {
+		return jobtypeTime;
+	}
+
+	public void setJobtypeTime(Float jobtypeTime) {
+		this.jobtypeTime = jobtypeTime;
 	}
     
 }
