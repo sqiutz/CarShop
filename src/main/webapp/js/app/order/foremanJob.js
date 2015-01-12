@@ -1,7 +1,7 @@
 (function($) {
    
     // 创建modifyque列表
-    var listIter = 0, interval = 3000, selectedId = 0, modifyQues;
+    var listIter = 0, interval = 3000, selectedId = 0, modifyQues, modifyQue;
     var createModifyQueue = function(queues) {
         modifyQues = queues;
         $('#modifyQueue tr.odd').remove();
@@ -25,7 +25,11 @@
                     for(var n = 0; n < modifyQues.length; n++) {
                         var que = modifyQues[n];
                         if(que.id == selectedId) {
-                            setCurrentModifyQue(que);
+                            modifyQue = que;
+                            setCurrentModifyQue(modifyQue);
+                            if(users && users.length > 0) {
+                                $('#allocationBtn').attr('disabled', false);
+                            }
                             break;
                         }
                     }
@@ -75,11 +79,26 @@
             users = data.resList;
             for(var i = 0; i < users.length; i++) {
                 var user = users[i];
-                if(user.groupId == 4) {
-                    $('<option></option>').text().appendTo('#technician');
+                if(user.groupName == 1) {
+                    $('<option></option>').text(user.userName).val(user.id)
+                        .appendTo('#technician');
                 }
             }
         }
+    });
+    
+    $('#allocationBtn').bind('click', function() {
+        $.OrderInfo.allocate({
+            data : {
+                id : modifyQue.id,
+                modifierId : $('#technician').val()
+            },
+            success : function(data) {
+                if(data.code == '000000') {
+                    $('#allocationBtn').attr('disabled', 'disabled');
+                }
+            }
+        });
     });
     
     getModifyQueues();

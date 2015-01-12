@@ -194,6 +194,14 @@
                                  "id"
                         ]
                     },
+                    // 分配
+                    allocate : {
+                        url : "modifyqueue.do?action=delete",
+                        args : [ 
+                                "id",
+                                "modifierId"
+                       ]
+                    },
                     // 获取洗车列表
                     getCarWashQueues : {
                         url : "cashqueue.do?action=alllist",
@@ -251,7 +259,7 @@
                         args : [ 
                                 "id",
                        ]
-                    }
+                    }                    
                 },
                 ajax : function(key, args) {
                     var self = this;

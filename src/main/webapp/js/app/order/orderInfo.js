@@ -66,7 +66,7 @@ define([], function() {
                     options.success(data);
                 }
             });
-        },
+        },        
 		// 获取订单列表
 		getOrderList : function(options) {
 			var orderlist;
@@ -141,6 +141,15 @@ define([], function() {
         },
         mFinish : function(options) {
             $.common.ajax("mFinish", {
+                data : options.data,
+                success : function(data) {
+                    options.success(data);
+                }
+            });
+        },
+        //分配
+        allocate : function(options) {
+            $.common.ajax("allocate", {
                 data : options.data,
                 success : function(data) {
                     options.success(data);
