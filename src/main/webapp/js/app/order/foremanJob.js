@@ -22,7 +22,13 @@
                     $('#queue tr').removeClass('selected');
                     $(this).addClass('selected');
                     selectedId = $(this).val();
-                    
+                    for(var n = 0; n < modifyQues.length; n++) {
+                        var que = modifyQues[n];
+                        if(que.id == selectedId) {
+                            setCurrentModifyQue(que);
+                            break;
+                        }
+                    }
                 });
             }
             $('<td></td>').text(queue && queue.order ? queue.order.registerNum : '').appendTo(tr);
@@ -51,6 +57,17 @@
             success : createModifyQueue
         });
     };
+    
+    function setCurrentModifyQue(queue) {
+        $('#regNo').val(queue && queue.order ? queue.order.registerNum : '');
+        $('#roofNo').val(queue && queue.order ? queue.order.roofNum : '');
+        $('#serviceAdvisor').val(queue && queue.user ? queue.user.userName : '');
+        $('#jobType').val(queue ? queue.jobType : '');
+        $('#additionTime').val(queue ? queue.additionTime + ' hour(s)' : '');
+        $('#isWarranty').attr("checked", queue && queue.isWarrant ? true : false);
+        $('#isSubContract').attr("checked", queue && queue.isWarrant ? true : false);
+        $('#promiseTime').val(queue && queue.order ? getTimeStr(queue.order.promiseTime) : '');
+    }
     
     getModifyQueues();
 })(jQuery);

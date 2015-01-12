@@ -60,15 +60,11 @@
 					<legend>Input/Edit Data</legend>
 					<form>
 					<div>
-       						<label for='regNo'>Reg. No.</label>
+       					<label for='regNo'>Reg. No.</label>
  						<input id='regNo' name='regNo' type='text'><br />
 					</div>
 					<div>
-					<label for='idMechanic'>ID Mechanic</label>
-					<input id='idMechanic' name='idMechanic' type='text'><br />
-					</div>
-					<div>
-              					<label for='roofNo'>Roof No.</label>
+              			<label for='roofNo'>Roof No.</label>
 						<input id='roofNo' name='roofNo' type='text'><br />
 					</div>
 					<div>
@@ -77,37 +73,38 @@
 					</div>
 					<div>
 						<label for='jobType' class="">Job Type</label>
-						<select id='jobType' name='jobType'>
-                    					<option>Job Type-1</option>
-                    					<option>Job Type-2</option>
-                  				</select>
+						<input id='jobType' name='jobType' type='text'><br />
+					</div>
+					<div>
+						<label for='additionTime'>Addition Time</label>
+						<input id='additionTime' name='additionTime' type='text'><br />
 					</div>
 					<div>
 						<label>&nbsp;</label>
-						<input type='radio' name='contractType' value='warranty' />Warranty<br />
+						<input id='isWarranty' type='checkbox'/><text id='rWarranty'>Warranty</text><br />
+						
 					</div>
 					<div>
 						<label>&nbsp;</label>
-						<input type='radio' name='contractType' value='subContract' />Sub Contract<br />
-					</div>
+						<input id='isSubContract' type='checkbox'/><text id='rSubContract'>Sub Contract</text><br />
+					</div>					
+					<div>
+						<label for='promiseTime'>Promise Time</label>
+						<input id='promiseTime' name='promiseTime' type='text'><br />					
+					</div>		
 					<div>
 						<label for='technician'>Technician</label>
 						<select id='technician' name='technician'>
                     					<option>Tech. A</option>
                     					<option>Tech. B</option>
                     					<option>Tech. C</option>
-                  				</select>
-					</div>
-					<div>
-						<label for='promiseTime'>Promise Time</label>
-						<input id='promiseTime' name='promiseTime' type='text'><br />
-						
-					</div>					
+                  		</select>
+					</div>			
           			</form>
           			<div>
 						<label>&nbsp;</label>
 						<button class='blue-button' style='width:152px;height:48px'>ALLOCATION</button>
-					</div>
+					</div>					
 				</fieldset>
 				</div>
 			</div>
