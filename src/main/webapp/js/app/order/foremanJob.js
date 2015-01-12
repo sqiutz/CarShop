@@ -62,12 +62,25 @@
         $('#regNo').val(queue && queue.order ? queue.order.registerNum : '');
         $('#roofNo').val(queue && queue.order ? queue.order.roofNum : '');
         $('#serviceAdvisor').val(queue && queue.user ? queue.user.userName : '');
-        $('#jobType').val(queue ? queue.jobType : '');
+        $('#jobType').val(queue ? queue.jobType + ' - ' + queue.jobtypeTime + ' hour(s)': '');
         $('#additionTime').val(queue ? queue.additionTime + ' hour(s)' : '');
         $('#isWarranty').attr("checked", queue && queue.isWarrant ? true : false);
-        $('#isSubContract').attr("checked", queue && queue.isWarrant ? true : false);
+        $('#isSubContract').attr("checked", queue && queue.isSubContract ? true : false);
         $('#promiseTime').val(queue && queue.order ? getTimeStr(queue.order.promiseTime) : '');
     }
+    
+    var users;
+    $.UserInfo.getAllUsers({
+        success : function(data) {
+            users = data.resList;
+            for(var i = 0; i < users.length; i++) {
+                var user = users[i];
+                if(user.groupId == 4) {
+                    $('<option></option>').text().appendTo('#technician');
+                }
+            }
+        }
+    });
     
     getModifyQueues();
 })(jQuery);
