@@ -68,6 +68,10 @@ public class OrderServiceImpl implements OrderService {
 		
 		Integer count = orderDao.queryCountByStatusAndBook(orderDo);
 		
+		if (count == null){
+			count = 0;
+		}
+		
 		return count;
 	}
 
