@@ -25,6 +25,7 @@ public class OrderConverter {
 		order.setStatus(orderDo.getStatus());
 		order.setBookNum(orderDo.getBookNum());
 		order.setIsBook(orderDo.getIsBook());
+		order.setAssignDate(TimeUtil.transferFromSqlToUtilDate(orderDo.getAssignDate()));
 		
 		order.setStatusValue((BusinessCenterOrderStatus.getById(orderDo.getStatus())).getStatus());
 		
@@ -50,6 +51,7 @@ public class OrderConverter {
 		orderDo.setBookNum(order.getBookNum());
 		orderDo.setIsBook(order.getIsBook());
 		orderDo.setBookTime(TimeUtil.transferFromUtilToSql(order.getBookTime()));
+		orderDo.setAssignDate(TimeUtil.transferFromUtilToSqlDate(order.getAssignDate()));
 		
 		return orderDo;
 	}

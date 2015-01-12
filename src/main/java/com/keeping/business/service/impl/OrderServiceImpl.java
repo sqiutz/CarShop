@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.keeping.business.common.exception.BusinessServiceException;
+import com.keeping.business.common.util.TimeUtil;
 import com.keeping.business.dal.dao.OrderDao;
 import com.keeping.business.dal.model.OrderDo;
 import com.keeping.business.dal.model.UserDo;
@@ -15,6 +16,7 @@ import com.keeping.business.service.converter.OrderConverter;
 import com.keeping.business.service.converter.UserConverter;
 import com.keeping.business.web.controller.UserController;
 import com.keeping.business.web.controller.model.Order;
+import com.keeping.business.web.controller.model.OrderObject;
 import com.keeping.business.web.controller.model.User;
 
 public class OrderServiceImpl implements OrderService {
@@ -56,6 +58,19 @@ public class OrderServiceImpl implements OrderService {
 		return orders_front;
 	}
 	
+	@Override
+	public Integer getOrderCountByStatusAndBook(OrderObject orderObject) {
+		// TODO Auto-generated method stub
+		
+		OrderDo orderDo = new OrderDo();
+		orderDo.setStatus(orderObject.getStatus());
+		orderDo.setAssignDate(TimeUtil.transferFromUtilToSqlDate(orderObject.getNow()));
+		orderDo.setIsBook(orderObject.getIsBook());
+		
+		Integer count = orderDao.queryCountByStatusAndBook(orderDo);
+		
+		return count;
+	}
 
 	public List<Order> getOrdersByBook(Integer book)
 			throws BusinessServiceException {
@@ -188,6 +203,7 @@ public class OrderServiceImpl implements OrderService {
 	public void setOrderDao(OrderDao orderDao) {
 		this.orderDao = orderDao;
 	}
+
 
 
 }

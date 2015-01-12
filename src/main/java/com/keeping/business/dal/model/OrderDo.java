@@ -30,6 +30,8 @@ public class OrderDo {
     private Integer estimationTime;
     
     private Integer isBook;
+    
+    private Date assignDate;
 
 	public Integer getStatus() {
 		return status;
@@ -133,5 +135,13 @@ public class OrderDo {
 
 	public void setBookTime(Timestamp bookTime) {
 		this.bookTime = bookTime;
+	}
+
+	public Date getAssignDate() {
+		return assignDate;
+	}
+
+	public void setAssignDate(Date assignDate) {
+		this.assignDate = assignDate;
 	}
 }

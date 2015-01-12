@@ -32,6 +32,8 @@ public class Order {
     private Integer estimationTime;
     
     private Integer isBook;
+    
+    private Date assignDate;
 
 	public Integer getStatus() {
 		return status;
@@ -143,6 +145,14 @@ public class Order {
 
 	public void setBookTime(Date bookTime) {
 		this.bookTime = bookTime;
+	}
+
+	public Date getAssignDate() {
+		return assignDate;
+	}
+
+	public void setAssignDate(Date assignDate) {
+		this.assignDate = assignDate;
 	}
     
 }

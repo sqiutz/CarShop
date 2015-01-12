@@ -21,6 +21,7 @@ import com.keeping.business.common.util.PlatformPar;
 import com.keeping.business.common.util.PlatfromConstants;
 import com.keeping.business.common.util.StringUtil;
 import com.keeping.business.service.OrderService;
+import com.keeping.business.service.UserService;
 import com.keeping.business.web.controller.converter.JsonConverter;
 import com.keeping.business.web.controller.model.Order;
 import com.keeping.business.web.controller.model.OrderObject;
@@ -40,6 +41,8 @@ public class OrderController {
 	/**用户信息Service */
     @Resource
 	private OrderService orderService;
+    @Resource
+   	private UserService userService;
     
     private static Integer nQueueNumber = 0;
     
@@ -107,8 +110,8 @@ public class OrderController {
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
 //				logger.error("< OrderController.getAllOrders() > 获取订单状态不正确." + status + " : " + BusinessCenterOrderStatus.ORDER_STATUS_WAIT.getStatus());
 			} else {
-					orderList = orderService.getOrdersByBook(status.getIsBook());
-
+				
+				orderList = orderService.getOrdersByBook(status.getIsBook());
 			}
 		}catch (BusinessServiceException ex) {
 			code = ex.getErrorCode();
@@ -198,6 +201,7 @@ public class OrderController {
 				 order.setBookTime(sqlDate);
 				 order.setBookNum(bookNumber);
 				 order.setIsBook(1);
+				 order.setAssignDate(now);
 				 orderService.addOrder(order);
 			}
 		}catch (BusinessServiceException ex) {
@@ -256,12 +260,29 @@ public class OrderController {
 			}else{
 				
 				order = orderService.getOrdersByRegNum(orderObject.getRegisterNumber());
+				
+				Integer totalBookedOrders = 0;
+				Integer totalWaitingOrders = 0;
+				Integer counterNumber = 0;
+				Integer baseTime = 0;
+				Integer bufferTime = 0;
+				
+				Date today = new Date();
+				orderObject.setNow(now);
+				orderObject.setStatus(BusinessCenterOrderStatus.ORDER_STATUS_WAIT.getId());
+				if (StringUtil.isNull(order.getBookNum()) && order.getId() == null) {
+					orderObject.setIsBook(0);
+				}else{
+					orderObject.setIsBook(1);
+				}
+				totalBookedOrders = orderService.getOrderCountByStatusAndBook(orderObject);
 			
 				if (StringUtil.isNull(order.getBookNum()) && order.getId() == null) {
 					order.setRegisterNum(orderObject.getRegisterNumber());
 					order.setStartTime(dateTime);
 					order.setStatus(BusinessCenterOrderStatus.ORDER_STATUS_WAIT.getId());    //1: start to wait for serve queue
 					order.setIsBook(0);
+					order.setAssignDate(today);
 				
 					stringBuffer.append("N-");
 					stringBuffer.append(StringUtil.getNext(nQueueNumber));

@@ -69,6 +69,14 @@
 		BOOKNUMBER = #{bookNum}
 	</select>
 	
+	<select id="queryCountByStatusAndBook" resultMap="OrderDoMap" >
+		SELECT 
+		COUNT(1)
+		FROM TBL_ORDER
+		WHERE
+		STATUS = #{status} and IS_BOOK = #{isBook} and date(ASSIGN_DATE) = #{assignDate}
+	</select>
+
 	<select id="queryOrderByQueueNum" resultMap="OrderDoMap" 
 		parameterType="java.lang.String">
 		SELECT 

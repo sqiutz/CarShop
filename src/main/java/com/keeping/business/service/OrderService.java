@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.keeping.business.common.exception.BusinessServiceException;
 import com.keeping.business.web.controller.model.Order;
+import com.keeping.business.web.controller.model.OrderObject;
 import com.keeping.business.web.controller.model.User;
 
 public interface OrderService {
@@ -29,5 +30,7 @@ public interface OrderService {
 	public Order getOrdersByQueueNum(String queueNumber);
 	
 	public Order getOrdersByRegNum(String registerNumber);
+	
+	public Integer getOrderCountByStatusAndBook(OrderObject orderObject);
 
 }
