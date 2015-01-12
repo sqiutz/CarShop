@@ -157,8 +157,10 @@ public class ModifyQueueController {
 					User user = userService.getByUserId(userIdList.get(i));
 					users.add(user);
 	
-					modifyQueueList.get(i).setJobtypeTime(Float.parseFloat(jobtypeService.queryByKey(modifyQueueList.get(i).getJobType()).getValue()));
-
+					if (modifyQueueList.get(i).getJobType() != null){
+						modifyQueueList.get(i).setJobtypeTime(Float.parseFloat(jobtypeService.queryByKey(modifyQueueList.get(i).getJobType()).getValue()));
+					}
+					
 				}
 				
 				if(modifyQueueList.size() > 0){
