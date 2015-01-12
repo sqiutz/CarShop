@@ -196,7 +196,7 @@
                     },
                     // 分配
                     allocate : {
-                        url : "modifyqueue.do?action=delete",
+                        url : "modifyqueue.do?action=allocate",
                         args : [ 
                                 "id",
                                 "modifierId"

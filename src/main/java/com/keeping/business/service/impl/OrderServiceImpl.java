@@ -57,8 +57,7 @@ public class OrderServiceImpl implements OrderService {
 
 		return orders_front;
 	}
-	
-	@Override
+
 	public Integer getOrderCountByStatusAndBook(OrderObject orderObject) {
 		// TODO Auto-generated method stub
 		
