@@ -28,17 +28,17 @@
             $('<td></td>').text(queue && queue.order ? queue.order.registerNum : '').appendTo(tr);
             $('<td></td>').text(queue && queue.order ? queue.order.queueNum : '').appendTo(tr);
             $('<td></td>').text(queue ? getTimeStr(queue.createTime) : '').appendTo(tr);
-            if (queues && j < queues.length - 1) {
-                listIter++;
-                setTimeout(function() {
-                    createModifyQueue(queues);
-                }, interval);
-            } else {
-                listIter = 0;
-                setTimeout(function() {
-                    getModifyQueues();
-                }, interval);
-            }
+        }
+        if (queues && j < queues.length - 1) {
+            listIter++;
+            setTimeout(function() {
+                createModifyQueue(queues);
+            }, interval);
+        } else {
+            listIter = 0;
+            setTimeout(function() {
+                getModifyQueues();
+            }, interval);
         }
     }
     
@@ -48,9 +48,7 @@
             data : {
                 step : 0
             },
-            success : function(queues) {
-                createModifyQueue(queues);
-            }
+            success : createModifyQueue
         });
     };
     
