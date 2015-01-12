@@ -244,8 +244,12 @@ public class UserController {
 		try {
 			userList = userService.queryAll();
 			for (int i = 0; i < userList.size(); i++) {
+				
+				UserGroup userGroup = userGroupService.queryById(userList.get(i).getGroupId());
+				userList.get(i).setGroupName(userGroup.getGroupName());
 				userProfileList.add(WebUserConverter.getUserProfile(userList
 						.get(i)));
+
 			}
 		} catch (BusinessServiceException ex) {
 			code = ex.getErrorCode();

@@ -91,14 +91,14 @@ public class ServeQueueController {
 //				logger.error("< ServeQueueController.getAllServeQueues() > 获取服务订单列表请求信息不正确: " + step);
 			} else {
 				serveQueueList = serveQueueService.getServeQueueByStep(Integer.parseInt(step.getStep()));
-				System.out.println("retrun from serveQueueService " + serveQueueList.size());
+				
 				List<Integer> userIdList = new ArrayList<Integer>();
 				List<Integer> orderIdList = new ArrayList<Integer>();
 				List<User> users = new ArrayList<User>();
 				for (int i=0; i<serveQueueList.size(); i++){
-					System.out.println("serveQueueList.get(i).getUserId() " + serveQueueList.get(i).getUserId());
+					
 					userIdList.add(serveQueueList.get(i).getUserId());
-					System.out.println("serveQueueList.get(i).getOrderId() " + serveQueueList.get(i).getOrderId());
+					
 					orderIdList.add(serveQueueList.get(i).getOrderId());
 					
 					User user = userService.getByUserId(userIdList.get(i));
@@ -115,7 +115,6 @@ public class ServeQueueController {
 				if(serveQueueList.size() > 0){
 					
 					List<Order> orders = orderService.getByOrdersId(orderIdList);
-					System.out.println("retrun from orderService " + orders.size());
 					
 					if(step.getIsBook() != null && 1 == step.getIsBook()){
 						ReorgQueue.reorgBookServeQueue(serveQueueList, users, orders);

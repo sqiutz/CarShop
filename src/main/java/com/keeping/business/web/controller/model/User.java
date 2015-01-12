@@ -16,6 +16,8 @@ public class User {
 	
 	private Integer groupId;
 	
+	private String groupName;
+	
 	private Integer isValid;			//是否激活
 	
 	private String counter;
@@ -112,6 +114,14 @@ public class User {
 
 	public void setIsBooker(Integer isBooker) {
 		this.isBooker = isBooker;
+	}
+
+	public String getGroupName() {
+		return groupName;
+	}
+
+	public void setGroupName(String groupName) {
+		this.groupName = groupName;
 	}
 
 }
