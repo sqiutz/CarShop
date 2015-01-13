@@ -309,11 +309,9 @@ public class ModifyQueueController {
 					userWorkload.setGeneralRepaire(generalRepaire);
 					userWorkload.setAllocatedTime(modifyQueue.getAssignTime());
 					userWorkload.setHumanResource(modifyQueue.getLoad());
-					
 					Date now = new Date();
 					userWorkload.setCreateTime(now);
 					userWorkload.setAssignDate(now);
-					
 					userWorkloadService.addUserWorkload(userWorkload);
 					
 				}else{
