@@ -264,6 +264,31 @@ define([], function() {
                     options.success(data);                  
                 }
             });
+        },
+        // Workload
+        getAllWorkload : function(options) {
+            var workload;
+            $.common.ajax("getAllWorkload", {
+                success : function(data) {
+                    workload = data.resList
+                    options.success(workload);
+                },
+                error : function(error) {
+                    options.success();
+                }
+            });
+        },
+        getUserWorkload : function(options) {
+            var workload;
+            $.common.ajax("getUserWorkload", {
+                success : function(data) {
+                    workload = data.resList
+                    options.success(workload);
+                },
+                error : function(error) {
+                    options.success();
+                }
+            });
         }
 	};
 

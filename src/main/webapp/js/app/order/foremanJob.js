@@ -1,4 +1,44 @@
 (function($) {
+    applyLang();
+    $.UserInfo.getProperty({
+        data : {
+            name : 'LANGUAGE'
+        },
+        success : function(data) {
+            if (data.code == '000000') {
+                var langCode = data.obj.value;
+                applyLang(langCode);
+            }
+        }
+    });
+    
+    function applyLang(langCode) {
+        if(undefined === langCode || null === langCode) {
+            langCode = 'en_US';
+        }
+        loadLang('lang/' + langCode + '.js', function() {
+            $('#changePwd').text(CHANGE_PASSW0RD);
+            $('#logout').text(LOGOUT);
+            $('#title').text(FOREMAN_JOB_DISTRIBUTION_LIST);            
+            $('#queueTitle').text(NEXT_ON_QUE);
+            $('#regNoCol').text(REG_NO);
+            $('#queNoCol').text(QUE_NO);
+            $('#timeSendCol').text(TIME_SEND);
+            $('#legendTitle').text(INPUT_EDIT_DATA);
+            $('#regNoLabel').text(REG_NO);
+            $('#additionTimeLabel').text(ADDITION_TIME);
+            $('#roofNoLabel').text(ROOF_NO);
+            $('#serviceAdvisorLabel').text(SERVICE_ADVISOR);
+            $('#jobTypeLabel').text(JOB_TYPE);
+            $('#rWarranty').text(WARRANTY);
+            $('#rSubContract').text(SUB_CONTRACT);
+            $('#promiseTimeRefLabel').text(PROMISE_TIME);            
+            $('#technicianLabel').text(TECHNICIAN);
+            $('#allocationBtn').text(ALLOCATION);
+            $('#workloadLabel').text(WORKLOAD);
+            
+        });
+    }
    
     // 创建modifyque列表
     var listIter = 0, interval = 3000, selectedId = 0, modifyQues, modifyQue;
