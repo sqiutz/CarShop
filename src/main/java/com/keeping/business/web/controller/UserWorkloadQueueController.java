@@ -114,10 +114,12 @@ public class UserWorkloadQueueController {
 	
 	@RequestMapping(params = "action=getallload")
 	@ResponseBody
-	public WebResultList<UserWorkload> getAllUserWorkload(HttpServletRequest request, HttpServletResponse response) {
+	public WebResultList<UserWorkloadList> getAllUserWorkload(HttpServletRequest request, HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
+		
+		List<UserWorkloadList> workloadLists = new ArrayList<UserWorkloadList>();
 		
 		try {
 			String jsonStr = request.getParameter("param");
@@ -136,8 +138,6 @@ public class UserWorkloadQueueController {
 				
 				Date now = new Date();
 				idObject.setDate(now);
-				
-				List<UserWorkloadList> workloadLists = new ArrayList<UserWorkloadList>();
 				
 				for(int i=0; i<users.size(); i++){
 					
@@ -174,7 +174,7 @@ public class UserWorkloadQueueController {
 //					+ e.getMessage());
 		}
 
-		return JsonConverter.getResultObject(code, msg, userWorkloads);
+		return JsonConverter.getResultObject(code, msg, workloadLists);
 	}
 
 
