@@ -269,6 +269,7 @@ define([], function() {
         getAllWorkload : function(options) {
             var workload;
             $.common.ajax("getAllWorkload", {
+                data:options.data,
                 success : function(data) {
                     workload = data.resList
                     options.success(workload);
@@ -281,6 +282,7 @@ define([], function() {
         getUserWorkload : function(options) {
             var workload;
             $.common.ajax("getUserWorkload", {
+                data:options.data,
                 success : function(data) {
                     workload = data.resList
                     options.success(workload);
