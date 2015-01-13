@@ -23,7 +23,6 @@ public class UserServiceImpl implements UserService{
 	/**用户信息DAO */
     private UserDao userDao;
     
-	@Override
 	public Integer queryUserCountByGroupAndBook(User user) {
 		// TODO Auto-generated method stub
 		

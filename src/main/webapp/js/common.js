@@ -259,7 +259,20 @@
                         args : [ 
                                 "id",
                        ]
-                    }                    
+                    },
+                    // workload
+                    getAllWorkload : {
+                        url : "userworkload.do?action=getallload",
+                        args : [ 
+                                "name",
+                       ]
+                    },
+                    getUserWorkload : {
+                        url : "userworkload.do?action=getone",
+                        args : [ 
+                                "id",
+                       ]
+                    }
                 },
                 ajax : function(key, args) {
                     var self = this;

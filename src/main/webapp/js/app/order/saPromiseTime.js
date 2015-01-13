@@ -97,6 +97,15 @@
                     .appendTo(tr);
             }
         }
+        for(; i < 5; i++) {
+            var tr = $('<tr></tr>').attr('class', i % 2 === 0 ? 'odd' : 'even')
+                .appendTo($('#timeRefTable'));
+            $('<td></td>').attr('class', 'header').html('&nbsp;').appendTo(tr);
+            for(k=0; k < 22; k ++) {
+                $('<td></td>').html('&nbsp;')
+                    .appendTo(tr);
+            }
+        }
     }
     
     var getJobType = function() {

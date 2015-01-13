@@ -14,6 +14,7 @@ var GREET_CUSTOMER = 'GREET CUSTOMER';
 var GREET_CUSTOMER_DESC = 'Service staff greet customer';
 var FINAL_INSPECTION = 'FINAL INSPECTION';
 var FINAL_INSPECTION_DESC = 'Final inspection for job progress';
+var FOREMAN_JOB_DISTRIBUTION_LIST = 'FOREMAN JOB DISTRIBUTION LIST';
 
 var CUSTOMER_QUE_STATUS_BOARD = 'CUSTOMER QUE STATUS BOARD';
 var WELCOME = 'WELCOME';
@@ -110,3 +111,9 @@ var QUE_WITH_NUMBER = "You're on the Queue with Number";
 var PRINT = 'PRINT';
 
 var CLOSE = 'CLOSE';
+
+var NEXT_ON_QUE = 'NEXT ON QUE';
+var TIME_SEND = 'Time Send';
+var TECHNICIAN = 'Technician';
+var ALLOCATION = 'ALLOCATION';
+var WORKLOAD = 'WORK LOAD';
