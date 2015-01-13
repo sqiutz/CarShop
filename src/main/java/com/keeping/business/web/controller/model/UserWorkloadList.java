@@ -10,6 +10,8 @@ public class UserWorkloadList {
 	
 	private Float totalLoad;
 	
+	private Integer totalLoadPercentage;
+	
 	private List<UserWorkload> userWorkloadList;
 
 	public Integer getUserId() {
@@ -42,6 +44,14 @@ public class UserWorkloadList {
 
 	public void setTotalLoad(Float totalLoad) {
 		this.totalLoad = totalLoad;
+	}
+
+	public Integer getTotalLoadPercentage() {
+		return totalLoadPercentage;
+	}
+
+	public void setTotalLoadPercentage(Integer totalLoadPercentage) {
+		this.totalLoadPercentage = totalLoadPercentage;
 	}
 
 }

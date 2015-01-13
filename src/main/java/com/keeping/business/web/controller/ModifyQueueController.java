@@ -269,6 +269,30 @@ public class ModifyQueueController {
 				
 				if (modifyQueue != null && modifyQueue.getId() != null){
 					
+					Integer generalRepaire = 0;
+					JobType jobType = new JobType();
+					if(modifyQueueObject.getJobType() != null){
+						jobType = jobtypeService.queryByKey(modifyQueueObject.getJobType());
+					} else {
+						jobType = jobtypeService.queryByKey(modifyQueue.getJobType());;
+					}
+					if(jobType != null){
+						generalRepaire = Integer.parseInt(jobType.getValue());
+					}
+					
+					UserWorkload userWorkload = new UserWorkload();
+					
+					if (modifyQueueObject.getModifierId() == null){
+						userWorkload.setUserId(modifyQueue.getModifierId());
+					} else {
+						userWorkload.setUserId(modifyQueueObject.getModifierId());
+					}
+					
+					Float load = Float.parseFloat(jobType.getValue());
+					load = load + modifyQueue.getAdditionTime();
+					
+					modifyQueue.setLoad(load);
+					
 					modifyQueue.setUserId(modifyQueueObject.getUserId());
 					modifyQueue.setModifierId(modifyQueueObject.getModifierId());
 					modifyQueue.setJobType(modifyQueueObject.getJobType());
@@ -280,18 +304,15 @@ public class ModifyQueueController {
 					modifyQueue.setStep(BusinessCenterModifyQueueStatus.MODIFYQUEUE_STATUS_READY.getId());
 					modifyQueueService.updateModifyQueue(modifyQueue);
 					
-					Integer generalRepaire = 0;
-					JobType jobType = jobtypeService.queryByKey(modifyQueue.getJobType());
-					if(jobType != null){
-						generalRepaire = Integer.parseInt(jobType.getValue());
-					}
-					UserWorkload userWorkload = new UserWorkload();
-					userWorkload.setModifyqueueId(modifyQueue.getId());
-					userWorkload.setUserId(modifyQueue.getModifierId());
 					userWorkload.setAdditionalHours(modifyQueue.getAdditionTime());
+					userWorkload.setModifyqueueId(modifyQueue.getId());
 					userWorkload.setGeneralRepaire(generalRepaire);
 					userWorkload.setAllocatedTime(modifyQueue.getAssignTime());
 					userWorkload.setHumanResource(modifyQueue.getLoad());
+					
+					Date now = new Date();
+					userWorkload.setCreateTime(now);
+					
 					userWorkloadService.addUserWorkload(userWorkload);
 					
 				}else{

@@ -10,7 +10,7 @@
 		<result column="GENERALREPAIRE" property="generalRepaire" />
 		<result column="ADDITIONALHOURS" property="additionalHours" />
 		<result column="COMMENT" property="comment" />
-		<result column="ALLOCATEDTIME" property="allocatedTime" />
+		<result column="ALLOCATED_TIME" property="allocatedTime" />
 		<result column="CREATE_TIME" property="createTime" />
 		<result column="MODIFY_TIME" property="modifyTime" />
 		<result column="START_TIME" property="startTime" />
@@ -19,7 +19,7 @@
 	</resultMap>
 	
 	<sql id="Base_Column_List">
-		ID,USER_ID,MODIFYQUEUE_ID,HUMANRESOURCE,GENERALREPAIRE,ADDITIONALHOURS,COMMENT,ALLOCATEDTIME,CREATE_TIME,MODIFY_TIME,START_TIME,END_TIME,ASSIGN_DATE
+		ID,USER_ID,MODIFYQUEUE_ID,HUMANRESOURCE,GENERALREPAIRE,ADDITIONALHOURS,COMMENT,ALLOCATED_TIME,CREATE_TIME,MODIFY_TIME,START_TIME,END_TIME,ASSIGN_DATE
 	</sql>
 
 	<select id="queryByUserWorkloadUserid" resultMap="UserWorkloadDoMap" >
@@ -52,34 +52,34 @@
 			<if test="userId != null">
 				USER_ID,
 			</if>
-			<if test="registerNum != null">
+			<if test="modifyqueueId != null">
 				MODIFYQUEUE_ID,
 			</if>
-			<if test="queueNum != null">
+			<if test="humanResource != null">
 				HUMANRESOURCE,
 			</if>
-			<if test="roofNum != null">
+			<if test="generalRepaire != null">
 				GENERALREPAIRE,
 			</if>
-			<if test="bookNum != null">
+			<if test="additionalHours != null">
 				ADDITIONALHOURS,
 			</if>
-			<if test="estimationTime != null">
+			<if test="comment != null">
 				COMMENT,
 			</if>
-			<if test="promiseTime != null">
-				ALLOCATEDTIME,
+			<if test="allocatedTime != null">
+				ALLOCATED_TIME,
 			</if>
-			<if test="startTime != null">
+			<if test="createTime != null">
 				CREATE_TIME,
 			</if>
-			<if test="endTime != null">
+			<if test="modifyTime != null">
 				MODIFY_TIME,
 			</if>
-			<if test="isBook != null">
+			<if test="startTime != null">
 				START_TIME,
 			</if>
-			<if test="isBook != null">
+			<if test="endTime != null">
 				END_TIME,
 			</if>
 			<if test="assignDate != null">
@@ -148,7 +148,7 @@
 				COMMENT = #{comment},
 			</if>
 			<if test="allocatedTime != null">
-				ALLOCATEDTIME = #{allocatedTime},
+				ALLOCATED_TIME = #{allocatedTime},
 			</if>
 			<if test="createTime != null">
 				CREATETIME = #{createTime},

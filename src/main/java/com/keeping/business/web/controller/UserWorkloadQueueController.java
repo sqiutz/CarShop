@@ -143,14 +143,20 @@ public class UserWorkloadQueueController {
 				for(int i=0; i<users.size(); i++){
 				
 					UserWorkloadList userWorkloadList = new UserWorkloadList();
-					Float totalLost = Float.parseFloat("0");
+					Float totalLoad = Float.parseFloat("0");
 					userWorkloadList.setUserId(users.get(i).getId());
 					userWorkloadList.setUserName(users.get(i).getUserName());
 					userWorkloads = userWorkloadService.queryByUserWorkloadUserid(idObject);
 					for (int j=0; j<userWorkloads.size(); j++){
-						totalLost = totalLost + userWorkloads.get(j).getHumanResource();
+						totalLoad = totalLoad + userWorkloads.get(j).getHumanResource();
 					}
-					userWorkloadList.setTotalLoad(totalLost);
+					
+					userWorkloadList.setTotalLoad(totalLoad);
+					
+					totalLoad = (totalLoad / 8) * 100;
+					int result = Math.round(totalLoad);
+					userWorkloadList.setTotalLoadPercentage(result);
+					
 					workloadLists.add(userWorkloadList);
 				}
 			}

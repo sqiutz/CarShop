@@ -215,12 +215,12 @@ CREATE TABLE `TBL_USERWORKLOAD` (
   `humanResource` varchar(48) NOT NULL,
   `generalRepaire` varchar(48) NOT NULL,
   `additionalHours` varchar(48) NOT NULL,
-  `comment` varchar(48) NOT NULL,
-  `create_time` date NOT NULL,
+  `comment` varchar(48) DEFAULT NULL,
+  `create_time` date NOT NULL DEFAULT '1990-01-01 00:00:00',
   `modify_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `allocated_time` timestamp NOT NULL DEFAULT '1990-01-01 00:00:00',
-  `start_time` timestamp NOT NULL,
-  `end_time` timestamp NOT NULL,
+  `start_time` timestamp NOT NULL DEFAULT '1990-01-01 00:00:00',
+  `end_time` timestamp NOT NULL DEFAULT '1990-01-01 00:00:00',
   INDEX user_ind (user_id),
     FOREIGN KEY (user_id)
     REFERENCES TBL_USER (id)

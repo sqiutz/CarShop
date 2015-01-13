@@ -22,6 +22,8 @@ public class UserWorkloadConverter {
 		userWorkload.setAdditionalHours(userWorkloadDo.getAdditionalHours());
 		userWorkload.setGeneralRepaire(userWorkloadDo.getGeneralRepaire());
 		userWorkload.setHumanResource(userWorkloadDo.getHumanResource());
+		userWorkload.setUserId(userWorkloadDo.getUserId());
+		userWorkload.setModifyqueueId(userWorkloadDo.getModifyqueueId());
 		
 		return userWorkload;
 	}
@@ -43,6 +45,8 @@ public class UserWorkloadConverter {
 		userWorkloadDo.setAdditionalHours(userWorkload.getAdditionalHours());
 		userWorkloadDo.setGeneralRepaire(userWorkload.getGeneralRepaire());
 		userWorkloadDo.setHumanResource(userWorkload.getHumanResource());
+		userWorkloadDo.setUserId(userWorkload.getUserId());
+		userWorkloadDo.setModifyqueueId(userWorkload.getModifyqueueId());
 		
 		return userWorkloadDo;
 	}
