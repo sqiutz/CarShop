@@ -312,6 +312,7 @@ public class ModifyQueueController {
 					
 					Date now = new Date();
 					userWorkload.setCreateTime(now);
+					userWorkload.setAssignDate(now);
 					
 					userWorkloadService.addUserWorkload(userWorkload);
 					

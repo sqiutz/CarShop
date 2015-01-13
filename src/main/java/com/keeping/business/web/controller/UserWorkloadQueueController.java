@@ -142,6 +142,7 @@ public class UserWorkloadQueueController {
 				
 				for(int i=0; i<users.size(); i++){
 				
+					idObject.setId(users.get(i).getId());
 					UserWorkloadList userWorkloadList = new UserWorkloadList();
 					Float totalLoad = Float.parseFloat("0");
 					userWorkloadList.setUserId(users.get(i).getId());

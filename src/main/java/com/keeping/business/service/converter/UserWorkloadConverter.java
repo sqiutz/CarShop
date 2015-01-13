@@ -24,6 +24,7 @@ public class UserWorkloadConverter {
 		userWorkload.setHumanResource(userWorkloadDo.getHumanResource());
 		userWorkload.setUserId(userWorkloadDo.getUserId());
 		userWorkload.setModifyqueueId(userWorkloadDo.getModifyqueueId());
+		userWorkload.setAssignDate(TimeUtil.transferFromSqlToUtilDate(userWorkloadDo.getAssignDate()));
 		
 		return userWorkload;
 	}
@@ -47,6 +48,7 @@ public class UserWorkloadConverter {
 		userWorkloadDo.setHumanResource(userWorkload.getHumanResource());
 		userWorkloadDo.setUserId(userWorkload.getUserId());
 		userWorkloadDo.setModifyqueueId(userWorkload.getModifyqueueId());
+		userWorkloadDo.setAssignDate(TimeUtil.transferFromUtilToSqlDate(userWorkload.getAssignDate()));
 		
 		return userWorkloadDo;
 	}
