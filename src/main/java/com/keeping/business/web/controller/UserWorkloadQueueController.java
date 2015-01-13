@@ -119,7 +119,6 @@ public class UserWorkloadQueueController {
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		
-		List<UserWorkload> userWorkloads = new ArrayList<UserWorkload>();
 		try {
 			String jsonStr = request.getParameter("param");
 			
@@ -141,6 +140,8 @@ public class UserWorkloadQueueController {
 				List<UserWorkloadList> workloadLists = new ArrayList<UserWorkloadList>();
 				
 				for(int i=0; i<users.size(); i++){
+					
+					List<UserWorkload> userWorkloads = new ArrayList<UserWorkload>();
 				
 					idObject.setId(users.get(i).getId());
 					UserWorkloadList userWorkloadList = new UserWorkloadList();
