@@ -127,6 +127,17 @@
         }
     });
     
+    var getAllWorkload = function() {
+        $.OrderInfo.getAllWorkload({
+            data : {
+                name : 3
+            },
+            success : function(workload) {
+                var w = workload;
+            } 
+        });
+    }
+    
     $('#allocationBtn').bind('click', function() {
         $.OrderInfo.allocate({
             data : {
@@ -142,4 +153,5 @@
     });
     
     getModifyQueues();
+    getAllWorkload();
 })(jQuery);
