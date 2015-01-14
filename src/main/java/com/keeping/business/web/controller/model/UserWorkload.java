@@ -14,7 +14,7 @@ public class UserWorkload extends BaseQueue{
 	
 	private Float humanResource;
 	
-	private Integer generalRepaire;
+	private Float generalRepaire;
 	
 	private Float additionalHours;
 	
@@ -72,11 +72,11 @@ public class UserWorkload extends BaseQueue{
 		this.humanResource = humanResource;
 	}
 
-	public Integer getGeneralRepaire() {
+	public Float getGeneralRepaire() {
 		return generalRepaire;
 	}
 
-	public void setGeneralRepaire(Integer generalRepaire) {
+	public void setGeneralRepaire(Float generalRepaire) {
 		this.generalRepaire = generalRepaire;
 	}
 

@@ -20,7 +20,7 @@ public class UserWorkloadConverter {
 		userWorkload.setAllocatedTime(TimeUtil.transferFromSqlToUtil(userWorkloadDo.getAllocatedTime()));
 		userWorkload.setComment(userWorkloadDo.getComment());
 		userWorkload.setAdditionalHours(userWorkloadDo.getAdditionalHours());
-		userWorkload.setGeneralRepaire(userWorkloadDo.getGeneralRepaire());
+		userWorkload.setGeneralRepaire(Float.parseFloat(userWorkloadDo.getGeneralRepaire()));
 		userWorkload.setHumanResource(userWorkloadDo.getHumanResource());
 		userWorkload.setUserId(userWorkloadDo.getUserId());
 		userWorkload.setModifyqueueId(userWorkloadDo.getModifyqueueId());
@@ -47,7 +47,7 @@ public class UserWorkloadConverter {
 		userWorkloadDo.setAllocatedTime(TimeUtil.transferFromUtilToSql(userWorkload.getAllocatedTime()));
 		userWorkloadDo.setComment(userWorkload.getComment());
 		userWorkloadDo.setAdditionalHours(userWorkload.getAdditionalHours());
-		userWorkloadDo.setGeneralRepaire(userWorkload.getGeneralRepaire());
+		userWorkloadDo.setGeneralRepaire(userWorkload.getGeneralRepaire()+"");
 		userWorkloadDo.setHumanResource(userWorkload.getHumanResource());
 		userWorkloadDo.setUserId(userWorkload.getUserId());
 		userWorkloadDo.setModifyqueueId(userWorkload.getModifyqueueId());

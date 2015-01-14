@@ -269,7 +269,7 @@ public class ModifyQueueController {
 				
 				if (modifyQueue != null && modifyQueue.getId() != null){
 					
-					Integer generalRepaire = 0;
+					Float generalRepaire = null;
 					JobType jobType = new JobType();
 					if(modifyQueueObject.getJobType() != null){
 						jobType = jobtypeService.queryByKey(modifyQueueObject.getJobType());
@@ -277,7 +277,7 @@ public class ModifyQueueController {
 						jobType = jobtypeService.queryByKey(modifyQueue.getJobType());;
 					}
 					if(jobType != null){
-						generalRepaire = Integer.parseInt(jobType.getValue());
+						generalRepaire = Float.parseFloat(jobType.getValue());
 					}
 					
 					UserWorkload userWorkload = new UserWorkload();
@@ -293,7 +293,10 @@ public class ModifyQueueController {
 					
 					modifyQueue.setLoad(load);
 					
-					modifyQueue.setUserId(modifyQueueObject.getUserId());
+					if(modifyQueueObject.getUserId() != null){
+						modifyQueue.setUserId(modifyQueueObject.getUserId());
+					}
+					
 					modifyQueue.setModifierId(modifyQueueObject.getModifierId());
 					modifyQueue.setJobType(modifyQueueObject.getJobType());
 					modifyQueue.setAdditionTime(modifyQueue.getAdditionTime());
