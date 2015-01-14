@@ -73,8 +73,9 @@
 	var userGroup = {
 		groupNameMapper : {
 			0 : 'Admin',
-			1 : 'Booker',
-			2 : 'Servicer'
+			1 : 'Manager',
+			2 : 'Servicer',
+			3 : 'Technician'
 		},
 		// 获取用户组列表
 		getAllGroups : function() {
