@@ -103,7 +103,7 @@ public class UserWorkloadQueueController {
 					Order order = orderService.queryOrderById(userWorkloads.get(i).getId());
 					User user = userService.getByUserId(userWorkloads.get(i).getSaId());
 					userWorkloads.get(i).setOrder(order);
-					userWorkloads.get(i).setUser(user);
+					userWorkloads.get(i).setSa(user);
 				}
 			}
 		} catch (BusinessServiceException ex) {

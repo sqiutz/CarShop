@@ -219,7 +219,7 @@ CREATE TABLE `TBL_USERWORKLOAD` (
   `isWarrant` smallint(1) NOT NULL DEFAULT 0,
   `isSubContract` smallint(1) NOT NULL DEFAULT 0,
   `comment` varchar(48) DEFAULT NULL,
-  `create_time` date NOT NULL DEFAULT '1990-01-01 00:00:00',
+  `create_time` timestamp NOT NULL DEFAULT '1990-01-01 00:00:00',
   `modify_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `allocated_time` timestamp NOT NULL DEFAULT '1990-01-01 00:00:00',
   `start_time` timestamp NOT NULL DEFAULT '1990-01-01 00:00:00',

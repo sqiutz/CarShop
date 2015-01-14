@@ -297,12 +297,18 @@ public class ModifyQueueController {
 						modifyQueue.setUserId(modifyQueueObject.getUserId());
 					}
 					
+					if(modifyQueueObject.getIsSubContract() != null){
+						modifyQueue.setIsWarrant(modifyQueueObject.getIsWarrant());
+					}
+					
+					if(modifyQueueObject.getIsWarrant() != null){
+						modifyQueue.setIsSubContract(modifyQueueObject.getIsSubContract());
+					}
+					
 					modifyQueue.setModifierId(modifyQueueObject.getModifierId());
 					modifyQueue.setJobType(modifyQueueObject.getJobType());
 					modifyQueue.setAdditionTime(modifyQueue.getAdditionTime());
 					modifyQueue.setTechnician(modifyQueueObject.getTechnician());
-					modifyQueue.setIsWarrant(modifyQueueObject.getIsWarrant());
-					modifyQueue.setIsSubContract(modifyQueueObject.getIsSubContract());
 					modifyQueue.setPromistTime(modifyQueueObject.getPromistTime());
 					modifyQueue.setStep(BusinessCenterModifyQueueStatus.MODIFYQUEUE_STATUS_READY.getId());
 					modifyQueueService.updateModifyQueue(modifyQueue);
