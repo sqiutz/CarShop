@@ -175,10 +175,10 @@
 				ALLOCATED_TIME = #{allocatedTime},
 			</if>
 			<if test="createTime != null">
-				CREATETIME = #{createTime},
+				CREATE_TIME = #{createTime},
 			</if>
 			<if test="modifyTime != null">
-				MODIFYTIME = #{modifyTime},
+				MODIFY_TIME = #{modifyTime},
 			</if>
 			<if test="startTime != null">
 				START_TIME = #{startTime},

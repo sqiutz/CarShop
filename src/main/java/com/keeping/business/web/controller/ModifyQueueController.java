@@ -224,6 +224,9 @@ public class ModifyQueueController {
 					modifyQueue.setUser(user);
 					modifyQueue.setOrder(order);
 					
+					JobType jobType = jobtypeService.queryByKey(modifyQueue.getJobType());
+					modifyQueue.setJobtypeTime(Float.parseFloat(jobType.getValue()));
+					
 				}else{
 					code = BusinessCenterResCode.ORDER_NOT_EXIST.getCode();
 					msg = BusinessCenterResCode.ORDER_NOT_EXIST.getMsg();

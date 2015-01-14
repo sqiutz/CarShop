@@ -36,6 +36,8 @@ public class UserWorkload extends BaseQueue{
 	
 	private Integer isSubContract;
 	
+	private ModifyQueue modifyQueue;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -154,6 +156,14 @@ public class UserWorkload extends BaseQueue{
 
 	public void setIsSubContract(Integer isSubContract) {
 		this.isSubContract = isSubContract;
+	}
+
+	public ModifyQueue getModifyQueue() {
+		return modifyQueue;
+	}
+
+	public void setModifyQueue(ModifyQueue modifyQueue) {
+		this.modifyQueue = modifyQueue;
 	}
 	
 }
