@@ -5,6 +5,7 @@
 	<resultMap id="UserWorkloadDoMap" type="UserWorkloadDo">
 		<id column="ID" property="id" />
 		<result column="USER_ID" property="userId" />
+		<result column="SA_ID" property="saId" />
 		<result column="MODIFYQUEUE_ID" property="modifyqueueId" />
 		<result column="HUMANRESOURCE" property="humanResource" />
 		<result column="GENERALREPAIRE" property="generalRepaire" />
@@ -19,7 +20,7 @@
 	</resultMap>
 	
 	<sql id="Base_Column_List">
-		ID,USER_ID,MODIFYQUEUE_ID,HUMANRESOURCE,GENERALREPAIRE,ADDITIONALHOURS,COMMENT,ALLOCATED_TIME,CREATE_TIME,MODIFY_TIME,START_TIME,END_TIME,ASSIGN_DATE
+		ID,USER_ID,SA_ID,MODIFYQUEUE_ID,HUMANRESOURCE,GENERALREPAIRE,ADDITIONALHOURS,COMMENT,ALLOCATED_TIME,CREATE_TIME,MODIFY_TIME,START_TIME,END_TIME,ASSIGN_DATE
 	</sql>
 
 	<select id="queryByUserWorkloadUserid" resultMap="UserWorkloadDoMap" >
@@ -51,6 +52,9 @@
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="userId != null">
 				USER_ID,
+			</if>
+			<if test="saId != null">
+				SA_ID,
 			</if>
 			<if test="modifyqueueId != null">
 				MODIFYQUEUE_ID,
@@ -89,6 +93,9 @@
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="userId != null">
 				#{userId},
+			</if>
+			<if test="saId != null">
+				#{saId},
 			</if>
 			<if test="modifyqueueId != null">
 				#{modifyqueueId},
@@ -131,6 +138,9 @@
 		<set>
 			<if test="userId != null">
 				USER_ID = #{userId},
+			</if>
+			<if test="saId != null">
+				SA_ID = #{saId},
 			</if>
 			<if test="modifyqueueId != null">
 				MODIFYQUEUE_ID = #{modifyqueueId},

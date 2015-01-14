@@ -101,7 +101,7 @@ public class UserWorkloadQueueController {
 				for(int i=0; i<userWorkloads.size(); i++){
 					
 					Order order = orderService.queryOrderById(userWorkloads.get(i).getId());
-					User user = userService.getByUserId(userWorkloads.get(i).getUserId());
+					User user = userService.getByUserId(userWorkloads.get(i).getSaId());
 					userWorkloads.get(i).setOrder(order);
 					userWorkloads.get(i).setUser(user);
 				}

@@ -32,6 +32,10 @@ public class UserWorkload extends BaseQueue{
 	
 	private Float totalLoad;
 	
+	private Integer saId;
+	
+	private User sa;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -134,6 +138,22 @@ public class UserWorkload extends BaseQueue{
 
 	public void setTotalLoad(Float totalLoad) {
 		this.totalLoad = totalLoad;
+	}
+
+	public Integer getSaId() {
+		return saId;
+	}
+
+	public void setSaId(Integer saId) {
+		this.saId = saId;
+	}
+
+	public User getSa() {
+		return sa;
+	}
+
+	public void setSa(User sa) {
+		this.sa = sa;
 	}
 	
 }

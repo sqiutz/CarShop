@@ -31,6 +31,8 @@ public class UserWorkloadDo {
 	
 	private Timestamp allocatedTime;
 	
+	private Integer saId;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -133,6 +135,14 @@ public class UserWorkloadDo {
 
 	public void setAssignDate(Date assignDate) {
 		this.assignDate = assignDate;
+	}
+
+	public Integer getSaId() {
+		return saId;
+	}
+
+	public void setSaId(Integer saId) {
+		this.saId = saId;
 	}
 	
 }

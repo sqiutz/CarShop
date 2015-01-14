@@ -211,6 +211,7 @@ DROP TABLE IF EXISTS `TBL_USERWORKLOAD`;
 CREATE TABLE `TBL_USERWORKLOAD` (
   `id` bigint(10) NOT NULL AUTO_INCREMENT,
   `user_id` bigint(10) NOT NULL,
+  `sa_id` bigint(10) NOT NULL,
   `modifyqueue_id` bigint(10) NOT NULL,
   `humanResource` varchar(48) NOT NULL,
   `generalRepaire` varchar(48) NOT NULL,
