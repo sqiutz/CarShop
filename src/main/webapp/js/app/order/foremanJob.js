@@ -133,6 +133,28 @@
                 name : 3
             },
             success : function(workload) {
+                for(var i = 0; i < workload.length; i++) {
+                    var load = workload[i];
+                    var div = $('<div></div>').attr('class', 'donut').appendTo($('#chartsDiv'));
+                    var id = 'chart' + i;
+                    $('<div></div>').attr('id', id).attr('class', 'box-black-dark').appendTo(div);
+                    $('<div></div>').attr('class', 'cAlign h3').text(load.userName).appendTo(div);
+                    drawChart(id, load.totalLoadPercentage / 100);
+                    
+                    if(i == 0) {
+                        getUserWorkload(load.userId);
+                    }
+                }
+            } 
+        });
+    }
+    
+    var getUserWorkload = function(userId) {
+        $.OrderInfo.getUserWorkload({
+            data : {
+                id : userId
+            },
+            success : function(workload) {
                 var w = workload;
             } 
         });

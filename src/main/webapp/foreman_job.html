@@ -26,11 +26,6 @@
     $(document).ready(function() {
         layoutMe();
         $(window).resize(layoutMe);
-        drawChart('chart1', 0.35);
-        drawChart('chart2', 0.50);
-        drawChart('chart3', 0.60);
-        drawChart('chart4', 0.75);
-        drawChart('chart5', 0.40);
     });
 </script>
 
@@ -104,15 +99,9 @@
 				</fieldset>
 				</div>
 			</div>
-			<div id='chartContainer' class='box-black-light'>
+			<div id='chartContainer' class='box-black-light' style='width:1040px;margin-top:10px;padding-top:5px;'>
 				<div id='workloadLabel' class='cAlign h3'></div>
-				<div class='donuts'>
-					<div class='donut'><div id='chart1' class='box-black-dark'></div><div class='cAlign h3'>EM-1</div></div>	
-					<div class='donut'><div id='chart2' class='box-black-dark'></div><div class='cAlign h3'>EM-2</div></div>
-					<div class='donut'><div id='chart3' class='box-black-dark'></div><div class='cAlign h3'>Tech. A</div></div>
-					<div class='donut'><div id='chart4' class='box-black-dark'></div><div class='cAlign h3'>Tech. B</div></div>
-					<div class='donut'><div id='chart5' class='box-black-dark'></div><div class='cAlign h3'>Tech. C</div></div>				
-				</div>
+				<div id='chartsDiv' style='width:760px;margin:0px auto'></div>
 			</div>
 			
 				<table id='workloadTable' class='workload' style='width:1100px'>
