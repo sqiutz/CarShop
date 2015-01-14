@@ -42,10 +42,10 @@
             if(data.code == '000000') {
                 modifyQue = data.obj;
                 $('#regNo').val(modifyQue && modifyQue.order ? modifyQue.order.registerNum : '');
-                //$('#idMechanic').text(modifyQue && modifyQue.order ? modifyQue.order.registerNum : '');
+                //$('#idMechanic').val(modifyQue && modifyQue.order ? modifyQue.order.registerNum : '');
                 $('#roofNo').val(modifyQue && modifyQue.order ? modifyQue.order.roofNum : '');
-                //$('#serviceAdvisor').text(modifyQue && modifyQue.order ? modifyQue.order.roofNum : '');
-                $('#jobType').val(modifyQue ? modifyQue.jobType : '');
+                $('#serviceAdvisor').val(modifyQue && modifyQue.user ? modifyQue.user.userName : '');
+                $('#jobType').val(modifyQue ? modifyQue.jobType + ' - ' + modifyQue.jobtypeTime + ' hour(s)' : '');
                 $('#isWarranty').attr('checked', modifyQue && modifyQue.isWarrant ? true : false);
                 $('#isSubContract').attr('checked', modifyQue && modifyQue.isSubContract ? true : false);
             }

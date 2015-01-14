@@ -246,10 +246,10 @@ CREATE TABLE `TBL_USERWORKLOAD` (
 -- ----------------------------
 -- INSERT INTO `d_log` VALUES ('62', 'e2b22b89df5a423eb5da984bff1c0d61', 'uuid：e2b22b89df5a423eb5da984bff1c0d61满足依赖关系,插入active表中', '2014-07-11 02:22:02', '2014-07-11 02:22:02', 'r_new_user_list_hs.sql 20140710', 'hivewrapper', null, '2014-07-10');
 
-insert into tbl_usergroup set group_name = 0;
-insert into tbl_usergroup set group_name = 1;
-insert into tbl_usergroup set group_name = 2;
-insert into tbl_usergroup set group_name = 3;
+insert into tbl_usergroup set group_name = 0; -- Admin
+insert into tbl_usergroup set group_name = 1; -- Manager
+insert into tbl_usergroup set group_name = 2; -- Servicer
+insert into tbl_usergroup set group_name = 3; -- Technician
 insert into tbl_user set user_name = 'admin', is_admin = 1, passwd = 'passw0rd', is_valid = 1, group_id = 3;
 insert into tbl_user set user_name = 'MGR-1', is_admin = 0, passwd = 'passw0rd', is_valid = 1, group_id = 4;
 insert into tbl_user set user_name = 'MGR-2', is_admin = 0, passwd = 'passw0rd', is_valid = 1, group_id = 4;
