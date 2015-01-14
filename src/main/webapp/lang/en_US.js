@@ -1,6 +1,9 @@
 var SUZUKI_SIAGA_LEBIH_MENGERTI_KELUARGA = 'SUZUKI SIAGA LEBIH MENGERTI KELUARGA';
 var USERNAME = 'UserName';
 var PASSWORD = 'Password';
+var ORG_PASSWORD = 'Org. Password';
+var NEW_PASSWORD = 'New Password';
+var PASSWORD_CONF = 'Password Conf.';
 var LOGIN = 'Login';
 var CUSTOMER_QUE_STATUS_BOARD = 'CUSTOMER QUE STATUS BOARD';
 var CUSTOMER_QUE_STATUS_BOARD_DESC = 'Show the serving & waiting queue';
@@ -48,6 +51,7 @@ var BACK = 'BACK';
 
 var CAR_WASH_QUEU_BOARD = 'CAR WASH QUEU BOARD';
 var CANCEL = 'CANCEL';
+var Cancel = 'Cancel';
 var NEXT_ON_QUE = 'NEXT on QUE';
 var PROMISE_TIME = 'Promise Time';
 

@@ -94,10 +94,10 @@
                         if(userProfile.isAdmin) {
                             location.href = 'administration.html';
                         }
-                        else if(userProfile.groupName = 1){
+                        else if(userProfile.groupName == 1){
                             location.href = 'foreman_job.html';
                         }
-                        else if(userProfile.groupName = 2) {
+                        else if(userProfile.groupName == 2) {
                             location.href = 'select_counter.html';
                         }
                     }else if(data.code == '010102'){
