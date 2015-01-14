@@ -30,7 +30,21 @@ table.workload {
 	margin:20px auto;
 	font-size:18px;
 	font-style:italic;
+	text-align:center;
+}
+table.workload .header {
+	background-color:#b1def3;
+	font-style:normal;
 }
 table.workload td {
 	border:1px solid;
+}
+table.workload .yellow {
+	background-color:#f9e7d7;
+}
+table.workload .green {
+	background-color:#f5f9eb;
+}
+table.workload .red {
+	background-color:#edc4c4;
 }

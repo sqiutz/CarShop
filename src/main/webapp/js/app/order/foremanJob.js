@@ -149,13 +149,34 @@
         });
     }
     
+    var colors = ['yellow', 'yellow', 'green', 'green', 'red', 'red'];
     var getUserWorkload = function(userId) {
         $.OrderInfo.getUserWorkload({
             data : {
                 id : userId
             },
             success : function(workload) {
-                var w = workload;
+                var num = workload.length < 6 ? 6 : workload.length;
+                for(var i = 0; i < num; i++) {
+                    var load = i < workload.length ? workload[i] : null;
+                    var tr = $('<tr></tr>').attr('class', colors[i % 6]).appendTo($('#workloadTable'));
+                    $('<td></td>').attr('class', 'header').text(i + 1).appendTo(tr);
+                    $('<td></td>').text(load && load.order ? load.order.registerNum : '').appendTo(tr);
+                    $('<td></td>').text(load && load.order ? load.order.roofNum : '').appendTo(tr);
+                    $('<td></td>').text('').appendTo(tr);
+                    $('<td></td>').text('').appendTo(tr);
+                    $('<td></td>').text(load ? load.humanResource : '').appendTo(tr);
+                    $('<td></td>').text(load ? load.additionalHours : '').appendTo(tr);
+                    $('<td></td>').text(load ? load.generalRepaire : '').appendTo(tr);
+                    $('<td></td>').text('').appendTo(tr);
+                    $('<td></td>').text('').appendTo(tr);
+                    $('<td></td>').text(load ? getTimeStr(load.allocatedTime) : '').appendTo(tr);
+                    $('<td></td>').text(load && load.order ? getTimeStr(load.order.promiseTime) : '').appendTo(tr);
+                    $('<td></td>').text(load ? getTimeStr(load.startTime) : '').appendTo(tr);
+                    $('<td></td>').text('').appendTo(tr);
+                    $('<td></td>').text(load && load.order && load.order.status == 4 ? getTimeStr(load.endTime) : '').appendTo(tr);
+                    $('<td></td>').text(load ? load.comment : '').appendTo(tr);
+                }
             } 
         });
     }
