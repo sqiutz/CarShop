@@ -36,6 +36,10 @@ public class UserWorkload extends BaseQueue{
 	
 	private User sa;
 	
+	private Integer isWarrant;
+	
+	private Integer isSubContract;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -154,6 +158,22 @@ public class UserWorkload extends BaseQueue{
 
 	public void setSa(User sa) {
 		this.sa = sa;
+	}
+
+	public Integer getIsWarrant() {
+		return isWarrant;
+	}
+
+	public void setIsWarrant(Integer isWarrant) {
+		this.isWarrant = isWarrant;
+	}
+
+	public Integer getIsSubContract() {
+		return isSubContract;
+	}
+
+	public void setIsSubContract(Integer isSubContract) {
+		this.isSubContract = isSubContract;
 	}
 	
 }

@@ -17,10 +17,12 @@
 		<result column="START_TIME" property="startTime" />
 		<result column="END_TIME" property="endTime" />
 		<result column="ASSIGN_DATE" property="assignDate" />
+		<result column="ISWARRANT" property="isWarrant" />
+		<result column="ISSUBCONTRACT" property="isSubContract" />
 	</resultMap>
 	
 	<sql id="Base_Column_List">
-		ID,USER_ID,SA_ID,MODIFYQUEUE_ID,HUMANRESOURCE,GENERALREPAIRE,ADDITIONALHOURS,COMMENT,ALLOCATED_TIME,CREATE_TIME,MODIFY_TIME,START_TIME,END_TIME,ASSIGN_DATE
+		ID,USER_ID,SA_ID,MODIFYQUEUE_ID,HUMANRESOURCE,GENERALREPAIRE,ADDITIONALHOURS,COMMENT,ALLOCATED_TIME,CREATE_TIME,MODIFY_TIME,START_TIME,END_TIME,ASSIGN_DATE,ISWARRANT,ISSUBCONTRACT
 	</sql>
 
 	<select id="queryByUserWorkloadUserid" resultMap="UserWorkloadDoMap" >
@@ -89,6 +91,12 @@
 			<if test="assignDate != null">
 				ASSIGN_DATE,
 			</if>
+			<if test="isWarrant != null">
+				ISWARRANT,
+			</if>
+			<if test="isSubContract != null">
+				ISSUBCONTRACT,
+			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="userId != null">
@@ -129,6 +137,12 @@
 			</if>
 			<if test="assignDate != null">
 				#{assignDate},
+			</if>
+			<if test="isWarrant != null">
+				#{isWarrant},
+			</if>
+			<if test="isSubContract != null">
+				#{isSubContract},
 			</if>
 		</trim>
 	</insert>
@@ -174,6 +188,12 @@
 			</if>
 			<if test="assignDate != null">
 				ASSIGN_DATE = #{assignDate},
+			</if>
+			<if test="isWarrant != null">
+			    ISWARRANT = #{isWarrant},
+			</if>
+			<if test="isSubContract != null">
+				ISSUBCONTRACT = #{isSubContract},
 			</if>
 		</set>
 		WHERE 

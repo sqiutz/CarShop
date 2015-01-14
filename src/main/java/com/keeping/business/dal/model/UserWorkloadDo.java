@@ -33,6 +33,10 @@ public class UserWorkloadDo {
 	
 	private Integer saId;
 	
+	private Integer isWarrant;
+	
+	private Integer isSubContract;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -143,6 +147,22 @@ public class UserWorkloadDo {
 
 	public void setSaId(Integer saId) {
 		this.saId = saId;
+	}
+
+	public Integer getIsWarrant() {
+		return isWarrant;
+	}
+
+	public void setIsWarrant(Integer isWarrant) {
+		this.isWarrant = isWarrant;
+	}
+
+	public Integer getIsSubContract() {
+		return isSubContract;
+	}
+
+	public void setIsSubContract(Integer isSubContract) {
+		this.isSubContract = isSubContract;
 	}
 	
 }

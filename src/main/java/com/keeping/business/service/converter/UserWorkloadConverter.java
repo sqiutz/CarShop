@@ -26,6 +26,8 @@ public class UserWorkloadConverter {
 		userWorkload.setModifyqueueId(userWorkloadDo.getModifyqueueId());
 		userWorkload.setAssignDate(TimeUtil.transferFromSqlToUtilDate(userWorkloadDo.getAssignDate()));
 		userWorkload.setSaId(userWorkloadDo.getSaId());
+		userWorkload.setIsSubContract(userWorkloadDo.getIsSubContract());
+		userWorkload.setIsWarrant(userWorkloadDo.getIsWarrant());
 		
 		return userWorkload;
 	}
@@ -51,6 +53,8 @@ public class UserWorkloadConverter {
 		userWorkloadDo.setModifyqueueId(userWorkload.getModifyqueueId());
 		userWorkloadDo.setAssignDate(TimeUtil.transferFromUtilToSqlDate(userWorkload.getAssignDate()));
 		userWorkloadDo.setSaId(userWorkload.getSaId());
+		userWorkloadDo.setIsSubContract(userWorkload.getIsSubContract());
+		userWorkloadDo.setIsWarrant(userWorkload.getIsWarrant());
 		
 		return userWorkloadDo;
 	}

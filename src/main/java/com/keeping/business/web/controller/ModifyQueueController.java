@@ -313,6 +313,8 @@ public class ModifyQueueController {
 					userWorkload.setCreateTime(now);
 					userWorkload.setAssignDate(now);
 					userWorkload.setSaId(modifyQueue.getUserId());
+					userWorkload.setIsSubContract(modifyQueue.getIsSubContract());
+					userWorkload.setIsWarrant(modifyQueue.getIsWarrant());
 					userWorkloadService.addUserWorkload(userWorkload);
 					
 				}else{
