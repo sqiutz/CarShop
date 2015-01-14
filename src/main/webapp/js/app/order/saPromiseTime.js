@@ -158,6 +158,9 @@
             },
             success : function(data) {
                 if (data.code == '000000') {
+                    $.cookie('serveId', '', {expires: -1});
+                    $.cookie('registerNum', '', {expires: -1});
+                    $.cookie('timerStartTime', '', {expires: -1});
                     location.href = 'sa_que.html';
                 }
             }
