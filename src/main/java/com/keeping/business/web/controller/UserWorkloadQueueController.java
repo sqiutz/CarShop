@@ -64,6 +64,8 @@ public class UserWorkloadQueueController {
 	private UserService userService;
 	@Resource
 	private UserGroupService usergroupService;
+	@Resource
+	private OrderService orderService;
 
 	/**
 	 * 获取订单列表
@@ -96,6 +98,13 @@ public class UserWorkloadQueueController {
 				idObject.setDate(now);
 				userWorkloads = userWorkloadService.queryByUserWorkloadUserid(idObject);
 				
+				for(int i=0; i<userWorkloads.size(); i++){
+					
+					Order order = orderService.queryOrderById(userWorkloads.get(i).getId());
+					User user = userService.getByUserId(userWorkloads.get(i).getUserId());
+					userWorkloads.get(i).setOrder(order);
+					userWorkloads.get(i).setUser(user);
+				}
 			}
 		} catch (BusinessServiceException ex) {
 			code = ex.getErrorCode();

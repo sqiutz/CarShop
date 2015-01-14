@@ -4,7 +4,7 @@ package com.keeping.business.web.controller.model;
 import java.sql.Timestamp;
 import java.util.Date;
 
-public class UserWorkload {
+public class UserWorkload extends BaseQueue{
 
 	private Integer id;
 	
@@ -19,8 +19,6 @@ public class UserWorkload {
 	private Float additionalHours;
 	
 	private String comment; 
-	
-	private Date createTime;
 	
 	private Timestamp modifyTime;
 
@@ -88,14 +86,6 @@ public class UserWorkload {
 
 	public void setComment(String comment) {
 		this.comment = comment;
-	}
-
-	public Date getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
 	}
 
 	public Timestamp getModifyTime() {

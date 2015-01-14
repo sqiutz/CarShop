@@ -15,7 +15,7 @@ public class ServeQueueConverter {
 		ServeQueue serveQueue = new ServeQueue();
 		
 		serveQueue.setId(serveQueueDo.getId());
-		serveQueue.setCreateTime(serveQueueDo.getCreateTime());
+		serveQueue.setCreateTime(TimeUtil.transferFromSqlToUtil(serveQueueDo.getCreateTime()));
 		serveQueue.setModifyTime(serveQueueDo.getModifyTime());
 		serveQueue.setEndTime(TimeUtil.transferFromSqlToUtil(serveQueueDo.getEndTime()));
 		serveQueue.setStartTime(TimeUtil.transferFromSqlToUtil(serveQueueDo.getStartTime()));
@@ -39,7 +39,7 @@ public class ServeQueueConverter {
 		serveQueueDo.setEndTime(TimeUtil.transferFromUtilToSql(serveQueue.getEndTime()));
 		serveQueueDo.setOrderId(serveQueue.getOrderId());
 		serveQueueDo.setStartTime(TimeUtil.transferFromUtilToSql(serveQueue.getStartTime()));
-		serveQueueDo.setCreateTime(serveQueue.getCreateTime());
+		serveQueueDo.setCreateTime(TimeUtil.transferFromUtilToSql(serveQueue.getCreateTime()));
 		serveQueueDo.setStep(serveQueue.getStep());
 		serveQueueDo.setUserId(serveQueue.getUserId());
 		serveQueueDo.setModifyTime(serveQueue.getModifyTime());

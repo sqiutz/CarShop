@@ -7,7 +7,7 @@ public class BaseQueue {
 
 	private Integer id;
 
-	private Timestamp createTime;
+	private Date createTime;
 
 	private Date startTime;
 
@@ -31,11 +31,11 @@ public class BaseQueue {
 		this.id = id;
 	}
 
-	public Timestamp getCreateTime() {
+	public Date getCreateTime() {
 		return createTime;
 	}
 
-	public void setCreateTime(Timestamp createTime) {
+	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
 
