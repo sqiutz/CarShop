@@ -36,7 +36,25 @@
             $('#technicianLabel').text(TECHNICIAN);
             $('#allocationBtn').text(ALLOCATION);
             $('#workloadLabel').text(WORKLOAD);
-            
+            $('#technicianCol').text(TECHNICIAN + ':');
+            $('#hrTakenCol').text(HR_TAKEN);
+            $('#bayNoCol').text(BAY_NO);
+            $('#noCol').text(NUMBER);
+            $('#wRegNoCol').text(REG_NO);
+            $('#roofNoCol').text(ROOF_NO);
+            $('#saCol').text(SERVICE_ADVISOR);
+            $('#periodicServiceCol').text(PERIODIC_SERVICE);
+            $('#hrNeedCol').text(HR_NEED);
+            $('#additionalHoursCol').text(ADDITIONAL_HOURS);
+            $('#generalRepairCol').text(GENERAL_REPAIR);
+            $('#warrantyCol').text(WARRANTY);
+            $('#subContractCol').text(SUB_CONTRACT);
+            $('#timeAllocatedCol').text(TIEM_ALLOCATED);
+            $('#promiseTimeCol').text(PROMISE_TIME);
+            $('#startTimeCol').text(START_TIME);
+            $('#timeOnHoldCol').text(TIME_ON_HOLD);
+            $('#finishTimeCol').text(FINISH_TIME);
+            $('#remarksCol').text(REMARKS);
         });
     }
    
@@ -127,26 +145,40 @@
         }
     });
     
+    var allWorkload, index = 0;
     var getAllWorkload = function() {
         $.OrderInfo.getAllWorkload({
             data : {
                 name : 3
             },
             success : function(workload) {
+                allWorkload = workload;
+                $('#chartsDiv div.donut').remove();
                 for(var i = 0; i < workload.length; i++) {
                     var load = workload[i];
                     var div = $('<div></div>').attr('class', 'donut').appendTo($('#chartsDiv'));
                     var id = 'chart' + i;
                     $('<div></div>').attr('id', id).attr('class', 'box-black-dark').appendTo(div);
-                    $('<div></div>').attr('class', 'cAlign h3').text(load.userName).appendTo(div);
+                    $('<div></div>').attr('class', 'cAlign h3').text(load.userName)
+                        .val(i)
+                        .attr('style', 'cursor:pointer;')
+                        .appendTo(div)
+                        .bind('click', function() {
+                            index = $(this).val();
+                            setUserWorkload(index);                            
+                        });
                     drawChart(id, load.totalLoadPercentage / 100);
-                    
-                    if(i == 0) {
-                        getUserWorkload(load.userId);
-                    }
                 }
+                setUserWorkload(index); 
             } 
         });
+    }
+    
+    function setUserWorkload(i) {
+        var load = allWorkload[i];
+        getUserWorkload(load.userId);
+        $('#techNo').text(1 + i);
+        $('#technicianName').text(load.userName);
     }
     
     var colors = ['yellow', 'yellow', 'green', 'green', 'red', 'red'];
@@ -156,6 +188,9 @@
                 id : userId
             },
             success : function(workload) {
+                $('#workloadTable tr.yellow').remove();
+                $('#workloadTable tr.green').remove();
+                $('#workloadTable tr.red').remove();
                 var num = workload.length < 6 ? 6 : workload.length;
                 for(var i = 0; i < num; i++) {
                     var load = i < workload.length ? workload[i] : null;
@@ -163,13 +198,13 @@
                     $('<td></td>').attr('class', 'header').text(i + 1).appendTo(tr);
                     $('<td></td>').text(load && load.order ? load.order.registerNum : '').appendTo(tr);
                     $('<td></td>').text(load && load.order ? load.order.roofNum : '').appendTo(tr);
-                    $('<td></td>').text('').appendTo(tr);
+                    $('<td></td>').text(load && load.sa ? load.sa.userName : '').appendTo(tr);
                     $('<td></td>').text('').appendTo(tr);
                     $('<td></td>').text(load ? load.humanResource : '').appendTo(tr);
                     $('<td></td>').text(load ? load.additionalHours : '').appendTo(tr);
                     $('<td></td>').text(load ? load.generalRepaire : '').appendTo(tr);
-                    $('<td></td>').text('').appendTo(tr);
-                    $('<td></td>').text('').appendTo(tr);
+                    $('<td></td>').text(load ? (load.isWarrant ? YES : NO) :'').appendTo(tr);
+                    $('<td></td>').text(load ? (load.isSubContract ? YES : NO) :'').appendTo(tr);
                     $('<td></td>').text(load ? getTimeStr(load.allocatedTime) : '').appendTo(tr);
                     $('<td></td>').text(load && load.order ? getTimeStr(load.order.promiseTime) : '').appendTo(tr);
                     $('<td></td>').text(load ? getTimeStr(load.startTime) : '').appendTo(tr);
@@ -190,6 +225,8 @@
             success : function(data) {
                 if(data.code == '000000') {
                     $('#allocationBtn').attr('disabled', 'disabled');
+                    setCurrentModifyQue();
+                    getAllWorkload();
                 }
             }
         });
