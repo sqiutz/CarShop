@@ -17,7 +17,7 @@
             langCode = 'en_US';
         }
         loadLang('lang/' + langCode + '.js', function() {
-            $('#logout').text(LOGOUT);
+            $('#logout').text(LOGOUT).attr('title', LOGOUT);
             $('#title').text(SUZUKI_SIAGA_LEBIH_MENGERTI_KELUARGA);
             $('#usernameLabel').text(USERNAME);
             $('#orgPasswordLabel').text(ORG_PASSWORD);

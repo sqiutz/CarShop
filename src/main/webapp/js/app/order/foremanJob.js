@@ -17,8 +17,8 @@
             langCode = 'en_US';
         }
         loadLang('lang/' + langCode + '.js', function() {
-            $('#changePwd').text(CHANGE_PASSW0RD);
-            $('#logout').text(LOGOUT);
+            $('#changePwd').text(CHANGE_PASSW0RD).attr('title', CHANGE_PASSW0RD);
+            $('#logout').text(LOGOUT).attr('title', LOGOUT);
             $('#title').text(FOREMAN_JOB_DISTRIBUTION_LIST);            
             $('#queueTitle').text(NEXT_ON_QUE);
             $('#regNoCol').text(REG_NO);
@@ -57,6 +57,19 @@
             $('#remarksCol').text(REMARKS);
         });
     }
+    
+    var userProfile;
+    $.UserInfo.checkLogin({
+        success : function(data) {
+            if (data.code == '000000' && data.obj) {
+                userProfile = data.obj;
+                $("#helloUserName").text(
+                        'Hello ' + (userProfile ? userProfile.userName : ''));
+                $('#userName').text(userProfile ? userProfile.userName : ''); 
+                $('#serviceAdvisor').val(userProfile ? userProfile.userName : '');
+            }
+        }
+    });
    
     // 创建modifyque列表
     var listIter = 0, interval = 3000, selectedId = 0, modifyQues, modifyQue;

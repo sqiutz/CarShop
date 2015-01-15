@@ -17,8 +17,8 @@
             langCode = 'en_US';
         }
         loadLang('lang/' + langCode + '.js', function() {
-            $('#changePwd').text(CHANGE_PASSW0RD);
-            $('#logout').text(LOGOUT);
+            $('#changePwd').text(CHANGE_PASSW0RD).attr('title', CHANGE_PASSW0RD);
+            $('#logout').text(LOGOUT).attr('title', LOGOUT);
             $('#title').text(SA_QUE_CALLING_BOARD);            
             $('#legendTitle').text(INPUT_EDIT_DATA);
             $('#regNoLabel').text(REG_NO);
