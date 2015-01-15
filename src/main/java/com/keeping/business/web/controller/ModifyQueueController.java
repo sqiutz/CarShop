@@ -90,8 +90,8 @@ public class ModifyQueueController {
 				TodayModifyQueue todayModifyQueue = new TodayModifyQueue();
 				
 				User user = userService.getByUserId(userIds.get(i));
-				modifyQueue.setUserId(user.getId());
-				List<ModifyQueue> modifyQueues = modifyQueueService.getModifyQueueByUserId(modifyQueue);
+				modifyQueue.setModifierId(user.getId());
+				List<ModifyQueue> modifyQueues = modifyQueueService.getModifyQueueByModifierId(modifyQueue);
 				
 				for (int j=0; j<modifyQueues.size(); j++){
 					

@@ -115,6 +115,25 @@ public class ModifyQueueServiceImpl implements ModifyQueueService{
 		
 		return modifyQueues;
 	}
+	
+
+	@Override
+	public List<ModifyQueue> getModifyQueueByModifierId(ModifyQueue modifyQueue) {
+		// TODO Auto-generated method stub
+		ModifyQueueDo modifyQueueDo = ModifyQueueConverter.getModifyQueueDo(modifyQueue);
+		List<ModifyQueueDo> modifyQueueDoes = modifyQueueDao.queryByModifyQueueModifierId(modifyQueueDo);
+		List<ModifyQueue> modifyQueues = new ArrayList<ModifyQueue>();
+		
+		if (modifyQueueDoes == null){
+			return modifyQueues;
+		}
+		
+		for (int i = 0; i < modifyQueueDoes.size(); i++){
+			modifyQueues.add(ModifyQueueConverter.getModifyQueue(modifyQueueDoes.get(i)));
+		}
+		
+		return modifyQueues;
+	}
 
 
 
@@ -159,6 +178,7 @@ public class ModifyQueueServiceImpl implements ModifyQueueService{
 	public void setModifyQueueDao(ModifyQueueDao modifyQueueDao) {
 		this.modifyQueueDao = modifyQueueDao;
 	}
+
 
 
 }

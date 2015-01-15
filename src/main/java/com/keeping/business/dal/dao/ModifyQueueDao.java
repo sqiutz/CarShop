@@ -19,5 +19,7 @@ public interface ModifyQueueDao extends BaseDao<ModifyQueueDo>{
 	public List<Integer> getAllWorkers(java.sql.Date date);
 	
 	public List<ModifyQueueDo> queryByModifyQueueUserId(ModifyQueueDo modifyQueueDo);
+	
+	public List<ModifyQueueDo> queryByModifyQueueModifierId(ModifyQueueDo modifyQueueDo);
 
 }

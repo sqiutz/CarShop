@@ -24,4 +24,6 @@ public interface ModifyQueueService {
     
     public List<ModifyQueue> getModifyQueueByUserId(ModifyQueue modifyQueue);
     
+    public List<ModifyQueue> getModifyQueueByModifierId(ModifyQueue modifyQueue);
+    
 }

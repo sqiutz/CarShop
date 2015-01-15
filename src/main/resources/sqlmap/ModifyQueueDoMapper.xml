@@ -41,6 +41,14 @@
 		USER_ID = #{userId} and date(ASSIGN_TIME) = #{assignDate}
 	</select>
 	
+	<select id="queryByModifyQueueModifierId" resultMap="ModifyQueueDoMap" >
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM TBL_MODIFYQUEUE
+		WHERE
+		MODIFIER_ID = #{modifierId} and date(ASSIGN_TIME) = #{assignDate}
+	</select>
+	
 	<select id="getAllWorkers" resultType="java.lang.Integer" parameterType="java.sql.Date">
 		SELECT 
 		DISTINCT(MODIFIER_ID)
