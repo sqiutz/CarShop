@@ -116,8 +116,6 @@ public class ModifyQueueServiceImpl implements ModifyQueueService{
 		return modifyQueues;
 	}
 	
-
-	@Override
 	public List<ModifyQueue> getModifyQueueByModifierId(ModifyQueue modifyQueue) {
 		// TODO Auto-generated method stub
 		ModifyQueueDo modifyQueueDo = ModifyQueueConverter.getModifyQueueDo(modifyQueue);
