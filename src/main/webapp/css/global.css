@@ -6,7 +6,7 @@ html, body {
 	font-family:Calibri;
 }
 div {
-	width:100%;
+	//width:100%;
 }
 div.w1 {
 	width:550px;
@@ -224,12 +224,12 @@ table.queue {
 	text-align:center;
 	font-size:22px;
 }
-th {
+table.queue th {
 	height:40px;
 	border-bottom:1px solid;
 	font-style:normal;
 }
-tr {
+table.queue tr {
 	height:40px;
 }
 table.w1 {
