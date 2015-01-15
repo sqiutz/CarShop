@@ -40,8 +40,8 @@
                 display : WAITING_TIME_BUFFER
             }];
             
-            $('#changePwd').text(CHANGE_PASSW0RD);
-            $('#logout').text(LOGOUT);
+            $('#changePwd').text(CHANGE_PASSW0RD).attr('title', CHANGE_PASSW0RD);
+            $('#logout').text(LOGOUT).attr('title', LOGOUT);
             $('#title').text(SUZUKI_SIAGA_LEBIH_MENGERTI_KELUARGA);
             $('#accountLink').text(ACCOUNT_MANAGEMENT);
             $('#parameterLink').text(SYSTEM_PARAMETER);

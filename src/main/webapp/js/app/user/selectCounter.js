@@ -17,8 +17,8 @@
             langCode = 'en_US';
         }
         loadLang('lang/' + langCode + '.js', function() {
-            $('#changePwd').text(CHANGE_PASSW0RD);
-            $('#logout').text(LOGOUT);
+            $('#changePwd').text(CHANGE_PASSW0RD).attr('title', CHANGE_PASSW0RD);
+            $('#logout').text(LOGOUT).attr('title', LOGOUT);
             $('#title').text(SUZUKI_SIAGA_LEBIH_MENGERTI_KELUARGA);
             $('#legend').text(SELECT_COUNTER);
             $('#isBookerLabel').text(IS_BOOKER);
