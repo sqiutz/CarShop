@@ -1,5 +1,6 @@
 package com.keeping.business.web.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -27,6 +28,8 @@ import com.keeping.business.web.controller.converter.JsonConverter;
 import com.keeping.business.web.controller.model.Order;
 import com.keeping.business.web.controller.model.OrderObject;
 import com.keeping.business.web.controller.model.Property;
+import com.keeping.business.web.controller.model.Report;
+import com.keeping.business.web.controller.model.ReportObject;
 import com.keeping.business.web.controller.model.StatusObject;
 import com.keeping.business.web.controller.model.User;
 import com.keeping.business.web.controller.model.UserProfile;
@@ -63,6 +66,51 @@ public class OrderController {
 	 * @return 
      * @return N/A
      */
+    
+	@RequestMapping(params = "action=report")
+	@ResponseBody
+	public WebResultList<Report> getReport(HttpServletRequest request,HttpServletResponse response) {
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
+		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
+		HttpSession session = request.getSession();
+		session.setMaxInactiveInterval(PlatformPar.sessionTimeout);
+		
+		UserProfile loginUser = (UserProfile) session.getAttribute(PlatfromConstants.STR_USER_PROFILE);
+
+		List<Report> reports = new ArrayList<Report>();
+		
+		try {
+			String jsonStr = request.getParameter("param");
+			ReportObject reportObject = JsonConverter.getFromJsonString(jsonStr, ReportObject.class);
+			if (reportObject == null) {
+				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
+				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
+//				logger.error("< OrderController.getAllOrders() > 获取订单状态不正确." + status + " : " + BusinessCenterOrderStatus.ORDER_STATUS_WAIT.getStatus());
+			}else if (null == session || null == loginUser || loginUser.getUserName().equals("admin") == false){
+				code = BusinessCenterResCode.SYS_INVILID_REQ.getCode();
+				msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
+//				logger.error("< OrderController.bookOrder() > session为空。" + jsonStr);
+			} else {
+			
+				Report report = new Report();
+				report.setName("");
+				report.setValue("");
+				
+				reports.add(report);
+			}
+		}catch (BusinessServiceException ex) {
+			code = ex.getErrorCode();
+			msg = ex.getErrorMessage();
+		}catch (Exception e) {
+			code = BusinessCenterResCode.SYS_ERROR.getCode();
+			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
+//			logger.error("< OrderController.getAllOrders() > 获取订单列表失败." + e.getMessage());
+		}
+
+		return JsonConverter.getResultObject(code, msg, reports);
+	}
+	
 	@RequestMapping(params = "action=alllist")
 	@ResponseBody
 	public WebResultList<Order> getAllOrders(HttpServletRequest request,HttpServletResponse response) {

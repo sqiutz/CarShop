@@ -493,16 +493,15 @@ public class ModifyQueueController {
 				orderService.updateOrder(order);              //修改订单状态
 				
 				Date now = new Date();
-				java.sql.Timestamp dateTime = new java.sql.Timestamp(now.getTime());
 				
-				modifyQueue.setEndTime(dateTime);
+				modifyQueue.setEndTime(now);
 				modifyQueue.setStep(BusinessCenterModifyQueueStatus.MODIFYQUEUE_STATUS_FINISH.getId());
 				
 				modifyQueueService.updateModifyQueue(modifyQueue);   //更新modifyQueue订单
 				
 				UserWorkload userWorkload = userWorkloadService.queryByUserWorkloadQueueid(modifyQueue.getId());
 				now = new Date();
-				userWorkload.setStartTime(now);
+				userWorkload.setEndTime(now);
 				userWorkloadService.updateUserWorkload(userWorkload);
 				
 				CashQueue cashQueue = new CashQueue();
