@@ -377,10 +377,11 @@ public class ModifyQueueController {
 				
 				if (modifyQueue != null && userWorkload != null){
 					
+					Date now = new Date();
 					modifyQueue.setStep(BusinessCenterModifyQueueStatus.MODIFYQUEUE_STATUS_START.getId());
+					modifyQueue.setStartTime(now);
 					modifyQueueService.updateModifyQueue(modifyQueue);
 					
-					Date now = new Date();
 					userWorkload.setStartTime(now);
 					userWorkloadService.updateUserWorkload(userWorkload);
 				}else{
