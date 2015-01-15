@@ -291,6 +291,19 @@ define([], function() {
                     options.success();
                 }
             });
+        },
+        getReport : function(options) {
+            var report;
+            $.common.ajax("getReport", {
+                data:options.data,
+                success : function(data) {
+                    report = data.resList
+                    options.success(report);
+                },
+                error : function(error) {
+                    options.success();
+                }
+            });
         }
 	};
 

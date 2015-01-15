@@ -106,8 +106,9 @@ var COUNTER_NUMBER = 'COUNTER NUMBER';
 var LANGUAGE = 'LANGUAGE';
 var AVG_WAITING_TIME = 'AVG. WAITING TIME';
 var WAITING_TIME_BUFFER = 'WAITING TIME BUFFER';
-var FROM = 'From'
-var TO = 'To'
+var FROM = 'From';
+var TO = 'To';
+var SHOW = 'Show';
 
 var QUEING_NUMBER = 'Queing Number';
 var KEY_IN_REGISTRATION_NUMBER = 'Please key in your registration number';

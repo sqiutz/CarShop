@@ -10,7 +10,14 @@
 	    buttonImageOnly: true,
 	    dateFormat: 'yy-mm-dd',
 	});
-	$("#endDate").datepicker();
+	$("#endDate").datepicker({
+        inline: true,
+        showMonthAfterYear: true,
+        changeMonth: true,
+        changeYear: true,
+        buttonImageOnly: true,
+        dateFormat: 'yy-mm-dd',
+    });
 	
 	var params;
 	
@@ -80,6 +87,7 @@
             $('#addBtn').text(ADD).attr('title', ADD);
             $('#fromLabel').text(FROM + ':');
             $('#toLabel').text(TO + ':');
+            $('#showBtn').text(SHOW).attr('title', SHOW);
         });
     }
     
@@ -614,6 +622,22 @@
         });
 	};
 	
+	$('#showBtn').bind('click', function() {
+	    var startDate = $('#startDate').datepicker('getDate');
+	    var endDate = $('#endDate').datepicker('getDate');
+	    if(startDate && endDate && endDate >= startDate) {
+	        $.OrderInfo.getReport({
+	            data : {
+	                startDate : getDateString(startDate),
+	                endDate : getDateString(endDate)
+	            },
+	            success : function(report) {
+	                var r = report;
+	            }
+	        });
+	    }
+	})
+	
 	function getMins(diff) {
         return Math.floor(diff / 60000);
     }
@@ -621,5 +645,9 @@
     function getSecs(diff) {
         var mins = getMins(diff);
         return Math.floor((diff - mins * 60000) / 1000);
+    }
+    
+    function getDateString(date) {
+        return '' + date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
     }
 })(jQuery);

@@ -272,6 +272,13 @@
                         args : [ 
                                 "id",
                        ]
+                    },
+                    getReport : {
+                        url : "order.do?action=report",
+                        args : [ 
+                                "startDate",
+                                "endDate"
+                       ]
                     }
                 },
                 ajax : function(key, args) {
