@@ -14,13 +14,6 @@ div.black {
 	background-color: #231F20;
 	border:4px solid #000000;
 }
-div.box-black.small {
-	background:url(../img/box-bg-black-s.png);
-	background-repeat:no-repeat;
-	background-size:cover;
-	-moz-background-size:cover;
-	height:100px;
-}
 div.box-gray {
 	background: -webkit-linear-gradient(left top, #BCBCBC, #D0D0D0);
 	background: -ms-linear-gradient(top, #BCBCBC, #D0D0D0); 
@@ -36,30 +29,6 @@ div.controller {
 	text-align:center;
 	margin:15px auto 15px auto;
 }
-div.w1 {
-	width:142px;
-}
-button.blue {
-	display:inline-block;
-	background:url(../img/btn-bg-blue.png);
-	background-repeat:no-repeat;
-	background-size:150px, 85px;
-	-moz-background-size:150px, 85px;
-	background-position:center;
-	cursor:pointer;
-	border:none;
-	outline:none;
-	width:150px;
-	height:85px;
-	color:rgb(56,41,113);
-	font-size:22px;
-	font-weight:bold;
-}
-button.blue:disabled {
-	color:gray;
-	cursor:auto;
-}
-
 button.blue-button {
 	margin:8px 8px 8px 8px;
 	font-size:22px;

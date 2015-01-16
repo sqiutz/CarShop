@@ -5,18 +5,6 @@ html, body {
 	min-height:750px;
 	font-family:Calibri;
 }
-div {
-	//width:100%;
-}
-div.w1 {
-	width:550px;
-}
-div.w2 {
-	width:576px;
-}
-div.rAlign {
-	margin:0px 0px 0px auto;
-}
 div.box {
 	margin-top:10px;
 }
@@ -57,30 +45,12 @@ div.content_rg {
 	width:50%;
 }
 div.footer {
-	//background:url(../img/footer.png);
-	//background-repeat:no-repeat;
-	//background-size:cover;
-	//-moz-background-size:cover;
 	background-color:#AED161;
 }
 div.vedio {
 	background-color:#000000;
-	//margin:10px auto 0px 40px;
-	//width:495px;
-}
-div.box-black{
-	background:url(../img/box-bg-black.png);
-	background-repeat:no-repeat;
-	background-size:cover;
-	-moz-background-size:cover;
-	width:235px;
-	height:130px;
-	padding-top:20px;
-	border:none;
-	margin-right:15px;
 }
 div.controller {
-	width:304px;
 	text-align:right;
 	padding-top:4px;
 }
@@ -121,53 +91,15 @@ span {
 .inline {
 	display:inline-block;
 }
-span.lAlign {
-	text-align:left;
-}
 span.t1 {	
-	//height:80px;
 	line-height:65px;
 }
 span.blue {
-	//background:url(../img/title_bg_blue.png);
-	//background-repeat:no-repeat;
-	//background-size:627px,80px;
-	//-moz-background-size:627px,80px;
-	//background-position:center;
 	background-color:#0697DA;
 	border-radius: 4px;
 }
-span.t2 {	
-	height:62px;
-	line-height:54px;
-}
-span.t2.yellow {
-	background:url(../img/title_bg_yellow.png);
-	background-repeat:no-repeat;
-	background-size:470px,62px;
-	-moz-background-size:470px,62px;
-	background-position:center;
-}
-span.blue-light {
-	background-color:#E07C24;
-}
-span.t2.green {
-	background:url(../img/title_bg_green.png);
-	background-repeat:no-repeat;
-	background-size:470px,62px;
-	-moz-background-size:470px,62px;
-	background-position:center;
-}
-span.t2.purple {
-	background:url(../img/title_bg_purple.png);
-	background-repeat:no-repeat;
-	background-size:470px,62px;
-	-moz-background-size:470px,62px;
-	background-position:center;
-}
 span.h3 {
 	font-weight:bold;
-	//line-height:58px;
 }
 span.h3.low {
 	line-height:26px;
@@ -187,19 +119,6 @@ span.h7 {
 span.hello {
 	font-size:18px;
 	font-weight:bold;
-}
-span.button-yellow {
-	background:url(../img/btn-bg-yellow.png);
-	background-repeat:no-repeat;
-	background-size:100px,33px;
-	-moz-background-size:100px,33px;
-	background-position:center;
-	cursor:pointer;
-	width:100px;
-	height:33px;
-	font-size:16px;
-	font-weight:bold;
-	line-height:30px;
 }
 a, span.link, .btn {
 	cursor:pointer;
@@ -232,10 +151,6 @@ table.queue th {
 table.queue tr {
 	height:40px;
 }
-table.w1 {
-	width:450px;
-	font-style:italic;
-}
 table.green {
 	border-color:rgb(54,95,145);
 }
@@ -262,13 +177,6 @@ fieldset {
 	margin:5px auto;
 	border:2px solid #0697DA;
 	border-radius: 8px;
-}
-fieldset.w1 {
-	width:350px;
-	padding:8px 60px 15px 80px;
-}
-fieldset.w1.small {
-	width:320px;
 }
 fieldset legend {
 	font-size:18px;
@@ -325,24 +233,6 @@ select:focus{
 	background-size:100%;
 	-moz-background-size:100%;
 }
-button.yellow {
-	background:url(../img/btn-bg-yellow.png);
-	background-repeat:no-repeat;
-	background-size:100px,33px;
-	-moz-background-size:100px,33px;
-	background-position:center;
-	cursor:pointer;
-	border:none;
-	outline:none;
-	width:100px;
-	height:33px;
-	font-size:16px;
-	
-}
-button.yellow:disabled {
-	color:gray;
-	cursor:auto;
-}
 button.blue-button {
 	background-color:#0697DA;
 	border-radius: 4px;
@@ -392,15 +282,6 @@ button.blue-button:disabled {
 	font-weight:bold;
 }
 
-span.button-blue {
-	background-color:#30BFCF;
-	color:#FFFFFF;
-	cursor:pointer;
-	font-size:20px;
-	line-height:30px;
-}
-
-
 div.yellow {
 	padding:0px;
 	background-color:#E07C24;
@@ -429,7 +310,6 @@ div.gray-light {
 div.navg {
 	background-color:#B33737;
 	margin:0px auto 4px auto;
-	//border:1px solid #B33737;
 }
 .navg ul {
 	margin:0px auto;
