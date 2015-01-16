@@ -308,23 +308,13 @@
                             // "timeout", "error", "abort",
                             // "parsererror"
                             if (type == "timeout") {// 请求超时
-                                self.showTips({
-                                    msg : "请求超时,稍候再试..",
-                                    bottom : "50%",
-                                    times : 5000
-                                });
+                                alert('Request timeout, please try later.');
                             } else if (type == "parsererror") {
-                                self.showTips({
-                                    msg : "数据转换出错,稍候再试..",
-                                    bottom : "50%",
-                                    times : 5000
-                                });
+                                alert('Data parsing error, please try later.');
                             } else if (type == "abort") {
-                                self.showTips({
-                                    msg : "请求失败,检查网络..",
-                                    bottom : "50%",
-                                    times : 5000
-                                });
+                                alert('Request failed, please check your network.');
+                            }else if (type == "error") {
+                                alert('The server has no response.');
                             }
                             if (args.error) {
                                 args.error(error_thrown);
@@ -334,14 +324,6 @@
                             if (data.code == "000004") {// 登录超时跳转到登录界面
                                 alert('Your session has been timeout, please login again.');
                                 location.href="index.html";
-                                /*
-                                 * require(['jsMessage'],function(){
-                                 * dhtmlx.message(data.msg);
-                                 * $.UserInfo.logOut(); setTimeout(function(){
-                                 * location.href="login.html";
-                                 * 
-                                 * window.header.init(); },1500); });
-                                 */
                             } else {
                                 if (args.success) {
                                     args.success(data);
@@ -362,13 +344,6 @@
                     });
                     return xhr;
 
-                },
-                showTips : function(data, callback) {
-                    /*
-                     * require(["jnotify"],function(jnotify){ if(typeof
-                     * data ==="string"){ jNotify(data); }else{
-                     * jNotify(data.msg); } });
-                     */
                 }
             };
 
