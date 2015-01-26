@@ -21,10 +21,12 @@ import com.keeping.business.common.rescode.BusinessCenterResCode;
 import com.keeping.business.common.util.PlatformPar;
 import com.keeping.business.common.util.PlatfromConstants;
 import com.keeping.business.common.util.StringUtil;
+import com.keeping.business.service.CustomerService;
 import com.keeping.business.service.OrderService;
 import com.keeping.business.service.PropertyService;
 import com.keeping.business.service.UserService;
 import com.keeping.business.web.controller.converter.JsonConverter;
+import com.keeping.business.web.controller.model.Customer;
 import com.keeping.business.web.controller.model.Order;
 import com.keeping.business.web.controller.model.OrderObject;
 import com.keeping.business.web.controller.model.Property;
@@ -49,6 +51,8 @@ public class OrderController {
 	private OrderService orderService;
     @Resource
    	private UserService userService;
+    @Resource
+   	private CustomerService customerService;
     @Resource
     private PropertyService propertyService;
     
@@ -249,6 +253,19 @@ public class OrderController {
 				msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
 //				logger.error("< OrderController.bookOrder() > session为空。" + jsonStr);
 			} else {
+				
+				 Customer customer = customerService.getCustomerByPoliceNum(orderObject.getRegisterNum());
+				 customer.setUserName(orderObject.getUserName());
+				 customer.setMobilephone(orderObject.getMobilePhone());
+				 
+				 if (customer != null && customer.getUserName() == null){
+					 customer.setPoliceNum(orderObject.getRegisterNum());
+					 customerService.addCustomer(customer);
+					 customer = customerService.getCustomerByPoliceNum(customer.getPoliceNum());
+				 } else {
+					 customerService.modifyCustomer(customer);
+				 }
+				
 				 Order order = new Order();
 				 String bookNumber = dateTime.toString();
 				 order.setBookTime(now);
@@ -256,6 +273,7 @@ public class OrderController {
 				 order.setIsBook(1);
 				 order.setAssignDate(now);
 				 order.setRegisterNum(orderObject.getRegisterNum());
+				 order.setCustomerId(customer.getId());
 				 orderService.addOrder(order);
 			}
 		}catch (BusinessServiceException ex) {

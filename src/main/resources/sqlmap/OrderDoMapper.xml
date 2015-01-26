@@ -5,6 +5,7 @@
 	<resultMap id="OrderDoMap" type="OrderDo">
 		<id column="ID" property="id" />
 		<result column="STATUS" property="status" />
+		<result column="CUSTOMER_ID" property="customerId" />
 		<result column="REGISTERNUMBER" property="registerNum" />
 		<result column="QUEUENUMBER" property="queueNum" />
 		<result column="ROOFNUMBER" property="roofNum" />
@@ -19,7 +20,7 @@
 	</resultMap>
 	
 	<sql id="Base_Column_List">
-		ID,STATUS,REGISTERNUMBER,QUEUENUMBER,ROOFNUMBER,BOOKNUMBER,ESTIMATIONTIME,PROMISETIME,BOOKTIME,CREATE_TIME,START_TIME,END_TIME,IS_BOOK
+		ID,STATUS,CUSTOMER_ID,REGISTERNUMBER,QUEUENUMBER,ROOFNUMBER,BOOKNUMBER,ESTIMATIONTIME,PROMISETIME,BOOKTIME,CREATE_TIME,START_TIME,END_TIME,IS_BOOK
 	</sql>
 
 	<select id="queryByOrderstatus" resultMap="OrderDoMap" 
@@ -110,6 +111,9 @@
 			<if test="status != null">
 				STATUS,
 			</if>
+			<if test="customerId != null">
+				CUSTOMER_ID,
+			</if>
 			<if test="registerNum != null">
 				REGISTERNUMBER,
 			</if>
@@ -145,6 +149,9 @@
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="status != null">
 				#{status},
+			</if>
+			<if test="customerId != null">
+				#{customerId},
 			</if>
 			<if test="registerNum != null">
 				#{registerNum},
@@ -185,6 +192,9 @@
 		<set>
 			<if test="status != null">
 				STATUS = #{status},
+			</if>
+			<if test="customerId != null">
+				STATUS = #{customerId},
 			</if>
 			<if test="registerNum != null">
 				REGISTERNUMBER = #{registerNum},

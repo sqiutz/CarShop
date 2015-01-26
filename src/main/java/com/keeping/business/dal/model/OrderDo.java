@@ -6,6 +6,8 @@ import java.sql.Timestamp;
 public class OrderDo {
 	
 	private Integer id;
+	
+	private Integer customerId;
 
 	private Integer status;
 	
@@ -143,5 +145,13 @@ public class OrderDo {
 
 	public void setAssignDate(Date assignDate) {
 		this.assignDate = assignDate;
+	}
+
+	public Integer getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(Integer customerId) {
+		this.customerId = customerId;
 	}
 }

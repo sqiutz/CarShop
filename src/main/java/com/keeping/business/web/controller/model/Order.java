@@ -6,6 +6,8 @@ import java.util.Date;
 public class Order {
 	
 	private Integer id;
+	
+	private Integer customerId;
 
 	private Integer status;
 	
@@ -34,6 +36,10 @@ public class Order {
     private Integer isBook;
     
     private Date assignDate;
+    
+    private String userName;
+    
+    private String mobilePhone;
 
 	public Integer getStatus() {
 		return status;
@@ -153,6 +159,30 @@ public class Order {
 
 	public void setAssignDate(Date assignDate) {
 		this.assignDate = assignDate;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getMobilePhone() {
+		return mobilePhone;
+	}
+
+	public void setMobilePhone(String mobilePhone) {
+		this.mobilePhone = mobilePhone;
+	}
+
+	public Integer getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(Integer customerId) {
+		this.customerId = customerId;
 	}
     
 }

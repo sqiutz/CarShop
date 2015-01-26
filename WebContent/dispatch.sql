@@ -82,6 +82,18 @@ CREATE TABLE `TBL_USER` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS `TBL_CUSTOMER`;
+CREATE TABLE `TBL_CUSTOMER` (
+  `id` bigint(10) NOT NULL AUTO_INCREMENT,
+  `user_name` varchar(48) NOT NULL UNIQUE,
+  `passwd` varchar(48) NOT NULL,
+  `mobilephone` varchar(48) DEFAULT NULL,
+  `policenum` varchar(48) DEFAULT NULL,
+  `create_time` timestamp NOT NULL DEFAULT '1990-01-01 00:00:00',
+  `modify_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
 -- ----------------------------
 -- Records of TBL_USER
 -- ----------------------------
@@ -98,13 +110,18 @@ CREATE TABLE `TBL_ORDER` (
   `roofNumber` varchar(48) DEFAULT NULL,
   `estimationTime` bigint(10) DEFAULT NULL,
   `bookNumber` varchar(48) DEFAULT NULL,
-  `is_book` smallint(1) NOT NULL DEFAULT 0, 
+  `is_book` smallint(1) NOT NULL DEFAULT 0,
+  `customer_id` smallint(1) NOT NULL DEFAULT 0,
   `assign_date` datetime  NOT NULL DEFAULT '1990-01-01 00:00:00',
   `create_time` timestamp NOT NULL DEFAULT '1990-01-01 00:00:00',
   `start_time` timestamp  NOT NULL DEFAULT '1990-01-01 00:00:00',
   `end_time` timestamp  NOT NULL DEFAULT '1990-01-01 00:00:00',
   `promiseTime` datetime DEFAULT NULL,
   `bookTime` datetime DEFAULT NULL,
+  INDEX customer_ind (customer_id),
+    FOREIGN KEY (customer_id)
+    REFERENCES TBL_CUSTOMER (id)
+    ON DELETE no action,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 

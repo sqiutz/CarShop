@@ -16,7 +16,8 @@
 		<typeAlias alias="UserWorkloadDo" type="com.keeping.business.dal.model.UserWorkloadDo" />
 		<typeAlias alias="JobTypeDo" type="com.keeping.business.dal.model.JobTypeDo" />
 		<typeAlias alias="CounterDo" type="com.keeping.business.dal.model.CounterDo" />
-
+		<typeAlias alias="CustomerDo" type="com.keeping.business.dal.model.CustomerDo" />
+		
 	</typeAliases>
 	
 

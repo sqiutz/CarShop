@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.keeping.business.dal.dao.CustomerDao">
+
+	<resultMap id="CustomerDoMap" type="CustomerDo">
+		<id column="ID" property="id" />
+		<result column="USER_NAME" property="userName" />
+		<result column="PASSWD" property="passwd" />
+		<result column="MOBILEPHONE" property="mobilePhone" />
+		<result column="POLICENUM" property="policeNum" />
+		<result column="CREATE_TIME" property="createTime" />
+		<result column="MODIFY_TIME" property="modifyTime" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		ID,USER_NAME,PASSWD,MOBILEPHONE,POLICENUM,CREATE_TIME,MODIFY_TIME
+	</sql>
+	
+	<insert id="addCustomer" parameterType="CustomerDo">
+		INSERT INTO TBL_CUSTOMER 
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userName != null">
+				USER_NAME,
+			</if>
+			<if test="passwd != null">
+				PASSWD,
+			</if>
+			<if test="mobilePhone != null">
+				MOBILEPHONE,
+			</if>
+			<if test="policeNum != null">
+				POLICENUM,
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME,
+			</if>
+			MODIFY_TIME,
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="userName != null">
+				#{userName},
+			</if>
+			<if test="passwd != null">
+				#{passwd},
+			</if>
+			<if test="mobilePhone != null">
+				#{mobilePhone},
+			</if>
+			<if test="policeNum != null">
+				#{policeNum},
+			</if>
+			<if test="createTime != null">
+				#{createTime},
+			</if>
+			now(),
+		</trim>
+	</insert>
+	
+	<update id="modifyCustomer" parameterType="CustomerDo">
+		UPDATE TBL_CUSTOMER
+		<set>
+			<if test="userName != null">
+				USER_NAME = #{userName},
+			</if>
+			<if test="passwd != null">
+				PASSWD = #{passwd},
+			</if>
+			<if test="mobilePhone != null">
+				MOBILEPHONE = #{mobilePhone},
+			</if>
+			<if test="policeNum != null">
+				POLICENUM = #{policeNum},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime},
+			</if>
+			MODIFY_TIME = now(),
+		</set>
+		WHERE 
+		ID = #{id}
+	</update>
+	
+	<select id="queryByPoliceNum" resultType="java.lang.String" >
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM TBL_CUSTOMER
+		WHERE
+		POLICENUM = #{policeNum}
+	</select>
+	
+</mapper>
