@@ -291,3 +291,6 @@ insert into tbl_property set name='WAITING_TIME_BUFFER', value='300';
 insert into TBL_JOBTYPE set name='A', value='1';
 insert into TBL_JOBTYPE set name='B', value='1.5';
 insert into TBL_JOBTYPE set name='C', value='2';
+
+insert into TBL_PROPERTY set name='APPOINTMENT', value='50%';
+insert into TBL_PROPERTY set name='NONAPPOINT', value='50%';

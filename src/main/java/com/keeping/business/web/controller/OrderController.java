@@ -235,13 +235,12 @@ public class OrderController {
 			UserProfile loginUser = (UserProfile) session.getAttribute(PlatfromConstants.STR_USER_PROFILE);
 			
 			String jsonStr = request.getParameter("param");
-			Order order = JsonConverter.getFromJsonString(jsonStr, Order.class);
+			Order orderObject = JsonConverter.getFromJsonString(jsonStr, Order.class);
 			
 			Date now = new Date();
 			java.sql.Timestamp dateTime = new java.sql.Timestamp(now.getTime());
-			java.sql.Date sqlDate = new java.sql.Date(now.getTime());
 			 
-			if (StringUtil.isNull(jsonStr) || null == order) {
+			if (StringUtil.isNull(jsonStr) || null == orderObject) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
 //				logger.error("< OrderController.bookOrder() > 订单预约请求信息不正确。" + jsonStr);
@@ -250,11 +249,13 @@ public class OrderController {
 				msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
 //				logger.error("< OrderController.bookOrder() > session为空。" + jsonStr);
 			} else {
+				 Order order = new Order();
 				 String bookNumber = dateTime.toString();
-				 order.setBookTime(sqlDate);
+				 order.setBookTime(now);
 				 order.setBookNum(bookNumber);
 				 order.setIsBook(1);
 				 order.setAssignDate(now);
+				 order.setRegisterNum(orderObject.getRegisterNum());
 				 orderService.addOrder(order);
 			}
 		}catch (BusinessServiceException ex) {
