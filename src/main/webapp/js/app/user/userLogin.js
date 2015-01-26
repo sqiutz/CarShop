@@ -21,6 +21,7 @@
             $('#usernameLabel').text(USERNAME);
             $('#passwordLabel').text(PASSWORD);
             $('#loginBtn').text(LOGIN).attr('title', LOGIN);
+            $('#appointmentBtn').text(APPOINTMENT).attr('title', APPOINTMENT);
             $('#customerQueTitle').text(CUSTOMER_QUE_STATUS_BOARD);
             $('#customerQueDesc').text(CUSTOMER_QUE_STATUS_BOARD_DESC);
             $('#machanicTitle').text(MECHANIC_UPDATE_JOB_PROGRESS);
@@ -130,5 +131,9 @@
         $('#errMsg').html('').hide('normal');
         $('#pwdErrMsg').html('').hide('normal');
         password.css('border', '1px solid #CCC');        
+    });
+    
+    $('#appointmentBtn').bind("click", function(){
+        location.href = 'appointment_index.html';
     });
 })(jQuery);

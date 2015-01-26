@@ -5,6 +5,7 @@ var ORG_PASSWORD = 'Org. Password';
 var NEW_PASSWORD = 'New Password';
 var PASSWORD_CONF = 'Password Conf.';
 var LOGIN = 'Login';
+var APPOINTMENT = 'Appoinment';
 var CUSTOMER_QUE_STATUS_BOARD = 'CUSTOMER QUE STATUS BOARD';
 var CUSTOMER_QUE_STATUS_BOARD_DESC = 'Show the serving & waiting queue';
 var MECHANIC_UPDATE_JOB_PROGRESS = 'MECHANIC UPDATE JOB PROGRESS';
@@ -137,3 +138,6 @@ var TIEM_ALLOCATED = 'Time Allocated';
 var TIME_ON_HOLD = 'Time On Hold';
 var FINISH_TIME = 'Finish Time';
 var REMARKS = 'Remarks';
+
+var NEW_APPOINTMENT = 'New Appointment';
+var SETTING_PARAMETER = 'Setting Parameter';
