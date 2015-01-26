@@ -5,8 +5,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
 <title>ADMINISTRATION</title>
 
+<link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
 <link rel="stylesheet" type="text/css" href="css/global.css">
 <link rel="stylesheet" type="text/css" href="css/administration.css">
+<!-- <link rel="stylesheet" type="text/css" href="css/jquery-ui.min.css"> -->
+<!-- <link rel="stylesheet" type="text/css" href="css/jquery-ui.theme.min.css"> -->
+<!-- <link rel="stylesheet" type="text/css" href="css/jquery-ui.structure.min.css"> -->
 
 <script src="js/lib/jquery-2.1.1.min.js"></script>
 <script src="js/global.js"></script>
@@ -39,15 +43,16 @@
 		</div>
 		<div id='content' class='content'>
 			<div class='navg' style='width:1200px;height:45px'>
-				<ul style='width:779px;height:45px'>
+				<ul style='width:905px;height:45px'>
 						<li id='accountTab'><a id='accountLink' style='width:320px;height:45px'></a></li>
 						<li id='parameterTab' class='unselected'><a id='parameterLink' style='width:268px;height:45px'></a></li>
 						<li id='suspendTab' class='unselected'><a id='suspendLink' style='width:191px;height:45px'></a></li>
+						<li id='reportTab' class='unselected'><a id='reportLink' style='width:126px;height:45px'></a></li>
 				</ul>
 			</div>
 			<div id='accountDiv' style='margin-top:20px'>
 				<div class='content_lf'>
-					<div class='box rAlign' style='width:600px'>
+					<div style='width:600px;margin:10px 0px 0px auto'>
 							<div style='width:500px;margin:0px auto 10px auto;font-size:20px;font-weight:bold'>
 								<label id='groupByLabel' for='groupBy' style='width:70px;line-height:25px'></label>
 								<select id='groupBy' name='groupBy'></select>
@@ -88,7 +93,7 @@
 									<label id='pwdConfLabel' for='passwordConfirm'></label>
 									<input id='passwordConfirm' name='passwordConfirm' type='password'>
 								</div>
-								<div class='controller'>
+								<div class='controller' style='width:304px;'>
 									<button id='saveBtn' class='blue-button' style='width:86px;height:33px'></button>
 								</div>
 							</form>
@@ -121,6 +126,16 @@
 							<th id='actionCol'></th>
 						</tr>
 				</table>
+			</div>
+			
+			<div id='reportDiv'>
+				<div style='width:680px;margin:20px auto;vertical-align:middle;'>
+					<lable id='fromLabel' style='margin-right:4px;font-weight:bold;'></lable>
+					<input type="text" id="startDate" readonly="readonly" style='width:70px'/>
+					<lable id='toLabel' style='margin-left:8px;margin-right:4px;font-weight:bold;'></lable>
+					<input type="text" id="endDate" readonly="readonly" style='width:70px'/>
+					<button id='showBtn' class='blue-button' style='width:71px;height:27px;vertical-align:middle;margin-top:-2px;margin-left:20px'></button>
+				</div>
 			</div>	
 		</div>
 	</div>

@@ -220,7 +220,7 @@
                     $('<td></td>').text(load ? (load.isSubContract ? YES : NO) :'').appendTo(tr);
                     $('<td></td>').text(load ? getTimeStr(load.allocatedTime) : '').appendTo(tr);
                     $('<td></td>').text(load && load.order ? getTimeStr(load.order.promiseTime) : '').appendTo(tr);
-                    $('<td></td>').text(load && load.modifyQueue && load.modifyQueue.step == 2 ? getTimeStr(load.startTime) : '').appendTo(tr);
+                    $('<td></td>').text(load && load.modifyQueue && load.modifyQueue.step >= 2 ? getTimeStr(load.startTime) : '').appendTo(tr);
                     $('<td></td>').text('').appendTo(tr);
                     $('<td></td>').text(load && load.modifyQueue && load.modifyQueue.step == 4 ? getTimeStr(load.endTime) : '').appendTo(tr);
                     $('<td></td>').text(load ? load.comment : '').appendTo(tr);

@@ -36,6 +36,9 @@ table.workload .header {
 	background-color:#b1def3;
 	font-style:normal;
 }
+tr {
+	height:40px;
+}
 table.workload td {
 	border:1px solid;
 }

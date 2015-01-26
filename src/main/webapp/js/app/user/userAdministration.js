@@ -1,6 +1,23 @@
 (function($) {   
 	$('#parameterDiv').hide();
 	$('#suspendDiv').hide();
+	$('#reportDiv').hide();
+	$("#startDate").datepicker({
+	    inline: true,
+	    showMonthAfterYear: true,
+	    changeMonth: true,
+	    changeYear: true,
+	    buttonImageOnly: true,
+	    dateFormat: 'yy-mm-dd',
+	});
+	$("#endDate").datepicker({
+        inline: true,
+        showMonthAfterYear: true,
+        changeMonth: true,
+        changeYear: true,
+        buttonImageOnly: true,
+        dateFormat: 'yy-mm-dd',
+    });
 	
 	var params;
 	
@@ -46,6 +63,7 @@
             $('#accountLink').text(ACCOUNT_MANAGEMENT);
             $('#parameterLink').text(SYSTEM_PARAMETER);
             $('#suspendLink').text(SUSPEND_LIST);
+            $('#reportLink').text(REPORT);
             $('#legend').text(ADD_USER);
             $('#parameterListTitle').text(PARAMETER_CONF);
             $('#jobTypeListTitle').text(JOB_TYPE_CONF);
@@ -67,6 +85,9 @@
             $('#delayTimeCol').text(DELAY_TIME);
             $('#endTimeCol').text(END_TIME);
             $('#addBtn').text(ADD).attr('title', ADD);
+            $('#fromLabel').text(FROM + ':');
+            $('#toLabel').text(TO + ':');
+            $('#showBtn').text(SHOW).attr('title', SHOW);
         });
     }
     
@@ -335,9 +356,11 @@
 		if('unselected' === $('#accountTab').attr('class')) {			
 			$('#parameterTab').attr('class', 'unselected');
 			$('#suspendTab').attr('class', 'unselected');
+			$('#reportTab').attr('class', 'unselected');
 			$('#accountTab').attr('class', '');	
 			$('#parameterDiv').hide();
 			$('#suspendDiv').hide();
+			$('#reportDiv').hide();
 			$('#accountDiv').show();			
 		}		
 	});
@@ -346,9 +369,11 @@
 		if('unselected' === $('#parameterTab').attr('class')) {
 			$('#accountTab').attr('class', 'unselected');
 			$('#suspendTab').attr('class', 'unselected');
+			$('#reportTab').attr('class', 'unselected');
 			$('#parameterTab').attr('class', '');			
 			$('#accountDiv').hide();
 			$('#suspendDiv').hide();
+			$('#reportDiv').hide();
 			$('#parameterDiv').show();
 			createParamsList();
 			getJobTypeList();
@@ -360,10 +385,25 @@
             $('#suspendTab').attr('class', '');
             $('#parameterTab').attr('class', 'unselected');            
             $('#accountTab').attr('class', 'unselected'); 
+            $('#reportTab').attr('class', 'unselected');
             $('#suspendDiv').show();
             $('#parameterDiv').hide();            
             $('#accountDiv').hide();  
+            $('#reportDiv').hide();
             getSuspendList();
+        }       
+    });
+	
+	$('#reportLink').bind('click', function() {
+        if('unselected' === $('#reportTab').attr('class')) { 
+            $('#suspendTab').attr('class', 'unselected');
+            $('#parameterTab').attr('class', 'unselected');            
+            $('#accountTab').attr('class', 'unselected'); 
+            $('#reportTab').attr('class', '');
+            $('#reportDiv').show();
+            $('#suspendDiv').hide();
+            $('#parameterDiv').hide();            
+            $('#accountDiv').hide();  
         }       
     });
 	
@@ -582,6 +622,22 @@
         });
 	};
 	
+	$('#showBtn').bind('click', function() {
+	    var startDate = $('#startDate').datepicker('getDate');
+	    var endDate = $('#endDate').datepicker('getDate');
+	    if(startDate && endDate && endDate >= startDate) {
+	        $.OrderInfo.getReport({
+	            data : {
+	                startDate : getDateString(startDate),
+	                endDate : getDateString(endDate)
+	            },
+	            success : function(report) {
+	                var r = report;
+	            }
+	        });
+	    }
+	})
+	
 	function getMins(diff) {
         return Math.floor(diff / 60000);
     }
@@ -589,5 +645,9 @@
     function getSecs(diff) {
         var mins = getMins(diff);
         return Math.floor((diff - mins * 60000) / 1000);
+    }
+    
+    function getDateString(date) {
+        return '' + date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
     }
 })(jQuery);
