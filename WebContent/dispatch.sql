@@ -305,9 +305,14 @@ insert into tbl_property set name='COUNTER_NUM', value='5';
 insert into tbl_property set name='AVG_WAITING_TIME', value='330';
 insert into tbl_property set name='WAITING_TIME_BUFFER', value='300';
 
-insert into TBL_JOBTYPE set name='A', value='1';
+insert into TBL_JOBTYPE set name='1K', value='1';
+insert into TBL_JOBTYPE set name='A', value='0.5';
 insert into TBL_JOBTYPE set name='B', value='1.5';
 insert into TBL_JOBTYPE set name='C', value='2';
+insert into TBL_JOBTYPE set name='40K', value='2.5';
+insert into TBL_JOBTYPE set name='80K', value='3';
+insert into TBL_JOBTYPE set name='Full', value='3.5';
+insert into TBL_JOBTYPE set name='RECALL CAMP.', value='1';
 
 insert into TBL_PROPERTY set name='APPOINTMENT', value='50%';
 insert into TBL_PROPERTY set name='NONAPPOINT', value='50%';

@@ -295,6 +295,9 @@ div.blue {
 	line-height:45px;
 	text-align:center;
 }
+div.blue-border {
+	border:1px solid #1d8bbf;
+}
 div.green {
 	background-color:#A4CB4E;
 	margin:0px auto 4px auto;

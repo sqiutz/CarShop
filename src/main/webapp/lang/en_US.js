@@ -141,3 +141,12 @@ var REMARKS = 'Remarks';
 
 var NEW_APPOINTMENT = 'New Appointment';
 var SETTING_PARAMETER = 'Setting Parameter';
+
+var POLICE_NO = 'Police No.';
+var CUSTOMER = 'Customer';
+var CONTACT = 'Contact';
+var SERVICE_TYPE = 'Service Type';
+var REGULAR_SERVICE = 'Regular Service';
+var EXPRESS_MAINTENANCE = 'Express Maintenance';
+var OTHERS = 'Others';
+var INPUT_EST_TIME = 'input est. time';
