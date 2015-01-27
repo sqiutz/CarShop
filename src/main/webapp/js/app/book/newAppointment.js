@@ -32,6 +32,15 @@
         });
     }
     
+    $("#dateDiv").datepicker({
+        inline: true,
+        showMonthAfterYear: true,
+        changeMonth: true,
+        changeYear: true,
+        buttonImageOnly: true,
+        dateFormat: 'yy-mm-dd',
+    });
+    
     var getJobTypeList = function() {
         $.OrderInfo.getJobTypes({
             success : createJobTypeList,
