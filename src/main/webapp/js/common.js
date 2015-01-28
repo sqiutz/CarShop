@@ -167,7 +167,8 @@
                                  "registerNum",
                                  "userName",
                                  "mobilePhone",
-                                 "estimationTime"
+                                 "jobType",
+                                 "assignDate"
                         ]
                     },
                     // 获取modify queue

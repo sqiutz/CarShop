@@ -48,14 +48,27 @@
         });
     };
     
-    var estimationTime = 0, jobTypes;
-    var createJobTypeList = function(data) {
-        jobTypes = data
+    var jobTypeSelected = null;
+    var createJobTypeList = function(jobTypes) {
         for(var i = 0; i < jobTypes.length; i++) {
             var jobType = jobTypes[i];
             var div = $('#regularService');
             $('<input></input>').attr('type', 'checkbox')
-                .val(i).appendTo(div);
+                .val(jobType.name).attr('class', 'jobTypeCkb').appendTo(div)
+                .bind('click', function() {
+                    if($(this).is(':checked')) {
+                        jobTypeSelected = $(this).val();
+                        var ckbs = $('.jobTypeCkb');
+                        for(var j = 0; j < ckbs.length; j++) {
+                            if($(ckbs[j]).val() !== jobTypeSelected) {
+                                $(ckbs[j]).attr('checked', false);
+                            }
+                        }                        
+                    }
+                    else {
+                        jobTypeSelected = null
+                    }
+                });
             $('<span></span>').attr('style', 'display:inline-block;width:100px;text-align:left;padding-left:10px')
                 .text(jobType.name).appendTo(div);
         }
@@ -78,7 +91,13 @@
                 registerNum : $('#policeNo').val(),
                 userName : $('#customer').val(),
                 mobilePhone : $('#contact').val(),
-                estimationTime : estimationTime
+                jobType : jobTypeSelected,
+                assignDate : $('#dateDiv').datepicker('getDate').getTime()
+            },
+            success : function(data) {
+                if (data.code == '000000') {
+                    location.href = 'appointment_index.html';
+                }
             }
         });
     });
