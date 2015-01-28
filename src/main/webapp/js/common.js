@@ -161,6 +161,15 @@
                                  "registerNumber"
                         ]
                     },
+                    book : {
+                        url : "order.do?action=book",
+                        args : [ 
+                                 "registerNum",
+                                 "userName",
+                                 "mobilePhone",
+                                 "estimationTime"
+                        ]
+                    },
                     // 获取modify queue
                     getModifyQueue : {
                         url : "modifyqueue.do?action=getone",

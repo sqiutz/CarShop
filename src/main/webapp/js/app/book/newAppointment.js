@@ -48,12 +48,14 @@
         });
     };
     
-    var createJobTypeList = function(jobTypes) {
+    var estimationTime = 0, jobTypes;
+    var createJobTypeList = function(data) {
+        jobTypes = data
         for(var i = 0; i < jobTypes.length; i++) {
             var jobType = jobTypes[i];
             var div = $('#regularService');
             $('<input></input>').attr('type', 'checkbox')
-                .val(jobType.name).appendTo(div);
+                .val(i).appendTo(div);
             $('<span></span>').attr('style', 'display:inline-block;width:100px;text-align:left;padding-left:10px')
                 .text(jobType.name).appendTo(div);
         }
@@ -69,6 +71,17 @@
         $('<span></span>').attr('style', 'display:inline-block;font-style:italic;text-align:left;padding-left:10px')
             .text('(' + INPUT_EST_TIME + ')').appendTo(box);
     };
+    
+    $('#saveBtn').bind('click', function() {
+        $.OrderInfo.book({
+            data : {
+                registerNum : $('#policeNo').val(),
+                userName : $('#customer').val(),
+                mobilePhone : $('#contact').val(),
+                estimationTime : estimationTime
+            }
+        });
+    });
     
     getJobTypeList();
     

@@ -113,6 +113,15 @@ define([], function() {
                 }
             });
         },
+        book : function(options) {
+            $.common.ajax("book", {
+                type :"POST",
+                data : options.data,
+                success : function(data) {
+                    options.success(data);
+                }
+            });
+        },
         // 获取单个modify queue
 		getModifyQueue : function(options) {
             $.common.ajax("getModifyQueue", {
