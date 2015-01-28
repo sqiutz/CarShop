@@ -324,7 +324,10 @@
                             if (data.code == "000004") {// 登录超时跳转到登录界面
                                 alert('Your session has been timeout, please login again.');
                                 location.href="index.html";
-                            } else {
+                            } else {                                
+                                if(data.code != "000000") {
+                                    console.log(data.code + ' ' + data.msg);
+                                }
                                 if (args.success) {
                                     args.success(data);
                                 }

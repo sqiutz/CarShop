@@ -28,7 +28,6 @@ public class CustomerServiceImpl implements CustomerService{
 	/**用户信息DAO */
     private CustomerDao customerDao;
 
-	@Override
 	public void addCustomer(Customer customer) throws BusinessServiceException {
 		// TODO Auto-generated method stub
 		if (customer == null){
@@ -38,7 +37,6 @@ public class CustomerServiceImpl implements CustomerService{
 		customerDao.addCustomer(CustomerConverter.getCustomerDo(customer));
 	}
 
-	@Override
 	public void modifyCustomer(Customer customer) throws BusinessServiceException {
 		// TODO Auto-generated method stub
 		if (customer == null){
@@ -48,7 +46,6 @@ public class CustomerServiceImpl implements CustomerService{
 		customerDao.modifyCustomer(CustomerConverter.getCustomerDo(customer));
 	}
 
-	@Override
 	public Customer getCustomerByPoliceNum(String policeNum)
 			throws BusinessServiceException {
 		// TODO Auto-generated method stub
