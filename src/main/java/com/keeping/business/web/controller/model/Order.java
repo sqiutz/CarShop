@@ -40,6 +40,8 @@ public class Order {
     private String userName;
     
     private String mobilePhone;
+    
+    private String jobType;
 
 	public Integer getStatus() {
 		return status;
@@ -183,6 +185,14 @@ public class Order {
 
 	public void setCustomerId(Integer customerId) {
 		this.customerId = customerId;
+	}
+
+	public String getJobType() {
+		return jobType;
+	}
+
+	public void setJobType(String jobType) {
+		this.jobType = jobType;
 	}
     
 }
