@@ -122,6 +122,14 @@
         $('#userNameErrMsg').html('').hide('normal');
         userName.css('border', '1px solid #CCC');
     });
+    userName.keyup(function(event) {
+        var myEvent = event || window.event;
+        var keyCode = myEvent.keyCode;
+        if(keyCode == 13){ //Enter
+            var dom = password.get(0);
+            dom.select();
+        }
+    });
     
     //密码失去焦点进行验证
     password.bind("blur", function(){
@@ -131,6 +139,13 @@
         $('#errMsg').html('').hide('normal');
         $('#pwdErrMsg').html('').hide('normal');
         password.css('border', '1px solid #CCC');        
+    });
+    password.keyup(function(event) {
+        var myEvent = event || window.event;
+        var keyCode = myEvent.keyCode;
+        if(keyCode == 13){ //Enter
+            login();
+        }
     });
     
     $('#appointmentBtn').bind("click", function(){
