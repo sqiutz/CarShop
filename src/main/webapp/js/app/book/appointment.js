@@ -27,4 +27,8 @@
         location.href = 'new_appointment.html';
     });
     
+    $('#settingBtn').bind("click", function(){
+        location.href = 'appointment_parameter.html';
+    });
+    
 })(jQuery);
