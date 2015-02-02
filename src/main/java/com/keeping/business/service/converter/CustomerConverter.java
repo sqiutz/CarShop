@@ -16,7 +16,7 @@ public class CustomerConverter {
         
         Customer customer = new Customer();
         customer.setId(customerDo.getId());
-        customer.setMobilephone(customerDo.getMobilephone());
+        customer.setMobilephone(customerDo.getMobilePhone());
         customer.setPasswd(customerDo.getPasswd());
         customer.setPoliceNum(customerDo.getPoliceNum());
         customer.setUserName(customerDo.getUserName());
@@ -33,10 +33,10 @@ public class CustomerConverter {
     	
     	CustomerDo customerDo = new CustomerDo();
     	customerDo.setId(customer.getId());
-    	customerDo.setMobilephone(customerDo.getMobilephone());
-    	customerDo.setPasswd(customerDo.getPasswd());
-    	customerDo.setPoliceNum(customerDo.getPoliceNum());
-    	customerDo.setUserName(customerDo.getUserName());
+    	customerDo.setMobilePhone(customer.getMobilephone());
+    	customerDo.setPasswd(customer.getPasswd());
+    	customerDo.setPoliceNum(customer.getPoliceNum());
+    	customerDo.setUserName(customer.getUserName());
     	customerDo.setCreateTime(TimeUtil.transferFromUtilToSql(customer.getCreateTime()));
     	customerDo.setModifyTime(TimeUtil.transferFromUtilToSql(customer.getModifyTime()));
     	

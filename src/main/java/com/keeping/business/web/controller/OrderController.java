@@ -257,14 +257,16 @@ public class OrderController {
 			else {
 				
 				 Customer customer = customerService.getCustomerByPoliceNum(orderObject.getRegisterNum());
-				 customer.setUserName(orderObject.getUserName());
-				 customer.setMobilephone(orderObject.getMobilePhone());
 				 
 				 if (customer != null && customer.getUserName() == null){
 					 customer.setPoliceNum(orderObject.getRegisterNum());
+					 customer.setUserName(orderObject.getUserName());
+					 customer.setMobilephone(orderObject.getMobilePhone());
 					 customerService.addCustomer(customer);
 					 customer = customerService.getCustomerByPoliceNum(customer.getPoliceNum());
 				 } else {
+					 customer.setUserName(orderObject.getUserName());
+					 customer.setMobilephone(orderObject.getMobilePhone());
 					 customerService.modifyCustomer(customer);
 				 }
 				

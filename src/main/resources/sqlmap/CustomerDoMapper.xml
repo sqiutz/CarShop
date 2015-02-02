@@ -80,7 +80,7 @@
 		ID = #{id}
 	</update>
 	
-	<select id="queryByPoliceNum" resultType="java.lang.String" >
+	<select id="queryByPoliceNum" resultMap="CustomerDoMap" >
 		SELECT
 		<include refid="Base_Column_List" />
 		FROM TBL_CUSTOMER

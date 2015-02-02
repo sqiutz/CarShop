@@ -10,7 +10,7 @@ public class CustomerDo {
     
 	private String passwd;
 	
-	private String mobilephone;
+	private String mobilePhone;
 	
 	private String policeNum;
 
@@ -42,14 +42,6 @@ public class CustomerDo {
 		this.passwd = passwd;
 	}
 
-	public String getMobilephone() {
-		return mobilephone;
-	}
-
-	public void setMobilephone(String mobilephone) {
-		this.mobilephone = mobilephone;
-	}
-
 	public String getPoliceNum() {
 		return policeNum;
 	}
@@ -72,6 +64,14 @@ public class CustomerDo {
 
 	public void setModifyTime(Timestamp modifyTime) {
 		this.modifyTime = modifyTime;
+	}
+
+	public String getMobilePhone() {
+		return mobilePhone;
+	}
+
+	public void setMobilePhone(String mobilePhone) {
+		this.mobilePhone = mobilePhone;
 	}
 
 }
