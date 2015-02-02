@@ -91,8 +91,8 @@
                 registerNum : $('#policeNo').val(),
                 userName : $('#customer').val(),
                 mobilePhone : $('#contact').val(),
-                jobType : jobTypeSelected,
-                assignDate : getDateString($('#dateDiv').datepicker('getDate'))
+                jobType : jobTypeSelected
+                //assignDate : getDateString($('#dateDiv').datepicker('getDate'))
             },
             success : function(data) {
                 if (data.code == '000000') {
