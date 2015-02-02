@@ -21,6 +21,7 @@ import com.keeping.business.common.rescode.BusinessCenterResCode;
 import com.keeping.business.common.util.PlatformPar;
 import com.keeping.business.common.util.PlatfromConstants;
 import com.keeping.business.common.util.StringUtil;
+import com.keeping.business.common.util.TimeUtil;
 import com.keeping.business.service.CustomerService;
 import com.keeping.business.service.OrderService;
 import com.keeping.business.service.PropertyService;
@@ -194,13 +195,13 @@ public class OrderController {
 		try {
 			String jsonStr = request.getParameter("param");
 			OrderObject orderObject = JsonConverter.getFromJsonString(jsonStr, OrderObject.class);
-			if (orderObject == null || orderObject.getRegisterNumber() == null) {
+			if (orderObject == null || orderObject.getRegisterNum() == null) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
 //				logger.error("< OrderController.getOrder() > 获取订单状态不正确." + orderObject.getQueueNumber() + " : " + BusinessCenterOrderStatus.ORDER_STATUS_WAIT.getStatus());
 			} else {
 				
-				order = orderService.getOrdersByRegNum(orderObject.getRegisterNumber());
+				order = orderService.getOrdersByRegNum(orderObject.getRegisterNum());
 
 			}
 		}catch (BusinessServiceException ex) {
@@ -239,7 +240,7 @@ public class OrderController {
 			UserProfile loginUser = (UserProfile) session.getAttribute(PlatfromConstants.STR_USER_PROFILE);
 			
 			String jsonStr = request.getParameter("param");
-			Order orderObject = JsonConverter.getFromJsonString(jsonStr, Order.class);
+			OrderObject orderObject = JsonConverter.getFromJsonString(jsonStr, OrderObject.class);
 			
 			Date now = new Date();
 			java.sql.Timestamp dateTime = new java.sql.Timestamp(now.getTime());
@@ -248,11 +249,12 @@ public class OrderController {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
 //				logger.error("< OrderController.bookOrder() > 订单预约请求信息不正确。" + jsonStr);
-			}else if (null == session || null == loginUser || null == loginUser.getUserName()){
-				code = BusinessCenterResCode.SYS_INVILID_REQ.getCode();
-				msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
-//				logger.error("< OrderController.bookOrder() > session为空。" + jsonStr);
-			} else {
+//			} else if (null == session || null == loginUser || null == loginUser.getUserName()){
+//				code = BusinessCenterResCode.SYS_INVILID_REQ.getCode();
+//				msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
+////				logger.error("< OrderController.bookOrder() > session为空。" + jsonStr);
+			} 
+			else {
 				
 				 Customer customer = customerService.getCustomerByPoliceNum(orderObject.getRegisterNum());
 				 customer.setUserName(orderObject.getUserName());
@@ -274,6 +276,9 @@ public class OrderController {
 				 order.setAssignDate(now);
 				 order.setRegisterNum(orderObject.getRegisterNum());
 				 order.setCustomerId(customer.getId());
+				 order.setAssignDate(TimeUtil.transferFromStringToUtilDate(orderObject.getAssignDate()));
+				 order.setJobType(orderObject.getJobType());
+				 order.setUserName(orderObject.getUserName());
 				 orderService.addOrder(order);
 			}
 		}catch (BusinessServiceException ex) {
@@ -331,7 +336,7 @@ public class OrderController {
 //				logger.error("< OrderController.bookOrder() > 订单预约请求信息不正确。" + jsonStr);
 			}else{
 				
-				order = orderService.getOrdersByRegNum(orderObject.getRegisterNumber());
+				order = orderService.getOrdersByRegNum(orderObject.getRegisterNum());
 				
 				Integer totalBookedOrders = 0;
 				Integer bookCounterNum = 0;
@@ -363,7 +368,7 @@ public class OrderController {
 				Integer estimationTime = ((totalBookedOrders / bookCounterNum) + 1) * baseTime + bufferTime;
 			
 				if (StringUtil.isNull(order.getBookNum()) && order.getId() == null) {
-					order.setRegisterNum(orderObject.getRegisterNumber());
+					order.setRegisterNum(orderObject.getRegisterNum());
 					order.setStartTime(dateTime);
 					order.setStatus(BusinessCenterOrderStatus.ORDER_STATUS_WAIT.getId());    //1: start to wait for serve queue
 					order.setIsBook(0);

@@ -6,13 +6,21 @@ public class OrderObject {
 
 	private String queueNumber;
 	
-	private String registerNumber;
+	private String registerNum;
 	
 	private Date now;
 	
 	private Integer status;
 	
 	private Integer isBook;
+	
+    private String assignDate;
+    
+    private String userName;
+    
+    private String mobilePhone;
+    
+    private String jobType;
 
 	public String getQueueNumber() {
 		return queueNumber;
@@ -20,14 +28,6 @@ public class OrderObject {
 
 	public void setQueueNumber(String queueNumber) {
 		this.queueNumber = queueNumber;
-	}
-
-	public String getRegisterNumber() {
-		return registerNumber;
-	}
-
-	public void setRegisterNumber(String registerNumber) {
-		this.registerNumber = registerNumber;
 	}
 
 	public Date getNow() {
@@ -52,6 +52,46 @@ public class OrderObject {
 
 	public void setIsBook(Integer isBook) {
 		this.isBook = isBook;
+	}
+
+	public String getAssignDate() {
+		return assignDate;
+	}
+
+	public void setAssignDate(String assignDate) {
+		this.assignDate = assignDate;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getMobilePhone() {
+		return mobilePhone;
+	}
+
+	public void setMobilePhone(String mobilePhone) {
+		this.mobilePhone = mobilePhone;
+	}
+
+	public String getJobType() {
+		return jobType;
+	}
+
+	public void setJobType(String jobType) {
+		this.jobType = jobType;
+	}
+
+	public String getRegisterNum() {
+		return registerNum;
+	}
+
+	public void setRegisterNum(String registerNum) {
+		this.registerNum = registerNum;
 	}
 	
 	
