@@ -146,7 +146,7 @@ var POLICE_NO = 'Police No.';
 var CUSTOMER = 'Customer';
 var CONTACT = 'Contact';
 var SERVICE_TYPE = 'Service Type';
-var REGULAR_SERVICE = 'Regular Service';
+var REGULAR_SERVICE = 'Reguler Service';
 var EXPRESS_MAINTENANCE = 'Express Maintenance';
 var OTHERS = 'Others';
 var INPUT_EST_TIME = 'input est. time';
@@ -157,3 +157,5 @@ var SERVICES_RATE_TIME = 'Services Rate Time';
 var NO_OF_HOURS = 'NO. OF HOURS';
 var MANPOWER_ALLOCATION = 'Manpower Allocation';
 var INTAKE_CONTROL = 'Intake Control';
+
+var MANPOWER_ALLOCATION = 'Manpower Allocation';
