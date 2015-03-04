@@ -29,6 +29,7 @@
             $('#regularServiceLabel').text(REGULAR_SERVICE);
             $('#expressMaintenanceLabel').text(EXPRESS_MAINTENANCE);
             $('#saveBtn').text(SAVE).attr('title', SAVE);
+            $('#promiseTimeLabel').text(PROMISE_TIME);
         });
     }
     
@@ -39,7 +40,11 @@
         changeYear: true,
         buttonImageOnly: true,
         dateFormat: 'yy-mm-dd',
+        defaultDate: $.cookie('selectedDate') ? $.cookie('selectedDate') : new Date()
     });
+    if($.cookie('selectedTime')) {
+        $('#promiseTime').val($.cookie('selectedTime'));
+    }
     
     var getJobTypeList = function() {
         $.OrderInfo.getJobTypes({
@@ -86,6 +91,8 @@
     };
     
     $('#saveBtn').bind('click', function() {
+        $.cookie('selectedDate', '', {expires: -1});
+        $.cookie('selectedTime', '', {expires: -1});
         $.OrderInfo.book({
             data : {
                 registerNum : $('#policeNo').val(),
