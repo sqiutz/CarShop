@@ -32,5 +32,7 @@ public interface OrderService {
 	public Order getOrdersByRegNum(String registerNumber);
 	
 	public Integer getOrderCountByStatusAndBook(OrderObject orderObject);
+	
+	public List<Order> getOrderByStatusAndBook(OrderObject orderObject);
 
 }

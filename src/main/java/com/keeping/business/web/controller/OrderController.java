@@ -23,6 +23,7 @@ import com.keeping.business.common.util.PlatfromConstants;
 import com.keeping.business.common.util.StringUtil;
 import com.keeping.business.common.util.TimeUtil;
 import com.keeping.business.service.CustomerService;
+import com.keeping.business.service.JobTypeService;
 import com.keeping.business.service.OrderService;
 import com.keeping.business.service.PropertyService;
 import com.keeping.business.service.UserService;
@@ -56,6 +57,8 @@ public class OrderController {
    	private CustomerService customerService;
     @Resource
     private PropertyService propertyService;
+	@Resource
+	private JobTypeService jobtypeService;
     
     private static Integer nQueueNumber = 0;
     
@@ -71,7 +74,6 @@ public class OrderController {
 	 * @return 
      * @return N/A
      */
-    
 	@RequestMapping(params = "action=report")
 	@ResponseBody
 	public WebResultList<Report> getReport(HttpServletRequest request,HttpServletResponse response) {
@@ -151,6 +153,14 @@ public class OrderController {
 		return JsonConverter.getResultObject(code, msg, orderList);
 	}
 	
+	/**
+     * 获取所有预约的 OrderStatus为1（已经取号）的订单
+     * 
+     * @param HttpServletRequest
+     * @param HttpServletResponse
+	 * @return 
+     * @return N/A
+     */
 	@RequestMapping(params = "action=allbooklist")
 	@ResponseBody
 	public WebResultList<Order> getAllBookOrders(HttpServletRequest request,HttpServletResponse response) {
@@ -170,6 +180,53 @@ public class OrderController {
 			} else {
 				
 				orderList = orderService.getOrdersByBook(status.getIsBook());
+			}
+		}catch (BusinessServiceException ex) {
+			code = ex.getErrorCode();
+			msg = ex.getErrorMessage();
+		}catch (Exception e) {
+			code = BusinessCenterResCode.SYS_ERROR.getCode();
+			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
+//			logger.error("< OrderController.getAllOrders() > 获取订单列表失败." + e.getMessage());
+		}
+
+		return JsonConverter.getResultObject(code, msg, orderList);
+	}
+	
+	/**
+     * 获取今天所有预约的订单
+     * 
+     * @param HttpServletRequest
+     * @param HttpServletResponse
+	 * @return 
+     * @return N/A
+     */
+	@RequestMapping(params = "action=alltodaybooklist")
+	@ResponseBody
+	public WebResultList<Order> getAllTodayBookOrders(HttpServletRequest request,HttpServletResponse response) {
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
+		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
+
+		List<Order> orderList = null;
+		
+		try {
+			String jsonStr = request.getParameter("param");
+			OrderObject orderObject = JsonConverter.getFromJsonString(jsonStr, OrderObject.class);
+			if (orderObject == null || orderObject.getRegisterNum() == null) {
+				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
+				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
+//				logger.error("< OrderController.getAllOrders() > 获取订单状态不正确." + status + " : " + BusinessCenterOrderStatus.ORDER_STATUS_WAIT.getStatus());
+			} else {
+				
+				orderList = orderService.getOrderByStatusAndBook(orderObject); //orderObject 包含AssignDate以及isBook为1
+				
+				for (int j=0; j<orderList.size(); j++){
+					
+					Float load = Float.parseFloat(jobtypeService.queryByKey(orderList.get(j).getJobType()).getValue());
+					
+					orderList.get(j).setLoad(load);
+				}
 			}
 		}catch (BusinessServiceException ex) {
 			code = ex.getErrorCode();
@@ -275,12 +332,12 @@ public class OrderController {
 				 order.setBookTime(now);
 				 order.setBookNum(bookNumber);
 				 order.setIsBook(1);
-				 order.setAssignDate(now);
 				 order.setRegisterNum(orderObject.getRegisterNum());
 				 order.setCustomerId(customer.getId());
-				 order.setAssignDate(TimeUtil.transferFromStringToUtilDate(orderObject.getAssignDate()));
+				 order.setAssignDate(now);
 				 order.setJobType(orderObject.getJobType());
 				 order.setUserName(orderObject.getUserName());
+				 order.setBookStartTime(orderObject.getBookStartTime());
 				 orderService.addOrder(order);
 			}
 		}catch (BusinessServiceException ex) {
@@ -305,7 +362,7 @@ public class OrderController {
 	}
 	
 	/**
-     * 预约订单
+     * 客户现场取号后，开始一个订单
      * 
      * @param HttpServletRequest
      * @param HttpServletResponse

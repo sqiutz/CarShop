@@ -15,7 +15,11 @@ public class OrderDo {
     
     private Timestamp startTime;
     
+    private Timestamp bookStartTime;
+    
     private Timestamp endTime;
+    
+    private Timestamp bookEndTime;
     
     private String registerNum;
     
@@ -34,6 +38,8 @@ public class OrderDo {
     private Integer isBook;
     
     private Date assignDate;
+    
+    private String jobType;
 
 	public Integer getStatus() {
 		return status;
@@ -153,5 +159,29 @@ public class OrderDo {
 
 	public void setCustomerId(Integer customerId) {
 		this.customerId = customerId;
+	}
+
+	public Timestamp getBookStartTime() {
+		return bookStartTime;
+	}
+
+	public void setBookStartTime(Timestamp bookStartTime) {
+		this.bookStartTime = bookStartTime;
+	}
+
+	public Timestamp getBookEndTime() {
+		return bookEndTime;
+	}
+
+	public void setBookEndTime(Timestamp bookEndTime) {
+		this.bookEndTime = bookEndTime;
+	}
+
+	public String getJobType() {
+		return jobType;
+	}
+
+	public void setJobType(String jobType) {
+		this.jobType = jobType;
 	}
 }

@@ -74,6 +74,33 @@ public class OrderServiceImpl implements OrderService {
 		
 		return count;
 	}
+	
+	/*
+	 * 根据订单状态，是否预约，以及时间查询所有订单
+	 * (non-Javadoc)
+	 * @see com.keeping.business.service.OrderService#getOrderByStatusAndBook(com.keeping.business.web.controller.model.OrderObject)
+	 */
+	
+	@Override
+	public List<Order> getOrderByStatusAndBook(OrderObject orderObject) {
+		// TODO Auto-generated method stub
+		List<Order> orders_front = new ArrayList<Order>();
+		
+		OrderDo orderDo = new OrderDo();
+		orderDo.setAssignDate(TimeUtil.transferFromUtilToSqlDate(orderObject.getAssignDate()));
+		orderDo.setIsBook(orderObject.getIsBook());
+		
+		List<OrderDo> orderDoes = orderDao.queryByStatusAndBook(orderDo);
+		
+		if (orderDoes != null) {
+		
+			for (int i = 0; i < orderDoes.size(); i++) {
+				orders_front.add(OrderConverter.getOrder(orderDoes.get(i)));
+			}
+		}
+		
+		return orders_front;
+	}
 
 	public List<Order> getOrdersByBook(Integer book)
 			throws BusinessServiceException {
@@ -206,7 +233,5 @@ public class OrderServiceImpl implements OrderService {
 	public void setOrderDao(OrderDao orderDao) {
 		this.orderDao = orderDao;
 	}
-
-
 
 }

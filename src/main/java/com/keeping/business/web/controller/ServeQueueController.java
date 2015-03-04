@@ -66,7 +66,7 @@ public class ServeQueueController {
 
 
 	/**
-	 * 获取订单列表
+	 * 查询所有正在服务的订单
 	 * 
 	 * @param HttpServletRequest
 	 * @param HttpServletResponse
@@ -141,6 +141,13 @@ public class ServeQueueController {
 		return JsonConverter.getResultObject(code, msg, serveQueueList);
 	}
 	
+	/**
+	 * 
+	 * 确认预约等待时间
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	@RequestMapping(params = "action=getestimationtime")
 	@ResponseBody
 	public WebResultList<EstimationTime> getAllEstimationTime(HttpServletRequest request, HttpServletResponse response) {
@@ -178,6 +185,14 @@ public class ServeQueueController {
 	}
 
 
+	/**
+	 * 
+	 * 查询服务的订单
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	
 	@RequestMapping(params = "action=getone")
 	@ResponseBody
 	public WebResultList<ServeQueue> getServeQueue(HttpServletRequest request, HttpServletResponse response) {

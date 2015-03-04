@@ -19,6 +19,10 @@ public class Order {
     
     private Timestamp endTime;
     
+    private Date bookStartTime;
+    
+    private Date bookEndTime;
+    
     private String registerNum;
     
     private String roofNum;
@@ -42,6 +46,8 @@ public class Order {
     private String mobilePhone;
     
     private String jobType;
+    
+    private Float load;
 
 	public Integer getStatus() {
 		return status;
@@ -193,6 +199,30 @@ public class Order {
 
 	public void setJobType(String jobType) {
 		this.jobType = jobType;
+	}
+
+	public Date getBookStartTime() {
+		return bookStartTime;
+	}
+
+	public void setBookStartTime(Date bookStartTime) {
+		this.bookStartTime = bookStartTime;
+	}
+
+	public Date getBookEndTime() {
+		return bookEndTime;
+	}
+
+	public void setBookEndTime(Date bookEndTime) {
+		this.bookEndTime = bookEndTime;
+	}
+
+	public Float getLoad() {
+		return load;
+	}
+
+	public void setLoad(Float load) {
+		this.load = load;
 	}
     
 }

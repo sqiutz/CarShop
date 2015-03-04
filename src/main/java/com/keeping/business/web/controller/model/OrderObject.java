@@ -14,13 +14,15 @@ public class OrderObject {
 	
 	private Integer isBook;
 	
-    private String assignDate;
+    private Date assignDate;
     
     private String userName;
     
     private String mobilePhone;
     
     private String jobType;
+    
+    private Date bookStartTime;
 
 	public String getQueueNumber() {
 		return queueNumber;
@@ -54,11 +56,11 @@ public class OrderObject {
 		this.isBook = isBook;
 	}
 
-	public String getAssignDate() {
+	public Date getAssignDate() {
 		return assignDate;
 	}
 
-	public void setAssignDate(String assignDate) {
+	public void setAssignDate(Date assignDate) {
 		this.assignDate = assignDate;
 	}
 
@@ -92,6 +94,14 @@ public class OrderObject {
 
 	public void setRegisterNum(String registerNum) {
 		this.registerNum = registerNum;
+	}
+
+	public Date getBookStartTime() {
+		return bookStartTime;
+	}
+
+	public void setBookStartTime(Date bookStartTime) {
+		this.bookStartTime = bookStartTime;
 	}
 	
 	

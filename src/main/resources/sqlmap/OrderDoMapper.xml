@@ -77,6 +77,14 @@
 		WHERE
 		STATUS = #{status} and IS_BOOK = #{isBook} and date(ASSIGN_DATE) = #{assignDate}
 	</select>
+	
+	<select id="queryByStatusAndBook" resultMap="OrderDoMap" >
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM TBL_ORDER
+		WHERE
+		IS_BOOK = #{isBook} and date(ASSIGN_DATE) = #{assignDate}
+	</select>
 
 	<select id="queryOrderByQueueNum" resultMap="OrderDoMap" 
 		parameterType="java.lang.String">

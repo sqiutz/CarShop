@@ -114,6 +114,8 @@ CREATE TABLE `TBL_ORDER` (
   `customer_id` bigint(10) NOT NULL,
   `assign_date` datetime  NOT NULL DEFAULT '1990-01-01 00:00:00',
   `create_time` timestamp NOT NULL DEFAULT '1990-01-01 00:00:00',
+  `book_start_time` timestamp  NOT NULL DEFAULT '1990-01-01 00:00:00',
+  `book_end_time` timestamp  NOT NULL DEFAULT '1990-01-01 00:00:00',
   `start_time` timestamp  NOT NULL DEFAULT '1990-01-01 00:00:00',
   `end_time` timestamp  NOT NULL DEFAULT '1990-01-01 00:00:00',
   `promiseTime` datetime DEFAULT NULL,
