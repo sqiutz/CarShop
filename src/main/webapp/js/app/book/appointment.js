@@ -44,6 +44,19 @@
         dateFormat: 'yy-mm-dd',
     });
     
+    function getTimeStr(date) {
+        var hours = date.hour(); 
+        var minutes = date.minute();
+        return (hours < 10 ? '0' : '') + hours + ':' + 
+            (minutes < 10 ? '0' : '') + minutes;
+    }
+    
+    function onDayClick(date, allDay, jsEvent, view) {
+        $.cookie('selectedDate', '' + date.year() + '-' + (date.month() + 1) + '-'+ date.date());
+        $.cookie('selectedTime', getTimeStr(date));
+        location.href = 'new_appointment.html';
+    }
+    
     $('#calendarExpress').fullCalendar({
         header:{    
             center: 'title',  
@@ -51,10 +64,38 @@
             right: ''
         },  
         theme: true,  
-        editable: true,  
+        editable: false,  
         allDaySlot : false,
-        minTime : '08:00:00',
-        maxTime : '18:00:00'
+        minTime : '07:00:00',
+        maxTime : '18:00:00',
+        events:  function(start, end, timezone, callback){  
+            var events = [];  
+            
+            var now = new Date();  
+            for(var i=-10;i<60;i++){  
+                var evtstart = new Date(now.getFullYear() , now.getMonth() , (now.getDate()-i), now.getHours()-3, now.getMinutes(), now.getSeconds(), now.getMilliseconds());  
+                var evtend = new Date(now.getFullYear() , now.getMonth() , (now.getDate()-i), now.getHours(), now.getMinutes(), now.getSeconds(), now.getMilliseconds());               
+                events.push({  
+                    sid: 1,  
+                    uid: 1,  
+                    title: 'Daily Scrum meeting',  
+                    start: evtstart,  
+                    end: evtend,  
+                    fullname: 'terry li',  
+                    confname: 'Meeting 1',  
+                    confshortname: 'M1',  
+                    confcolor: '#ff3f3f',  
+                    confid: 'test1',  
+                    allDay: false,  
+                    topic: 'Daily Scrum meeting',  
+                    description : 'Daily Scrum meeting',  
+                    id: 1,  
+                    });         
+            } 
+             
+            callback(events);  
+        },
+        dayClick: onDayClick        
     });
     $('#calendarReguler').fullCalendar({
         header:{  
@@ -63,10 +104,38 @@
             center: 'title'
             },  
         theme: true,  
-        editable: true,  
+        editable: false,  
         allDaySlot : false,
-        minTime : '08:00:00',
-        maxTime : '18:00:00'
+        minTime : '07:00:00',
+        maxTime : '18:00:00',
+        events:  function(start, end, timezone, callback){  
+            var events = [];  
+            
+            var now = new Date();  
+            for(var i=-10;i<60;i++){  
+                var evtstart = new Date(now.getFullYear() , now.getMonth() , (now.getDate()-i), now.getHours()-3, now.getMinutes(), now.getSeconds(), now.getMilliseconds());  
+                var evtend = new Date(now.getFullYear() , now.getMonth() , (now.getDate()-i), now.getHours(), now.getMinutes(), now.getSeconds(), now.getMilliseconds());               
+                events.push({  
+                    sid: 1,  
+                    uid: 1,  
+                    title: 'Daily Scrum meeting',  
+                    start: evtstart,  
+                    end: evtend,  
+                    fullname: 'terry li',  
+                    confname: 'Meeting 1',  
+                    confshortname: 'M1',  
+                    confcolor: '#ff3f3f',  
+                    confid: 'test1',  
+                    allDay: false,  
+                    topic: 'Daily Scrum meeting',  
+                    description : 'Daily Scrum meeting',  
+                    id: 1,  
+                    });         
+            } 
+             
+            callback(events);  
+        },
+        dayClick: onDayClick
     });
     $('#calendarReguler .fc-left').css("visibility","hidden");
     $('#calendarReguler .fc-center').css("visibility","hidden");
