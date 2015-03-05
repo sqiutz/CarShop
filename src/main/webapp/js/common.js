@@ -168,7 +168,8 @@
                                  "userName",
                                  "mobilePhone",
                                  "jobType",
-                                 "assignDate"
+                                 "assignDate",
+                                 "bookStartTime"
                         ]
                     },
                     // 获取modify queue

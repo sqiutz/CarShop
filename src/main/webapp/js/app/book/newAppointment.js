@@ -29,7 +29,7 @@
             $('#regularServiceLabel').text(REGULAR_SERVICE);
             $('#expressMaintenanceLabel').text(EXPRESS_MAINTENANCE);
             $('#saveBtn').text(SAVE).attr('title', SAVE);
-            $('#promiseTimeLabel').text(PROMISE_TIME);
+            $('#promiseTimeLabel').text(PROMISE_TIME);           
         });
     }
     
@@ -93,13 +93,16 @@
     $('#saveBtn').bind('click', function() {
         $.cookie('selectedDate', '', {expires: -1});
         $.cookie('selectedTime', '', {expires: -1});
+        var startTime = getDateString($('#dateDiv').datepicker('getDate')) + " " + 
+            $('#promiseTime').val() + ":00";
         $.OrderInfo.book({
             data : {
                 registerNum : $('#policeNo').val(),
                 userName : $('#customer').val(),
                 mobilePhone : $('#contact').val(),
                 jobType : jobTypeSelected,
-                assignDate : getDateString($('#dateDiv').datepicker('getDate'))
+                assignDate : startTime,
+                bookStartTime : startTime
             },
             success : function(data) {
                 if (data.code == '000000') {
