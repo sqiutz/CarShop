@@ -97,6 +97,7 @@
         },
         dayClick: onDayClick        
     });
+    
     $('#calendarReguler').fullCalendar({
         header:{  
             left: 'agendaDay,agendaWeek,month',
@@ -109,9 +110,20 @@
         minTime : '07:00:00',
         maxTime : '18:00:00',
         events:  function(start, end, timezone, callback){  
-            var events = [];  
+            var events = [];
+            $.OrderInfo.getBookedOrderListByDate({
+                data : {
+                    assignDate: getDateString(start),
+                    isBook: 1
+                },
+                success : function(orders) {
+                    for(var i = 0; i < orders.length; i++) {
+                        
+                    }
+                }
+            });
             
-            var now = new Date();  
+            /*var now = new Date();  
             for(var i=-10;i<60;i++){  
                 var evtstart = new Date(now.getFullYear() , now.getMonth() , (now.getDate()-i), now.getHours()-3, now.getMinutes(), now.getSeconds(), now.getMilliseconds());  
                 var evtend = new Date(now.getFullYear() , now.getMonth() , (now.getDate()-i), now.getHours(), now.getMinutes(), now.getSeconds(), now.getMilliseconds());               
@@ -131,9 +143,9 @@
                     description : 'Daily Scrum meeting',  
                     id: 1,  
                     });         
-            } 
+            }*/
              
-            callback(events);  
+            //callback(events);  
         },
         dayClick: onDayClick
     });
@@ -177,5 +189,9 @@
         $('#calendarExpress').fullCalendar('today');
         $('#calendarExpress .fc-axis').css('width', '50px');        
     });
+    
+    function getDateString(date) {
+        return '' + date.year() + '-' + (date.month() + 1) + '-' + date.date();
+    }
     
 })(jQuery);

@@ -212,8 +212,8 @@ public class OrderController {
 		
 		try {
 			String jsonStr = request.getParameter("param");
-			OrderObject orderObject = JsonConverter.getFromJsonString(jsonStr, OrderObject.class);
-			if (orderObject == null || orderObject.getRegisterNum() == null) {
+			OrderObject orderObject = JsonConverter.getFromJsonString(jsonStr, OrderObject.class, "yyyy-MM-dd");
+			if (orderObject == null) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
 //				logger.error("< OrderController.getAllOrders() > 获取订单状态不正确." + status + " : " + BusinessCenterOrderStatus.ORDER_STATUS_WAIT.getStatus());

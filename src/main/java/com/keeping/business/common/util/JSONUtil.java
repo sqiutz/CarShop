@@ -295,6 +295,7 @@ public class JSONUtil {
 	     */
 	    public static <T> T fromJson(String json, Class<T> clazz, String datePattern) {
 	        if (StringUtils.isBlank(json)) {
+	        	System.out.println("json is null");
 	            return null;
 	        }
 	        GsonBuilder builder = new GsonBuilder();
@@ -306,6 +307,7 @@ public class JSONUtil {
 	        try {
 	            return gson.fromJson(json, clazz);
 	        } catch (Exception ex) {
+	        	System.out.println(json + " 无法转换为 " + clazz.getName() + " 对象! " + ex.getMessage());
 	        	logger.error(json + " 无法转换为 " + clazz.getName() + " 对象!", ex);
 	            return null;
 	        }

@@ -94,6 +94,19 @@ define([], function() {
                 }
             });
         },
+        getBookedOrderListByDate : function(options) {
+            var orderlist;
+            $.common.ajax("getBookedOrderListByDate", {
+                data : options.data,
+                success : function(data) {
+                    orderlist = data.resList;
+                    options.success(orderlist);
+                },
+                error : function(error) {
+                    options.success();
+                }
+            });
+        },
         // 获取单个订单
         getOrder : function(options) {
             $.common.ajax("getOrder", {
