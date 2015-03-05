@@ -301,6 +301,7 @@ public class JSONUtil {
 	        if (StringUtils.isBlank(datePattern)) {
 	            datePattern = DEFAULT_DATE_PATTERN;
 	        }
+	        builder.setDateFormat(datePattern);
 	        Gson gson = builder.create();
 	        try {
 	            return gson.fromJson(json, clazz);

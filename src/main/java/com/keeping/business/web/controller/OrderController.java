@@ -289,15 +289,12 @@ public class OrderController {
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		HttpSession session = request.getSession();
 		session.setMaxInactiveInterval(PlatformPar.sessionTimeout);
-
-		response.setHeader("Access-Control-Allow-Origin", "*");
 		
-		try {
-			
+		try { 
 			UserProfile loginUser = (UserProfile) session.getAttribute(PlatfromConstants.STR_USER_PROFILE);
-			
+
 			String jsonStr = request.getParameter("param");
-			OrderObject orderObject = JsonConverter.getFromJsonString(jsonStr, OrderObject.class);
+			OrderObject orderObject = JsonConverter.getFromJsonString(jsonStr, OrderObject.class, "yyyy-MM-dd HH:mm:ss");
 			
 			Date now = new Date();
 			java.sql.Timestamp dateTime = new java.sql.Timestamp(now.getTime());

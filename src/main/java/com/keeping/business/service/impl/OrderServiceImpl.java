@@ -80,8 +80,6 @@ public class OrderServiceImpl implements OrderService {
 	 * (non-Javadoc)
 	 * @see com.keeping.business.service.OrderService#getOrderByStatusAndBook(com.keeping.business.web.controller.model.OrderObject)
 	 */
-	
-	@Override
 	public List<Order> getOrderByStatusAndBook(OrderObject orderObject) {
 		// TODO Auto-generated method stub
 		List<Order> orders_front = new ArrayList<Order>();

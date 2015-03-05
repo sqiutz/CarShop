@@ -18,6 +18,17 @@ public class JsonConverter {
 	public static <T> T getFromJsonString(String reqJsonStr, Class<T> clazz) {
 		return JSONUtil.fromJson(reqJsonStr, clazz);
 	}
+	
+	/**
+	 * 转换请求的参数
+	 * 
+	 * @param reqJsonStr
+	 * @param clazz
+	 * @return T
+	 */
+	public static <T> T getFromJsonString(String reqJsonStr, Class<T> clazz, String datePattern) {
+		return JSONUtil.fromJson(reqJsonStr, clazz, datePattern);
+	}
 
 	/**
 	 * 转换返回的结果为Json字符串
