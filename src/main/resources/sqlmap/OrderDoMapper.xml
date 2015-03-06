@@ -22,10 +22,11 @@
 		<result column="BOOK_START_TIME" property="bookStartTime" />
 		<result column="BOOK_END_TIME" property="bookEndTime" />
 		<result column="JOBTYPE" property="jobType" />
+		<result column="ASSIGN_DATE" property="assignDate" />
 	</resultMap>
 	
 	<sql id="Base_Column_List">
-		ID,STATUS,CUSTOMER_ID,REGISTERNUMBER,QUEUENUMBER,ROOFNUMBER,BOOKNUMBER,ESTIMATIONTIME,PROMISETIME,BOOKTIME,CREATE_TIME,START_TIME,END_TIME,IS_BOOK,BEGIN_DATE,END_DATE,BOOK_START_TIME,BOOK_END_TIME,JOBTYPE
+		ID,STATUS,CUSTOMER_ID,REGISTERNUMBER,QUEUENUMBER,ROOFNUMBER,BOOKNUMBER,ESTIMATIONTIME,PROMISETIME,BOOKTIME,CREATE_TIME,START_TIME,END_TIME,IS_BOOK,BEGIN_DATE,END_DATE,BOOK_START_TIME,BOOK_END_TIME,JOBTYPE,ASSIGN_DATE
 	</sql>
 
 	<select id="queryByOrderstatus" resultMap="OrderDoMap" 
@@ -157,6 +158,15 @@
 			<if test="isBook != null">
 				IS_BOOK,
 			</if>
+			<if test="assignDate != null">
+				ASSIGN_DATE,
+			</if>
+			<if test="bookStartTime != null">
+				BOOK_START_TIME,
+			</if>
+			<if test="bookEndTime != null">
+				BOOK_END_TIME,
+			</if>
 			CREATE_TIME,
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -195,6 +205,15 @@
 			</if>
 			<if test="isBook != null">
 				#{isBook},
+			</if>
+			<if test="assignDate != null">
+				#{assignDate},
+			</if>
+			<if test="bookStartTime != null">
+				#{bookStartTime},
+			</if>
+			<if test="bookEndTime != null">
+				#{bookEndTime},
 			</if>
 			now(),
 		</trim>

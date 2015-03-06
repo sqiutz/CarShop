@@ -204,7 +204,6 @@ public class OrderController {
 	@RequestMapping(params = "action=alltodaybooklist")
 	@ResponseBody
 	public WebResultList<Order> getAllTodayBookOrders(HttpServletRequest request,HttpServletResponse response) {
-		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 
@@ -219,9 +218,10 @@ public class OrderController {
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
 //				logger.error("< OrderController.getAllOrders() > 获取订单状态不正确." + status + " : " + BusinessCenterOrderStatus.ORDER_STATUS_WAIT.getStatus());
 			} else {
-				
+				System.out.println(orderObject.getBeginDate().toString());
+				System.out.println(orderObject.getEndDate().toString());
 				orderList = orderService.getOrderByStatusAndBook(orderObject); //orderObject 包含AssignDate以及isBook为1
-				
+				System.out.println("" + orderList.size());
 				for (int j=0; j<orderList.size(); j++){
 					
 					Float load = Float.parseFloat(jobtypeService.queryByKey(orderList.get(j).getJobType()).getValue());
@@ -233,7 +233,6 @@ public class OrderController {
 			code = ex.getErrorCode();
 			msg = ex.getErrorMessage();
 		}catch (Exception e) {
-			System.out.println(e.getMessage());
 			code = BusinessCenterResCode.SYS_ERROR.getCode();
 			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
 //			logger.error("< OrderController.getAllOrders() > 获取订单列表失败." + e.getMessage());

@@ -85,8 +85,9 @@ public class OrderServiceImpl implements OrderService {
 		List<Order> orders_front = new ArrayList<Order>();
 		
 		OrderDo orderDo = new OrderDo();
-		orderDo.setAssignDate(TimeUtil.transferFromUtilToSqlDate(orderObject.getAssignDate()));
 		orderDo.setIsBook(orderObject.getIsBook());
+		orderDo.setBeginDate(TimeUtil.transferFromUtilToSqlDate(orderObject.getBeginDate()));
+		orderDo.setEndDate(TimeUtil.transferFromUtilToSqlDate(orderObject.getEndDate()));
 		
 		List<OrderDo> orderDoes = orderDao.queryByStatusAndBook(orderDo);
 		

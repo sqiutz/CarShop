@@ -66,6 +66,7 @@
         theme: true,  
         editable: false,  
         allDaySlot : false,
+        timeFormat : 'HH:mm',
         minTime : '07:00:00',
         maxTime : '18:00:00',
         events:  function(start, end, timezone, callback){  
@@ -107,6 +108,7 @@
         theme: true,  
         editable: false,  
         allDaySlot : false,
+        timeFormat : 'HH:mm',
         minTime : '07:00:00',
         maxTime : '18:00:00',
         events:  function(start, end, timezone, callback){  
@@ -118,35 +120,14 @@
                     isBook: 1
                 },
                 success : function(orders) {
-                    for(var i = 0; i < orders.length; i++) {
-                        
-                    }
+                    events = createEvents(orders);
+                    callback(events);
+                },
+                error : function(orders) {
+                    events = createEvents(orders);
+                    callback(events);
                 }
-            });
-            
-            /*var now = new Date();  
-            for(var i=-10;i<60;i++){  
-                var evtstart = new Date(now.getFullYear() , now.getMonth() , (now.getDate()-i), now.getHours()-3, now.getMinutes(), now.getSeconds(), now.getMilliseconds());  
-                var evtend = new Date(now.getFullYear() , now.getMonth() , (now.getDate()-i), now.getHours(), now.getMinutes(), now.getSeconds(), now.getMilliseconds());               
-                events.push({  
-                    sid: 1,  
-                    uid: 1,  
-                    title: 'Daily Scrum meeting',  
-                    start: evtstart,  
-                    end: evtend,  
-                    fullname: 'terry li',  
-                    confname: 'Meeting 1',  
-                    confshortname: 'M1',  
-                    confcolor: '#ff3f3f',  
-                    confid: 'test1',  
-                    allDay: false,  
-                    topic: 'Daily Scrum meeting',  
-                    description : 'Daily Scrum meeting',  
-                    id: 1,  
-                    });         
-            }*/
-             
-            //callback(events);  
+            });   
         },
         dayClick: onDayClick
     });
@@ -190,6 +171,24 @@
         $('#calendarExpress').fullCalendar('today');
         $('#calendarExpress .fc-axis').css('width', '50px');        
     });
+    
+    function createEvents(orders) {
+        var events = [];
+        if(!orders) {
+            return;
+        }
+        for(var i = 0; i < orders.length; i++) {
+            var order = orders[i];
+            var evtstart = new Date(order.bookStartTime);
+            var evtend = new Date(order.bookStartTime + order.load * 36000000);
+            events.push({   
+                title: order.registerNum,  
+                start: evtstart,  
+                end: evtend,
+            });
+        }
+        return events;
+    }
     
     function getDateString(date) {
         return '' + date.year() + '-' + (date.month() + 1) + '-' + date.date();
