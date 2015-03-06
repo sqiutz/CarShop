@@ -17,10 +17,15 @@
 		<result column="START_TIME" property="startTime" />
 		<result column="END_TIME" property="endTime" />
 		<result column="IS_BOOK" property="isBook" />
+		<result column="BEGIN_DATE" property="beginDate" />
+		<result column="END_DATE" property="endDate" />
+		<result column="BOOK_START_TIME" property="bookStartTime" />
+		<result column="BOOK_END_TIME" property="bookEndTime" />
+		<result column="JOBTYPE" property="jobType" />
 	</resultMap>
 	
 	<sql id="Base_Column_List">
-		ID,STATUS,CUSTOMER_ID,REGISTERNUMBER,QUEUENUMBER,ROOFNUMBER,BOOKNUMBER,ESTIMATIONTIME,PROMISETIME,BOOKTIME,CREATE_TIME,START_TIME,END_TIME,IS_BOOK
+		ID,STATUS,CUSTOMER_ID,REGISTERNUMBER,QUEUENUMBER,ROOFNUMBER,BOOKNUMBER,ESTIMATIONTIME,PROMISETIME,BOOKTIME,CREATE_TIME,START_TIME,END_TIME,IS_BOOK,BEGIN_DATE,END_DATE,BOOK_START_TIME,BOOK_END_TIME,JOBTYPE
 	</sql>
 
 	<select id="queryByOrderstatus" resultMap="OrderDoMap" 
@@ -83,7 +88,7 @@
 		<include refid="Base_Column_List" />
 		FROM TBL_ORDER
 		WHERE
-		IS_BOOK = #{isBook} and date(ASSIGN_DATE) = #{assignDate}
+		IS_BOOK = #{isBook} and date(ASSIGN_DATE) &gt;= #{beginDate} and date(ASSIGN_DATE) &lt;= #{endDate}
 	</select>
 
 	<select id="queryOrderByQueueNum" resultMap="OrderDoMap" 

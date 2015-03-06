@@ -23,6 +23,12 @@ public class OrderObject {
     private String jobType;
     
     private Date bookStartTime;
+    
+    private Date bookEndTime;
+    
+    private Date beginDate;
+    
+    private Date endDate;
 
 	public String getQueueNumber() {
 		return queueNumber;
@@ -102,6 +108,30 @@ public class OrderObject {
 
 	public void setBookStartTime(Date bookStartTime) {
 		this.bookStartTime = bookStartTime;
+	}
+
+	public Date getBookEndTime() {
+		return bookEndTime;
+	}
+
+	public void setBookEndTime(Date bookEndTime) {
+		this.bookEndTime = bookEndTime;
+	}
+
+	public Date getBeginDate() {
+		return beginDate;
+	}
+
+	public void setBeginDate(Date beginDate) {
+		this.beginDate = beginDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
 	
 	

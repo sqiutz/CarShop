@@ -40,6 +40,10 @@ public class OrderDo {
     private Date assignDate;
     
     private String jobType;
+    
+    private Date beginDate;
+    
+    private Date endDate;
 
 	public Integer getStatus() {
 		return status;
@@ -183,5 +187,21 @@ public class OrderDo {
 
 	public void setJobType(String jobType) {
 		this.jobType = jobType;
+	}
+
+	public Date getBeginDate() {
+		return beginDate;
+	}
+
+	public void setBeginDate(Date beginDate) {
+		this.beginDate = beginDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
 }

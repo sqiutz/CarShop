@@ -113,7 +113,8 @@
             var events = [];
             $.OrderInfo.getBookedOrderListByDate({
                 data : {
-                    assignDate: '2015-3-5',
+                    beginDate: getDateString(start),
+                    endDate : getDateString(end),
                     isBook: 1
                 },
                 success : function(orders) {

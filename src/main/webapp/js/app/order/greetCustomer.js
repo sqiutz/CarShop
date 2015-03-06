@@ -29,7 +29,7 @@
     $('#printBtn').bind('click', function() {
     	$.OrderInfo.startOrder({
     		data : {
-    			registerNumber : $('#regNumber').val()
+    			registerNum : $('#regNumber').val()
     		},
     		success : function(data) {
                 if(data.code == '000000') {
@@ -55,7 +55,7 @@
     function getOrder() {
         $.OrderInfo.getOrder({
             data : {
-                registerNumber : $('#regNumber').val()
+                registerNum : $('#regNumber').val()
             },
             success : function(data) {
                 if(data.code == '000000') {

@@ -23,6 +23,10 @@ public class Order {
     
     private Date bookEndTime;
     
+    private Date beginDate;
+    
+    private Date endDate;
+    
     private String registerNum;
     
     private String roofNum;
@@ -223,6 +227,22 @@ public class Order {
 
 	public void setLoad(Float load) {
 		this.load = load;
+	}
+
+	public Date getBeginDate() {
+		return beginDate;
+	}
+
+	public void setBeginDate(Date beginDate) {
+		this.beginDate = beginDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
     
 }

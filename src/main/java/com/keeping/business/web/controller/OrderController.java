@@ -213,6 +213,7 @@ public class OrderController {
 		try {
 			String jsonStr = request.getParameter("param");
 			OrderObject orderObject = JsonConverter.getFromJsonString(jsonStr, OrderObject.class, "yyyy-MM-dd");
+			
 			if (orderObject == null) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
@@ -232,6 +233,7 @@ public class OrderController {
 			code = ex.getErrorCode();
 			msg = ex.getErrorMessage();
 		}catch (Exception e) {
+			System.out.println(e.getMessage());
 			code = BusinessCenterResCode.SYS_ERROR.getCode();
 			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
 //			logger.error("< OrderController.getAllOrders() > 获取订单列表失败." + e.getMessage());
@@ -331,7 +333,7 @@ public class OrderController {
 				 order.setIsBook(1);
 				 order.setRegisterNum(orderObject.getRegisterNum());
 				 order.setCustomerId(customer.getId());
-				 order.setAssignDate(now);
+				 order.setAssignDate(orderObject.getBookStartTime());
 				 order.setJobType(orderObject.getJobType());
 				 order.setUserName(orderObject.getUserName());
 				 order.setBookStartTime(orderObject.getBookStartTime());

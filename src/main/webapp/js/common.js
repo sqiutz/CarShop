@@ -150,7 +150,8 @@
                     getBookedOrderListByDate : {
                         url : "order.do?action=alltodaybooklist",
                         args : [ 
-                                 "assignDate",
+                                 "beginDate",
+                                 "endDate",
                                  "isBook"
                         ]                        
                     },
@@ -158,14 +159,14 @@
                     getOrder : {
                     	url : "order.do?action=getone",
                         args : [ 
-                                 "registerNumber"
+                                 "registerNum"
                         ]
                     },
                     // 下订单
                     startOrder : {
                     	url : "order.do?action=start",
                         args : [ 
-                                 "registerNumber"
+                                 "registerNum"
                         ]
                     },
                     book : {
