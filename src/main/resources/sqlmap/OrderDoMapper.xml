@@ -167,6 +167,9 @@
 			<if test="bookEndTime != null">
 				BOOK_END_TIME,
 			</if>
+			<if test="jobType != null">
+				JOBTYPE,
+			</if>
 			CREATE_TIME,
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -214,6 +217,9 @@
 			</if>
 			<if test="bookEndTime != null">
 				#{bookEndTime},
+			</if>
+			<if test="jobType != null">
+				#{jobType},
 			</if>
 			now(),
 		</trim>

@@ -58,6 +58,7 @@
     }
     
     $('#calendarExpress').fullCalendar({
+        height: 700,
         header:{    
             center: 'title',  
             left: 'agendaDay,agendaWeek,month',
@@ -72,7 +73,7 @@
         events:  function(start, end, timezone, callback){  
             var events = [];  
             
-            var now = new Date();  
+            /*var now = new Date();  
             for(var i=-10;i<60;i++){  
                 var evtstart = new Date(now.getFullYear() , now.getMonth() , (now.getDate()-i), now.getHours()-3, now.getMinutes(), now.getSeconds(), now.getMilliseconds());  
                 var evtend = new Date(now.getFullYear() , now.getMonth() , (now.getDate()-i), now.getHours(), now.getMinutes(), now.getSeconds(), now.getMilliseconds());               
@@ -92,7 +93,7 @@
                     description : 'Daily Scrum meeting',  
                     id: 1,  
                     });         
-            } 
+            }*/ 
              
             callback(events);  
         },
@@ -100,6 +101,7 @@
     });
     
     $('#calendarReguler').fullCalendar({
+        height: 700,
         header:{  
             left: 'agendaDay,agendaWeek,month',
             right: 'prev,next today',
@@ -180,7 +182,7 @@
         for(var i = 0; i < orders.length; i++) {
             var order = orders[i];
             var evtstart = new Date(order.bookStartTime);
-            var evtend = new Date(order.bookStartTime + order.load * 36000000);
+            var evtend = new Date(order.bookStartTime + order.load * 3600000);
             events.push({   
                 title: order.registerNum,  
                 start: evtstart,  
