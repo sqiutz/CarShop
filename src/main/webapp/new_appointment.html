@@ -12,6 +12,11 @@
 	<script src="js/global.js"></script>
 	<script type="text/javascript">
         $(document).ready(function() {
+            $('#errMsg').hide();
+            $('#policeNoErrMsg').hide();
+            $('#customerErrMsg').hide();
+            $('#promiseTimeErrMsg').hide();
+            $('#serviceTypeErrMsg').hide();
             layout();
             $(window).resize(layout);
         });
@@ -28,12 +33,15 @@
 			<fieldset style='width:600px;padding:8px 60px 15px 80px;'>
 				<legend id='legendTitle'></legend>
 				<div style='width:580px;'>
+					<div id='errMsg' class='errMsg' style='margin-bottom:8px'></div>
 					<div id='dateDiv' style='margin-bottom:10px'></div>
-					<form>
+					<form>						
+						<div id='policeNoErrMsg' class='errMsg'></div>
 						<div>
 							<label id='policeNoLabel' for='policeNo'></label>
 							<input id='policeNo' name='policeNo' type='text'>
 						</div>
+						<div id='customerErrMsg' class='errMsg'></div>						
 						<div>
 							<label id='customerLabel' for='customer'></label>
 							<input id='customer' name='customer' type='text'>
@@ -42,6 +50,7 @@
 							<label id='contactLabel' for='contact'></label>
 							<input id='contact' name='contact' type='text'>
 						</div>
+						<div id='promiseTimeErrMsg' class='errMsg'></div>
 						<div>
 							<label id='promiseTimeLabel' for='promiseTime'></label>
 							<select id='promiseTime' name='promiseTime'>
@@ -69,6 +78,7 @@
 								<option value='17:30'>17:30</option>
 							</select>
 						</div>
+						<div id='serviceTypeErrMsg' class='errMsg'></div>
 						<div>
 							<label id='serviceTypeLabel' for='serviceType'></label>
 							<div id='regularServiceBox' class='inline blue-border' style='width:400px;padding-bottom:10px'>
