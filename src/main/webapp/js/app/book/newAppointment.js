@@ -114,7 +114,8 @@
         var policeNo = validatePoliceNo();
         var promiseTime = validatePromiseTime();
         var serviceType = validateServiceType();
-        if(!(policeNo && promiseTime && serviceType)) {
+        var customer = validateCustomer();
+        if(!(policeNo && promiseTime && serviceType && customer)) {
             return;
         }
         $.cookie('selectedDate', '', {expires: -1});
@@ -181,6 +182,30 @@
         }
     });
     
+    function validateCustomer() {
+        var customer = $('#customer').val();
+        var flag;
+        if(customer) {
+            $('#customerErrMsg').html('').hide('normal');
+            $('#customer').css('border', '1px solid #CCC');
+            flag = true;
+        }
+        else {
+            $('#customerErrMsg').html('Please input the customer!').show('normal');
+            $('#customer').css('border', '1px solid #F00');
+            flag = false;
+        }
+        return flag;
+    }
+    
+    $('#customer').bind("blur", function() {
+        validateCustomer();
+    });
+    $('#customer').bind("focus", function() {
+        $('#errMsg').html('').hide('normal');
+        $('#customerErrMsg').html('').hide('normal');
+        $('#customer').css('border', '1px solid #CCC');
+    });
     $('#customer').keyup(function(event) {
         var myEvent = event || window.event;
         var keyCode = myEvent.keyCode;
@@ -227,7 +252,7 @@
     function validateServiceType() {
         var flag = false, ckbs = $('.jobTypeCkb');
         for(var j = 0; j < ckbs.length; j++) {
-            if($(ckbs[j]).attr('checked')) {
+            if($(ckbs[j]).is(':checked')) {
                 flag = true;
                 $('#serviceTypeErrMsg').html('').hide('normal');
                 break;
