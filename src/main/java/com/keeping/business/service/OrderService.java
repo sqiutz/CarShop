@@ -5,7 +5,7 @@ import java.util.List;
 import com.keeping.business.common.exception.BusinessServiceException;
 import com.keeping.business.web.controller.model.Order;
 import com.keeping.business.web.controller.model.OrderObject;
-import com.keeping.business.web.controller.model.User;
+import com.keeping.business.web.controller.model.ReportObject;
 
 public interface OrderService {
 
@@ -26,6 +26,8 @@ public interface OrderService {
 	public List<Order> getByOrdersId(List<Integer> orderIdList) throws BusinessServiceException;
 	
 	public List<Order> getAllOrders(Integer startStatus);
+	
+	public List<Order> getAllOrdersFReport(ReportObject reportObject);
 	
 	public Order getOrdersByQueueNum(String queueNumber);
 	

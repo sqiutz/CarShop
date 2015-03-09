@@ -17,6 +17,7 @@ import com.keeping.business.service.converter.UserConverter;
 import com.keeping.business.web.controller.UserController;
 import com.keeping.business.web.controller.model.Order;
 import com.keeping.business.web.controller.model.OrderObject;
+import com.keeping.business.web.controller.model.ReportObject;
 import com.keeping.business.web.controller.model.User;
 
 public class OrderServiceImpl implements OrderService {
@@ -118,12 +119,31 @@ public class OrderServiceImpl implements OrderService {
 		return orders_front;
 	}
 
-
-
 	public List<Order> getAllOrders(Integer startStatus) {
 		// TODO Auto-generated method stub
 		List<Order> orders_front = new ArrayList<Order>();
 		List<OrderDo> orderDoes = orderDao.getAllOrders(startStatus);
+
+		if (orderDoes == null) {
+			return orders_front;
+		} else {
+			for (int i = 0; i < orderDoes.size(); i++) {
+				orders_front.add(OrderConverter.getOrder(orderDoes.get(i)));
+			}
+		}
+
+		return orders_front;
+	}
+
+	@Override
+	public List<Order> getAllOrdersFReport(ReportObject reportObject) {
+		// TODO Auto-generated method stub
+		OrderDo orderDo = new OrderDo();
+		orderDo.setBeginDate(TimeUtil.transferFromUtilToSqlDate(reportObject.getStartDate()));
+		orderDo.setEndDate(TimeUtil.transferFromUtilToSqlDate(reportObject.getEndDate()));
+		
+		List<Order> orders_front = new ArrayList<Order>();
+		List<OrderDo> orderDoes = orderDao.getAllOrdersFReport(orderDo);
 
 		if (orderDoes == null) {
 			return orders_front;

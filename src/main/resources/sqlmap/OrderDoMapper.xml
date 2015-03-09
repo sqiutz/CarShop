@@ -57,6 +57,16 @@
 		order by STATUS asc
 	</select>
 	
+	<select id="getAllOrdersFReport" resultMap="OrderDoMap" 
+		parameterType="OrderDo">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM TBL_ORDER
+		WHERE
+		STATUS between 0 and 5 and date(ASSIGN_DATE) &gt;= #{beginDate} and date(ASSIGN_DATE) &lt;= #{endDate}
+		order by STATUS asc
+	</select>
+	
 	<select id="queryFirstForServeQueue" resultMap="OrderDoMap" parameterType="java.lang.Integer">
 		SELECT
 		<include refid="Base_Column_List" />
@@ -232,7 +242,7 @@
 				STATUS = #{status},
 			</if>
 			<if test="customerId != null">
-				STATUS = #{customerId},
+				CUSTOMER_ID = #{customerId},
 			</if>
 			<if test="registerNum != null">
 				REGISTERNUMBER = #{registerNum},

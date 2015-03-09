@@ -22,18 +22,24 @@ import com.keeping.business.common.util.PlatformPar;
 import com.keeping.business.common.util.PlatfromConstants;
 import com.keeping.business.common.util.StringUtil;
 import com.keeping.business.common.util.TimeUtil;
+import com.keeping.business.service.CashQueueService;
 import com.keeping.business.service.CustomerService;
 import com.keeping.business.service.JobTypeService;
+import com.keeping.business.service.ModifyQueueService;
 import com.keeping.business.service.OrderService;
 import com.keeping.business.service.PropertyService;
+import com.keeping.business.service.ServeQueueService;
 import com.keeping.business.service.UserService;
 import com.keeping.business.web.controller.converter.JsonConverter;
+import com.keeping.business.web.controller.model.CashQueue;
 import com.keeping.business.web.controller.model.Customer;
+import com.keeping.business.web.controller.model.ModifyQueue;
 import com.keeping.business.web.controller.model.Order;
 import com.keeping.business.web.controller.model.OrderObject;
 import com.keeping.business.web.controller.model.Property;
 import com.keeping.business.web.controller.model.Report;
 import com.keeping.business.web.controller.model.ReportObject;
+import com.keeping.business.web.controller.model.ServeQueue;
 import com.keeping.business.web.controller.model.StatusObject;
 import com.keeping.business.web.controller.model.User;
 import com.keeping.business.web.controller.model.UserProfile;
@@ -59,6 +65,12 @@ public class OrderController {
     private PropertyService propertyService;
 	@Resource
 	private JobTypeService jobtypeService;
+	@Resource
+	private ServeQueueService serveQueueService;
+	@Resource
+	private ModifyQueueService modifyQueueService;
+	@Resource
+	private CashQueueService cashQueueService;
     
     private static Integer nQueueNumber = 0;
     
@@ -89,7 +101,7 @@ public class OrderController {
 		
 		try {
 			String jsonStr = request.getParameter("param");
-			ReportObject reportObject = JsonConverter.getFromJsonString(jsonStr, ReportObject.class);
+			ReportObject reportObject = JsonConverter.getFromJsonString(jsonStr, ReportObject.class, "yyyy-MM-dd");
 			if (reportObject == null) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
@@ -99,11 +111,70 @@ public class OrderController {
 				msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
 //				logger.error("< OrderController.bookOrder() > session为空。" + jsonStr);
 			} else {
-			
-				Report report = new Report();
-				report.setName("");
-				report.setValue("");
+	
+				List<Order> orders = orderService.getAllOrdersFReport(reportObject);				
+				List<ServeQueue> serveQueues = new ArrayList<ServeQueue>();
+				List<ModifyQueue> modifyQueues = new ArrayList<ModifyQueue>();
+				List<CashQueue> cashQueues = new ArrayList<CashQueue>();
 				
+				List<Long> serveQueueTime = new ArrayList<Long>();
+				List<Long> modifyQueueTime = new ArrayList<Long>();
+				List<Long> cashQueueTime = new ArrayList<Long>();
+				
+				Integer total = orders.size();
+				Integer totalServeQueue = 0;
+				Integer totalModifyQueue = 0;
+				Integer totalCashQueue = 0;
+				Long totalServeQueueTime = new Long(0);
+				Long totalModifyQueueTime = new Long(0);
+				Long totalCashQueueTime = new Long(0);
+				
+				for (int i = 0; i < total; i++){
+					
+					ServeQueue serveQueue = new ServeQueue();
+					serveQueue = serveQueueService.getServeQueueById(orders.get(i).getId());
+					if (serveQueue != null && serveQueue.getId() != null){
+						serveQueues.add(serveQueue);
+						Long interval = (serveQueue.getEndTime().getTime() - serveQueue.getStartTime().getTime())/ 1000 % 60;
+						serveQueueTime.add(interval);
+						totalServeQueueTime = totalServeQueueTime + interval;
+						totalServeQueue ++;
+					}
+					
+					ModifyQueue modifyQueue = new ModifyQueue();
+					modifyQueue = modifyQueueService.getModifyQueueById(orders.get(i).getId());
+					if (modifyQueue != null && modifyQueue.getId() != null){
+						modifyQueues.add(modifyQueue);
+						Long interval = (modifyQueue.getEndTime().getTime() - modifyQueue.getStartTime().getTime())/ 1000 % 60;
+						modifyQueueTime.add(interval);
+						totalModifyQueueTime = totalModifyQueueTime + interval;
+						totalModifyQueue ++;
+					}
+					
+					CashQueue cashQueue = new CashQueue();
+					cashQueue = cashQueueService.getCashQueueById(orders.get(i).getId());
+					if(cashQueue != null && cashQueue.getId() != null){
+						cashQueues.add(cashQueue);
+						Long interval = (cashQueue.getEndTime().getTime() - cashQueue.getStartTime().getTime())/ 1000 % 60;
+						cashQueueTime.add(interval);
+						totalCashQueueTime = totalCashQueueTime + interval;
+						totalCashQueue ++;
+					}
+				}
+				
+				Report report = new Report();
+				report.setName("Average serve time");
+				report.setValue((totalServeQueueTime / total) + "");
+				reports.add(report);
+				
+				report = new Report();
+				report.setName("Average modify time");
+				report.setValue((totalModifyQueueTime / total) + "");
+				reports.add(report);
+				
+				report = new Report();
+				report.setName("Average cash time");
+				report.setValue((totalCashQueueTime / total) + "");
 				reports.add(report);
 			}
 		}catch (BusinessServiceException ex) {
@@ -122,6 +193,7 @@ public class OrderController {
 	@ResponseBody
 	public WebResultList<Order> getAllOrders(HttpServletRequest request,HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
+
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 
@@ -310,33 +382,117 @@ public class OrderController {
 ////				logger.error("< OrderController.bookOrder() > session为空。" + jsonStr);
 			} 
 			else {
-				
-				 Customer customer = customerService.getCustomerByPoliceNum(orderObject.getRegisterNum());
+				 Order order = orderService.getOrdersByRegNum(orderObject.getRegisterNum());
 				 
-				 if (customer != null && customer.getUserName() == null){
-					 customer.setPoliceNum(orderObject.getRegisterNum());
-					 customer.setUserName(orderObject.getUserName());
-					 customer.setMobilephone(orderObject.getMobilePhone());
-					 customerService.addCustomer(customer);
-					 customer = customerService.getCustomerByPoliceNum(customer.getPoliceNum());
-				 } else {
-					 customer.setUserName(orderObject.getUserName());
-					 customer.setMobilephone(orderObject.getMobilePhone());
-					 customerService.modifyCustomer(customer);
-				 }
+				 if (order != null && order.getId() == null){
 				
-				 Order order = new Order();
-				 String bookNumber = dateTime.toString();
-				 order.setBookTime(now);
-				 order.setBookNum(bookNumber);
-				 order.setIsBook(1);
-				 order.setRegisterNum(orderObject.getRegisterNum());
-				 order.setCustomerId(customer.getId());
-				 order.setAssignDate(orderObject.getBookStartTime());
-				 order.setJobType(orderObject.getJobType());
-				 order.setUserName(orderObject.getUserName());
-				 order.setBookStartTime(orderObject.getBookStartTime());
-				 orderService.addOrder(order);
+					 Customer customer = customerService.getCustomerByPoliceNum(orderObject.getRegisterNum());
+					 
+					 if (customer != null && customer.getUserName() == null){
+						 customer.setPoliceNum(orderObject.getRegisterNum());
+						 customer.setUserName(orderObject.getUserName());
+						 customer.setMobilephone(orderObject.getMobilePhone());
+						 customerService.addCustomer(customer);
+						 customer = customerService.getCustomerByPoliceNum(customer.getPoliceNum());
+					 } else {
+						 customer.setUserName(orderObject.getUserName());
+						 customer.setMobilephone(orderObject.getMobilePhone());
+						 customerService.modifyCustomer(customer);
+					 }
+					
+					 String bookNumber = dateTime.toString();
+					 order.setBookTime(now);
+					 order.setBookNum(bookNumber);
+					 order.setIsBook(1);
+					 order.setRegisterNum(orderObject.getRegisterNum());
+					 order.setCustomerId(customer.getId());
+					 order.setAssignDate(orderObject.getBookStartTime());
+					 order.setJobType(orderObject.getJobType());
+					 order.setUserName(orderObject.getUserName());
+					 order.setBookStartTime(orderObject.getBookStartTime());
+					 orderService.addOrder(order);
+				} else {
+					 code = BusinessCenterResCode.ORDER_EXIST.getCode();
+					 msg = BusinessCenterResCode.ORDER_EXIST.getMsg();
+				}
+			}
+		}catch (BusinessServiceException ex) {
+			code = ex.getErrorCode();
+			msg = ex.getErrorMessage();
+		}catch (Exception e) {
+			code = BusinessCenterResCode.SYS_ERROR.getCode();
+			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
+//			logger.error("< OrderController.bookOrder() > 订单预约失败." + e.getMessage());
+		}
+
+		// 返回结果
+		try {
+			return JsonConverter.getResultSignal(code, msg);
+		} catch (Exception e) {
+			session.removeAttribute(PlatfromConstants.STR_USER_PROFILE);
+			session.invalidate();
+//			logger.error("< OrderController.bookOrder() > 订单预约返回出错."
+//					+ e.getMessage());
+			throw e;
+		}
+	}
+	
+	@RequestMapping(params = "action=update")
+	@ResponseBody
+	public WebResult updateOrder(HttpServletRequest request,HttpServletResponse response) throws Exception {
+		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
+		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
+		HttpSession session = request.getSession();
+		session.setMaxInactiveInterval(PlatformPar.sessionTimeout);
+		
+		try { 
+			UserProfile loginUser = (UserProfile) session.getAttribute(PlatfromConstants.STR_USER_PROFILE);
+
+			String jsonStr = request.getParameter("param");
+			OrderObject orderObject = JsonConverter.getFromJsonString(jsonStr, OrderObject.class, "yyyy-MM-dd HH:mm:ss");
+			
+			Date now = new Date();
+			java.sql.Timestamp dateTime = new java.sql.Timestamp(now.getTime());
+			 
+			if (StringUtil.isNull(jsonStr) || null == orderObject) {
+				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
+				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
+//				logger.error("< OrderController.bookOrder() > 订单预约请求信息不正确。" + jsonStr);
+//			} else if (null == session || null == loginUser || null == loginUser.getUserName()){
+//				code = BusinessCenterResCode.SYS_INVILID_REQ.getCode();
+//				msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
+////				logger.error("< OrderController.bookOrder() > session为空。" + jsonStr);
+			} 
+			else {
+				 Order order = orderService.getOrdersByRegNum(orderObject.getRegisterNum());
+				 
+				 if (order != null && order.getId() == null){
+				
+					 Customer customer = customerService.getCustomerByPoliceNum(orderObject.getRegisterNum());
+					 
+					 if (customer != null && customer.getUserName() == null){
+						 customer.setPoliceNum(orderObject.getRegisterNum());
+						 customer.setUserName(orderObject.getUserName());
+						 customer.setMobilephone(orderObject.getMobilePhone());
+						 customerService.addCustomer(customer);
+						 customer = customerService.getCustomerByPoliceNum(customer.getPoliceNum());
+					 }
+					
+					 String bookNumber = dateTime.toString();
+//					 order.setBookTime(now);
+//					 order.setBookNum(bookNumber);
+//					 order.setIsBook(1);
+//					 order.setRegisterNum(orderObject.getRegisterNum());
+//					 order.setCustomerId(customer.getId());
+					 order.setAssignDate(orderObject.getBookStartTime());
+					 order.setJobType(orderObject.getJobType());
+					 order.setUserName(orderObject.getUserName());
+					 order.setBookStartTime(orderObject.getBookStartTime());
+					 orderService.updateOrder(order);
+				} else {
+					 code = BusinessCenterResCode.ORDER_EXIST.getCode();
+					 msg = BusinessCenterResCode.ORDER_EXIST.getMsg();
+				}
 			}
 		}catch (BusinessServiceException ex) {
 			code = ex.getErrorCode();
@@ -422,6 +578,9 @@ public class OrderController {
 				property = propertyService.queryByKey("WAITING_TIME_BUFFER");
 				bufferTime = Integer.parseInt(property.getValue());
 				
+				if(bookCounterNum == 0){
+					bookCounterNum = 1;
+				}
 				Integer estimationTime = ((totalBookedOrders / bookCounterNum) + 1) * baseTime + bufferTime;
 			
 				if (StringUtil.isNull(order.getBookNum()) && order.getId() == null) {
