@@ -123,6 +123,8 @@ CREATE TABLE `TBL_ORDER` (
   `promiseTime` datetime DEFAULT NULL,
   `bookTime` datetime DEFAULT NULL,
   `jobType` varchar(20) DEFAULT NULL,
+  `comment` varchar(255) DEFAULT NULL,
+   `groupid` bigint(10) Default NULL,
   INDEX customer_ind (customer_id),
     FOREIGN KEY (customer_id)
     REFERENCES TBL_CUSTOMER (id)

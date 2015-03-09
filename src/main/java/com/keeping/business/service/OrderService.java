@@ -31,7 +31,7 @@ public interface OrderService {
 	
 	public Order getOrdersByQueueNum(String queueNumber);
 	
-	public Order getOrdersByRegNum(String registerNumber);
+	public Order getOrdersByRegNum(OrderObject orderObject);
 	
 	public Integer getOrderCountByStatusAndBook(OrderObject orderObject);
 	

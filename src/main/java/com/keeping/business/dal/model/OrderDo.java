@@ -44,6 +44,10 @@ public class OrderDo {
     private Date beginDate;
     
     private Date endDate;
+    
+    private String comment;
+    
+    private Integer groupid;
 
 	public Integer getStatus() {
 		return status;
@@ -203,5 +207,21 @@ public class OrderDo {
 
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+
+	public Integer getGroupid() {
+		return groupid;
+	}
+
+	public void setGroupid(Integer groupid) {
+		this.groupid = groupid;
 	}
 }

@@ -23,10 +23,12 @@
 		<result column="BOOK_END_TIME" property="bookEndTime" />
 		<result column="JOBTYPE" property="jobType" />
 		<result column="ASSIGN_DATE" property="assignDate" />
+		<result column="COMMENT" property="comment" />
+		<result column="GROUPID" property="groupid" />
 	</resultMap>
 	
 	<sql id="Base_Column_List">
-		ID,STATUS,CUSTOMER_ID,REGISTERNUMBER,QUEUENUMBER,ROOFNUMBER,BOOKNUMBER,ESTIMATIONTIME,PROMISETIME,BOOKTIME,CREATE_TIME,START_TIME,END_TIME,IS_BOOK,BEGIN_DATE,END_DATE,BOOK_START_TIME,BOOK_END_TIME,JOBTYPE,ASSIGN_DATE
+		ID,STATUS,CUSTOMER_ID,REGISTERNUMBER,QUEUENUMBER,ROOFNUMBER,BOOKNUMBER,ESTIMATIONTIME,PROMISETIME,BOOKTIME,CREATE_TIME,START_TIME,END_TIME,IS_BOOK,BEGIN_DATE,END_DATE,BOOK_START_TIME,BOOK_END_TIME,JOBTYPE,ASSIGN_DATE,COMMENT,GROUPID
 	</sql>
 
 	<select id="queryByOrderstatus" resultMap="OrderDoMap" 
@@ -99,7 +101,7 @@
 		<include refid="Base_Column_List" />
 		FROM TBL_ORDER
 		WHERE
-		IS_BOOK = #{isBook} and date(ASSIGN_DATE) &gt;= #{beginDate} and date(ASSIGN_DATE) &lt;= #{endDate}
+		IS_BOOK = #{isBook} and date(ASSIGN_DATE) &gt;= #{beginDate} and date(ASSIGN_DATE) &lt;= #{endDate} and GROUPID = #{groupid}
 	</select>
 
 	<select id="queryOrderByQueueNum" resultMap="OrderDoMap" 
@@ -112,12 +114,12 @@
 	</select>
 	
 	<select id="queryOrderByRegisterNum" resultMap="OrderDoMap" 
-		parameterType="java.lang.String">
+		parameterType="OrderDo">
 		SELECT 
 		<include refid="Base_Column_List" />
 		FROM TBL_ORDER
 		WHERE
-		REGISTERNUMBER = #{registerNum} and STATUS = #{0}
+		REGISTERNUMBER = #{registerNum} and STATUS = 0 and date(ASSIGN_DATE) = #{assignDate}
 	</select>
 	
 	<select id="queryOrderById" resultMap="OrderDoMap" 
@@ -180,6 +182,12 @@
 			<if test="jobType != null">
 				JOBTYPE,
 			</if>
+			<if test="comment != null">
+				COMMENT,
+			</if>
+			<if test="groupid != null">
+				GROUPID,
+			</if>
 			CREATE_TIME,
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -231,6 +239,12 @@
 			<if test="jobType != null">
 				#{jobType},
 			</if>
+			<if test="comment != null">
+				#{comment},
+			</if>
+			<if test="groupid != null">
+				#{groupid},
+			</if>
 			now(),
 		</trim>
 	</insert>
@@ -273,6 +287,12 @@
 			</if>
 			<if test="isBook != null">
 				IS_BOOK = #{isBook},
+			</if>
+			<if test="comment != null">
+				COMMENT = #{comment},
+			</if>
+			<if test="groupid != null">
+				GROUPID = #{groupid},
 			</if>
 		</set>
 		WHERE 

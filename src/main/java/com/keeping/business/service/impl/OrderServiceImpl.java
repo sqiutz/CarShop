@@ -89,6 +89,7 @@ public class OrderServiceImpl implements OrderService {
 		orderDo.setIsBook(orderObject.getIsBook());
 		orderDo.setBeginDate(TimeUtil.transferFromUtilToSqlDate(orderObject.getBeginDate()));
 		orderDo.setEndDate(TimeUtil.transferFromUtilToSqlDate(orderObject.getEndDate()));
+		orderDo.setGroupid(orderObject.getGroupid());
 		
 		List<OrderDo> orderDoes = orderDao.queryByStatusAndBook(orderDo);
 		
@@ -202,10 +203,13 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 
-	public Order getOrdersByRegNum(String registerNumber) {
+	public Order getOrdersByRegNum(OrderObject orderObject) {
 		// TODO Auto-generated method stub
 		Order order = null;
-		OrderDo orderDo = orderDao.queryOrderByRegisterNum(registerNumber);
+		OrderDo orderDo_input = new OrderDo();
+		orderDo_input.setRegisterNum(orderObject.getRegisterNum());
+		orderDo_input.setAssignDate(TimeUtil.transferFromUtilToSqlDate(orderObject.getAssignDate()));
+		OrderDo orderDo = orderDao.queryOrderByRegisterNum(orderDo_input);
 
 		if (orderDo == null){
 			return new Order();

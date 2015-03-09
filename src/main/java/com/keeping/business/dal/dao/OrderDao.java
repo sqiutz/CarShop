@@ -29,7 +29,7 @@ public interface OrderDao extends BaseDao<OrderDo>{
 	
 	public OrderDo queryOrderByQueueNum(String queueNumber);
 	
-	public OrderDo queryOrderByRegisterNum(String registerNumber);
+	public OrderDo queryOrderByRegisterNum(OrderDo orderDo);
 	
 	public Integer queryCountByStatusAndBook(OrderDo orderDo);
 	

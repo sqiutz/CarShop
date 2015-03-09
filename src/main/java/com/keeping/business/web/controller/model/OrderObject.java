@@ -29,6 +29,10 @@ public class OrderObject {
     private Date beginDate;
     
     private Date endDate;
+    
+    private String comment;
+    
+    private Integer groupid;
 
 	public String getQueueNumber() {
 		return queueNumber;
@@ -132,6 +136,22 @@ public class OrderObject {
 
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+
+	public Integer getGroupid() {
+		return groupid;
+	}
+
+	public void setGroupid(Integer groupid) {
+		this.groupid = groupid;
 	}
 	
 	

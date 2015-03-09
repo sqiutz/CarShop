@@ -290,10 +290,9 @@ public class OrderController {
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
 //				logger.error("< OrderController.getAllOrders() > 获取订单状态不正确." + status + " : " + BusinessCenterOrderStatus.ORDER_STATUS_WAIT.getStatus());
 			} else {
-				System.out.println(orderObject.getBeginDate().toString());
-				System.out.println(orderObject.getEndDate().toString());
+				
 				orderList = orderService.getOrderByStatusAndBook(orderObject); //orderObject 包含AssignDate以及isBook为1
-				System.out.println("" + orderList.size());
+
 				for (int j=0; j<orderList.size(); j++){
 					
 					Float load = Float.parseFloat(jobtypeService.queryByKey(orderList.get(j).getJobType()).getValue());
@@ -331,7 +330,7 @@ public class OrderController {
 //				logger.error("< OrderController.getOrder() > 获取订单状态不正确." + orderObject.getQueueNumber() + " : " + BusinessCenterOrderStatus.ORDER_STATUS_WAIT.getStatus());
 			} else {
 				
-				order = orderService.getOrdersByRegNum(orderObject.getRegisterNum());
+				order = orderService.getOrdersByRegNum(orderObject);
 
 			}
 		}catch (BusinessServiceException ex) {
@@ -382,7 +381,7 @@ public class OrderController {
 ////				logger.error("< OrderController.bookOrder() > session为空。" + jsonStr);
 			} 
 			else {
-				 Order order = orderService.getOrdersByRegNum(orderObject.getRegisterNum());
+				 Order order = orderService.getOrdersByRegNum(orderObject);
 				 
 				 if (order != null && order.getId() == null){
 				
@@ -410,6 +409,8 @@ public class OrderController {
 					 order.setJobType(orderObject.getJobType());
 					 order.setUserName(orderObject.getUserName());
 					 order.setBookStartTime(orderObject.getBookStartTime());
+					 order.setComment(orderObject.getComment());
+					 order.setGroupid(orderObject.getGroupid());
 					 orderService.addOrder(order);
 				} else {
 					 code = BusinessCenterResCode.ORDER_EXIST.getCode();
@@ -464,7 +465,7 @@ public class OrderController {
 ////				logger.error("< OrderController.bookOrder() > session为空。" + jsonStr);
 			} 
 			else {
-				 Order order = orderService.getOrdersByRegNum(orderObject.getRegisterNum());
+				 Order order = orderService.getOrdersByRegNum(orderObject);
 				 
 				 if (order != null && order.getId() == null){
 				
@@ -488,6 +489,7 @@ public class OrderController {
 					 order.setJobType(orderObject.getJobType());
 					 order.setUserName(orderObject.getUserName());
 					 order.setBookStartTime(orderObject.getBookStartTime());
+					 order.setGroupid(orderObject.getGroupid());
 					 orderService.updateOrder(order);
 				} else {
 					 code = BusinessCenterResCode.ORDER_EXIST.getCode();
@@ -549,7 +551,7 @@ public class OrderController {
 //				logger.error("< OrderController.bookOrder() > 订单预约请求信息不正确。" + jsonStr);
 			}else{
 				
-				order = orderService.getOrdersByRegNum(orderObject.getRegisterNum());
+				order = orderService.getOrdersByRegNum(orderObject);
 				
 				Integer totalBookedOrders = 0;
 				Integer bookCounterNum = 0;
