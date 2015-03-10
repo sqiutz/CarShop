@@ -152,7 +152,8 @@
                         args : [ 
                                  "beginDate",
                                  "endDate",
-                                 "isBook"
+                                 "isBook",
+                                 "groupid"
                         ]                        
                     },
                     // 获取单个订单
@@ -177,7 +178,9 @@
                                  "mobilePhone",
                                  "jobType",
                                  "assignDate",
-                                 "bookStartTime"
+                                 "bookStartTime",
+                                 "groupid",
+                                 "comment"
                         ]
                     },
                     // 获取modify queue

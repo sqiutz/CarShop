@@ -24,6 +24,7 @@
             $('#manpowerLabel').text(MANPOWER_ALLOCATION);
             $('#expressMainLabel').text(EXPRESS_MAINTENANCE);
             $('#regServiceLabel').text(REGULAR_SERVICE);
+            $('#groupNoLabel').text(GROUP_NO);
         });
     }
     
@@ -119,7 +120,8 @@
                 data : {
                     beginDate: getDateString(start),
                     endDate : getDateString(end),
-                    isBook: 1
+                    isBook: 1,
+                    groupid : $('#groupNo').val()
                 },
                 success : function(orders) {
                     events = createEvents(orders);

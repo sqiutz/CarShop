@@ -136,7 +136,6 @@ public class OrderServiceImpl implements OrderService {
 		return orders_front;
 	}
 
-	@Override
 	public List<Order> getAllOrdersFReport(ReportObject reportObject) {
 		// TODO Auto-generated method stub
 		OrderDo orderDo = new OrderDo();

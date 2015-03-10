@@ -29,7 +29,8 @@
             $('#regularServiceLabel').text(REGULAR_SERVICE);
             $('#expressMaintenanceLabel').text(EXPRESS_MAINTENANCE);
             $('#saveBtn').text(SAVE).attr('title', SAVE);
-            $('#promiseTimeLabel').text(PROMISE_TIME);           
+            $('#promiseTimeLabel').text(PROMISE_TIME);    
+            $('#groupNoLabel').text(GROUP_NO);
         });
     }
     
@@ -129,7 +130,9 @@
                 mobilePhone : $('#contact').val(),
                 jobType : jobTypeSelected,
                 assignDate : startTime,
-                bookStartTime : startTime
+                bookStartTime : startTime,
+                groupid : $('#groupNo').val(),
+                comment : $('#remarks').val()
             },
             success : function(data) {
                 if (data.code == '000000') {
