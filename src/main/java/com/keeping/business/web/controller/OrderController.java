@@ -295,6 +295,10 @@ public class OrderController {
 
 				for (int j=0; j<orderList.size(); j++){
 					
+					Customer customer = customerService.getCustomerByPoliceNum(orderList.get(j).getRegisterNum());
+					
+					orderList.get(j).setCustomer(customer);
+					
 					Float load = Float.parseFloat(jobtypeService.queryByKey(orderList.get(j).getJobType()).getValue());
 					
 					orderList.get(j).setLoad(load);
@@ -467,7 +471,7 @@ public class OrderController {
 			else {
 				 Order order = orderService.getOrdersByRegNum(orderObject);
 				 
-				 if (order != null && order.getId() == null){
+				 if (order != null && order.getId() != null){
 				
 					 Customer customer = customerService.getCustomerByPoliceNum(orderObject.getRegisterNum());
 					 

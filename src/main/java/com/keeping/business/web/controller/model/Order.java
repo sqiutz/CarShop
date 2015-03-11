@@ -57,6 +57,8 @@ public class Order {
 
     private Integer groupid;
     
+    private Customer customer;
+    
 	public Integer getStatus() {
 		return status;
 	}
@@ -263,6 +265,14 @@ public class Order {
 
 	public void setGroupid(Integer groupid) {
 		this.groupid = groupid;
+	}
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
     
 }
