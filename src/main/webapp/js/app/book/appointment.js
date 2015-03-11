@@ -1,4 +1,8 @@
 (function($) {
+    $.cookie('currOrder', '', {expires: -1});
+    $.cookie('selectedDate', '', {expires: -1});
+    $.cookie('selectedTime', '', {expires: -1});
+    $.cookie('selectedGroup', '', {expires: -1});
     applyLang();
     $.UserInfo.getProperty({
         data : {
@@ -24,8 +28,23 @@
             $('#manpowerLabel').text(MANPOWER_ALLOCATION);
             $('#expressMainLabel').text(EXPRESS_MAINTENANCE);
             $('#regServiceLabel').text(REGULAR_SERVICE);
+            $('#groupNoLabel').text(GROUP_NO);
         });
     }
+    
+    $.UserInfo.getProperty({
+        data : {
+            name : 'BOOKING_GROUP_NO'
+        },
+        success : function(data) {
+            if (data.code == '000000') {
+                var num = data.obj.value;
+                for (var i = 0; i < num; i++) {
+                    $("<option></option>").val(i + 1).text(i + 1).appendTo($('#groupNo'));
+                }
+            }
+        }
+    });
     
     $('#newBtn').bind("click", function(){
         location.href = 'new_appointment.html';
@@ -44,16 +63,28 @@
         dateFormat: 'yy-mm-dd',
     });
     
-    function getTimeStr(date) {
-        var hours = date.hour(); 
-        var minutes = date.minute();
-        return (hours < 10 ? '0' : '') + hours + ':' + 
-            (minutes < 10 ? '0' : '') + minutes;
-    }
+    $('#groupNo').change(function() {
+        $('#calendarReguler').fullCalendar('refetchEvents');
+    });
     
     function onDayClick(date, allDay, jsEvent, view) {
         $.cookie('selectedDate', '' + date.year() + '-' + (date.month() + 1) + '-'+ date.date());
         $.cookie('selectedTime', getTimeStr(date));
+        $.cookie('selectedGroup', $('#groupNo').val());
+        location.href = 'new_appointment.html';
+    }
+    
+    function onEventClick(calEvent, jsEvent, view) {
+        calEvent;
+        var currOrder = '{"groupid":' + '"' + calEvent.order.groupid + '",' +
+                        '"assignDate":' + '"' + getDateString(new Date(calEvent.order.assignDate))  + '",' +
+                        '"registerNum":' + '"' + calEvent.order.registerNum + '",' +
+                        '"userName":' + '"' + calEvent.order.userName + '",' +
+                        '"mobilePhone":' + '"' + calEvent.order.mobilePhone + '",' +
+                        '"bookStartTime":' + '"' + getTimeStr(calEvent.order.bookStartTime) + '",' +
+                        '"jobType":' + '"' + calEvent.order.jobType + '",' +
+                        '"comment":' + '"' + calEvent.order.comment + '"' + '}';
+        $.cookie('currOrder', currOrder);
         location.href = 'new_appointment.html';
     }
     
@@ -97,7 +128,8 @@
              
             callback(events);  
         },
-        dayClick: onDayClick        
+        dayClick: onDayClick,
+        eventClick: onEventClick
     });
     
     $('#calendarReguler').fullCalendar({
@@ -119,7 +151,8 @@
                 data : {
                     beginDate: getDateString(start),
                     endDate : getDateString(end),
-                    isBook: 1
+                    isBook: 1,
+                    groupid : $('#groupNo').val() ? $('#groupNo').val() : 1
                 },
                 success : function(orders) {
                     events = createEvents(orders);
@@ -131,7 +164,8 @@
                 }
             });   
         },
-        dayClick: onDayClick
+        dayClick: onDayClick,
+        eventClick: onEventClick
     });
     $('#calendarReguler .fc-left').css("visibility","hidden");
     $('#calendarReguler .fc-center').css("visibility","hidden");
@@ -187,13 +221,10 @@
                 title: order.registerNum,  
                 start: evtstart,  
                 end: evtend,
+                order:order
             });
         }
         return events;
-    }
-    
-    function getDateString(date) {
-        return '' + date.year() + '-' + (date.month() + 1) + '-' + date.date();
     }
     
 })(jQuery);

@@ -632,7 +632,14 @@
 	                endDate : getDateString(endDate)
 	            },
 	            success : function(report) {
-	                var r = report;
+	                $('#reportListDiv div.list').remove();
+	                for(var i = 0; i < report.length; i++) {
+	                    var item = report[i];
+	                    var div = $('<div></div>').attr('class', 'list').css('width', '680px')
+	                        .appendTo($('#reportListDiv'));
+	                    $('<label></label>').attr('style', 'width:250px;font-weight:bold').text(item.name).appendTo(div);
+	                    $('<label></label>').attr('style', 'width:350px;').text(item.value).appendTo(div);
+	                }
 	            }
 	        });
 	    }

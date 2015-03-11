@@ -151,6 +151,7 @@ var EXPRESS_MAINTENANCE = 'Express Maintenance';
 var OTHERS = 'Others';
 var INPUT_EST_TIME = 'input est. time';
 
+var GROUP_NO = 'Group No.';
 var SETTING_PARAMETER = 'Setting Parameter';
 var MANPOWER = 'Manpower';
 var SERVICES_RATE_TIME = 'Services Rate Time';

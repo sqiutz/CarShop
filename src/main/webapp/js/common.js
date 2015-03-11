@@ -152,7 +152,8 @@
                         args : [ 
                                  "beginDate",
                                  "endDate",
-                                 "isBook"
+                                 "isBook",
+                                 "groupid"
                         ]                        
                     },
                     // 获取单个订单
@@ -177,7 +178,22 @@
                                  "mobilePhone",
                                  "jobType",
                                  "assignDate",
-                                 "bookStartTime"
+                                 "bookStartTime",
+                                 "groupid",
+                                 "comment"
+                        ]
+                    },
+                    update : {
+                        url : "order.do?action=update",
+                        args : [ 
+                                 "registerNum",
+                                 "userName",
+                                 "mobilePhone",
+                                 "jobType",
+                                 "assignDate",
+                                 "bookStartTime",
+                                 "groupid",
+                                 "comment"
                         ]
                     },
                     // 获取modify queue

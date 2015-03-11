@@ -311,6 +311,7 @@ insert into tbl_property set name='LANGUAGE', value='en_US';
 insert into tbl_property set name='COUNTER_NUM', value='5';
 insert into tbl_property set name='AVG_WAITING_TIME', value='330';
 insert into tbl_property set name='WAITING_TIME_BUFFER', value='300';
+insert into tbl_property set name='BOOKING_GROUP_NO', value='6';
 
 insert into TBL_JOBTYPE set name='1K', value='1';
 insert into TBL_JOBTYPE set name='A', value='0.5';
