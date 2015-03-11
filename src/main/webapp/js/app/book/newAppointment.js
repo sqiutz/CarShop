@@ -34,6 +34,20 @@
         });
     }
     
+    $.UserInfo.getProperty({
+        data : {
+            name : 'BOOKING_GROUP_NO'
+        },
+        success : function(data) {
+            if (data.code == '000000') {
+                var num = data.obj.value;
+                for (var i = 0; i < num; i++) {
+                    $("<option></option>").val(i + 1).text(i + 1).appendTo($('#groupNo'));
+                }
+            }
+        }
+    });
+    
     var defaultDate, defaultJobType, update = false;
     function initialize() {
         var order = $.cookie('currOrder');
