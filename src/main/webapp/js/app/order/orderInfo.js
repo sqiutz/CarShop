@@ -135,6 +135,15 @@ define([], function() {
                 }
             });
         },
+        update : function(options) {
+            $.common.ajax("update", {
+                type :"POST",
+                data : options.data,
+                success : function(data) {
+                    options.success(data);
+                }
+            });
+        },
         // 获取单个modify queue
 		getModifyQueue : function(options) {
             $.common.ajax("getModifyQueue", {

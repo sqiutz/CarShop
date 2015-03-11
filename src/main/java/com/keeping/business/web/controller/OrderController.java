@@ -467,7 +467,7 @@ public class OrderController {
 			else {
 				 Order order = orderService.getOrdersByRegNum(orderObject);
 				 
-				 if (order != null && order.getId() == null){
+				 if (order != null && order.getId() != null){
 				
 					 Customer customer = customerService.getCustomerByPoliceNum(orderObject.getRegisterNum());
 					 

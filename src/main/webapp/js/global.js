@@ -52,13 +52,37 @@ function loadLang(url, complete) {
     }
 }
 
+function getDateString(date) {
+    try {
+        return '' + date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+    }
+    catch(e) {}
+    try {
+        return '' + date.year() + '-' + (date.month() + 1) + '-' + date.date(); 
+    }
+    catch(e) {}
+    return '';
+}
+
 function getTimeStr(time) {
     if(undefined === time || null === time) {
         return '';
     }
-    var data = new Date(time);
-    var hours = data.getHours(); 
-    var minutes = data.getMinutes();
-    return (hours < 10 ? '0' : '') + hours + ':' + 
-        (minutes < 10 ? '0' : '') + minutes;
+    var date, hours, minutes;
+    try {
+        hours = time.hour(); 
+        minutes = time.minute();
+        return (hours < 10 ? '0' : '') + hours + ':' + 
+            (minutes < 10 ? '0' : '') + minutes;
+    }    
+    catch(e) {}
+    try {
+        date = new Date(time);
+        hours = date.getHours(); 
+        minutes = date.getMinutes();
+        return (hours < 10 ? '0' : '') + hours + ':' + 
+            (minutes < 10 ? '0' : '') + minutes;
+    }
+    catch(e) {}
+    return '';
 }

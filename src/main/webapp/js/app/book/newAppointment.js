@@ -34,17 +34,46 @@
         });
     }
     
-    $("#dateDiv").datepicker({
-        inline: true,
-        showMonthAfterYear: true,
-        changeMonth: true,
-        changeYear: true,
-        buttonImageOnly: true,
-        dateFormat: 'yy-mm-dd',
-        defaultDate: $.cookie('selectedDate') ? $.cookie('selectedDate') : new Date()
-    });
-    if($.cookie('selectedTime')) {
-        $('#promiseTime').val($.cookie('selectedTime'));
+    var defaultDate, defaultJobType, update = false;
+    function initialize() {
+        var order = $.cookie('currOrder');
+        if(order) {
+            update = true;
+            order =  JSON.parse(order);
+            defaultDate = order.assignDate;
+            $('#groupNo').val(order.groupid);
+            $('#policeNo').val(order.registerNum);
+            $('#policeNo').attr('disabled', 'disabled');
+            $('#customer').val(order.userName);
+            $('#contact').val(order.mobilePhone);
+            $('#remarks').val(order.comment);
+            defaultJobType =  order.jobType;
+            $('#promiseTime').val(order.bookStartTime);
+        }
+        else {
+            if($.cookie('selectedGroup')) {
+                $('#groupNo').val($.cookie('selectedGroup'));
+            }
+            if($.cookie('selectedDate')) {
+                defaultDate = $.cookie('selectedDate');
+            }
+            else {
+                defaultDate = new Date();
+            }
+            if($.cookie('selectedTime')) {
+                $('#promiseTime').val($.cookie('selectedTime'));
+            }
+        }
+        
+        $("#dateDiv").datepicker({
+            inline: true,
+            showMonthAfterYear: true,
+            changeMonth: true,
+            changeYear: true,
+            buttonImageOnly: true,
+            dateFormat: 'yy-mm-dd',
+            defaultDate: defaultDate
+        });
     }
     
     var getJobTypeList = function() {
@@ -60,7 +89,8 @@
             var jobType = jobTypes[i];
             var div = $('#regularService');
             $('<input></input>').attr('type', 'checkbox')
-                .val(jobType.name).attr('class', 'jobTypeCkb').appendTo(div)
+                .val(jobType.name).attr('class', 'jobTypeCkb').attr('checked', jobType.name === defaultJobType)
+                .appendTo(div)
                 .bind('click', function() {
                     if($(this).is(':checked')) {
                         $('#serviceTypeErrMsg').html('').hide('normal');
@@ -119,12 +149,13 @@
         if(!(policeNo && promiseTime && serviceType && customer)) {
             return;
         }
+        $.cookie('currOrder', '', {expires: -1});
         $.cookie('selectedDate', '', {expires: -1});
         $.cookie('selectedTime', '', {expires: -1});
+        $.cookie('selectedGroup', '', {expires: -1});
         var startTime = getDateString($('#dateDiv').datepicker('getDate')) + " " + 
             $('#promiseTime').val() + ":00";
-        $.OrderInfo.book({
-            data : {
+        var order = {
                 registerNum : $('#policeNo').val(),
                 userName : $('#customer').val(),
                 mobilePhone : $('#contact').val(),
@@ -133,24 +164,42 @@
                 bookStartTime : startTime,
                 groupid : $('#groupNo').val(),
                 comment : $('#remarks').val()
-            },
-            success : function(data) {
-                if (data.code == '000000') {
-                    $('#errMsg').html('').hide('normal');
-                    location.href = 'appointment_index.html';
+        };
+        if(update) {
+            $.OrderInfo.update({
+                data : order,
+                success : function(data) {
+                    if (data.code == '000000') {
+                        $('#errMsg').html('').hide('normal');
+                        location.href = 'appointment_index.html';
+                    }
+                    else {
+                        $('#errMsg').html('System error, failed to save the appointment!').show('normal');
+                    }
                 }
-                else {
-                    $('#errMsg').html('System error, failed to save the appointment!').show('normal');
+            });            
+        } else {
+            $.OrderInfo.book({
+                data : order,
+                success : function(data) {
+                    if (data.code == '000000') {
+                        $('#errMsg').html('').hide('normal');
+                        location.href = 'appointment_index.html';
+                    }
+                    else if(data.code == '010301') {
+                        $('#errMsg').html("This customer has already booked today, please don't book again!").show('normal');
+                    }  
+                    else {
+                        $('#errMsg').html('System error, failed to save the appointment!').show('normal');
+                    }
                 }
-            }
-        });
+            });
+        }        
     });
     
-    getJobTypeList();
     
-    function getDateString(date) {
-        return '' + date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
-    }    
+    initialize();
+    getJobTypeList();
     
     function validatePoliceNo() {
         var policeNo = $('#policeNo').val();

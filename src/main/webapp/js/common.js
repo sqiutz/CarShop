@@ -183,6 +183,19 @@
                                  "comment"
                         ]
                     },
+                    update : {
+                        url : "order.do?action=update",
+                        args : [ 
+                                 "registerNum",
+                                 "userName",
+                                 "mobilePhone",
+                                 "jobType",
+                                 "assignDate",
+                                 "bookStartTime",
+                                 "groupid",
+                                 "comment"
+                        ]
+                    },
                     // 获取modify queue
                     getModifyQueue : {
                         url : "modifyqueue.do?action=getone",
