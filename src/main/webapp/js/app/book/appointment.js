@@ -152,7 +152,7 @@
                     beginDate: getDateString(start),
                     endDate : getDateString(end),
                     isBook: 1,
-                    groupid : $('#groupNo').val()
+                    groupid : $('#groupNo').val() ? $('#groupNo').val() : 1
                 },
                 success : function(orders) {
                     events = createEvents(orders);

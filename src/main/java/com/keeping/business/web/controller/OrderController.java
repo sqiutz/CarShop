@@ -490,6 +490,7 @@ public class OrderController {
 					 order.setUserName(orderObject.getUserName());
 					 order.setBookStartTime(orderObject.getBookStartTime());
 					 order.setGroupid(orderObject.getGroupid());
+					 order.setComment(orderObject.getComment());
 					 orderService.updateOrder(order);
 				} else {
 					 code = BusinessCenterResCode.ORDER_EXIST.getCode();
