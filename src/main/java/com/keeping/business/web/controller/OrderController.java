@@ -291,17 +291,26 @@ public class OrderController {
 //				logger.error("< OrderController.getAllOrders() > 获取订单状态不正确." + status + " : " + BusinessCenterOrderStatus.ORDER_STATUS_WAIT.getStatus());
 			} else {
 				
-				orderList = orderService.getOrderByStatusAndBook(orderObject); //orderObject 包含AssignDate以及isBook为1
-
+				if (orderObject.getExpress() == null){
+					orderList = orderService.getOrderByStatusAndBook(orderObject); //orderObject 包含AssignDate以及isBook为1
+				} else {
+					orderList = orderService.getOrderByBookAndExpress(orderObject);
+				}
+				
 				for (int j=0; j<orderList.size(); j++){
 					
 					Customer customer = customerService.getCustomerByPoliceNum(orderList.get(j).getRegisterNum());
 					
 					orderList.get(j).setCustomer(customer);
 					
-					Float load = Float.parseFloat(jobtypeService.queryByKey(orderList.get(j).getJobType()).getValue());
+					if (orderObject.getExpress() == null){
+						Float load = Float.parseFloat(jobtypeService.queryByKey(orderList.get(j).getJobType()).getValue());
+						orderList.get(j).setLoad(load);
+					} else {
+						Float load = Float.parseFloat(jobtypeService.queryByKey("Express" + orderList.get(j).getJobType()).getValue());
+						orderList.get(j).setLoad(load);
+					}
 					
-					orderList.get(j).setLoad(load);
 				}
 			}
 		}catch (BusinessServiceException ex) {
@@ -415,6 +424,7 @@ public class OrderController {
 					 order.setBookStartTime(orderObject.getBookStartTime());
 					 order.setComment(orderObject.getComment());
 					 order.setGroupid(orderObject.getGroupid());
+					 order.setExpress(orderObject.getExpress());
 					 orderService.addOrder(order);
 				} else {
 					 code = BusinessCenterResCode.ORDER_EXIST.getCode();
@@ -495,6 +505,7 @@ public class OrderController {
 					 order.setBookStartTime(orderObject.getBookStartTime());
 					 order.setGroupid(orderObject.getGroupid());
 					 order.setComment(orderObject.getComment());
+					 order.setExpress(orderObject.getExpress());
 					 orderService.updateOrder(order);
 				} else {
 					 code = BusinessCenterResCode.ORDER_EXIST.getCode();

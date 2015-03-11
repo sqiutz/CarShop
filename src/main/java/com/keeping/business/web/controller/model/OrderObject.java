@@ -33,6 +33,8 @@ public class OrderObject {
     private String comment;
     
     private Integer groupid;
+    
+    private String express;
 
 	public String getQueueNumber() {
 		return queueNumber;
@@ -152,6 +154,14 @@ public class OrderObject {
 
 	public void setGroupid(Integer groupid) {
 		this.groupid = groupid;
+	}
+
+	public String getExpress() {
+		return express;
+	}
+
+	public void setExpress(String express) {
+		this.express = express;
 	}
 	
 	

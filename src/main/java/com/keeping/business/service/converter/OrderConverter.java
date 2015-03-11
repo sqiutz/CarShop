@@ -35,6 +35,7 @@ public class OrderConverter {
 		order.setEndDate(TimeUtil.transferFromSqlToUtilDate(orderDo.getEndDate()));
 		order.setComment(orderDo.getComment());
 		order.setGroupid(orderDo.getGroupid());
+		order.setExpress(orderDo.getExpress());
 		
 		order.setStatusValue((BusinessCenterOrderStatus.getById(orderDo.getStatus())).getStatus());
 		
@@ -69,6 +70,7 @@ public class OrderConverter {
 		orderDo.setEndDate(TimeUtil.transferFromUtilToSqlDate(order.getEndDate()));
 		orderDo.setComment(order.getComment());
 		orderDo.setGroupid(order.getGroupid());
+		orderDo.setExpress(order.getExpress());
 		
 		return orderDo;
 	}

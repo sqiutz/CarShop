@@ -48,6 +48,8 @@ public class OrderDo {
     private String comment;
     
     private Integer groupid;
+    
+    private String express;
 
 	public Integer getStatus() {
 		return status;
@@ -223,5 +225,13 @@ public class OrderDo {
 
 	public void setGroupid(Integer groupid) {
 		this.groupid = groupid;
+	}
+
+	public String getExpress() {
+		return express;
+	}
+
+	public void setExpress(String express) {
+		this.express = express;
 	}
 }

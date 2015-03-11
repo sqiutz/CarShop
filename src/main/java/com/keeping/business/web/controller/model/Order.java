@@ -59,6 +59,8 @@ public class Order {
     
     private Customer customer;
     
+    private String express;
+    
 	public Integer getStatus() {
 		return status;
 	}
@@ -273,6 +275,14 @@ public class Order {
 
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
+	}
+
+	public String getExpress() {
+		return express;
+	}
+
+	public void setExpress(String express) {
+		this.express = express;
 	}
     
 }

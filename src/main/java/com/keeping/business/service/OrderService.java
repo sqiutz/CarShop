@@ -36,5 +36,7 @@ public interface OrderService {
 	public Integer getOrderCountByStatusAndBook(OrderObject orderObject);
 	
 	public List<Order> getOrderByStatusAndBook(OrderObject orderObject);
+	
+	public List<Order> getOrderByBookAndExpress(OrderObject orderObject);
 
 }

@@ -25,10 +25,11 @@
 		<result column="ASSIGN_DATE" property="assignDate" />
 		<result column="COMMENT" property="comment" />
 		<result column="GROUPID" property="groupid" />
+		<result column="EXPRESS" property="express" />
 	</resultMap>
 	
 	<sql id="Base_Column_List">
-		ID,STATUS,CUSTOMER_ID,REGISTERNUMBER,QUEUENUMBER,ROOFNUMBER,BOOKNUMBER,ESTIMATIONTIME,PROMISETIME,BOOKTIME,CREATE_TIME,START_TIME,END_TIME,IS_BOOK,BEGIN_DATE,END_DATE,BOOK_START_TIME,BOOK_END_TIME,JOBTYPE,ASSIGN_DATE,COMMENT,GROUPID
+		ID,STATUS,CUSTOMER_ID,REGISTERNUMBER,QUEUENUMBER,ROOFNUMBER,BOOKNUMBER,ESTIMATIONTIME,PROMISETIME,BOOKTIME,CREATE_TIME,START_TIME,END_TIME,IS_BOOK,BEGIN_DATE,END_DATE,BOOK_START_TIME,BOOK_END_TIME,JOBTYPE,ASSIGN_DATE,COMMENT,GROUPID,EXPRESS
 	</sql>
 
 	<select id="queryByOrderstatus" resultMap="OrderDoMap" 
@@ -101,7 +102,15 @@
 		<include refid="Base_Column_List" />
 		FROM TBL_ORDER
 		WHERE
-		IS_BOOK = #{isBook} and date(ASSIGN_DATE) &gt;= #{beginDate} and date(ASSIGN_DATE) &lt;= #{endDate} and GROUPID = #{groupid}
+		IS_BOOK = #{isBook} and date(ASSIGN_DATE) &gt;= #{beginDate} and date(ASSIGN_DATE) &lt;= #{endDate} and GROUPID = #{groupid} and EXPRESS IS NULL
+	</select>
+	
+	<select id="queryByBookAndExpress" resultMap="OrderDoMap" >
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM TBL_ORDER
+		WHERE
+		IS_BOOK = #{isBook} and date(ASSIGN_DATE) &gt;= #{beginDate} and date(ASSIGN_DATE) &lt;= #{endDate} and GROUPID = #{groupid} and EXPRESS IS NOT NULL
 	</select>
 
 	<select id="queryOrderByQueueNum" resultMap="OrderDoMap" 
@@ -188,6 +197,9 @@
 			<if test="groupid != null">
 				GROUPID,
 			</if>
+			<if test="express != null">
+				EXPRESS,
+			</if>
 			CREATE_TIME,
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -245,6 +257,9 @@
 			<if test="groupid != null">
 				#{groupid},
 			</if>
+			<if test="express != null">
+				#{express},
+			</if>
 			now(),
 		</trim>
 	</insert>
@@ -293,6 +308,12 @@
 			</if>
 			<if test="groupid != null">
 				GROUPID = #{groupid},
+			</if>
+			<if test="jobType != null">
+				JOBTYPE = #{jobType},
+			</if>
+			<if test="express != null">
+				EXPRESS = #{express},
 			</if>
 		</set>
 		WHERE 
