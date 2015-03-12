@@ -48,6 +48,7 @@ var ADDITION_TIME = 'Addition Time';
 var PROMISE_TIME = 'Promise Time';
 var REFERENCE = 'Reference';
 var BACK = 'BACK';
+var ID = 'ID';
 
 var CAR_WASH_QUEU_BOARD = 'CAR WASH QUEU BOARD';
 var CANCEL = 'CANCEL';
