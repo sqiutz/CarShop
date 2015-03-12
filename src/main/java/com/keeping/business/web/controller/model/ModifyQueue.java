@@ -28,6 +28,8 @@ public class ModifyQueue extends BaseQueue{
 	private Float load;
 	
 	private Integer modifierId;
+	
+	private User modifier;
 
 	public String getJobType() {
 		return jobType;
@@ -123,6 +125,14 @@ public class ModifyQueue extends BaseQueue{
 
 	public void setJobtypeTime(Float jobtypeTime) {
 		this.jobtypeTime = jobtypeTime;
+	}
+
+	public User getModifier() {
+		return modifier;
+	}
+
+	public void setModifier(User modifier) {
+		this.modifier = modifier;
 	}
     
 }

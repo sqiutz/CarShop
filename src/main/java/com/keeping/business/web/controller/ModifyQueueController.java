@@ -217,12 +217,15 @@ public class ModifyQueueController {
 				if (modifyQueue != null && modifyQueue.getId() != null){
 					Integer userId = modifyQueue.getUserId();
 					Integer orderId = modifyQueue.getOrderId();
+					Integer modifierId = modifyQueue.getModifierId();
 					
 					User user = userService.getByUserId(userId);
 					Order order = orderService.queryOrderById(orderId);
+					User modifier = userService.getByUserId(modifierId);
 
 					modifyQueue.setUser(user);
 					modifyQueue.setOrder(order);
+					modifyQueue.setModifier(modifier);
 					
 					JobType jobType = jobtypeService.queryByKey(modifyQueue.getJobType());
 					modifyQueue.setJobtypeTime(Float.parseFloat(jobType.getValue()));
