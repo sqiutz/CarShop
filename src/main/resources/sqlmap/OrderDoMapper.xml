@@ -312,9 +312,7 @@
 			<if test="jobType != null">
 				JOBTYPE = #{jobType},
 			</if>
-			<if test="express != null">
-				EXPRESS = #{express},
-			</if>
+				EXPRESS = #{express}
 		</set>
 		WHERE 
 		ID = #{id}

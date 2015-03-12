@@ -111,7 +111,7 @@ CREATE TABLE `TBL_ORDER` (
   `estimationTime` bigint(10) DEFAULT NULL,
   `bookNumber` varchar(48) DEFAULT NULL,
   `is_book` smallint(1) NOT NULL DEFAULT 0,
-  `customer_id` bigint(10) NOT NULL,
+  `customer_id` bigint(10) DEFAULT NULL,
   `assign_date` datetime  NOT NULL DEFAULT '1990-01-01 00:00:00',
   `begin_date` datetime  NOT NULL DEFAULT '1990-01-01 00:00:00',
   `end_date` datetime  NOT NULL DEFAULT '1990-01-01 00:00:00',

@@ -29,6 +29,7 @@ import com.keeping.business.service.ModifyQueueService;
 import com.keeping.business.service.OrderService;
 import com.keeping.business.service.PropertyService;
 import com.keeping.business.service.ServeQueueService;
+import com.keeping.business.service.UserGroupService;
 import com.keeping.business.service.UserService;
 import com.keeping.business.web.controller.converter.JsonConverter;
 import com.keeping.business.web.controller.model.CashQueue;
@@ -42,6 +43,7 @@ import com.keeping.business.web.controller.model.ReportObject;
 import com.keeping.business.web.controller.model.ServeQueue;
 import com.keeping.business.web.controller.model.StatusObject;
 import com.keeping.business.web.controller.model.User;
+import com.keeping.business.web.controller.model.UserGroup;
 import com.keeping.business.web.controller.model.UserProfile;
 import com.keeping.business.web.controller.model.WebResult;
 import com.keeping.business.web.controller.model.WebResultList;
@@ -71,6 +73,8 @@ public class OrderController {
 	private ModifyQueueService modifyQueueService;
 	@Resource
 	private CashQueueService cashQueueService;
+	@Resource
+	private UserGroupService userGroupService;
     
     private static Integer nQueueNumber = 0;
     
@@ -577,7 +581,8 @@ public class OrderController {
 				orderObject.setNow(now);
 				orderObject.setStatus(BusinessCenterOrderStatus.ORDER_STATUS_WAIT.getId());
 				User user = new User();
-				user.setGroupId(5);
+				UserGroup userGroup = userGroupService.queryByName("2");  //SA所在的组
+				user.setGroupId(userGroup.getId());   
 				if (StringUtil.isNull(order.getBookNum()) && order.getId() == null) {
 					orderObject.setIsBook(0);
 					user.setIsBooker(0);
@@ -600,6 +605,8 @@ public class OrderController {
 				Integer estimationTime = ((totalBookedOrders / bookCounterNum) + 1) * baseTime + bufferTime;
 			
 				if (StringUtil.isNull(order.getBookNum()) && order.getId() == null) {
+					Customer customer = customerService.getCustomerByPoliceNum(orderObject.getRegisterNum());
+					order.setCustomerId(customer.getId());
 					order.setRegisterNum(orderObject.getRegisterNum());
 					order.setStartTime(dateTime);
 					order.setStatus(BusinessCenterOrderStatus.ORDER_STATUS_WAIT.getId());    //1: start to wait for serve queue
