@@ -548,8 +548,6 @@ public class OrderController {
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		
-		response.setHeader("Access-Control-Allow-Origin", "*");
-		
 		Order order = new Order();
 		
 		try {
@@ -559,7 +557,7 @@ public class OrderController {
 			StringBuffer stringBuffer = new StringBuffer();
 		
 			String jsonStr = request.getParameter("param");
-			OrderObject orderObject = JsonConverter.getFromJsonString(jsonStr, OrderObject.class, "yyyy-MM-dd HH:mm:ss");
+			OrderObject orderObject = JsonConverter.getFromJsonString(jsonStr, OrderObject.class, "yyyy-MM-dd");
 			 
 			if (StringUtil.isNull(jsonStr) || null == orderObject) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
