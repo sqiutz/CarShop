@@ -1,3 +1,5 @@
+var CONST_EXPRESS = 'Express';
+
 function layout(minWidth, minHeight, contentPadding) {
     var headerTopH = 0;
     if($('#headerTop').length > 0) {

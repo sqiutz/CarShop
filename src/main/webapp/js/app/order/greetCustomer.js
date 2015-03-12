@@ -29,7 +29,8 @@
     $('#printBtn').bind('click', function() {
     	$.OrderInfo.startOrder({
     		data : {
-    			registerNum : $('#regNumber').val()
+    			registerNum : $('#regNumber').val(),
+    			assignDate : getDateString(new Date())
     		},
     		success : function(data) {
                 if(data.code == '000000') {

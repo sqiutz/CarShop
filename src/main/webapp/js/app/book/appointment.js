@@ -79,10 +79,11 @@
         var currOrder = '{"groupid":' + '"' + calEvent.order.groupid + '",' +
                         '"assignDate":' + '"' + getDateString(new Date(calEvent.order.assignDate))  + '",' +
                         '"registerNum":' + '"' + calEvent.order.registerNum + '",' +
-                        '"userName":' + '"' + calEvent.order.userName + '",' +
-                        '"mobilePhone":' + '"' + calEvent.order.mobilePhone + '",' +
+                        '"userName":' + '"' + calEvent.order.customer.userName + '",' +
+                        '"mobilePhone":' + '"' + calEvent.order.customer.mobilephone + '",' +
                         '"bookStartTime":' + '"' + getTimeStr(calEvent.order.bookStartTime) + '",' +
-                        '"jobType":' + '"' + calEvent.order.jobType + '",' +
+                        '"jobType":' + '"' + (calEvent.order.jobType || '') + '",' +
+                        '"express":' + '"' + (calEvent.order.express || '') + '",' +
                         '"comment":' + '"' + calEvent.order.comment + '"' + '}';
         $.cookie('currOrder', currOrder);
         location.href = 'new_appointment.html';
@@ -103,30 +104,23 @@
         maxTime : '18:00:00',
         events:  function(start, end, timezone, callback){  
             var events = [];  
-            
-            /*var now = new Date();  
-            for(var i=-10;i<60;i++){  
-                var evtstart = new Date(now.getFullYear() , now.getMonth() , (now.getDate()-i), now.getHours()-3, now.getMinutes(), now.getSeconds(), now.getMilliseconds());  
-                var evtend = new Date(now.getFullYear() , now.getMonth() , (now.getDate()-i), now.getHours(), now.getMinutes(), now.getSeconds(), now.getMilliseconds());               
-                events.push({  
-                    sid: 1,  
-                    uid: 1,  
-                    title: 'Daily Scrum meeting',  
-                    start: evtstart,  
-                    end: evtend,  
-                    fullname: 'terry li',  
-                    confname: 'Meeting 1',  
-                    confshortname: 'M1',  
-                    confcolor: '#ff3f3f',  
-                    confid: 'test1',  
-                    allDay: false,  
-                    topic: 'Daily Scrum meeting',  
-                    description : 'Daily Scrum meeting',  
-                    id: 1,  
-                    });         
-            }*/ 
-             
-            callback(events);  
+            $.OrderInfo.getBookedOrderListByDate({
+                data : {
+                    beginDate: getDateString(start),
+                    endDate : getDateString(end),
+                    isBook: 1,
+                    express : 'A',
+                    groupid : $('#groupNo').val() ? $('#groupNo').val() : 1
+                },
+                success : function(orders) {
+                    events = createEvents(orders);
+                    callback(events);
+                },
+                error : function(orders) {
+                    events = createEvents(orders);
+                    callback(events);
+                }
+            });
         },
         dayClick: onDayClick,
         eventClick: onEventClick

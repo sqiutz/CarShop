@@ -61,7 +61,7 @@
             $('#customer').val(order.userName);
             $('#contact').val(order.mobilePhone);
             $('#remarks').val(order.comment);
-            defaultJobType =  order.jobType;
+            defaultJobType =  order.jobType ? order.jobType : (CONST_EXPRESS + order.express);
             $('#promiseTime').val(order.bookStartTime);
         }
         else {
@@ -100,15 +100,22 @@
     var jobTypeSelected = null;
     var createJobTypeList = function(jobTypes) {
         for(var i = 0; i < jobTypes.length; i++) {
-            var jobType = jobTypes[i];
-            var div = $('#regularService');
+            var div, jobTypeName, jobType = jobTypes[i];
+            if(jobType.name.indexOf(CONST_EXPRESS) > -1) {
+                jobTypeName = jobType.name.substring(CONST_EXPRESS.length);
+                div = $('#expressMaintenance');
+            }
+            else {
+                jobTypeName = jobType.name;
+                div = $('#regularService');
+            }
             $('<input></input>').attr('type', 'checkbox')
                 .val(jobType.name).attr('class', 'jobTypeCkb').attr('checked', jobType.name === defaultJobType)
                 .appendTo(div)
                 .bind('click', function() {
                     if($(this).is(':checked')) {
-                        $('#serviceTypeErrMsg').html('').hide('normal');
                         jobTypeSelected = $(this).val();
+                        $('#serviceTypeErrMsg').html('').hide('normal');
                         var ckbs = $('.jobTypeCkb');
                         for(var j = 0; j < ckbs.length; j++) {
                             if($(ckbs[j]).val() !== jobTypeSelected) {
@@ -122,7 +129,7 @@
                     }
                 });
             $('<span></span>').attr('style', 'display:inline-block;width:100px;text-align:left;padding-left:10px')
-                .text(jobType.name).appendTo(div);
+                .text(jobTypeName).appendTo(div);
         }
         /*var box = $('#regularServiceBox');
         $('<input></input>').attr('type', 'checkbox')
@@ -173,12 +180,19 @@
                 registerNum : $('#policeNo').val(),
                 userName : $('#customer').val(),
                 mobilePhone : $('#contact').val(),
-                jobType : jobTypeSelected,
                 assignDate : startTime,
                 bookStartTime : startTime,
                 groupid : $('#groupNo').val(),
                 comment : $('#remarks').val()
         };
+        if(jobTypeSelected.indexOf(CONST_EXPRESS) > -1) {
+            order.express = jobTypeSelected.substring(CONST_EXPRESS.length);
+            delete order.jobType;
+        }
+        else {
+            order.jobType = jobTypeSelected;
+            delete order.express;
+        }
         if(update) {
             $.OrderInfo.update({
                 data : order,
@@ -320,6 +334,7 @@
         for(var j = 0; j < ckbs.length; j++) {
             if($(ckbs[j]).is(':checked')) {
                 flag = true;
+                jobTypeSelected = $(ckbs[j]).val();
                 $('#serviceTypeErrMsg').html('').hide('normal');
                 break;
             }

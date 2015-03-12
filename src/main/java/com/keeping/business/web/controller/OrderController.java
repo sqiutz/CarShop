@@ -307,7 +307,7 @@ public class OrderController {
 						Float load = Float.parseFloat(jobtypeService.queryByKey(orderList.get(j).getJobType()).getValue());
 						orderList.get(j).setLoad(load);
 					} else {
-						Float load = Float.parseFloat(jobtypeService.queryByKey("Express" + orderList.get(j).getJobType()).getValue());
+						Float load = Float.parseFloat(jobtypeService.queryByKey("Express" + orderList.get(j).getExpress()).getValue());
 						orderList.get(j).setLoad(load);
 					}
 					
@@ -559,7 +559,7 @@ public class OrderController {
 			StringBuffer stringBuffer = new StringBuffer();
 		
 			String jsonStr = request.getParameter("param");
-			OrderObject orderObject = JsonConverter.getFromJsonString(jsonStr, OrderObject.class);
+			OrderObject orderObject = JsonConverter.getFromJsonString(jsonStr, OrderObject.class, "yyyy-MM-dd HH:mm:ss");
 			 
 			if (StringUtil.isNull(jsonStr) || null == orderObject) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();

@@ -322,6 +322,9 @@ insert into TBL_JOBTYPE set name='40K', value='2.5';
 insert into TBL_JOBTYPE set name='80K', value='3';
 insert into TBL_JOBTYPE set name='Full', value='3.5';
 insert into TBL_JOBTYPE set name='RECALL CAMP.', value='1';
+insert into TBL_JOBTYPE set name='ExpressA', value='2.5';
+insert into TBL_JOBTYPE set name='ExpressB', value='3.5';
+insert into TBL_JOBTYPE set name='ExpressC', value='4';
 
 insert into TBL_PROPERTY set name='APPOINTMENT', value='50%';
 insert into TBL_PROPERTY set name='NONAPPOINT', value='50%';

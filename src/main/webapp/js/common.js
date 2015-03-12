@@ -153,7 +153,8 @@
                                  "beginDate",
                                  "endDate",
                                  "isBook",
-                                 "groupid"
+                                 "groupid",
+                                 "express"
                         ]                        
                     },
                     // 获取单个订单
@@ -167,7 +168,8 @@
                     startOrder : {
                     	url : "order.do?action=start",
                         args : [ 
-                                 "registerNum"
+                                 "registerNum",
+                                 "assignDate"
                         ]
                     },
                     book : {
@@ -180,7 +182,8 @@
                                  "assignDate",
                                  "bookStartTime",
                                  "groupid",
-                                 "comment"
+                                 "comment",
+                                 "express"
                         ]
                     },
                     update : {
@@ -193,7 +196,8 @@
                                  "assignDate",
                                  "bookStartTime",
                                  "groupid",
-                                 "comment"
+                                 "comment",
+                                 "express"
                         ]
                     },
                     // 获取modify queue
@@ -361,7 +365,7 @@
                                 location.href="index.html";
                             } else {                                
                                 if(data.code != "000000") {
-                                    console.log(data.code + ' ' + data.msg);
+                                    console.log(data.code + ' ' + data.msg + ' ' + domain + url);
                                 }
                                 if (args.success) {
                                     args.success(data);
