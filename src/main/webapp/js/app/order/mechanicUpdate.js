@@ -37,7 +37,7 @@
     var modifyQue;
     function getModifyQueue(id) {
         if(!id) {
-            return;
+            setModifyQueue();
         }
         $.OrderInfo.getModifyQueue({
             data : {
@@ -57,7 +57,7 @@
     
     function setModifyQueue(modifyQue) {
         $('#regNo').val(modifyQue && modifyQue.order ? modifyQue.order.registerNum : '');
-        //$('#idMechanic').val(modifyQue && modifyQue.order ? modifyQue.order.registerNum : '');
+        $('#idMechanic').val(modifyQue && modifyQue.modifier ? modifyQue.modifier.userName : '');
         $('#roofNo').val(modifyQue && modifyQue.order ? modifyQue.order.roofNum : '');
         $('#serviceAdvisor').val(modifyQue && modifyQue.user ? modifyQue.user.userName : '');
         $('#jobType').val(modifyQue ? modifyQue.jobType + ' - ' + modifyQue.jobtypeTime + ' hour(s)' : '');
