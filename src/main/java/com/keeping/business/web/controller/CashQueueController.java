@@ -65,6 +65,7 @@ public class CashQueueController {
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 
+		
 		List<CashQueue> cashQueues = new ArrayList<CashQueue>();
 		
 		try {
@@ -290,18 +291,21 @@ public class CashQueueController {
 //				logger.error("< CashQueueController.finish() > 维修订单信息为空或没有权限。" + jsonStr);
 			}else{
 				cashQueue = cashQueueService.getCashQueueById(cashQueue.getId());
-				Order order = orderService.queryOrderById(cashQueue.getOrderId());
-				order.setStatus(BusinessCenterOrderStatus.ORDER_STATUS_WASH.getId());
-				orderService.updateOrder(order);              //修改订单状态
 				
-				Date now = new Date();
-				java.sql.Timestamp dateTime = new java.sql.Timestamp(now.getTime());
-				
-				cashQueue.setEndTime(dateTime);
-				cashQueue.setStep(BusinessCenterCashQueueStatus.CASHQUEUE_STATUS_FINISH.getId());
-				
-				cashQueueService.updateCashQueue(cashQueue);   //更新cashQueue订单
-
+				if (cashQueue.getStep() == BusinessCenterCashQueueStatus.CASHQUEUE_STATUS_START.getId()){
+					
+					Order order = orderService.queryOrderById(cashQueue.getOrderId());
+					order.setStatus(BusinessCenterOrderStatus.ORDER_STATUS_WASH.getId());
+					orderService.updateOrder(order);              //修改订单状态
+					
+					Date now = new Date();
+					java.sql.Timestamp dateTime = new java.sql.Timestamp(now.getTime());
+					
+					cashQueue.setEndTime(dateTime);
+					cashQueue.setStep(BusinessCenterCashQueueStatus.CASHQUEUE_STATUS_FINISH.getId());
+					
+					cashQueueService.updateCashQueue(cashQueue);   //更新cashQueue订单
+				}
 			}
 		} catch (BusinessServiceException ex) {
 			System.out.println(ex.getMessage());

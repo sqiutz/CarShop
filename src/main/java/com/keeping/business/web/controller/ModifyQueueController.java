@@ -25,6 +25,7 @@ import com.keeping.business.common.rescode.BusinessCenterUserGroup;
 import com.keeping.business.common.util.PlatformPar;
 import com.keeping.business.common.util.PlatfromConstants;
 import com.keeping.business.common.util.StringUtil;
+import com.keeping.business.service.CashQueueService;
 import com.keeping.business.service.JobTypeService;
 import com.keeping.business.service.ModifyQueueService;
 import com.keeping.business.service.OrderService;
@@ -68,6 +69,8 @@ public class ModifyQueueController {
 	private JobTypeService jobtypeService;
 	@Resource
 	private UserWorkloadService userWorkloadService;
+	@Resource
+	private CashQueueService cashQueueService;
 	
 	@RequestMapping(params = "action=gettoday")
 	@ResponseBody
@@ -378,15 +381,19 @@ public class ModifyQueueController {
 				
 				UserWorkload userWorkload = userWorkloadService.queryByUserWorkloadQueueid(modifyQueue.getId());
 				
-				if (modifyQueue != null && userWorkload != null){
+				if (modifyQueue != null && userWorkload != null && modifyQueue.getStep() > 0){
 					
-					Date now = new Date();
-					modifyQueue.setStep(BusinessCenterModifyQueueStatus.MODIFYQUEUE_STATUS_START.getId());
-					modifyQueue.setStartTime(now);
-					modifyQueueService.updateModifyQueue(modifyQueue);
+					Integer step = modifyQueue.getStep();
 					
-					userWorkload.setStartTime(now);
-					userWorkloadService.updateUserWorkload(userWorkload);
+					if (step < BusinessCenterModifyQueueStatus.MODIFYQUEUE_STATUS_FINISH.getId()){
+						Date now = new Date();
+						modifyQueue.setStep(BusinessCenterModifyQueueStatus.MODIFYQUEUE_STATUS_START.getId());
+						modifyQueue.setStartTime(now);
+						modifyQueueService.updateModifyQueue(modifyQueue);
+						
+						userWorkload.setStartTime(now);
+						userWorkloadService.updateUserWorkload(userWorkload);
+					}
 				}else{
 					code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 					msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
@@ -438,7 +445,7 @@ public class ModifyQueueController {
 				
 				modifyQueue = modifyQueueService.getModifyQueueById(modifyQueue.getId());
 				
-				if (modifyQueue != null){
+				if (modifyQueue != null && modifyQueue.getStep() > 0){
 					
 					modifyQueue.setStep(BusinessCenterModifyQueueStatus.MODIFYQUEUE_STATUS_HOLD.getId());
 					modifyQueueService.updateModifyQueue(modifyQueue);
@@ -491,28 +498,37 @@ public class ModifyQueueController {
 //						+ jsonStr);
 			}else{
 				modifyQueue = modifyQueueService.getModifyQueueById(modifyQueue.getId());
-				Order order = orderService.queryOrderById(modifyQueue.getOrderId());
-				order.setStatus(BusinessCenterOrderStatus.ORDER_STATUS_WASH.getId());
-				orderService.updateOrder(order);              //修改订单状态
 				
-				Date now = new Date();
+				if (modifyQueue != null && modifyQueue.getStep() > 0){
+					
+					Order order = orderService.queryOrderById(modifyQueue.getOrderId());
+					order.setStatus(BusinessCenterOrderStatus.ORDER_STATUS_WASH.getId());
+					orderService.updateOrder(order);              //修改订单状态
+					
+					Date now = new Date();
+					
+					modifyQueue.setEndTime(now);
+					modifyQueue.setStep(BusinessCenterModifyQueueStatus.MODIFYQUEUE_STATUS_FINISH.getId());
+					
+					modifyQueueService.updateModifyQueue(modifyQueue);   //更新modifyQueue订单
+					
+					UserWorkload userWorkload = userWorkloadService.queryByUserWorkloadQueueid(modifyQueue.getId());
+					now = new Date();
+					userWorkload.setEndTime(now);
+					userWorkloadService.updateUserWorkload(userWorkload);
+					
+					CashQueue cashQueue = new CashQueue();
+					cashQueue.setStep(BusinessCenterCashQueueStatus.CASHQUEUE_STATUS_MODIFYING.getId());
+					cashQueue.setOrderId(modifyQueue.getOrderId());
+					cashQueue.setUserId(modifyQueue.getUserId());
+					
+					cashQueueService.addCashQueue(cashQueue);
+//					modifyQueueService.addModifyQueue(modifyQueue);
+				}else{
 				
-				modifyQueue.setEndTime(now);
-				modifyQueue.setStep(BusinessCenterModifyQueueStatus.MODIFYQUEUE_STATUS_FINISH.getId());
-				
-				modifyQueueService.updateModifyQueue(modifyQueue);   //更新modifyQueue订单
-				
-				UserWorkload userWorkload = userWorkloadService.queryByUserWorkloadQueueid(modifyQueue.getId());
-				now = new Date();
-				userWorkload.setEndTime(now);
-				userWorkloadService.updateUserWorkload(userWorkload);
-				
-				CashQueue cashQueue = new CashQueue();
-				cashQueue.setStep(BusinessCenterCashQueueStatus.CASHQUEUE_STATUS_MODIFYING.getId());
-				cashQueue.setOrderId(modifyQueue.getOrderId());
-				cashQueue.setUserId(modifyQueue.getUserId());
-				
-				modifyQueueService.addModifyQueue(modifyQueue);
+					code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
+					msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
+				}
 			}
 		} catch (BusinessServiceException ex) {
 			System.out.println(ex.getMessage());

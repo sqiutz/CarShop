@@ -63,6 +63,9 @@ public class CashQueueServiceImpl implements CashQueueService{
 	public List<CashQueue> getCashQueueByStep(Integer step)
 			throws BusinessServiceException {
 		// TODO Auto-generated method stub
+//		if (step == 0){
+//			step = 2;
+//		}
 		List<CashQueueDo> cashQueueDoes = cashQueueDao.queryByCashQueuestep(step);
 		List<CashQueue> cashQueues = new ArrayList<CashQueue>();
 		

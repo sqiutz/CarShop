@@ -23,7 +23,7 @@
 		FROM TBL_CASHQUEUE
 		WHERE
 		STEP = #{step}
-		order by START_TIME desc
+		order by STEP asc
 	</select>
 	
 	<select id="queryByCashQueueid" resultMap="CashQueueDoMap" 
