@@ -295,7 +295,7 @@ public class CashQueueController {
 				if (cashQueue.getStep() == BusinessCenterCashQueueStatus.CASHQUEUE_STATUS_START.getId()){
 					
 					Order order = orderService.queryOrderById(cashQueue.getOrderId());
-					order.setStatus(BusinessCenterOrderStatus.ORDER_STATUS_WASH.getId());
+					order.setStatus(BusinessCenterOrderStatus.ORDER_STATUS_DONE.getId());
 					orderService.updateOrder(order);              //修改订单状态
 					
 					Date now = new Date();
