@@ -111,25 +111,23 @@
         function onClick() {
             var val = $(this).text();
             $(this).empty();
-            var input = $('<input></input>').attr('type', 'text').attr('style', 'width:35px')
-                .val(val).appendTo($(this));
-            input.blur(function() {
-                onSave.call(this, val);
-            });
-            input.keyup(function(event) {
-                var td = $(this).parent('td');
-                var myEvent = event || window.event;
-                var keyCode = myEvent.keyCode;
-                if(keyCode == 27){ //ESC
-                    td.html(val);
-                    td.bind('click', onClick);
+            var sel = $('<select></select>').attr('style', 'width:45px').appendTo($(this))
+                .bind('change', function() {
+                    
+                })
+                .blur(function() {
+                    onSave.call(this, sel.val());
+                });
+            var v = 0;
+            for(var j = 1; j < 21; j++) {
+                $('<option></option>').val(j * 0.5).text(j * 0.5).appendTo(sel);
+                if(val == j * 0.5) {
+                    v = j * 0.5;
                 }
-                else if(keyCode == 13){ //Enter
-                    onSave.call(this, val);
-                }
-            });
-            var dom = input.get(0);
-            dom.select();
+            }
+            sel.val(v);
+            var dom = sel.get(0);
+            dom.focus();
             $(this).unbind('click');
         }
         
