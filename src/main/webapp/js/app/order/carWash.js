@@ -22,7 +22,8 @@
             $('#startBtn').text(START).attr('title', START);
             $('#finishBtn').text(FINISH).attr('title', FINISH);
             $('#cancelBtn').text(CANCEL).attr('title', CANCEL);            
-            $('#nextOnQue').text(NEXT_ON_QUE);
+            $('#nextOnQueLink').text(NEXT_ON_QUE);
+            $('#inProgressLink').text(IN_PROGRESS);
             $('#regNoCol').text(REG_NO);
             $('#RoofNoCol').text(ROOF_NO);
             $('#saCol').text(SA);
@@ -42,7 +43,7 @@
         for (var i = 0; i < num; i++) {
             j = cListIter * num + i;
             var queue = queues && j < queues.length ? queues[j] : null;
-            if(0 === i && 0 === selectedId) {
+            if(0 === tab && 0 === i && 0 === selectedId) {
                 setCurrentCarWashQue(queue);
             }
             var tr = $('<tr></tr>').attr('class', i % 2 === 0 ? 'odd' : 'even')
@@ -55,7 +56,9 @@
                 tr.bind('click', function() {
                     $('#carWashList tr').removeClass('selected');
                     $(this).addClass('selected');
-                    selectedId = $(this).val();
+                    if(0 === tab) {
+                        selectedId = $(this).val();
+                    }                    
                 })
             }
             $('<td></td>').text(queue && queue.order ? queue.order.registerNum : '').appendTo(tr);
@@ -94,9 +97,23 @@
     
     // 获取洗车列表
     var getCarWashList = function() {
+        if(0 !== tab) {
+            return;
+        }
         $.OrderInfo.getCarWashQueues({
             data : {
                 step : 0
+            },
+            success : createCarWashList
+        });
+    };
+    var getInProgressList = function() {
+        if(1 !== tab) {
+            return;
+        }
+        $.OrderInfo.getCarWashQueues({
+            data : {
+                step : 1
             },
             success : createCarWashList
         });
@@ -138,6 +155,29 @@
             }
         });
     });
+    
+    var tab = 0;
+    $('#nextOnQueLink').bind('click', function() {
+        if('unselected' === $('#nextOnQueTab').attr('class')) {
+            cListIter = 0;
+            tab = 0;
+            selectedId = 0;
+            $('#inProgressTab').attr('class', 'unselected');
+            $('#nextOnQueTab').attr('class', '');
+            getCarWashList();
+        }
+    });
+    
+    $('#inProgressLink').bind('click', function() {
+        if('unselected' === $('#inProgressTab').attr('class')) {
+            cListIter = 0;
+            tab = 1;
+            selectedId = 0;
+            $('#nextOnQueTab').attr('class', 'unselected');
+            $('#inProgressTab').attr('class', '');
+            getInProgressList();
+        }
+    })
     
     getCarWashList();
 })(jQuery);

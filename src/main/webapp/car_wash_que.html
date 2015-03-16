@@ -27,7 +27,7 @@
 		</div>
 		<div id='content' class='content'>
 			<div class='box-blue'>
-				<div id='currentDiv' class='box black-bg' style='width:235px;height:128px;margin-left:auto;margin-right:auto;'>
+				<div id='currentDiv' class='box black-bg' style='width:285px;height:128px;margin-left:auto;margin-right:auto;'>
 					<span id='currentNoLabel' class='h5'></span>
 					<span id='currRegNo' class='h6 low f-yellow-dark'></span>
 					<span id='currQueNo' class='h3 low'></span>
@@ -38,7 +38,13 @@
 					<button id='cancelBtn' class='black' style='width:130px;height:40px'></button>		
 				</div>
 				<div class='box'>
-					<div id='nextOnQue' class='blue h3' style='width:470px;height:45px'></div>
+					<div class='navg' style='width:470px;height:45px'>
+						<ul style='width:412px;height:45px'>
+							<li id='nextOnQueTab'><a id='nextOnQueLink' style='width:221px;height:45px'></a></li>
+							<li id='inProgressTab' class='unselected'><a id='inProgressLink' style='width:191px;height:45px'></a></li>
+						</ul>
+					</div>
+<!-- 					<div id='nextOnQue' class='blue h3' style='width:470px;height:45px'></div> -->
 					<table id='carWashList' class="queue blue" style='width:460px'>
 						<tr>
 							<th id='regNoCol'></th>
