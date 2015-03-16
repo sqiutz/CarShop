@@ -213,8 +213,6 @@ public class JobTypeController {
 		HttpSession session = request.getSession();
 		session.setMaxInactiveInterval(PlatformPar.sessionTimeout);
 
-		response.setHeader("Access-Control-Allow-Origin", "*");
-
 		try {
 
 			UserProfile admin = (UserProfile) session
@@ -230,15 +228,17 @@ public class JobTypeController {
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
 //				logger.error("< JobTypeController.modifyJobType() > 修改属性为空或没有权限."
 //						+ jsonStr);
-			} else if (null == session || null == admin || null == admin.getUserName()){
-				code = BusinessCenterResCode.SYS_INVILID_REQ.getCode();
-				msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
+			} 
+//			else if (null == session || null == admin || null == admin.getUserName()){
+//				code = BusinessCenterResCode.SYS_INVILID_REQ.getCode();
+//				msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
 //				logger.error("< JobTypeController.modifyJobType() > session is null." + jsonStr);
-			} else if (admin.getIsAdmin() == 0){
-				code = BusinessCenterResCode.SYS_NO_ADMIN.getCode();
-				msg = BusinessCenterResCode.SYS_NO_ADMIN.getMsg();
+//			} 
+//			else if (admin.getIsAdmin() == 0){
+//				code = BusinessCenterResCode.SYS_NO_ADMIN.getCode();
+//				msg = BusinessCenterResCode.SYS_NO_ADMIN.getMsg();
 //				logger.error("< JobTypeController.modifyJobType() > you are not admin." + jsonStr);
-			}
+//			}
 			else{
 				//修改用户信息
 				jobtypeService.modifyJobType(modifyJobType);
