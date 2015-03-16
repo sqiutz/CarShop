@@ -19,9 +19,8 @@
         dateFormat: 'yy-mm-dd',
     });
 	
-	var params;
+	var params;	
 	
-	applyLang();
     $.UserInfo.getProperty({
         data : {
             name : 'LANGUAGE'
@@ -31,6 +30,12 @@
                 var langCode = data.obj.value;
                 applyLang(langCode);
             }
+            else {
+                applyLang();
+            }
+        },
+        error : function() {
+            applyLang();
         }
     });
     
@@ -66,7 +71,8 @@
             $('#reportLink').text(REPORT);
             $('#legend').text(ADD_USER);
             $('#parameterListTitle').text(PARAMETER_CONF);
-            $('#jobTypeListTitle').text(JOB_TYPE_CONF);
+            $('#jobTypeListTitle').text(REGULER_SERVICE_RATE_TIME);
+            $('#expJobTypeListTitle').text(EXPRESS_MAINTENANCE_RATE_TIME);
             $('#groupByLabel').text(GROUP + ':');
             $('#groupCol').text(GROUP);
             $('#usernameCol').text(USERNAME);
@@ -85,6 +91,7 @@
             $('#delayTimeCol').text(DELAY_TIME);
             $('#endTimeCol').text(END_TIME);
             $('#addBtn').text(ADD).attr('title', ADD);
+            $('#expJobAddBtn').text(ADD).attr('title', ADD);
             $('#fromLabel').text(FROM + ':');
             $('#toLabel').text(TO + ':');
             $('#showBtn').text(SHOW).attr('title', SHOW);
@@ -462,17 +469,34 @@
 	
 	var getJobTypeList = function() {
 	    $.OrderInfo.getJobTypes({
-	        success : createJobTypeList,
-	        error : createJobTypeList
+	        success : function(jobTypes) {
+	            $('#jobTypeListDiv div.list').remove();
+	            $('#expJobTypeListDiv div.list').remove();
+	            var regJobTyps = [], expJobTyps = [];
+                for(var i = 0; i < jobTypes.length; i++) {
+                    if(jobTypes[i].name.indexOf(CONST_EXPRESS) < 0) {
+                        regJobTyps.push(jobTypes[i]);
+                    }
+                    else {
+                        jobTypes[i].name = jobTypes[i].name.substring(CONST_EXPRESS.length);
+                        expJobTyps.push(jobTypes[i]);
+                    }
+                }
+	            createJobTypeList(regJobTyps, $('#jobTypeListDiv'));
+	            createJobTypeList(expJobTyps, $('#expJobTypeListDiv'), true);
+	        },
+	        error : function() {
+	            $('#jobTypeListDiv div.list').remove();
+	            $('#expJobTypeListDiv div.list').remove();
+	        }
 	    });
 	}
 	
-	var createJobTypeList = function(jobTypes) {
-	    $('#jobTypeListDiv div.list').remove();
+	var createJobTypeList = function(jobTypes, parent, isExp) {	    
 	    for(var i = 0; i < jobTypes.length; i++) {
 	        var jobType = jobTypes[i];
 	        var div = $('<div></div>').attr('class', 'list')
-                .appendTo($('#jobTypeListDiv'));
+                .appendTo(parent);
 	        $('<label></label>').attr('style', 'width:200px').attr('id', 'labelId_' + jobType.id)
 	            .text(jobType.name).appendTo(div);
 	        var sel = $('<select></select>').attr('id', 'selId_' + jobType.id)
@@ -496,6 +520,9 @@
                 .bind('click', function() {
                     var id = this.id.split('_')[1];
                     var name = $('#labelId_' + id).text();
+                    if(isExp) {
+                        name = CONST_EXPRESS + name
+                    }
                     var value = $('#selId_' + id).val();
                     $.OrderInfo.modifyJobType({
                         data : {
@@ -505,7 +532,7 @@
                         },
                         success : function(data) {
                             if (data.code == '000000') {
-                                getJobTypeList();
+                                getJobTypeList();                               
                             }
                         }
                     });
@@ -531,30 +558,42 @@
 	};
 	
 	$('#addBtn').bind('click', function() {
+	    onAddClick.call(this, $('#jobTypeListDiv'), 'reg');
+	});
+	
+	$('#expJobAddBtn').bind('click', function() {
+        onAddClick.call(this, $('#expJobTypeListDiv'), 'exp', true);
+    });
+	
+	function onAddClick(parent, service, isExp) {
 	    $(this).attr('disabled', 'disabled');
-	    var div = $('<div></div>').attr('class', 'list').attr('id', 'jobTypeDiv')
-            .appendTo($('#jobTypeListDiv'));
-	    $('<input></input>').attr('type', 'text').attr('id', 'jobTypeName').appendTo(div)
+        var div = $('<div></div>').attr('class', 'list').attr('id', 'jobTypeDiv' + service)
+            .appendTo(parent);
+        $('<input></input>').attr('type', 'text').attr('id', 'jobTypeName' + service).appendTo(div)
             .keyup(function() {
                 if($(this).val()) {
-                    $('#jobTypeSaveBtn').attr('disabled', false);
+                    $('#jobTypeSaveBtn' + service).attr('disabled', false);
                 } 
                 else {
-                    $('#jobTypeSaveBtn').attr('disabled', 'disabled');
+                    $('#jobTypeSaveBtn' + service).attr('disabled', 'disabled');
                 }
             });
-	    var sel = $('<select></select>').attr('id', 'jobTypeVal')
+        var sel = $('<select></select>').attr('id', 'jobTypeVal' + service)
             .attr('style', 'width:77px;margin-left:48px').appendTo(div);
         for(var j = 1; j < 21; j++) {
             $('<option></option>').val(j * 0.5).text(j * 0.5).appendTo(sel);
         }
+        var that = this;
         $('<button></button>').text(SAVE).attr('title', SAVE)
-            .attr('id', 'jobTypeSaveBtn').attr('class', 'blue-button')
+            .attr('id', 'jobTypeSaveBtn' + service).attr('class', 'blue-button')
             .attr('style', 'width:71px;height:27px;vertical-align:middle;margin-top:-2px;margin-left:25px;')
             .attr('disabled', 'disabled').appendTo(div)
             .bind('click', function() {
-                var name = $('#jobTypeName').val();
-                var value = $('#jobTypeVal').val();
+                var name = $('#jobTypeName' + service).val();
+                if(isExp) {
+                    name = CONST_EXPRESS + name
+                }
+                var value = $('#jobTypeVal' + service).val();
                 $.OrderInfo.addJobType({
                     data : {
                         name : name,
@@ -562,22 +601,22 @@
                     },
                     success : function(data) {
                         if (data.code == '000000') {
-                            $('#addBtn').attr('disabled', false);
-                            $('#jobTypeDiv').remove();
+                            $(that).attr('disabled', false);
+                            $('#jobTypeDiv' + service).remove();
                             getJobTypeList();
                         }
                     }
                 });
             });
         $('<button></button>').text(DELETE).attr('title', DELETE)
-            .attr('id', 'jobTypeDelBtn').attr('class', 'blue-button')
+            .attr('id', 'jobTypeDelBtn'  + service).attr('class', 'blue-button')
             .attr('style', 'width:71px;height:27px;vertical-align:middle;margin-top:-2px;margin-left:4px;')
             .appendTo(div)
             .bind('click', function() {
-                $('#addBtn').attr('disabled', false);
-                $('#jobTypeDiv').remove();
+                $(that).attr('disabled', false);
+                $('#jobTypeDiv'  + service).remove();
             });
-	});
+	}
 	
 	var getSuspendList = function() {
 	    $.OrderInfo.getServeQueues({
