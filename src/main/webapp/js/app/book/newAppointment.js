@@ -1,5 +1,4 @@
 (function($) {
-    applyLang();
     $.UserInfo.getProperty({
         data : {
             name : 'LANGUAGE'
@@ -8,7 +7,12 @@
             if (data.code == '000000') {
                 var langCode = data.obj.value;
                 applyLang(langCode);
+            }else {
+                applyLang();
             }
+        },
+        error : function() {
+            applyLang();
         }
     });
     
@@ -202,7 +206,7 @@
                         location.href = 'appointment_index.html';
                     }
                     else {
-                        $('#errMsg').html('System error, failed to save the appointment!').show('normal');
+                        $('#errMsg').html(MSG_FAILED_TO_SAVE_APPOINTMENT).show('normal');
                     }
                 }
             });            
@@ -215,10 +219,10 @@
                         location.href = 'appointment_index.html';
                     }
                     else if(data.code == '010301') {
-                        $('#errMsg').html("This customer has already booked today, please don't book again!").show('normal');
+                        $('#errMsg').html(MSG_CUSTOMER_HAS_BOOKED_TODAY).show('normal');
                     }  
                     else {
-                        $('#errMsg').html('System error, failed to save the appointment!').show('normal');
+                        $('#errMsg').html(MSG_FAILED_TO_SAVE_APPOINTMENT).show('normal');
                     }
                 }
             });
@@ -238,7 +242,7 @@
             flag = true;
         }
         else {
-            $('#policeNoErrMsg').html('The polic No. must be at least 7 characters or numbers!').show('normal');
+            $('#policeNoErrMsg').html(MSG_LENGTH_OF_POLICE_NO).show('normal');
             $('#policeNo').css('border', '1px solid #F00');
             flag = false;
         }
@@ -271,7 +275,7 @@
             flag = true;
         }
         else {
-            $('#customerErrMsg').html('Please input the customer!').show('normal');
+            $('#customerErrMsg').html(MSG_INPUT_CUSTOMER).show('normal');
             $('#customer').css('border', '1px solid #F00');
             flag = false;
         }
@@ -314,7 +318,7 @@
             flag = true;
         }
         else {
-            $('#promiseTimeErrMsg').html('Please select the promise time!').show('normal');
+            $('#promiseTimeErrMsg').html(MSG_SELECT_PROMISE_TIME).show('normal');
             $('#promiseTime').css('border', '1px solid #F00');
             flag = false;
         }
@@ -340,7 +344,7 @@
             }
         }
         if(!flag) {
-            $('#serviceTypeErrMsg').html('Please select the service type!').show('normal');
+            $('#serviceTypeErrMsg').html(MSG_SELECT_SERVICE_TYPE).show('normal');
         }
         return flag;
     }

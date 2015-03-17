@@ -18,6 +18,7 @@ var GREET_CUSTOMER = 'GREET CUSTOMER';
 var GREET_CUSTOMER_DESC = 'Service staff greet customer';
 var FINAL_INSPECTION = 'FINAL INSPECTION';
 var FINAL_INSPECTION_DESC = 'Final inspection for job progress';
+var HELLO = 'Hello';
 
 var CUSTOMER_QUE_STATUS_BOARD = 'CUSTOMER QUE STATUS BOARD';
 var WELCOME = 'WELCOME';
@@ -162,3 +163,28 @@ var MANPOWER_ALLOCATION = 'Manpower Allocation';
 var INTAKE_CONTROL = 'Intake Control';
 
 var MANPOWER_ALLOCATION = 'Manpower Allocation';
+
+var MSG_INPUT_ORIGINAL_PASSWORD = 'Please input the original password!';
+var MSG_INPUT_NEW_PASSWORD = 'Please input the new password!';
+var MSG_LENGTH_OF_NEW_PASSWORD = 'The length of the password should be between 6 to 22!';
+var MSG_CONFIRM_NEW_PASSWORD = 'Please confirm the new password!';
+var MSG_PASSWORD_NOT_CONSISTENT = 'The two passwords are not consistent!';
+var MSG_SELECT_USERNAME = 'Please select a username!';
+var MSG_ORIGINAL_PASSWORD_NOT_CORRECT = 'The original password is not correct!';
+var MSG_NEW_PASSWORD_SAVED = 'The new password has been saved.';
+var MSG_COUNTER_HAVE_BEEN_SELECTED = 'has been selected by';
+var MSG_CLICK_NEXT = 'If you confirm, click Next.';
+var MSG_INPUT_USERNAME = 'Please input the username!';
+var MSG_INPUT_PASSWORD = 'Please input the password!';
+var MSG_PASSWORD_NOT_CORRECT = 'The password is not correct!';
+var MSG_USERNAME_NOT_EXISTED = 'The username is not existed!';
+var MSG_INACTIVE_USER = 'This is an inactive user!';
+var MSG_USERNAME_FORMAT = 'The username can only contain letters, numbers, dash and hyphen!';
+var MSG_USERNAME_SAVED = 'The user has been saved.';
+var MSG_USERNAME_REGISTED = 'The username has been registed!';
+var MSG_FAILED_TO_SAVE_APPOINTMENT = 'System error, failed to save the appointment!';
+var MSG_CUSTOMER_HAS_BOOKED_TODAY = "This customer has already booked today, please don't book again!";
+var MSG_LENGTH_OF_POLICE_NO = 'The polic No. must be at least 7 characters or numbers!';
+var MSG_INPUT_CUSTOMER = 'Please input the customer!';
+var MSG_SELECT_PROMISE_TIME = 'Please select the promise time!';
+var MSG_SELECT_SERVICE_TYPE = 'Please select the service type!';

@@ -95,6 +95,14 @@
             $('#fromLabel').text(FROM + ':');
             $('#toLabel').text(TO + ':');
             $('#showBtn').text(SHOW).attr('title', SHOW);
+            
+            $.UserInfo.checkLogin({
+                success : function(data) {
+                    if(data.code == '000000') {
+                        $("#helloUserName").text(HELLO + ' ' + (data.obj ? data.obj.userName : ''));                
+                    }
+                }
+            });
         });
     }
     
@@ -157,12 +165,12 @@
         	var pattern = /^[a-zA-Z0-9_-]/;    
 			var flag;
 			if(name.length == 0){
-				$('#userNameErrMsg').html('Please input the username!').show('normal');
+				$('#userNameErrMsg').html(MSG_INPUT_USERNAME).show('normal');
 				userName.css('border', '1px solid #F00');
 				flag = false;
 			}
 			else if(!pattern.test(name)) {
-				$('#userNameErrMsg').html('The username can only contain letters, numbers, dash and hyphen!').show('normal');
+				$('#userNameErrMsg').html(MSG_USERNAME_FORMAT).show('normal');
 				userName.css('border', '1px solid #F00');
 				flag = false;
 			}
@@ -178,12 +186,12 @@
         	var pwd = password.val();
         	var flag;
         	if(pwd.length == 0){
-				$('#pwdErrMsg').html('Please input the password!').show('normal');
+				$('#pwdErrMsg').html(MSG_PASSWORD_NOT_CORRECT).show('normal');
 				password.css('border', '1px solid #F00');
 				flag = false;
 			}
         	else if(pwd.length < 6 || pwd.length > 22) {
-        	    $('#pwdErrMsg').html('The length of the password should be between 6 to 22!').show('normal');
+        	    $('#pwdErrMsg').html(MSG_LENGTH_OF_NEW_PASSWORD).show('normal');
                 password.css('border', '1px solid #F00');
                 flag = false;
         	}
@@ -198,12 +206,12 @@
             var pwd = passwordConf.val();
             var flag;
             if(pwd.length == 0){
-                $('#pwdConfErrMsg').html('Please confirm the password!').show('normal');
+                $('#pwdConfErrMsg').html(MSG_CONFIRM_NEW_PASSWORD).show('normal');
                 passwordConf.css('border', '1px solid #F00');
                 flag = false;
             }
             else if(pwd != password.val()) {
-                $('#pwdConfErrMsg').html('The two passwords are not consistent!').show('normal');
+                $('#pwdConfErrMsg').html(MSG_PASSWORD_NOT_CONSISTENT).show('normal');
                 passwordConf.css('border', '1px solid #F00');
                 flag = false;
             }
@@ -230,11 +238,11 @@
 	                success : function(data) {
 	                    if(data.code == '000000') {
 	                        $('#errMsg').attr('class', 'succMsg')
-                                .html('The user has been saved.').show('normal');
+                                .html(MSG_USERNAME_SAVED).show('normal');
 	                        that.getAllUsers();                     
 	                    }else if(data.code == '010301'){
 	                        $('#errMsg').attr('class', 'errMsg')
-	                            .html('The username has been registed!').show('normal');
+	                            .html(MSG_USERNAME_REGISTED).show('normal');
 	                    }
 	                }
 	            });
@@ -348,14 +356,6 @@
 	$("#saveBtn").bind("click", function() {
 	    user.addUser();
 	});	
-
-	$.UserInfo.checkLogin({
-	    success : function(data) {
-	        if(data.code == '000000') {
-	            $("#helloUserName").text('Hello ' + (data.obj ? data.obj.userName : ''));	            
-	        }
-	    }
-	});
 	
 	userGroup.getAllGroups();
 	

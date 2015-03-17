@@ -1,5 +1,4 @@
 (function($) {
-    applyLang();
     $.UserInfo.getProperty({
         data : {
             name : 'LANGUAGE'
@@ -8,7 +7,12 @@
             if (data.code == '000000') {
                 var langCode = data.obj.value;
                 applyLang(langCode);
+            }else {
+                applyLang();
             }
+        },
+        error : function() {
+            applyLang();
         }
     });
     
@@ -55,22 +59,23 @@
             $('#timeOnHoldCol').text(TIME_ON_HOLD);
             $('#finishTimeCol').text(FINISH_TIME);
             $('#remarksCol').text(REMARKS);
+            
+            $.UserInfo.checkLogin({
+                success : function(data) {
+                    if (data.code == '000000' && data.obj) {
+                        userProfile = data.obj;
+                        $("#helloUserName").text(
+                                HELLO + ' ' + (userProfile ? userProfile.userName : ''));
+                        $('#userName').text(userProfile ? userProfile.userName : ''); 
+                        $('#serviceAdvisor').val(userProfile ? userProfile.userName : '');
+                    }
+                }
+            });
         });
     }
     
     var userProfile;
-    $.UserInfo.checkLogin({
-        success : function(data) {
-            if (data.code == '000000' && data.obj) {
-                userProfile = data.obj;
-                $("#helloUserName").text(
-                        'Hello ' + (userProfile ? userProfile.userName : ''));
-                $('#userName').text(userProfile ? userProfile.userName : ''); 
-                $('#serviceAdvisor').val(userProfile ? userProfile.userName : '');
-            }
-        }
-    });
-   
+       
     // 创建modifyque列表
     var listIter = 0, interval = 3000, selectedId = 0, modifyQues, modifyQue;
     var createModifyQueue = function(queues) {

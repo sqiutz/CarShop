@@ -1,5 +1,4 @@
 (function($) {
-    applyLang();
     $.UserInfo.getProperty({
         data : {
             name : 'LANGUAGE'
@@ -8,7 +7,12 @@
             if (data.code == '000000') {
                 var langCode = data.obj.value;
                 applyLang(langCode);
+            }else {
+                applyLang();
             }
+        },
+        error : function() {
+            applyLang();
         }
     });
     
@@ -46,7 +50,7 @@
         	var name = userName.val();
         	var flag;
         	if(name.length == 0){
-				$('#userNameErrMsg').html('Please input the username!').show('normal');
+				$('#userNameErrMsg').html(MSG_INPUT_USERNAME).show('normal');
 				userName.css('border', '1px solid #F00');
 				flag = false;
 			}
@@ -62,7 +66,7 @@
         	var pwd = password.val();
         	var flag;
         	if(pwd.length == 0){
-				$('#pwdErrMsg').html('Please input the password!').show('normal');
+				$('#pwdErrMsg').html(MSG_INPUT_PASSWORD).show('normal');
 				password.css('border', '1px solid #F00');
 				flag = false;
 			}
@@ -102,11 +106,11 @@
                             location.href = 'select_counter.html';
                         }
                     }else if(data.code == '010102'){
-                        $('#errMsg').html('The password is not correct!').show('normal');
+                        $('#errMsg').html(MSG_PASSWORD_NOT_CORRECT).show('normal');
                     }else if(data.code == '010100'){
-                        $('#errMsg').html('The username is not existed!').show('normal');
+                        $('#errMsg').html(MSG_USERNAME_NOT_EXISTED).show('normal');
                     }else if(data.code == '010101'){
-                        $('#errMsg').html('This is an inactive user!').show('normal');
+                        $('#errMsg').html(MSG_INACTIVE_USER).show('normal');
                     }
                 }
             });

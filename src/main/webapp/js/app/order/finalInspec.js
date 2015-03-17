@@ -1,5 +1,4 @@
 (function($) {
-	applyLang();
     $.UserInfo.getProperty({
         data : {
             name : 'LANGUAGE'
@@ -8,7 +7,12 @@
             if (data.code == '000000') {
                 var langCode = data.obj.value;
                 applyLang(langCode);
+            }else {
+                applyLang();
             }
+        },
+        error : function() {
+            applyLang();
         }
     });
     

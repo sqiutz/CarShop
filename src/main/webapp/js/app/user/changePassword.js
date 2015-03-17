@@ -1,5 +1,4 @@
 (function($) {
-    applyLang();
     $.UserInfo.getProperty({
         data : {
             name : 'LANGUAGE'
@@ -8,7 +7,12 @@
             if (data.code == '000000') {
                 var langCode = data.obj.value;
                 applyLang(langCode);
+            }else {
+                applyLang();
             }
+        },
+        error : function() {
+            applyLang();
         }
     });
     
@@ -37,8 +41,8 @@
             var pwd = orgPassword.val();
             var flag;
             if (pwd.length == 0) {
-                $('#orgPwdErrMsg').html('Please input the original password!').show('normal');
-                newPassword.css('border', '1px solid #F00');
+                $('#orgPwdErrMsg').html(MSG_INPUT_ORIGINAL_PASSWORD).show('normal');
+                orgPassword.css('border', '1px solid #F00');
                 flag = false;
             } else {
                 $('#orgPwdErrMsg').html('').hide('normal');
@@ -51,11 +55,11 @@
             var pwd = newPassword.val();
             var flag;
             if (pwd.length == 0) {
-                $('#newPwdErrMsg').html('Please input the new password!').show('normal');
+                $('#newPwdErrMsg').html(MSG_INPUT_NEW_PASSWORD).show('normal');
                 newPassword.css('border', '1px solid #F00');
                 flag = false;
             } else if (pwd.length < 6 || pwd.length > 22) {
-                $('#newPwdErrMsg').html('The length of the new password should be between 6 to 22!').show('normal');
+                $('#newPwdErrMsg').html(MSG_LENGTH_OF_NEW_PASSWORD).show('normal');
                 newPassword.css('border', '1px solid #F00');
                 flag = false;
             } else {
@@ -69,11 +73,11 @@
             var pwd = newPasswordConf.val();
             var flag;
             if (pwd.length == 0) {
-                $('#newPwdConfErrMsg').html('Please confirm the new password!').show('normal');
+                $('#newPwdConfErrMsg').html(MSG_CONFIRM_NEW_PASSWORD).show('normal');
                 newPasswordConf.css('border', '1px solid #F00');
                 flag = false;
             } else if (pwd != newPassword.val()) {
-                $('#newPwdConfErrMsg').html('The two passwords are not consistent!').show('normal');
+                $('#newPwdConfErrMsg').html(MSG_PASSWORD_NOT_CONSISTENT).show('normal');
                 newPasswordConf.css('border', '1px solid #F00');
                 flag = false;
             } else {
@@ -86,7 +90,7 @@
         validateUsername : function() {
             var flag = undefined !== username.val() && null !== username.val() && '' !== username.val();
             if(!flag) {
-                $('#usernameErrMsg').html('Please select a username!').show('normal');
+                $('#usernameErrMsg').html(MSG_SELECT_USERNAME).show('normal');
                 username.css('border', '1px solid #F00');
                 flag = false;
             }
@@ -110,7 +114,7 @@
                                 if(u) {
                                     if(u.passwd !== orgPassword.val()) {
                                         $('#errMsg').attr('class', 'errMsg')
-                                        .html('The original password is not correct!').show('normal');
+                                        .html(MSG_ORIGINAL_PASSWORD_NOT_CORRECT).show('normal');
                                         return;
                                     }
                                     modifyUser(u);
@@ -134,7 +138,7 @@
                         success : function(data) {
                             if(data.code == '000000') {
                                 $('#errMsg').attr('class', 'succMsg')
-                                    .html('The new password has been saved.').show('normal');
+                                    .html(MSG_NEW_PASSWORD_SAVED).show('normal');
                                 orgPassword.val('');
                                 newPassword.val('');
                                 newPasswordConf.val('');
@@ -186,7 +190,7 @@
         success : function(data) {
             if(data.code == '000000') {
                 userProfile = data.obj;
-                $("#helloUserName").text('Hello ' + (userProfile ? userProfile.userName : ''));  
+                $("#helloUserName").text(HELLO + ' ' + (userProfile ? userProfile.userName : ''));  
                 if(userProfile.isAdmin) {
                     $('#orgPwdDiv').hide();
                     $('#usernameDiv').show();

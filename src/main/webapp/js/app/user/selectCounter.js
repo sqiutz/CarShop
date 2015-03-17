@@ -1,5 +1,4 @@
 (function($) {
-    applyLang();
     $.UserInfo.getProperty({
         data : {
             name : 'LANGUAGE'
@@ -8,7 +7,12 @@
             if (data.code == '000000') {
                 var langCode = data.obj.value;
                 applyLang(langCode);
+            }else {
+                applyLang();
             }
+        },
+        error : function() {
+            applyLang();
         }
     });
     
@@ -26,37 +30,36 @@
             $('#opYes').text(YES);
             $('#counterLabel').text(COUNTER_NO);
             $('#nextBtn').text(NEXT).attr('title', NEXT);
+            
+            $("<option></option>").val('').text(SELECT_COUNTER).appendTo($('#counter'));
+            $.UserInfo.getProperty({
+                data : {
+                    name : 'COUNTER_NUM'
+                },
+                success : function(data) {
+                    if (data.code == '000000') {
+                        var num = data.obj.value;
+                        for (var i = 0; i < num; i++) {
+                            $("<option></option>").val('COUNTER ' + (i + 1)).text(
+                                    'COUNTER ' + (i + 1)).appendTo($('#counter'));
+                        }
+                    }
+                }
+            });
+            $.UserInfo.checkLogin({
+                success : function(data) {
+                    if (data.code == '000000') {
+                        userProfile = data.obj;
+                        $("#helloUserName").text(
+                                HELLO + ' ' + (userProfile ? userProfile.userName : ''));
+                    }
+                }
+            });
         });
     }
     
 	var counter = $('#counter'), isBooker = $('#isBooker'), nextBtn = $('#nextBtn');
 	var userProfile;
-	$.UserInfo.checkLogin({
-		success : function(data) {
-			if (data.code == '000000') {
-				userProfile = data.obj;
-				$("#helloUserName").text(
-						'Hello ' + (userProfile ? userProfile.userName : ''));
-			}
-		}
-	});
-
-	$("<option></option>").val('').text('Select Counter').appendTo(
-			$('#counter'));
-	$.UserInfo.getProperty({
-		data : {
-			name : 'COUNTER_NUM'
-		},
-		success : function(data) {
-			if (data.code == '000000') {
-				var num = data.obj.value;
-				for (var i = 0; i < num; i++) {
-					$("<option></option>").val('COUNTER ' + (i + 1)).text(
-							'COUNTER ' + (i + 1)).appendTo($('#counter'));
-				}
-			}
-		}
-	});
 
 	counter.bind('change', function() {
 		if ('' === counter.val()) {
@@ -72,9 +75,9 @@
 				if (data.code !== '000000'
 						&& data.obj.userName !== userProfile.userName) {
 					$('#errMsg').html(
-							counter.val() + ' has been selected by '
+							counter.val() + ' ' + MSG_COUNTER_HAVE_BEEN_SELECTED + ' '
 									+ data.obj.userName
-									+ ' . If you confirm, click Next.').show(
+									+ ' . ' + MSG_CLICK_NEXT).show(
 							'normal');
 				} else {
 					$('#errMsg').hide('normal');

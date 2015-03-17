@@ -4,7 +4,6 @@
     $('#resumeBtn').attr('disabled', 'disabled');
     $('#holdBtn').attr('disabled', 'disabled');
     $('#nextBtn').attr('disabled', 'disabled');
-    applyLang();
     $.UserInfo.getProperty({
         data : {
             name : 'LANGUAGE'
@@ -13,7 +12,12 @@
             if (data.code == '000000') {
                 var langCode = data.obj.value;
                 applyLang(langCode);
+            }else {
+                applyLang();
             }
+        },
+        error : function() {
+            applyLang();
         }
     });
     
@@ -58,6 +62,20 @@
             $('#promiseTimeLabel').text(PROMISE_TIME);
             $('#finishBtn').text(FINISH).attr('title', FINISH);
             $('#backBtn').text(BACK).attr('title', BACK);
+            
+            $.UserInfo.checkLogin({
+                success : function(data) {
+                    if (data.code == '000000' && data.obj) {
+                        userProfile = data.obj;
+                        $("#helloUserName").text(
+                                HELLO + ' ' + (userProfile ? userProfile.userName : ''));
+                        $('#userName').text(userProfile ? userProfile.userName : '');
+                        getServeQueue();
+                        getServeQueues();
+                        getOrderList(); 
+                    }
+                }
+            });
         });
     }
     
@@ -76,20 +94,7 @@
     
     var oListIter = 0, sListIter = 0, interval = 3000, tab = 0;
     var userProfile;
-	$.UserInfo.checkLogin({
-		success : function(data) {
-			if (data.code == '000000' && data.obj) {
-				userProfile = data.obj;
-				$("#helloUserName").text(
-						'Hello ' + (userProfile ? userProfile.userName : ''));
-				$('#userName').text(userProfile ? userProfile.userName : '');
-				getServeQueue();
-				getServeQueues();
-				getOrderList(); 
-			}
-		}
-	});
-    
+	    
     // 创建服务队列
 	var selectedId = 0;
     var createServingList = function(serves) {

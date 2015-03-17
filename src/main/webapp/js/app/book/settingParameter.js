@@ -9,7 +9,7 @@
                 applyLang(langCode);
             }
             else {
-                
+                applyLang();
             }
         },
         error : function() {

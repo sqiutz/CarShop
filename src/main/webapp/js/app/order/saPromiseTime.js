@@ -1,5 +1,4 @@
 (function($) {
-    applyLang();
     $.UserInfo.getProperty({
         data : {
             name : 'LANGUAGE'
@@ -8,7 +7,12 @@
             if (data.code == '000000') {
                 var langCode = data.obj.value;
                 applyLang(langCode);
+            }else {
+                applyLang();
             }
+        },
+        error : function() {
+            applyLang();
         }
     });
     
@@ -32,22 +36,23 @@
             $('#promiseTimeLabel').text(PROMISE_TIME);
             $('#finishBtn').text(FINISH).attr('title', FINISH);
             $('#backBtn').text(BACK).attr('title', BACK);
+            
+            $.UserInfo.checkLogin({
+                success : function(data) {
+                    if (data.code == '000000' && data.obj) {
+                        userProfile = data.obj;
+                        $("#helloUserName").text(
+                                HELLO + ' ' + (userProfile ? userProfile.userName : ''));
+                        $('#userName').text(userProfile ? userProfile.userName : ''); 
+                        $('#serviceAdvisor').val(userProfile ? userProfile.userName : '');
+                    }
+                }
+            });
         });
     }
 
     var userProfile;
-    $.UserInfo.checkLogin({
-        success : function(data) {
-            if (data.code == '000000' && data.obj) {
-                userProfile = data.obj;
-                $("#helloUserName").text(
-                        'Hello ' + (userProfile ? userProfile.userName : ''));
-                $('#userName').text(userProfile ? userProfile.userName : ''); 
-                $('#serviceAdvisor').val(userProfile ? userProfile.userName : '');
-            }
-        }
-    });
-    
+       
     var getWorkload = function() {
         $.OrderInfo.getTodayModifyQueue({
             success : refreshWorkload
