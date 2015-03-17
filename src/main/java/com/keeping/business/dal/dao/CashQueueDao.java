@@ -10,6 +10,8 @@ public interface CashQueueDao extends BaseDao<CashQueueDo>{
 	
 	public CashQueueDo queryByCashQueueid(Integer id);
 	
+	public CashQueueDo queryByOrderid(Integer orderId);
+	
 	public void addCashQueue(CashQueueDo serveQueueDo);
 	
 	public List<CashQueueDo> queryByUseridAndStep(CashQueueDo serveQueueDo);  //

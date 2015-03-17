@@ -35,6 +35,15 @@
 		ID = #{id}
 	</select>
 	
+	<select id="queryByOrderid" resultMap="CashQueueDoMap" 
+		parameterType="java.lang.Integer">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM TBL_CASHQUEUE
+		WHERE
+		ORDER_ID = #{orderId}
+	</select>
+	
 	<select id="queryByUseridAndStep" resultMap="CashQueueDoMap" parameterType="CashQueueDo">
 		SELECT 
 		<include refid="Base_Column_List" />

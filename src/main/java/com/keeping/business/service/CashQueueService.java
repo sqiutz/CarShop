@@ -11,6 +11,8 @@ public interface CashQueueService {
     
     public CashQueue getCashQueueById(Integer id) throws BusinessServiceException;
     
+    public CashQueue getCashQueueByOrderid(Integer id) throws BusinessServiceException;
+    
     public void addCashQueue(CashQueue modifyQueue) throws BusinessServiceException;
     
 //    public CashQueue queryCashQueueByUserAndStep(Integer userId, Integer step) throws BusinessServiceException;

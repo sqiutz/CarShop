@@ -136,7 +136,7 @@ public class OrderController {
 				for (int i = 0; i < total; i++){
 					
 					ServeQueue serveQueue = new ServeQueue();
-					serveQueue = serveQueueService.getServeQueueById(orders.get(i).getId());
+					serveQueue = serveQueueService.getServeQueueByOrderid(orders.get(i).getId());
 					if (serveQueue != null && serveQueue.getId() != null){
 						serveQueues.add(serveQueue);
 						Long interval = (serveQueue.getEndTime().getTime() - serveQueue.getStartTime().getTime())/ 1000 % 60;
@@ -146,7 +146,7 @@ public class OrderController {
 					}
 					
 					ModifyQueue modifyQueue = new ModifyQueue();
-					modifyQueue = modifyQueueService.getModifyQueueById(orders.get(i).getId());
+					modifyQueue = modifyQueueService.getModifyQueueByOrderid(orders.get(i).getId());
 					if (modifyQueue != null && modifyQueue.getId() != null){
 						modifyQueues.add(modifyQueue);
 						Long interval = (modifyQueue.getEndTime().getTime() - modifyQueue.getStartTime().getTime())/ 1000 % 60;
@@ -156,7 +156,7 @@ public class OrderController {
 					}
 					
 					CashQueue cashQueue = new CashQueue();
-					cashQueue = cashQueueService.getCashQueueById(orders.get(i).getId());
+					cashQueue = cashQueueService.getCashQueueByOrderid(orders.get(i).getId());
 					if(cashQueue != null && cashQueue.getId() != null){
 						cashQueues.add(cashQueue);
 						Long interval = (cashQueue.getEndTime().getTime() - cashQueue.getStartTime().getTime())/ 1000 % 60;

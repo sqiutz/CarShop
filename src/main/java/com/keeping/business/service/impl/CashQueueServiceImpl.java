@@ -97,6 +97,21 @@ public class CashQueueServiceImpl implements CashQueueService{
 		return cashQueue;
 	}
 	
+	public CashQueue getCashQueueByOrderid(Integer id)
+			throws BusinessServiceException {
+		// TODO Auto-generated method stub
+		CashQueueDo cashQueueDo = cashQueueDao.queryByOrderid(id);
+		CashQueue cashQueue = null;
+		
+		if(cashQueueDo == null){
+			return new CashQueue();
+		}
+		
+		cashQueue = CashQueueConverter.getCashQueue(cashQueueDo);
+		
+		return cashQueue;
+	}
+	
 
 	public List<CashQueue> getCashQueueByStepAndUserId(CashQueue cashQueue) throws BusinessServiceException {
 		// TODO Auto-generated method stub

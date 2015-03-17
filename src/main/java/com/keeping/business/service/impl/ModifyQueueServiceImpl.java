@@ -150,6 +150,21 @@ public class ModifyQueueServiceImpl implements ModifyQueueService{
 		return modifyQueue;
 	}
 	
+	public ModifyQueue getModifyQueueByOrderid(Integer id)
+			throws BusinessServiceException {
+		// TODO Auto-generated method stub
+		ModifyQueueDo modifyQueueDo = modifyQueueDao.queryByOrderid(id);
+		ModifyQueue modifyQueue = null;
+		
+		if(modifyQueueDo == null){
+			return new ModifyQueue();
+		}
+		
+		modifyQueue = ModifyQueueConverter.getModifyQueue(modifyQueueDo);
+		
+		return modifyQueue;
+	}
+	
 
 	public List<ModifyQueue> getModifyQueueByStepAndUserId(ModifyQueue modifyQueue) throws BusinessServiceException {
 		// TODO Auto-generated method stub

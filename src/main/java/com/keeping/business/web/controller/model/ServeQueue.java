@@ -114,7 +114,5 @@ public class ServeQueue extends BaseQueue{
 
 	public void setIsSubContract(Integer isSubContract) {
 		this.isSubContract = isSubContract;
-	}
-    
-    
+	}  
 }

@@ -38,6 +38,16 @@
 		order by START_TIME desc
 	</select>
 	
+	<select id="queryByOrderid" resultMap="ServeQueueDoMap" 
+		parameterType="java.lang.Integer">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM TBL_SERVEQUEUE
+		WHERE
+		ORDER_ID = #{orderId}
+		order by START_TIME desc
+	</select>
+	
 	<select id="queryByUseridAndStep" resultMap="ServeQueueDoMap" parameterType="ServeQueueDo">
 		SELECT 
 		<include refid="Base_Column_List" />
