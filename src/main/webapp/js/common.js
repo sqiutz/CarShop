@@ -13,6 +13,9 @@
                                  "passwd" // 密码
                         ]
                     },
+                   logout : {
+                        url : "user.do?action=logout"
+                    },
                     // 检查用户是否已经登录
                     checkLogin : {
                         url : "user.do?action=checklogin"

@@ -2,9 +2,6 @@ define(["md5"],function(){
 	var UserInfo = {
 		//用户系统登录方法
 		login : function(options) {
-			if(!options.hasMd5){
-				//options.data.passwd=hex_md5(options.data.passwd);
-			}
 			$.common.ajax("userLogin", {
 				data:options.data,
 				success:function(data){					
@@ -12,6 +9,14 @@ define(["md5"],function(){
 				}
 			});
 		},
+		logout : function(options) {
+            $.common.ajax("logout", {
+                data:options.data,
+                success:function(data){                 
+                    options.success(data);                  
+                }
+            });
+        },
 		//获取用户组列表
 		getAllGroups : function(options) {
 			$.common.ajax("getAllGroups", {
@@ -99,5 +104,16 @@ define(["md5"],function(){
 	};
 
 	$.UserInfo = UserInfo;
+	
+	$('#logout').bind('click', function(){
+	    $.UserInfo.logout({
+	        success : function(data) {
+	            if(data.code == '000000') {
+	                location.href = 'index.html'
+	            }
+	        }
+	    });
+	});
+	
 	return UserInfo;
 });

@@ -25,6 +25,7 @@
             $('#saveBtn').text(SAVE).attr('title', SAVE);
             $('#cancelBtn').text(Cancel).attr('title', Cancel);
             $('#newPasswordConfLabel').text(PASSWORD_CONF);
+            $('#legend').text(CHANGE_PASSW0RD);            
         });
     }
     
