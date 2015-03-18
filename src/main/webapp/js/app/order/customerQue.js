@@ -121,7 +121,7 @@
 		$.OrderInfo.getBookedOrderList({
 			data : {
 				status : 1,
-				isBook : 0
+				isBook : 1
 			},
 			success : createWaitingList
 		});
@@ -161,7 +161,7 @@
         $.OrderInfo.getBookedOrderList({
             data : {
                 status : 1,
-                isBook : 1
+                isBook : 0
             },
             success : createNonBookingList
         });
