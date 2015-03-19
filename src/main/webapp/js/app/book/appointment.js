@@ -3,6 +3,7 @@
     $.cookie('selectedDate', '', {expires: -1});
     $.cookie('selectedTime', '', {expires: -1});
     $.cookie('selectedGroup', '', {expires: -1});
+    $('#monthlyView').hide();
     $.UserInfo.getProperty({
         data : {
             name : 'LANGUAGE'
@@ -33,6 +34,9 @@
             $('#expressMainLabel').text(EXPRESS_MAINTENANCE);
             $('#regServiceLabel').text(REGULAR_SERVICE);
             $('#groupNoLabel').text(GROUP_NO);
+            $('#dayBtn').text(DAY).attr('title', DAY);
+            $('#weekBtn').text(WEEK).attr('title', WEEK);
+            $('#monthBtn').text(MONTH).attr('title', MONTH);
         });
     }
     
@@ -66,8 +70,30 @@
         buttonImageOnly: true,
         dateFormat: 'yy-mm-dd',
     });
+        
+    function createDailyView(parenet, color) {
+        var table = $('<table></table>').attr('class', 'calender calender' + color).css('width', '710px').appendTo(parenet);
+        var tr = $('<tr></tr>').appendTo(table);
+        $('<th></th>').text('').appendTo(tr);
+        $('<th></th>').text('Wednesday').appendTo(tr);        
+        for(var i = 0; i < 6; i++) {
+            tr = $('<tr></tr>').appendTo(table);
+            $('<td></td>').attr('rowSpan', '2').text('EM-' + (i+1))
+                .css('width', '53px').css('text-align', 'center').appendTo(tr);
+            $('<td></td>').text((i+1)*10 + '%')
+                .css('border-bottom', '0').css('padding-left', '4px').appendTo(tr);
+            tr = $('<tr></tr>').appendTo(table);
+            var td = $('<td></td>').css('border-top', '0').appendTo(tr);
+            $('<a></a>').attr('class', 'link').text('AC00342').appendTo(td);
+            $('<a></a>').attr('class', 'link').text('BC00123').appendTo(td);
+            $('<a></a>').attr('class', 'link').text('DS12345').appendTo(td);
+        }
+    }
     
-    $('#groupNo').change(function() {
+    createDailyView($('#dailyExpress'), 'Green');
+    createDailyView($('#dailyReguler'), 'Red');
+    
+    /*$('#groupNo').change(function() {
         $('#calendarReguler').fullCalendar('refetchEvents');
     });
     
@@ -223,6 +249,6 @@
             });
         }
         return events;
-    }
+    }*/
     
 })(jQuery);

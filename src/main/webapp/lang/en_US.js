@@ -162,6 +162,9 @@ var NO_OF_HOURS = 'NO. OF HOURS';
 var MANPOWER_ALLOCATION = 'Manpower Allocation';
 var INTAKE_CONTROL = 'Intake Control';
 
+var DAY = 'Day';
+var WEEK = 'Week';
+var MONTH = 'Month';
 var MANPOWER_ALLOCATION = 'Manpower Allocation';
 
 var MSG_INPUT_ORIGINAL_PASSWORD = 'Please input the original password!';

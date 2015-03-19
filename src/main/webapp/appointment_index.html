@@ -57,32 +57,60 @@
 			<div style='width:1756px;margin: 0px auto;'>
 				<div style='display:inline-block;float:left;'>
 					<div id='dateDiv'></div>
-					<div style='margin-top:8px'>
-							<label id='groupNoLabel' for='groupNo'></label>
-							<select id='groupNo' name='groupNo'>
-							</select>
-					</div>
-					<div style='width:306px;'>
-						<div class='inline blue-border' style='width:306px;margin-top:8px'>							
-							<div id='serviceTypeLabel' class='blue f-white' style='width:286px;line-height:30px;text-align:left;padding-left:20px'></div>
-							<div style='width:286px;padding:0px 10px 40px 10px'>
-								<input type="checkbox">
-								<span style="display:inline-block;width:250px;text-align:left;padding-left:10px">Regular Service</span>
-								<input type="checkbox">
-								<span style="display:inline-block;width:250px;text-align:left;padding-left:10px">Express Maintenance</span>
-							</div>
-						</div>
-						<div class='inline blue-border' style='width:306px;margin-top:8px'>							
-							<div id='manpowerLabel' class='blue f-white' style='width:286px;line-height:30px;text-align:left;padding-left:20px'></div>
-							<div style='width:286px;padding:0px 10px 40px 10px'>
+<!-- 					<div style='margin-top:8px'> -->
+<!-- 							<label id='groupNoLabel' for='groupNo'></label> -->
+<!-- 							<select id='groupNo' name='groupNo'> -->
+<!-- 							</select> -->
+<!-- 					</div> -->
+<!-- 					<div style='width:306px;'> -->
+<!-- 						<div class='inline blue-border' style='width:306px;margin-top:8px'>							 -->
+<!-- 							<div id='serviceTypeLabel' class='blue f-white' style='width:286px;line-height:30px;text-align:left;padding-left:20px'></div> -->
+<!-- 							<div style='width:286px;padding:0px 10px 40px 10px'> -->
+<!-- 								<input type="checkbox"> -->
+<!-- 								<span style="display:inline-block;width:250px;text-align:left;padding-left:10px">Regular Service</span> -->
+<!-- 								<input type="checkbox"> -->
+<!-- 								<span style="display:inline-block;width:250px;text-align:left;padding-left:10px">Express Maintenance</span> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 						<div class='inline blue-border' style='width:306px;margin-top:8px'>							 -->
+<!-- 							<div id='manpowerLabel' class='blue f-white' style='width:286px;line-height:30px;text-align:left;padding-left:20px'></div> -->
+<!-- 							<div style='width:286px;padding:0px 10px 40px 10px'> -->
+								
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 					</div>					 -->
+				</div>
+				<div style='display: inline-block; margin-left: 4px'>
+					<div class="fc-toolbar fc fc-ltr ui-widget">
+						<div class="fc-left">
+							<div class="fc-button-group">
+								<button type="button" id='dayBtn'
+									class="fc-agendaDay-button ui-button ui-state-default ui-corner-left ui-state-active"></button>
+								<button type="button" id='weekBtn'
+									class="fc-agendaWeek-button ui-button ui-state-default"></button>
+								<button type="button" id='monthBtn'
+									class="fc-month-button ui-button ui-state-default ui-corner-right"></button>
 								
 							</div>
+							
 						</div>
-					</div>					
-				</div>	
-				<div style='display:inline-block;margin-left:4px'>
-					<div id='calendarExpress' style='width:720px;display:inline-block;'></div>
-					<div id='calendarReguler' style='width:720px;display:inline-block;'></div>
-				</div>				
+						<div style='text-align:right;'>
+							<h2>Mar 15, 2015</h2>
+						</div>
+					</div>
+
+					<div id='dailyView'>
+						<div id='dailyExpress'
+							style='width: 720px; display: inline-block;'></div>
+						<div id='dailyReguler'
+							style='width: 720px; display: inline-block;'></div>
+					</div>
+					<div id='monthlyView'>
+						<div id='calendarExpress'
+							style='width: 720px; display: inline-block;'></div>
+						<div id='calendarReguler'
+							style='width: 720px; display: inline-block;'></div>
+					</div>
+				</div>
 			</div>
 </body>
