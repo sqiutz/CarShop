@@ -11,7 +11,7 @@ function drawChart(div, value) {
                         'value'       : 1 - value
                     }
         ];
-        var label = value * 100 + '%';
+        var label = parseInt(value * 100) + '%';
         drawPieChart(div, data, label);
     }
     

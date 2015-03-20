@@ -4,6 +4,7 @@
     $.cookie('selectedTime', '', {expires: -1});
     $.cookie('selectedGroup', '', {expires: -1});
     $('#monthlyView').hide();
+    $('#weeklyView').hide();
     $.UserInfo.getProperty({
         data : {
             name : 'LANGUAGE'
@@ -70,29 +71,188 @@
         buttonImageOnly: true,
         dateFormat: 'yy-mm-dd',
     });
+    
+    var view = 0;
+    $('#dayBtn').bind("click", function(){
+        if(0 !== view) {
+            view = 0;
+            $('#monthlyView').hide();
+            $('#weeklyView').hide();
+            $('#weekBtn').removeClass('ui-state-active');
+            $('#monthBtn').removeClass('ui-state-active');
+            $('#dayBtn').addClass('ui-state-active');
+            $('#dailyView').show();
+            $('#dailyView table').remove();
+            createDailyView($('#dailyView'));
+        }
+    });
+    $('#weekBtn').bind("click", function(){
+        if(1 !== view) {
+            view = 1;
+            $('#monthlyView').hide();
+            $('#dailyView').hide();
+            $('#dayBtn').removeClass('ui-state-active');
+            $('#monthBtn').removeClass('ui-state-active');
+            $('#weekBtn').addClass('ui-state-active');
+            $('#weeklyView').show();
+            $('#weeklyView table').remove();
+            createWeeklyView($('#weeklyView'), new Date());
+        }
+    });
+    $('#monthBtn').bind("click", function(){
+        if(2 !== view) {
+            view = 2;
+            $('#weeklyView').hide();
+            $('#dailyView').hide();
+            $('#dayBtn').removeClass('ui-state-active');
+            $('#weekBtn').removeClass('ui-state-active');
+            $('#monthBtn').addClass('ui-state-active');
+            $('#monthlyView').show();
+            createMonthlyView($('#monthlyView'), new Date());
+        }
+    });
         
-    function createDailyView(parenet, color) {
-        var table = $('<table></table>').attr('class', 'calender calender' + color).css('width', '710px').appendTo(parenet);
+    function createDailyView(parenet) {
+        var table = $('<table></table>').attr('class', 'calender').css('width', '720px').appendTo(parenet);
         var tr = $('<tr></tr>').appendTo(table);
-        $('<th></th>').text('').appendTo(tr);
-        $('<th></th>').text('Wednesday').appendTo(tr);        
+        $('<th></th>').addClass('ui-widget-header').text('').appendTo(tr);
+        $('<th></th>').addClass('ui-widget-header').attr('colSpan', 2).text('Wednesday').appendTo(tr);        
         for(var i = 0; i < 6; i++) {
             tr = $('<tr></tr>').appendTo(table);
-            $('<td></td>').attr('rowSpan', '2').text('EM-' + (i+1))
-                .css('width', '53px').css('text-align', 'center').appendTo(tr);
-            $('<td></td>').text((i+1)*10 + '%')
-                .css('border-bottom', '0').css('padding-left', '4px').appendTo(tr);
-            tr = $('<tr></tr>').appendTo(table);
-            var td = $('<td></td>').css('border-top', '0').appendTo(tr);
-            $('<a></a>').attr('class', 'link').text('AC00342').appendTo(td);
-            $('<a></a>').attr('class', 'link').text('BC00123').appendTo(td);
-            $('<a></a>').attr('class', 'link').text('DS12345').appendTo(td);
+            $('<td></td>').text('EM-' + (i+1))
+                .css('width', '53px').appendTo(tr);
+//            $('<td></td>').text((i+1)*10 + '%')
+//                .css('border-bottom', '0').appendTo(tr);            
+            var td = $('<td></td>').css('border-right', '0')
+                .css('width', '110px').appendTo(tr);
+            $('<div></div>').attr('id', 'd-content-' + i).css('margin', '0px auto')
+                .css('width', '90px').css('height', '90px').appendTo(td);
+            drawChart('d-content-' + i, 0.1*(i+1));  
+            //tr = $('<tr></tr>').appendTo(table);
+            var td = $('<td></td>').css('border-left', '0').css('text-align', 'left').appendTo(tr);            
+            var div = $('<div></div>').css('display', 'inline-block')
+                .appendTo(td);
+            $('<a></a>').attr('class', 'link').text('AC00342').appendTo(div);
+            $('<a></a>').attr('class', 'link').text('BC00123').appendTo(div);
+            $('<a></a>').attr('class', 'link').text('DS12345').appendTo(div);
         }
     }
     
-    createDailyView($('#dailyExpress'), 'Green');
-    createDailyView($('#dailyReguler'), 'Red');
+    function createWeeklyView(parenet, date) {
+        var table = $('<table></table>').attr('class', 'calender').css('width', '720px').appendTo(parenet);
+        var tr = $('<tr></tr>').appendTo(table);
+        $('<th></th>').addClass('ui-widget-header').text('').appendTo(tr);
+        var start = new Date(date);
+        start.setDate(start.getDate() - start.getDay());
+        for(var i = 0; i < 7; i++) {
+            var d = new Date(start);
+            d.setDate(start.getDate() + i);
+            $('<th></th>').addClass('ui-widget-header').css('width', '95px')
+                .text(getWeekDay(d, true) + ' ' + (d.getMonth() + 1) + '/' + d.getDate()).appendTo(tr);
+        }
+        for(var j = 0; j < 6; j++) {
+            tr = $('<tr></tr>').appendTo(table);
+            $('<td></td>').text('EM-' + (j+1)).appendTo(tr);
+            for(i = 0; i < 7; i++) {
+                var td = $('<td></td>').appendTo(tr);
+                $('<div></div>').attr('id', 'w-content-' + j + '-' + i).css('margin', '0px auto')
+                    .css('width', '90px').css('height', '90px').appendTo(td);
+                drawChart('w-content-' + j + '-' + i, 0.01*((j+1)*10+i));
+            }            
+        }
+    }
     
+    function createMonthlyView(parenet, date) {
+        parenet.fullCalendar({
+            height: 700,
+            header:{  
+                left: '',
+                right: '',
+                center: ''
+                },  
+            theme: true,  
+            editable: false,  
+            allDaySlot : true,
+            timeFormat : 'HH:mm',
+            minTime : '07:00:00',
+            maxTime : '18:00:00',
+            eventColor : '#ffffff',
+            events:  function(start, end, timezone, callback){  
+                var events = [];
+                var start = new Date(date);
+                start.setDate(1);
+                var d = new Date(start), m = start.getMonth();
+                for(i = 0; d.getMonth() == m; i++, d = new Date(start.getTime() + i * 86400000)) {
+                    if(0 == d.getDay() || 6 == d.getDay()) {
+                        continue;
+                    }
+                    var p = 50 + i;
+                    var evtstart = new Date(d);
+                    evtstart.setHours(8);
+                    evtstart.setMinutes(0);
+                    evtstart.setSeconds(0);
+                    var evtend = new Date(d);
+                    evtend.setHours(17);
+                    evtend.setMinutes(0);
+                    evtend.setSeconds(0);
+                    events.push({  
+                        id:'fc-content-'+i,
+                        title: p + '%',  
+                        start: evtstart,  
+                        end: evtend,
+                        percent:0.01 * p
+                    });
+                }
+                callback(events);
+                for(i = 0; i < events.length; i++) {
+                    var event = events[i];
+                    drawChart(event.id, event.percent);
+                }
+            },
+            eventRender: function(event, element) {
+                $(element).find('.fc-content').attr('id', event.id).html('')
+                    .css('width', '90px').css('height', '90px');
+//                $('<div></div>').css('width', '90px').css('height', '90px')
+//                    .attr('id', event.id).appendTo($(element));
+//                drawChart(event.id, event.percent);
+//                $(element).css('height', (90 * event.percent) + 'px')
+//                $(element).append($('<span></span>').attr('class', 'fc-title')
+//                        .text(event.title));
+                
+            }
+        });
+    }
+    
+    function getWeekDay(date, short) {
+        var result = '';
+        switch(date.getDay()) {
+            case 0 : 
+                result = short ? 'Sun' : 'Sunday';
+                break;
+            case 1 : 
+                result = short ? 'Mon' : 'Monday';
+                break;
+            case 2 : 
+                result = short ? 'Tue' : 'Tuesday';
+                break;
+            case 3 : 
+                result = short ? 'Wed' : 'Wednesday';
+                break;
+            case 4 : 
+                result = short ? 'Thu' : 'Thursday';
+                break;
+            case 5 : 
+                result = short ? 'Fri' : 'Friday';
+                break;
+            case 6 : 
+                result = short ? 'Sat' : 'Saturday';
+                break;                
+        }
+        return result;
+    }
+    
+    createDailyView($('#dailyView'));
+     
     /*$('#groupNo').change(function() {
         $('#calendarReguler').fullCalendar('refetchEvents');
     });
