@@ -127,6 +127,28 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 
+	@Override
+	public List<Order> getOrdersByBook(OrderObject orderObject) {
+		// TODO Auto-generated method stub
+		List<Order> orders_front = new ArrayList<Order>();
+		
+		OrderDo orderDo = new OrderDo();
+		orderDo.setIsBook(orderObject.getIsBook());
+		orderDo.setBeginDate(TimeUtil.transferFromUtilToSqlDate(orderObject.getBeginDate()));
+		orderDo.setEndDate(TimeUtil.transferFromUtilToSqlDate(orderObject.getEndDate()));
+		
+		List<OrderDo> orderDoes = orderDao.queryByBook(orderDo);
+		
+		if (orderDoes != null) {
+		
+			for (int i = 0; i < orderDoes.size(); i++) {
+				orders_front.add(OrderConverter.getOrder(orderDoes.get(i)));
+			}
+		}
+		
+		return orders_front;
+	}
+
 	public List<Order> getOrdersByBook(Integer book)
 			throws BusinessServiceException {
 		// TODO Auto-generated method stub
@@ -279,5 +301,7 @@ public class OrderServiceImpl implements OrderService {
 	public void setOrderDao(OrderDao orderDao) {
 		this.orderDao = orderDao;
 	}
+
+
 
 }

@@ -36,5 +36,7 @@ public interface OrderDao extends BaseDao<OrderDo>{
 	public List<OrderDo> queryByStatusAndBook(OrderDo orderDo);
 	
 	public List<OrderDo> queryByBookAndExpress(OrderDo orderDo);
+	
+	public List<OrderDo> queryByBook(OrderDo orderDo);
 
 }

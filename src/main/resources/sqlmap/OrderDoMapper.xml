@@ -102,7 +102,7 @@
 		<include refid="Base_Column_List" />
 		FROM TBL_ORDER
 		WHERE
-		IS_BOOK = #{isBook} and date(ASSIGN_DATE) &gt;= #{beginDate} and date(ASSIGN_DATE) &lt;= #{endDate} and GROUPID = #{groupid} and EXPRESS IS NULL
+		IS_BOOK = #{isBook} and date(ASSIGN_DATE) &gt;= #{beginDate} and date(ASSIGN_DATE) &lt;= #{endDate} and GROUPID = #{groupid}
 	</select>
 	
 	<select id="queryByBookAndExpress" resultMap="OrderDoMap" >
@@ -111,6 +111,14 @@
 		FROM TBL_ORDER
 		WHERE
 		IS_BOOK = #{isBook} and date(ASSIGN_DATE) &gt;= #{beginDate} and date(ASSIGN_DATE) &lt;= #{endDate} and GROUPID = #{groupid} and EXPRESS IS NOT NULL
+	</select>
+	
+	<select id="queryByBook" resultMap="OrderDoMap" >
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM TBL_ORDER
+		WHERE
+		IS_BOOK = #{isBook} and date(ASSIGN_DATE) &gt;= #{beginDate} and date(ASSIGN_DATE) &lt;= #{endDate}
 	</select>
 
 	<select id="queryOrderByQueueNum" resultMap="OrderDoMap" 

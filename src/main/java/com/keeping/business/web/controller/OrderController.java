@@ -1,8 +1,12 @@
 package com.keeping.business.web.controller;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -37,6 +41,9 @@ import com.keeping.business.web.controller.model.Customer;
 import com.keeping.business.web.controller.model.ModifyQueue;
 import com.keeping.business.web.controller.model.Order;
 import com.keeping.business.web.controller.model.OrderObject;
+import com.keeping.business.web.controller.model.OrderPerDay;
+import com.keeping.business.web.controller.model.OrderPerDayDetail;
+import com.keeping.business.web.controller.model.OrderPerPerson;
 import com.keeping.business.web.controller.model.Property;
 import com.keeping.business.web.controller.model.Report;
 import com.keeping.business.web.controller.model.ReportObject;
@@ -327,6 +334,282 @@ public class OrderController {
 		}
 
 		return JsonConverter.getResultObject(code, msg, orderList);
+	}
+	
+	/**
+     * 获取今天预约的订单
+     * 
+     * @param HttpServletRequest
+     * @param HttpServletResponse
+	 * @return 
+     * @return N/A
+     */
+	@RequestMapping(params = "action=allcurdaybooklist")
+	@ResponseBody
+	public WebResultList<OrderPerPerson> getCurdayBookOrders(HttpServletRequest request,HttpServletResponse response) {
+		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
+		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
+
+		List<Order> orderList = null;
+	
+		List<OrderPerPerson> orderPerPersonList = new ArrayList<OrderPerPerson>();
+		
+		try {
+			String jsonStr = request.getParameter("param");
+			OrderObject orderObject = JsonConverter.getFromJsonString(jsonStr, OrderObject.class, "yyyy-MM-dd");
+			
+			if (orderObject == null) {
+				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
+				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
+//				logger.error("< OrderController.getAllOrders() > 获取订单状态不正确." + status + " : " + BusinessCenterOrderStatus.ORDER_STATUS_WAIT.getStatus());
+			} else {
+				
+				Property booking_group_no = propertyService.queryByKey("BOOKING_GROUP_NO");
+				Integer booking_group_value = Integer.parseInt(booking_group_no.getValue());
+				Property load_person = propertyService.queryByKey("LOAD_PERSON");
+				Property load_percentage = propertyService.queryByKey("LOAD_PERCENTAGE");
+				Float load_person_value = Float.parseFloat(load_person.getValue());
+				Float load_perc_value = Float.parseFloat(load_percentage.getValue());
+				
+				for (int i = 0; i < booking_group_value; i++){
+					
+					OrderPerPerson orderPerPerson = new OrderPerPerson();
+					
+					orderObject.setGroupid(i+1);
+					orderList = new ArrayList();
+					orderList = orderService.getOrderByStatusAndBook(orderObject); //orderObject 包含AssignDate以及isBook为1
+					
+					Float totalLoad = null;
+					
+					for (int j=0; j<orderList.size(); j++){
+						
+						Customer customer = customerService.getCustomerByPoliceNum(orderList.get(j).getRegisterNum());
+						
+						orderList.get(j).setCustomer(customer);
+						
+						if (orderObject.getExpress() == null){
+							Float load = Float.parseFloat(jobtypeService.queryByKey(orderList.get(j).getJobType()).getValue());
+							totalLoad = totalLoad + load;
+						} else {
+							Float load = Float.parseFloat(jobtypeService.queryByKey("Express" + orderList.get(j).getExpress()).getValue());
+							totalLoad = totalLoad + load;
+						}
+
+					}
+				
+					totalLoad = (totalLoad * load_perc_value) / load_person_value; 
+					
+					orderPerPerson.setId(i+1);
+					orderPerPerson.setLoad(totalLoad);
+					orderPerPerson.setOrderList(orderList);
+					
+					orderPerPersonList.add(orderPerPerson);
+				}
+				
+				
+			}
+		}catch (BusinessServiceException ex) {
+			code = ex.getErrorCode();
+			msg = ex.getErrorMessage();
+		}catch (Exception e) {
+			code = BusinessCenterResCode.SYS_ERROR.getCode();
+			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
+//			logger.error("< OrderController.getAllOrders() > 获取订单列表失败." + e.getMessage());
+		}
+
+		return JsonConverter.getResultObject(code, msg, orderPerPersonList);
+	}
+	
+	/**
+     * 获取当周预约的订单
+     * 
+     * @param HttpServletRequest
+     * @param HttpServletResponse
+	 * @return 
+     * @return N/A
+     */
+	@RequestMapping(params = "action=allcurweekbooklist")
+	@ResponseBody
+	public WebResultList<OrderPerDayDetail> getCurweekBookOrders(HttpServletRequest request,HttpServletResponse response) {
+		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
+		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
+
+		List<Order> orderList = null;
+	
+		List<OrderPerDayDetail> orderPerDayDetails = new ArrayList<OrderPerDayDetail>();
+		
+		List<OrderPerPerson> orderPerPersonList = new ArrayList<OrderPerPerson>();
+		
+		try {
+			String jsonStr = request.getParameter("param");
+			OrderObject orderObject = JsonConverter.getFromJsonString(jsonStr, OrderObject.class, "yyyy-MM-dd");
+			
+			if (orderObject == null) {
+				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
+				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
+//				logger.error("< OrderController.getAllOrders() > 获取订单状态不正确." + status + " : " + BusinessCenterOrderStatus.ORDER_STATUS_WAIT.getStatus());
+			} else {
+				
+				Property booking_group_no = propertyService.queryByKey("BOOKING_GROUP_NO");
+				Integer booking_group_value = Integer.parseInt(booking_group_no.getValue());
+				Property load_person = propertyService.queryByKey("LOAD_PERSON");
+				Property load_percentage = propertyService.queryByKey("LOAD_PERCENTAGE");
+				Float load_person_value = Float.parseFloat(load_person.getValue());
+				Float load_perc_value = Float.parseFloat(load_percentage.getValue());
+				
+				Calendar beginCal=Calendar.getInstance();
+				beginCal.setTime(orderObject.getBeginDate());
+				
+				for (int k = 0; k < 7; k++){
+					
+					Calendar curCal = Calendar.getInstance();
+					curCal.add(beginCal.DATE, k);
+					Date condDate = curCal.getTime();
+					orderObject.setAssignDate(condDate);
+					
+					OrderPerDayDetail orderPerDayDetail = new OrderPerDayDetail();
+					
+					orderPerDayDetail.setDate(condDate);
+				
+				for (int i = 0; i < booking_group_value; i++){
+					
+					OrderPerPerson orderPerPerson = new OrderPerPerson();
+					
+					orderObject.setGroupid(i+1);
+					orderList = new ArrayList();
+					orderList = orderService.getOrderByStatusAndBook(orderObject); //orderObject 包含AssignDate以及isBook为1
+					
+					Float totalLoad = null;
+					
+					for (int j=0; j<orderList.size(); j++){
+						
+						Customer customer = customerService.getCustomerByPoliceNum(orderList.get(j).getRegisterNum());
+						
+						orderList.get(j).setCustomer(customer);
+						
+						if (orderObject.getExpress() == null){
+							Float load = Float.parseFloat(jobtypeService.queryByKey(orderList.get(j).getJobType()).getValue());
+							totalLoad = totalLoad + load;
+						} else {
+							Float load = Float.parseFloat(jobtypeService.queryByKey("Express" + orderList.get(j).getExpress()).getValue());
+							totalLoad = totalLoad + load;
+						}
+
+					}
+				
+					totalLoad = (totalLoad * load_perc_value) / load_person_value; 
+					
+					orderPerPerson.setId(i+1);
+					orderPerPerson.setLoad(totalLoad);
+					orderPerPerson.setOrderList(orderList);
+					
+					orderPerPersonList.add(orderPerPerson);
+				}
+				
+				orderPerDayDetail.setOrderPerPersons(orderPerPersonList);
+				
+				orderPerDayDetails.add(orderPerDayDetail);
+				}
+				
+			}
+		}catch (BusinessServiceException ex) {
+			code = ex.getErrorCode();
+			msg = ex.getErrorMessage();
+		}catch (Exception e) {
+			code = BusinessCenterResCode.SYS_ERROR.getCode();
+			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
+//			logger.error("< OrderController.getAllOrders() > 获取订单列表失败." + e.getMessage());
+		}
+
+		return JsonConverter.getResultObject(code, msg, orderPerDayDetails);
+	}
+	
+	/**
+     * 获取当月预约的订单
+     * 
+     * @param HttpServletRequest
+     * @param HttpServletResponse
+	 * @return 
+     * @return N/A
+     */
+	@RequestMapping(params = "action=allcurmonthbooklist")
+	@ResponseBody
+	public WebResultList<OrderPerDay> getCurmonthBookOrders(HttpServletRequest request,HttpServletResponse response) {
+		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
+		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
+
+		List<Order> orderList = null;
+		
+		HashMap<String, List> orderPerDays = new HashMap<String, List>();
+		
+		List<OrderPerDay> orderPerDayList = new ArrayList<OrderPerDay>();
+		
+		try {
+			String jsonStr = request.getParameter("param");
+			OrderObject orderObject = JsonConverter.getFromJsonString(jsonStr, OrderObject.class, "yyyy-MM-dd");
+			
+			if (orderObject == null) {
+				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
+				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
+//				logger.error("< OrderController.getAllOrders() > 获取订单状态不正确." + status + " : " + BusinessCenterOrderStatus.ORDER_STATUS_WAIT.getStatus());
+			} else {
+				
+				Property booking_group_no = propertyService.queryByKey("BOOKING_GROUP_NO");
+				Integer booking_group_value = Integer.parseInt(booking_group_no.getValue());
+				Property load_person = propertyService.queryByKey("LOAD_PERSON");
+				Property load_percentage = propertyService.queryByKey("LOAD_PERCENTAGE");
+				Float load_person_value = Float.parseFloat(load_person.getValue());
+				Float load_perc_value = Float.parseFloat(load_percentage.getValue());
+				
+				orderList = orderService.getOrdersByBook(orderObject);
+				
+				for (int i = 0 ; i < orderList.size(); i++){
+					
+					Date date = orderList.get(i).getAssignDate();
+					
+					if (orderPerDays.containsKey(date.toString())){
+						
+						orderPerDays.get(date.toString()).add(orderList.get(i));
+					}
+				}
+				
+				Iterator iter = orderPerDays.entrySet().iterator();
+				
+				List<Order> orders = new ArrayList<Order>();
+				
+				while (iter.hasNext()){
+					
+					Map.Entry entry = (Map.Entry) iter.next();
+					
+					OrderPerDay orderPerDay = new OrderPerDay();
+					orderPerDay.setDate(entry.getKey().toString());
+					
+					orders = (List<Order>) entry.getValue();
+					Float totalLoad = null;
+					for (int j = 0; j < orders.size(); j++) {
+						
+						Float load = Float.parseFloat(jobtypeService.queryByKey(orders.get(j).getJobType()).getValue());
+						totalLoad = totalLoad + load;
+					}
+					
+					totalLoad = (totalLoad * load_perc_value) / load_person_value; 
+					
+					orderPerDay.setLoad(totalLoad);
+					
+					orderPerDayList.add(orderPerDay);
+				}	
+				
+			}
+		}catch (BusinessServiceException ex) {
+			code = ex.getErrorCode();
+			msg = ex.getErrorMessage();
+		}catch (Exception e) {
+			code = BusinessCenterResCode.SYS_ERROR.getCode();
+			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
+//			logger.error("< OrderController.getAllOrders() > 获取订单列表失败." + e.getMessage());
+		}
+
+		return JsonConverter.getResultObject(code, msg, orderPerDayList);
 	}
 	
 	@RequestMapping(params = "action=getone")

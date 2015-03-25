@@ -38,5 +38,7 @@ public interface OrderService {
 	public List<Order> getOrderByStatusAndBook(OrderObject orderObject);
 	
 	public List<Order> getOrderByBookAndExpress(OrderObject orderObject);
+	
+	public List<Order> getOrdersByBook(OrderObject orderObject);
 
 }
