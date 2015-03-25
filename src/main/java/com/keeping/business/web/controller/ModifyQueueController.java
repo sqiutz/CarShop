@@ -477,6 +477,118 @@ public class ModifyQueueController {
 		}
 	}
 
+	@RequestMapping(params = "action=preapproval")
+	@ResponseBody
+	public WebResult preapproval(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
+		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
+		
+		try {
+			String jsonStr = request.getParameter("param");
+			
+			ModifyQueue modifyQueue = JsonConverter.getFromJsonString(jsonStr,
+					ModifyQueue.class);
+	
+			if (StringUtil.isNull(jsonStr) || modifyQueue == null) {
+				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
+				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
+//				logger.error("< ModifyQueueController.hold() > 订单维修订单信息为空或没有权限。"
+//						+ jsonStr);
+			} else{
+				
+				modifyQueue = modifyQueueService.getModifyQueueById(modifyQueue.getId());
+				
+				if (modifyQueue != null && modifyQueue.getStep() > 0){
+					
+					modifyQueue.setStep(BusinessCenterModifyQueueStatus.MODIFYQUEUE_STATUS_PREAPPROVAL.getId());
+					modifyQueueService.updateModifyQueue(modifyQueue);
+				}else{
+					code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
+					msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
+				}
+
+			}
+		} catch (BusinessServiceException ex) {
+			code = ex.getErrorCode();
+			msg = ex.getErrorMessage();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			System.out.println(e.getStackTrace());
+			code = BusinessCenterResCode.SYS_ERROR.getCode();
+			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
+//			logger.error("< ModifyQueueController.hold() > 挂起任务失败."
+//					+ e.getMessage());
+		}
+
+		// 返回结果
+		try {
+			return JsonConverter.getResultSignal(code, msg);
+		} catch (Exception e) {
+//			logger.error("< ModifyQueueController.hold() > 挂起任务返回出错."
+//					+ e.getMessage());
+			throw e;
+		}
+	}
+	
+	@RequestMapping(params = "action=reject")
+	@ResponseBody
+	public WebResult reject(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
+		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
+		
+		try {
+			String jsonStr = request.getParameter("param");
+			
+			ModifyQueue modifyQueue = JsonConverter.getFromJsonString(jsonStr,
+					ModifyQueue.class);
+	
+			if (StringUtil.isNull(jsonStr) || modifyQueue == null) {
+				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
+				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
+//				logger.error("< ModifyQueueController.hold() > 订单维修订单信息为空或没有权限。"
+//						+ jsonStr);
+			} else{
+				
+				modifyQueue = modifyQueueService.getModifyQueueById(modifyQueue.getId());
+				
+				if (modifyQueue != null && modifyQueue.getStep() > 0){
+					
+					modifyQueue.setStep(BusinessCenterModifyQueueStatus.MODIFYQUEUE_STATUS_REJECT.getId());
+					modifyQueueService.updateModifyQueue(modifyQueue);
+				}else{
+					code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
+					msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
+				}
+
+			}
+		} catch (BusinessServiceException ex) {
+			code = ex.getErrorCode();
+			msg = ex.getErrorMessage();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			System.out.println(e.getStackTrace());
+			code = BusinessCenterResCode.SYS_ERROR.getCode();
+			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
+//			logger.error("< ModifyQueueController.hold() > 挂起任务失败."
+//					+ e.getMessage());
+		}
+
+		// 返回结果
+		try {
+			return JsonConverter.getResultSignal(code, msg);
+		} catch (Exception e) {
+//			logger.error("< ModifyQueueController.hold() > 挂起任务返回出错."
+//					+ e.getMessage());
+			throw e;
+		}
+	}
+	
+	
+	
 	@RequestMapping(params = "action=finish")
 	@ResponseBody
 	public WebResult finish(HttpServletRequest request,

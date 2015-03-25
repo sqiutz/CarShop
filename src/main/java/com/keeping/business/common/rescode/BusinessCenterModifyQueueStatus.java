@@ -6,7 +6,9 @@ public enum BusinessCenterModifyQueueStatus {
 	MODIFYQUEUE_STATUS_READY(1, "ready"),
 	MODIFYQUEUE_STATUS_START(2, "start"),
 	MODIFYQUEUE_STATUS_HOLD(3, "hold"),
-	MODIFYQUEUE_STATUS_FINISH(4, "finish");
+	MODIFYQUEUE_STATUS_PREAPPROVAL(4, "preapproval"),
+	MODIFYQUEUE_STATUS_REJECT(5, "reject"),
+	MODIFYQUEUE_STATUS_FINISH(6, "finish");
 	
 	private Integer id;
 	private String status;
