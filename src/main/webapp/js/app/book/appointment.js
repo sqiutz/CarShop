@@ -155,6 +155,18 @@
             $('<a></a>').attr('class', 'link').text('BC00123').appendTo(div);
             $('<a></a>').attr('class', 'link').text('DS12345').appendTo(div);
         }
+        
+        $.OrderInfo.getBookedOrderListByDay({
+            data : {
+                assignDate: getDateString(selectedDate),
+            },
+            success : function(orders) {
+
+            },
+            error : function(orders) {
+
+            }
+        });
     }
     
     function createWeeklyView() {
@@ -182,6 +194,18 @@
                 drawChart('w-content-' + j + '-' + i, 0.01*((j+1)*10+i));
             }            
         }
+        
+        $.OrderInfo.getBookedOrderListByWeek({
+            data : {
+                beginDate: getDateString(start),
+            },
+            success : function(orders) {
+
+            },
+            error : function(orders) {
+
+            }
+        });
     }
     
     function createMonthlyView() {
@@ -246,7 +270,24 @@
             }
         });
         $('#monthlyView .fc-toolbar').hide();        
-        //$('#monthlyView').fullCalendar('refetchEvents');
+        
+        var s = new Date(selectedDate);
+        s.setDate(1);
+        var e = new Date(s);
+        e.setMonth(e.getMonth() + 1);
+        e = new Date(e.getTime() - 86400000)
+        $.OrderInfo.getBookedOrderListByMonth({
+            data : {
+                beginDate: getDateString(s),
+                endDate: getDateString(e)
+            },
+            success : function(orders) {
+
+            },
+            error : function(orders) {
+
+            }
+        });
     }
     
     function getWeekDay(date, short) {

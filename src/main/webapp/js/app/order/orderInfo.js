@@ -107,6 +107,45 @@ define([], function() {
                 }
             });
         },
+        getBookedOrderListByDay : function(options) {
+            var orderlist;
+            $.common.ajax("getBookedOrderListByDay", {
+                data : options.data,
+                success : function(data) {
+                    orderlist = data.resList;
+                    options.success(orderlist);
+                },
+                error : function(error) {
+                    options.success();
+                }
+            });
+        },
+        getBookedOrderListByWeek : function(options) {
+            var orderlist;
+            $.common.ajax("getBookedOrderListByWeek", {
+                data : options.data,
+                success : function(data) {
+                    orderlist = data.resList;
+                    options.success(orderlist);
+                },
+                error : function(error) {
+                    options.success();
+                }
+            });
+        },
+        getBookedOrderListByMonth : function(options) {
+            var orderlist;
+            $.common.ajax("getBookedOrderListByMonth", {
+                data : options.data,
+                success : function(data) {
+                    orderlist = data.resList;
+                    options.success(orderlist);
+                },
+                error : function(error) {
+                    options.success();
+                }
+            });
+        },
         // 获取单个订单
         getOrder : function(options) {
             $.common.ajax("getOrder", {
