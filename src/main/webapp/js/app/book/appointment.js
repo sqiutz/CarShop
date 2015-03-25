@@ -63,6 +63,8 @@
         location.href = 'appointment_parameter.html';
     });
     
+    
+    var view = 0, selectedDate = new Date();
     $("#dateDiv").datepicker({
         inline: true,
         showMonthAfterYear: true,
@@ -70,9 +72,25 @@
         changeYear: true,
         buttonImageOnly: true,
         dateFormat: 'yy-mm-dd',
+        onSelect: function(dateText, inst) {
+            var date = new Date(dateText);
+            selectedDate = date;
+            switch(view) {
+                case 0:
+                    createDailyView();
+                    break;
+                case 1:
+                    createWeeklyView();
+                    break;
+                case 2:
+                    var dateString = selectedDate.toDateString().split(' ');
+                    $('#canlendarTitle').text(dateString[1] + ' ' + dateString[3]);
+                    $('#monthlyView').fullCalendar('gotoDate', date);
+                    break;
+            }
+        }
     });
-    
-    var view = 0;
+
     $('#dayBtn').bind("click", function(){
         if(0 !== view) {
             view = 0;
@@ -81,9 +99,8 @@
             $('#weekBtn').removeClass('ui-state-active');
             $('#monthBtn').removeClass('ui-state-active');
             $('#dayBtn').addClass('ui-state-active');
-            $('#dailyView').show();
-            $('#dailyView table').remove();
-            createDailyView($('#dailyView'));
+            $('#dailyView').show();            
+            createDailyView();
         }
     });
     $('#weekBtn').bind("click", function(){
@@ -94,9 +111,8 @@
             $('#dayBtn').removeClass('ui-state-active');
             $('#monthBtn').removeClass('ui-state-active');
             $('#weekBtn').addClass('ui-state-active');
-            $('#weeklyView').show();
-            $('#weeklyView table').remove();
-            createWeeklyView($('#weeklyView'), new Date());
+            $('#weeklyView').show();            
+            createWeeklyView();
         }
     });
     $('#monthBtn').bind("click", function(){
@@ -107,16 +123,19 @@
             $('#dayBtn').removeClass('ui-state-active');
             $('#weekBtn').removeClass('ui-state-active');
             $('#monthBtn').addClass('ui-state-active');
-            $('#monthlyView').show();
-            createMonthlyView($('#monthlyView'), new Date());
+            $('#monthlyView').show();            
+            createMonthlyView();
         }
     });
         
-    function createDailyView(parenet) {
-        var table = $('<table></table>').attr('class', 'calender').css('width', '720px').appendTo(parenet);
+    function createDailyView() {
+        var dateString = selectedDate.toDateString().split(' ');
+        $('#canlendarTitle').text(dateString[1] + ' ' + dateString[2] + ', ' + dateString[3]);
+        $('#dailyView table').remove();
+        var table = $('<table></table>').attr('class', 'calender').css('width', '720px').appendTo($('#dailyView'));
         var tr = $('<tr></tr>').appendTo(table);
         $('<th></th>').addClass('ui-widget-header').text('').appendTo(tr);
-        $('<th></th>').addClass('ui-widget-header').attr('colSpan', 2).text('Wednesday').appendTo(tr);        
+        $('<th></th>').addClass('ui-widget-header').attr('colSpan', 2).text(getWeekDay(selectedDate)).appendTo(tr);        
         for(var i = 0; i < 6; i++) {
             tr = $('<tr></tr>').appendTo(table);
             $('<td></td>').text('EM-' + (i+1))
@@ -136,14 +155,29 @@
             $('<a></a>').attr('class', 'link').text('BC00123').appendTo(div);
             $('<a></a>').attr('class', 'link').text('DS12345').appendTo(div);
         }
+        
+        $.OrderInfo.getBookedOrderListByDay({
+            data : {
+                assignDate: getDateString(selectedDate),
+            },
+            success : function(orders) {
+
+            },
+            error : function(orders) {
+
+            }
+        });
     }
     
-    function createWeeklyView(parenet, date) {
-        var table = $('<table></table>').attr('class', 'calender').css('width', '720px').appendTo(parenet);
+    function createWeeklyView() {
+        $('#weeklyView table').remove();
+        var table = $('<table></table>').attr('class', 'calender').css('width', '720px').appendTo($('#weeklyView'));
         var tr = $('<tr></tr>').appendTo(table);
         $('<th></th>').addClass('ui-widget-header').text('').appendTo(tr);
-        var start = new Date(date);
+        var start = new Date(selectedDate);
         start.setDate(start.getDate() - start.getDay());
+        var dateString = start.toDateString().split(' ');
+        $('#canlendarTitle').text(dateString[1] + ' ' + dateString[2] + ' - ' + (parseInt(dateString[2]) +  6) + ', ' + dateString[3]);
         for(var i = 0; i < 7; i++) {
             var d = new Date(start);
             d.setDate(start.getDate() + i);
@@ -160,10 +194,24 @@
                 drawChart('w-content-' + j + '-' + i, 0.01*((j+1)*10+i));
             }            
         }
+        
+        $.OrderInfo.getBookedOrderListByWeek({
+            data : {
+                beginDate: getDateString(start),
+            },
+            success : function(orders) {
+
+            },
+            error : function(orders) {
+
+            }
+        });
     }
     
-    function createMonthlyView(parenet, date) {
-        parenet.fullCalendar({
+    function createMonthlyView() {
+        var dateString = selectedDate.toDateString().split(' ');
+        $('#canlendarTitle').text(dateString[1] + ' ' + dateString[3]);
+        $('#monthlyView').fullCalendar({
             height: 700,
             header:{  
                 left: '',
@@ -177,12 +225,12 @@
             minTime : '07:00:00',
             maxTime : '18:00:00',
             eventColor : '#ffffff',
-            events:  function(start, end, timezone, callback){  
+            events:  function(start, end, timezone, callback){ 
                 var events = [];
-                var start = new Date(date);
-                start.setDate(1);
-                var d = new Date(start), m = start.getMonth();
-                for(i = 0; d.getMonth() == m; i++, d = new Date(start.getTime() + i * 86400000)) {
+                var s = new Date(selectedDate);
+                s.setDate(1);
+                var d = new Date(s), m = s.getMonth();
+                for(i = 0; d.getMonth() == m; i++, d = new Date(s.getTime() + i * 86400000)) {
                     if(0 == d.getDay() || 6 == d.getDay()) {
                         continue;
                     }
@@ -196,7 +244,7 @@
                     evtend.setMinutes(0);
                     evtend.setSeconds(0);
                     events.push({  
-                        id:'fc-content-'+i,
+                        id:'fc-content-'+d.getTime(),
                         title: p + '%',  
                         start: evtstart,  
                         end: evtend,
@@ -219,6 +267,25 @@
 //                $(element).append($('<span></span>').attr('class', 'fc-title')
 //                        .text(event.title));
                 
+            }
+        });
+        $('#monthlyView .fc-toolbar').hide();        
+        
+        var s = new Date(selectedDate);
+        s.setDate(1);
+        var e = new Date(s);
+        e.setMonth(e.getMonth() + 1);
+        e = new Date(e.getTime() - 86400000)
+        $.OrderInfo.getBookedOrderListByMonth({
+            data : {
+                beginDate: getDateString(s),
+                endDate: getDateString(e)
+            },
+            success : function(orders) {
+
+            },
+            error : function(orders) {
+
             }
         });
     }
@@ -251,7 +318,7 @@
         return result;
     }
     
-    createDailyView($('#dailyView'));
+    createDailyView();
      
     /*$('#groupNo').change(function() {
         $('#calendarReguler').fullCalendar('refetchEvents');

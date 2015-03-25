@@ -160,6 +160,26 @@
                                  "express"
                         ]                        
                     },
+                    getBookedOrderListByDay : {
+                        url : "order.do?action=allcurdaybooklist",
+                        args : [ 
+                                 "assignDate"
+                        ]                        
+                    },
+                    getBookedOrderListByWeek : {
+                        url : "order.do?action=allcurweekbooklist",
+                        args : [ 
+                                   "beginDate",
+                                   "endDate"
+                        ]                        
+                    },
+                    getBookedOrderListByMonth : {
+                        url : "order.do?action=allcurmonthbooklist",
+                        args : [ 
+                                    "beginDate",
+                                    "endDate"
+                        ]                        
+                    },
                     // 获取单个订单
                     getOrder : {
                     	url : "order.do?action=getone",
@@ -207,7 +227,7 @@
                     getModifyQueue : {
                         url : "modifyqueue.do?action=getone",
                         args : [ 
-                                 "id"
+                                 "registerNum"
                         ]
                     },
                     // 获取modifyqueue list
