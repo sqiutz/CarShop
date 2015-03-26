@@ -102,7 +102,7 @@
 		<include refid="Base_Column_List" />
 		FROM TBL_ORDER
 		WHERE
-		IS_BOOK = #{isBook} and date(ASSIGN_DATE) &gt;= #{beginDate} and date(ASSIGN_DATE) &lt;= #{endDate} and GROUPID = #{groupid}
+		IS_BOOK = #{isBook} and date(ASSIGN_DATE) = #{assignDate} and GROUPID = #{groupid}
 	</select>
 	
 	<select id="queryByBookAndExpress" resultMap="OrderDoMap" >

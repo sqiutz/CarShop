@@ -369,7 +369,7 @@ public class OrderController {
 				Property load_person = propertyService.queryByKey("LOAD_PERSON");
 				Property load_percentage = propertyService.queryByKey("LOAD_PERCENTAGE");
 				Float load_person_value = Float.parseFloat(load_person.getValue());
-				Float load_perc_value = Float.parseFloat(load_percentage.getValue());
+				Float load_perc_value = new Float(load_percentage.getValue().substring(0,load_percentage.getValue().indexOf("%")))/100;
 				
 				for (int i = 0; i < booking_group_value; i++){
 					
@@ -379,7 +379,7 @@ public class OrderController {
 					orderList = new ArrayList();
 					orderList = orderService.getOrderByStatusAndBook(orderObject); //orderObject 包含AssignDate以及isBook为1
 					
-					Float totalLoad = null;
+					Float totalLoad = (float) 0;
 					
 					for (int j=0; j<orderList.size(); j++){
 						
@@ -398,6 +398,7 @@ public class OrderController {
 					}
 				
 					totalLoad = (totalLoad * load_perc_value) / load_person_value; 
+					totalLoad =  (float)(Math.round(totalLoad*100))/100;
 					
 					orderPerPerson.setId(i+1);
 					orderPerPerson.setLoad(totalLoad);
@@ -455,7 +456,7 @@ public class OrderController {
 				Property load_person = propertyService.queryByKey("LOAD_PERSON");
 				Property load_percentage = propertyService.queryByKey("LOAD_PERCENTAGE");
 				Float load_person_value = Float.parseFloat(load_person.getValue());
-				Float load_perc_value = Float.parseFloat(load_percentage.getValue());
+				Float load_perc_value = new Float(load_percentage.getValue().substring(0,load_percentage.getValue().indexOf("%")))/100;
 				
 				Calendar beginCal=Calendar.getInstance();
 				beginCal.setTime(orderObject.getBeginDate());
@@ -559,7 +560,7 @@ public class OrderController {
 				Property load_person = propertyService.queryByKey("LOAD_PERSON");
 				Property load_percentage = propertyService.queryByKey("LOAD_PERCENTAGE");
 				Float load_person_value = Float.parseFloat(load_person.getValue());
-				Float load_perc_value = Float.parseFloat(load_percentage.getValue());
+				Float load_perc_value = new Float(load_percentage.getValue().substring(0,load_percentage.getValue().indexOf("%")))/100;
 				
 				orderList = orderService.getOrdersByBook(orderObject);
 				
@@ -570,6 +571,10 @@ public class OrderController {
 					if (orderPerDays.containsKey(date.toString())){
 						
 						orderPerDays.get(date.toString()).add(orderList.get(i));
+					} else {
+						
+						List<Order> tempOrderList = new ArrayList<Order>();
+						orderPerDays.put(date.toString(), tempOrderList);
 					}
 				}
 				
@@ -585,7 +590,7 @@ public class OrderController {
 					orderPerDay.setDate(entry.getKey().toString());
 					
 					orders = (List<Order>) entry.getValue();
-					Float totalLoad = null;
+					Float totalLoad = (float) 0;
 					for (int j = 0; j < orders.size(); j++) {
 						
 						Float load = Float.parseFloat(jobtypeService.queryByKey(orders.get(j).getJobType()).getValue());
