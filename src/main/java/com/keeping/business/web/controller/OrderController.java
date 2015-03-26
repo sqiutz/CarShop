@@ -597,7 +597,8 @@ public class OrderController {
 						totalLoad = totalLoad + load;
 					}
 					
-					totalLoad = (totalLoad * load_perc_value) / load_person_value; 
+					totalLoad = (totalLoad * load_perc_value) / load_person_value;
+					totalLoad =  (float)(Math.round(totalLoad*100))/100;
 					
 					orderPerDay.setLoad(totalLoad);
 					
