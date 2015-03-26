@@ -480,7 +480,7 @@ public class OrderController {
 					orderList = new ArrayList();
 					orderList = orderService.getOrderByStatusAndBook(orderObject); //orderObject 包含AssignDate以及isBook为1
 					
-					Float totalLoad = null;
+					Float totalLoad = (float) 0;
 					
 					for (int j=0; j<orderList.size(); j++){
 						
@@ -498,7 +498,8 @@ public class OrderController {
 
 					}
 				
-					totalLoad = (totalLoad * load_perc_value) / load_person_value; 
+					totalLoad = (totalLoad * load_perc_value) / load_person_value;
+					totalLoad =  (float)(Math.round(totalLoad*100))/100;
 					
 					orderPerPerson.setId(i+1);
 					orderPerPerson.setLoad(totalLoad);
