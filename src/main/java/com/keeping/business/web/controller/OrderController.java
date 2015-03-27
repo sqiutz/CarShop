@@ -458,11 +458,9 @@ public class OrderController {
 				
 				Calendar beginCal=Calendar.getInstance();
 				beginCal.setTime(orderObject.getBeginDate());
-				
-				for (int k = 0; k < 7; k++){
-					
-					Calendar curCal = Calendar.getInstance();
-					curCal.add(beginCal.DATE, k);
+				Calendar curCal = Calendar.getInstance();
+				curCal.setTime(orderObject.getBeginDate());
+				for (int k = 0; k < 7; k++, curCal.add(Calendar.DAY_OF_MONTH, 1)){					
 					Date condDate = curCal.getTime();
 					orderObject.setAssignDate(condDate);
 					

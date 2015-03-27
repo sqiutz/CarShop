@@ -275,14 +275,6 @@
                                 p = 0;
                             }
                             evtend = new Date(evtstart);
-//                            var evtstart = new Date(list[i].date);
-//                            evtstart.setHours(8);
-//                            evtstart.setMinutes(0);
-//                            evtstart.setSeconds(0);
-//                            var evtend = new Date(evtstart);
-//                            evtend.setHours(17);
-//                            evtend.setMinutes(0);
-//                            evtend.setSeconds(0);
                             events.push({  
                                 id:'fc-content-' + evtstart.getTime(),
                                 title: p + '%',  
