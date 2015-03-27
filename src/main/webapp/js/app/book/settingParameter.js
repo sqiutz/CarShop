@@ -31,6 +31,7 @@
             $('#manpowerAllocLabel').text(MANPOWER_ALLOCATION);
             $('#regJobCkbText').text(REGULAR_SERVICE);
             $('#expJobCkbText').text(EXPRESS_MAINTENANCE);
+            $('#cancelBtn').text(Cancel).attr('title', Cancel);
             
             getRegJobTypeList();
         });
@@ -57,6 +58,10 @@
             $('#regJobCkb').attr('checked', false);
             getExpJobTypeList();
         }
+    });
+    
+    $('#cancelBtn').bind('click', function() {
+        location.href = 'appointment_index.html';
     });
     
     var tab = 0;
