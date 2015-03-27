@@ -28,7 +28,7 @@
             $('#roofNoLabel').text(ROOF_NO);
             $('#serviceAdvisorLabel').text(SERVICE_ADVISOR);
             $('#jobTypeLabel').text(JOB_TYPE);
-//            $('#orderIdLabel').text(ID);
+            $('#orderIdLabel').text(ID);
             $('#rWarranty').text(WARRANTY);
             $('#rSubContract').text(SUB_CONTRACT);
             $('#jobProcess').text(JOB_PROCESS);
@@ -60,7 +60,7 @@
     } 
     
     function setModifyQueue(modifyQue) {
-//        $('#regNo').val(modifyQue && modifyQue.order ? modifyQue.order.registerNum : '');
+        $('#regNo').val(modifyQue && modifyQue.order ? modifyQue.order.registerNum : '');
         $('#idMechanic').val(modifyQue && modifyQue.modifier ? modifyQue.modifier.userName : '');
         $('#roofNo').val(modifyQue && modifyQue.order ? modifyQue.order.roofNum : '');
         $('#serviceAdvisor').val(modifyQue && modifyQue.user ? modifyQue.user.userName : '');
@@ -69,14 +69,14 @@
         $('#isSubContract').attr('checked', modifyQue && modifyQue.isSubContract ? true : false);
     }
         
-    $('#regNo').bind("blur", function() {
-        getModifyQueue($('#regNo').val());
+    $('#orderId').bind("blur", function() {
+        getModifyQueue($('#orderId').val());
     });
-    $('#regNo').keyup(function(event) {
+    $('#orderId').keyup(function(event) {
         var myEvent = event || window.event;
         var keyCode = myEvent.keyCode;
         if(keyCode == 13){ //Enter
-            getModifyQueue($('#regNo').val());
+            getModifyQueue($('#orderId').val());
         }
     });
     
