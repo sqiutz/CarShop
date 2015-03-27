@@ -33,6 +33,7 @@
             $('#regularServiceLabel').text(REGULAR_SERVICE);
             $('#expressMaintenanceLabel').text(EXPRESS_MAINTENANCE);
             $('#saveBtn').text(SAVE).attr('title', SAVE);
+            $('#cancelBtn').text(Cancel).attr('title', Cancel);
             $('#promiseTimeLabel').text(PROMISE_TIME);    
             $('#groupNoLabel').text(GROUP_NO);
         });
@@ -46,7 +47,17 @@
             if (data.code == '000000') {
                 var num = data.obj.value;
                 for (var i = 0; i < num; i++) {
-                    $("<option></option>").val(i + 1).text(i + 1).appendTo($('#groupNo'));
+                    $("<option></option>").val(i + 1).text('EM-' + (i + 1)).appendTo($('#groupNo'));
+                }
+                var order = $.cookie('currOrder');
+                if(order) {
+                    order =  JSON.parse(order);
+                    $('#groupNo').val(order.groupid);
+                }
+                else {
+                    if($.cookie('selectedGroup')) {
+                        $('#groupNo').val($.cookie('selectedGroup'));
+                    }
                 }
             }
         }
@@ -58,8 +69,7 @@
         if(order) {
             update = true;
             order =  JSON.parse(order);
-            defaultDate = order.assignDate;
-            $('#groupNo').val(order.groupid);
+            defaultDate = order.assignDate;            
             $('#policeNo').val(order.registerNum);
             $('#policeNo').attr('disabled', 'disabled');
             $('#customer').val(order.userName);
@@ -68,10 +78,7 @@
             defaultJobType =  order.jobType ? order.jobType : (CONST_EXPRESS + order.express);
             $('#promiseTime').val(order.bookStartTime);
         }
-        else {
-            if($.cookie('selectedGroup')) {
-                $('#groupNo').val($.cookie('selectedGroup'));
-            }
+        else {            
             if($.cookie('selectedDate')) {
                 defaultDate = $.cookie('selectedDate');
             }
@@ -165,6 +172,10 @@
         $('<span></span>').attr('style', 'display:inline-block;font-style:italic;text-align:left;padding-left:10px')
             .text('(' + INPUT_EST_TIME + ')').appendTo(box);*/
     };
+    
+    $('#cancelBtn').bind('click', function() {
+        location.href = 'appointment_index.html';
+    });
     
     $('#saveBtn').bind('click', function() {
         var policeNo = validatePoliceNo();

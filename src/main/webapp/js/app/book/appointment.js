@@ -34,7 +34,7 @@
             $('#manpowerLabel').text(MANPOWER_ALLOCATION);
             $('#expressMainLabel').text(EXPRESS_MAINTENANCE);
             $('#regServiceLabel').text(REGULAR_SERVICE);
-            $('#groupNoLabel').text(GROUP_NO);
+            $('#groupNoLabel').text('EM');
             $('#dayBtn').text(DAY).attr('title', DAY);
             $('#weekBtn').text(WEEK).attr('title', WEEK);
             $('#monthBtn').text(MONTH).attr('title', MONTH);
@@ -56,6 +56,7 @@
     });
     
     $('#newBtn').bind("click", function(){
+        //$.cookie('selectedGroup', $('#groupNo').val());
         location.href = 'new_appointment.html';
     });
     
@@ -64,7 +65,7 @@
     });
     
     
-    var view = 0, selectedDate = new Date();
+    var view = 0, selectedDate = new Date(), currentDate;
     $("#dateDiv").datepicker({
         inline: true,
         showMonthAfterYear: true,
@@ -74,18 +75,27 @@
         dateFormat: 'yy-mm-dd',
         onSelect: function(dateText, inst) {
             var date = new Date(dateText);
+            currentDate = selectedDate;
             selectedDate = date;
             switch(view) {
                 case 0:
                     createDailyView();
                     break;
                 case 1:
-                    createWeeklyView();
+                    var start = new Date(selectedDate);
+                    start.setDate(start.getDate() - start.getDay());
+                    var end = new Date(start);
+                    end.setDate(start.getDate() + 6);
+                    if(currentDate == null || (currentDate < start || currentDate > end)) {
+                        createWeeklyView();
+                    }                    
                     break;
                 case 2:
-                    var dateString = selectedDate.toDateString().split(' ');
-                    $('#canlendarTitle').text(dateString[1] + ' ' + dateString[3]);
-                    $('#monthlyView').fullCalendar('gotoDate', date);
+                    if(currentDate == null || (selectedDate.getMonth() !== currentDate.getMonth())) {
+                        var dateString = selectedDate.toDateString().split(' ');
+                        $('#canlendarTitle').text(dateString[1] + ' ' + dateString[3]);
+                        $('#monthlyView').fullCalendar('gotoDate', date);
+                    }                   
                     break;
             }
         }
@@ -135,36 +145,46 @@
         var table = $('<table></table>').attr('class', 'calender').css('width', '720px').appendTo($('#dailyView'));
         var tr = $('<tr></tr>').appendTo(table);
         $('<th></th>').addClass('ui-widget-header').text('').appendTo(tr);
-        $('<th></th>').addClass('ui-widget-header').attr('colSpan', 2).text(getWeekDay(selectedDate)).appendTo(tr);        
-        for(var i = 0; i < 6; i++) {
-            tr = $('<tr></tr>').appendTo(table);
-            $('<td></td>').text('EM-' + (i+1))
-                .css('width', '53px').appendTo(tr);
-//            $('<td></td>').text((i+1)*10 + '%')
-//                .css('border-bottom', '0').appendTo(tr);            
-            var td = $('<td></td>').css('border-right', '0')
-                .css('width', '110px').appendTo(tr);
-            $('<div></div>').attr('id', 'd-content-' + i).css('margin', '0px auto')
-                .css('width', '90px').css('height', '90px').appendTo(td);
-            drawChart('d-content-' + i, 0.1*(i+1));  
-            //tr = $('<tr></tr>').appendTo(table);
-            var td = $('<td></td>').css('border-left', '0').css('text-align', 'left').appendTo(tr);            
-            var div = $('<div></div>').css('display', 'inline-block')
-                .appendTo(td);
-            $('<a></a>').attr('class', 'link').text('AC00342').appendTo(div);
-            $('<a></a>').attr('class', 'link').text('BC00123').appendTo(div);
-            $('<a></a>').attr('class', 'link').text('DS12345').appendTo(div);
-        }
-        
+        $('<th></th>').addClass('ui-widget-header').attr('colSpan', 2).text(getWeekDay(selectedDate)).appendTo(tr);      
+      
         $.OrderInfo.getBookedOrderListByDay({
             data : {
                 assignDate: getDateString(selectedDate),
             },
-            success : function(orders) {
-
-            },
-            error : function(orders) {
-
+            success : function(list) {
+                for(var i = 0; i < list.length; i++) {
+                    tr = $('<tr></tr>').appendTo(table);
+                    var id = list[i].id
+                    $('<td></td>').text('EM-' + id)
+                        .css('width', '53px').appendTo(tr);           
+                    var td = $('<td></td>').css('border-right', '0')
+                        .css('width', '110px').appendTo(tr);
+                    $('<div></div>').attr('id', 'd-content-' + id).css('margin', '0px auto')
+                        .css('width', '90px').css('height', '90px').appendTo(td);
+                    drawChart('d-content-' + id, list[i].load);
+                    var td = $('<td></td>').css('border-left', '0').css('text-align', 'left').appendTo(tr);            
+                    var div = $('<div></div>').css('display', 'inline-block')
+                        .appendTo(td);
+                    var orders = list[i].orderList;
+                    for(var j = 0; j < orders.length; j++) {
+                        $('<a></a>').attr('id', 'test').attr('class', 'link').text(orders[j].registerNum)
+                            .data(orders[j]).appendTo(div)
+                            .bind('click', function() {
+                                var order =  $(this).data();
+                                var currOrder = '{"groupid":' + '"' + order.groupid + '",' +
+                                    '"assignDate":' + '"' + getDateString(new Date(order.assignDate))  + '",' +
+                                    '"registerNum":' + '"' + order.registerNum + '",' +
+                                    '"userName":' + '"' + order.customer.userName + '",' +
+                                    '"mobilePhone":' + '"' + order.customer.mobilephone + '",' +
+                                    '"bookStartTime":' + '"' + getTimeStr(order.bookStartTime) + '",' +
+                                    '"jobType":' + '"' + (order.jobType || '') + '",' +
+                                    '"express":' + '"' + (order.express || '') + '",' +
+                                    '"comment":' + '"' + order.comment + '"' + '}';
+                                $.cookie('currOrder', currOrder);
+                                location.href = 'new_appointment.html';
+                            });
+                    }
+                }
             }
         });
     }
@@ -178,34 +198,33 @@
         start.setDate(start.getDate() - start.getDay());
         var dateString = start.toDateString().split(' ');
         $('#canlendarTitle').text(dateString[1] + ' ' + dateString[2] + ' - ' + (parseInt(dateString[2]) +  6) + ', ' + dateString[3]);
+        $.OrderInfo.getBookedOrderListByWeek({
+            data : {
+                beginDate: getDateString(start),
+            },
+            success : function(list) {
+                var tr = [];
+                for(var j = 0 ; j < list.length; j++) {
+                    orders = list[j].orderPerPersons;
+                    for(var k = 0; k < orders.length; k++) {
+                        if(!tr[k]) {
+                            tr[k] = $('<tr></tr>').appendTo(table);
+                            $('<td></td>').text('EM-' + orders[k].id).appendTo(tr[k]);
+                        } 
+                        var td = $('<td></td>').appendTo(tr[k]);
+                        $('<div></div>').attr('id', 'w-content-' + k + '-' + j).css('margin', '0px auto')
+                            .css('width', '90px').css('height', '90px').appendTo(td);
+                        drawChart('w-content-' + k + '-' + j, orders[k].load);
+                    }                    
+                }
+            }
+        });
         for(var i = 0; i < 7; i++) {
             var d = new Date(start);
             d.setDate(start.getDate() + i);
             $('<th></th>').addClass('ui-widget-header').css('width', '95px')
                 .text(getWeekDay(d, true) + ' ' + (d.getMonth() + 1) + '/' + d.getDate()).appendTo(tr);
         }
-        for(var j = 0; j < 6; j++) {
-            tr = $('<tr></tr>').appendTo(table);
-            $('<td></td>').text('EM-' + (j+1)).appendTo(tr);
-            for(i = 0; i < 7; i++) {
-                var td = $('<td></td>').appendTo(tr);
-                $('<div></div>').attr('id', 'w-content-' + j + '-' + i).css('margin', '0px auto')
-                    .css('width', '90px').css('height', '90px').appendTo(td);
-                drawChart('w-content-' + j + '-' + i, 0.01*((j+1)*10+i));
-            }            
-        }
-        
-        $.OrderInfo.getBookedOrderListByWeek({
-            data : {
-                beginDate: getDateString(start),
-            },
-            success : function(orders) {
-
-            },
-            error : function(orders) {
-
-            }
-        });
     }
     
     function createMonthlyView() {
@@ -229,65 +248,64 @@
                 var events = [];
                 var s = new Date(selectedDate);
                 s.setDate(1);
-                var d = new Date(s), m = s.getMonth();
-                for(i = 0; d.getMonth() == m; i++, d = new Date(s.getTime() + i * 86400000)) {
-                    if(0 == d.getDay() || 6 == d.getDay()) {
-                        continue;
+                var e = new Date(s);
+                e.setMonth(e.getMonth() + 1);
+                e = new Date(e.getTime() - 86400000)
+                $.OrderInfo.getBookedOrderListByMonth({
+                    data : {
+                        beginDate: getDateString(s),
+                        endDate: getDateString(e)
+                    },
+                    success : function(list) {
+                        for(var i = 0, d = new Date(s); d.getMonth() == s.getMonth(); d.setDate(d.getDate() + 1)) {
+                            var date, evtstart, evtend, p;
+                            if(i < list.length) {
+                                date = new Date(list[i].date);                                
+                            }
+                            else {
+                                date = null;
+                            }
+                            if(date && (date.getDate() == d.getDate())) {
+                                evtstart = new Date(list[i].date);
+                                p = 100 * list[i].load;
+                                i++;
+                            }
+                            else {
+                                evtstart = new Date(d);                                
+                                p = 0;
+                            }
+                            evtend = new Date(evtstart);
+//                            var evtstart = new Date(list[i].date);
+//                            evtstart.setHours(8);
+//                            evtstart.setMinutes(0);
+//                            evtstart.setSeconds(0);
+//                            var evtend = new Date(evtstart);
+//                            evtend.setHours(17);
+//                            evtend.setMinutes(0);
+//                            evtend.setSeconds(0);
+                            events.push({  
+                                id:'fc-content-' + evtstart.getTime(),
+                                title: p + '%',  
+                                start: evtstart,  
+                                end: evtend,
+                                percent:0.01 * p
+                            });
+                        }
+                        callback(events);
+                        for(i = 0; i < events.length; i++) {
+                            var event = events[i];
+                            drawChart(event.id, event.percent);
+                        }
                     }
-                    var p = 50 + i;
-                    var evtstart = new Date(d);
-                    evtstart.setHours(8);
-                    evtstart.setMinutes(0);
-                    evtstart.setSeconds(0);
-                    var evtend = new Date(d);
-                    evtend.setHours(17);
-                    evtend.setMinutes(0);
-                    evtend.setSeconds(0);
-                    events.push({  
-                        id:'fc-content-'+d.getTime(),
-                        title: p + '%',  
-                        start: evtstart,  
-                        end: evtend,
-                        percent:0.01 * p
-                    });
-                }
-                callback(events);
-                for(i = 0; i < events.length; i++) {
-                    var event = events[i];
-                    drawChart(event.id, event.percent);
-                }
+                });                
             },
             eventRender: function(event, element) {
                 $(element).find('.fc-content').attr('id', event.id).html('')
                     .css('width', '90px').css('height', '90px');
-//                $('<div></div>').css('width', '90px').css('height', '90px')
-//                    .attr('id', event.id).appendTo($(element));
-//                drawChart(event.id, event.percent);
-//                $(element).css('height', (90 * event.percent) + 'px')
-//                $(element).append($('<span></span>').attr('class', 'fc-title')
-//                        .text(event.title));
                 
             }
         });
-        $('#monthlyView .fc-toolbar').hide();        
-        
-        var s = new Date(selectedDate);
-        s.setDate(1);
-        var e = new Date(s);
-        e.setMonth(e.getMonth() + 1);
-        e = new Date(e.getTime() - 86400000)
-        $.OrderInfo.getBookedOrderListByMonth({
-            data : {
-                beginDate: getDateString(s),
-                endDate: getDateString(e)
-            },
-            success : function(orders) {
-
-            },
-            error : function(orders) {
-
-            }
-        });
+        $('#monthlyView .fc-toolbar').hide();
     }
     
     function getWeekDay(date, short) {
@@ -320,11 +338,11 @@
     
     createDailyView();
      
-    /*$('#groupNo').change(function() {
+    $('#groupNo').change(function() {
         $('#calendarReguler').fullCalendar('refetchEvents');
     });
     
-    function onDayClick(date, allDay, jsEvent, view) {
+    /*function onDayClick(date, allDay, jsEvent, view) {
         $.cookie('selectedDate', '' + date.year() + '-' + (date.month() + 1) + '-'+ date.date());
         $.cookie('selectedTime', getTimeStr(date));
         $.cookie('selectedGroup', $('#groupNo').val());

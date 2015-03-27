@@ -397,7 +397,7 @@ public class OrderController {
 
 					}
 				
-					totalLoad = (totalLoad * load_perc_value) / load_person_value; 
+					totalLoad = totalLoad / (load_perc_value * load_person_value); 
 					totalLoad =  (float)(Math.round(totalLoad*100))/100;
 					
 					orderPerPerson.setId(i+1);
@@ -439,8 +439,6 @@ public class OrderController {
 	
 		List<OrderPerDayDetail> orderPerDayDetails = new ArrayList<OrderPerDayDetail>();
 		
-		List<OrderPerPerson> orderPerPersonList = new ArrayList<OrderPerPerson>();
-		
 		try {
 			String jsonStr = request.getParameter("param");
 			OrderObject orderObject = JsonConverter.getFromJsonString(jsonStr, OrderObject.class, "yyyy-MM-dd");
@@ -469,7 +467,7 @@ public class OrderController {
 					orderObject.setAssignDate(condDate);
 					
 					OrderPerDayDetail orderPerDayDetail = new OrderPerDayDetail();
-					
+					List<OrderPerPerson> orderPerPersonList = new ArrayList<OrderPerPerson>();					
 					orderPerDayDetail.setDate(condDate);
 				
 				for (int i = 0; i < booking_group_value; i++){
@@ -498,7 +496,7 @@ public class OrderController {
 
 					}
 				
-					totalLoad = (totalLoad * load_perc_value) / load_person_value;
+					totalLoad = totalLoad / (load_perc_value * load_person_value);
 					totalLoad =  (float)(Math.round(totalLoad*100))/100;
 					
 					orderPerPerson.setId(i+1);
@@ -598,7 +596,7 @@ public class OrderController {
 						totalLoad = totalLoad + load;
 					}
 					
-					totalLoad = (totalLoad * load_perc_value) / load_person_value;
+					totalLoad = totalLoad / (load_perc_value * load_person_value);
 					totalLoad =  (float)(Math.round(totalLoad*100))/100;
 					
 					orderPerDay.setLoad(totalLoad);
