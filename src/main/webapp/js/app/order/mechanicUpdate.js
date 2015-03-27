@@ -45,7 +45,7 @@
         }
         $.OrderInfo.getModifyQueue({
             data : {
-                registerNum : id
+                id : id
             },
             success : function(data) {
                 if(data.code == '000000') {
@@ -114,7 +114,7 @@
         if(!modifyQue) {
             return;
         }
-        $.OrderInfo.mFinish({
+        $.OrderInfo.mPreapprove({
             data : {
                 id : modifyQue.id
             },

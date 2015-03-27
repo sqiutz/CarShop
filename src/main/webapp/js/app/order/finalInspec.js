@@ -30,39 +30,89 @@
             $('#jobTypeLabel').text(JOB_TYPE);
             $('#rWarranty').text(WARRANTY);
             $('#rSubContract').text(SUB_CONTRACT);
-            $('#closeBtn').text(CLOSE).attr('title', CLOSE);
+            $('#closeBtn').text(FINISH).attr('title', FINISH);
+            $('#orderIdLabel').text(ID);
+            $('#holdBtn').text(HOLD).attr('title', HOLD);
         });
     }
     
-    /*var modifyQue;
-    $.OrderInfo.getModifyQueue({
-        data : {
-            id : 3
-        },
-        success : function(data) {
-            if(data.code == '000000') {
-                modifyQue = data.obj;
-                $('#regNo').val(modifyQue && modifyQue.order ? modifyQue.order.registerNum : '');
-                //$('#idMechanic').text(modifyQue && modifyQue.order ? modifyQue.order.registerNum : '');
-                $('#roofNo').val(modifyQue && modifyQue.order ? modifyQue.order.roofNum : '');
-                //$('#serviceAdvisor').text(modifyQue && modifyQue.order ? modifyQue.order.roofNum : '');
-                $('#jobType').val(modifyQue ? modifyQue.jobType : '');
-                $('#isWarranty').attr('checked', modifyQue && modifyQue.isWarrant ? true : false);
-                $('#isSubContract').attr('checked', modifyQue && modifyQue.isSubContract ? true : false);
-            }
+    var modifyQue;
+    function getModifyQueue(id) {
+        if(!id) {
+            setModifyQueue();
         }
-    });*/
+        $.OrderInfo.getModifyQueue({
+            data : {
+                id : id
+            },
+            success : function(data) {
+                if(data.code == '000000') {
+                    modifyQue = data.obj;                    
+                }
+                else {
+                    modifyQue = null;
+                }
+                setModifyQueue(modifyQue);
+            }
+        });
+    } 
     
-    /*$('#finishBtn').bind('click', function() {
+    function setModifyQueue(modifyQue) {
+        $('#regNo').val(modifyQue && modifyQue.order ? modifyQue.order.registerNum : '');
+        $('#idMechanic').val(modifyQue && modifyQue.modifier ? modifyQue.modifier.userName : '');
+        $('#roofNo').val(modifyQue && modifyQue.order ? modifyQue.order.roofNum : '');
+        $('#serviceAdvisor').val(modifyQue && modifyQue.user ? modifyQue.user.userName : '');
+        $('#jobType').val(modifyQue ? modifyQue.jobType + ' - ' + modifyQue.jobtypeTime + ' hour(s)' : '');
+        $('#isWarranty').attr('checked', modifyQue && modifyQue.isWarrant ? true : false);
+        $('#isSubContract').attr('checked', modifyQue && modifyQue.isSubContract ? true : false);
+        if(4 == modifyQue.step) {
+            $('#holdBtn').show();
+        }
+        else {
+            $('#holdBtn').hide();
+        }
+    }
+        
+    $('#orderId').bind("blur", function() {
+        getModifyQueue($('#orderId').val());
+    });
+    $('#orderId').keyup(function(event) {
+        var myEvent = event || window.event;
+        var keyCode = myEvent.keyCode;
+        if(keyCode == 13){ //Enter
+            getModifyQueue($('#orderId').val());
+        }
+    });    
+      
+    $('#holdBtn').bind('click', function() {
+        if(!modifyQue) {
+            return;
+        }
+        $.OrderInfo.mReject({
+            data : {
+                id : modifyQue.id
+            },
+            success : function(data) {
+                if(data.code == '000000') {
+                    $('#finalInspec').text(ON_HOLD);
+                    getModifyQueue(id);
+                }
+            }
+        });
+    });
+    $('#closeBtn').bind('click', function() {
+        if(!modifyQue) {
+            return;
+        }
         $.OrderInfo.mFinish({
             data : {
                 id : modifyQue.id
             },
             success : function(data) {
                 if(data.code == '000000') {
-                    $('#inProgress').text(FINISHED);
+                    $('#finalInspec').text(FINISHED);
                 }
             }
         });
-    });*/
+    });
 })(jQuery);

@@ -121,8 +121,6 @@ var BOOKED_TIME = 'You have booked at ';
 var QUE_WITH_NUMBER = "You're on the Queue with Number";
 var PRINT = 'PRINT';
 
-var CLOSE = 'CLOSE';
-
 var FOREMAN_JOB_DISTRIBUTION_LIST = 'FOREMAN JOB DISTRIBUTION LIST';
 var NEXT_ON_QUE = 'NEXT ON QUE';
 var TIME_SEND = 'Time Send';

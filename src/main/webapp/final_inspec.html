@@ -30,37 +30,44 @@
 				<div class='content_lf' style='width:338px;'>
 					<form>
 						<div>
+							<label id='orderIdLabel' for='orderId'></label>
+							<input id='orderId' name='orderId' type='text'>
+						</div>
+						<div>
 							<label id='regNoLabel' for='regNo'></label>
-							<input id='regNo' name='regNo' type='text'>
+							<input id='regNo' name='regNo' type='text' disabled='disabled'>
 						</div>
 						<div>
 							<label id='idMechanicLabel' for='idMechanic'></label>
-							<input id='idMechanic' name='idMechanic' type='text'>
+							<input id='idMechanic' name='idMechanic' type='text' disabled='disabled'>
 						</div>
 						<div>
 							<label id='roofNoLabel' for='roofNo'></label>
-							<input id='roofNo' name='roofNo' type='text'>
+							<input id='roofNo' name='roofNo' type='text' disabled='disabled'>
 						</div>
 						<div>
 							<label id='serviceAdvisorLabel' for='serviceAdvisor'></label>
-							<input id='serviceAdvisor' name='serviceAdvisor' type='text'>
+							<input id='serviceAdvisor' name='serviceAdvisor' type='text' disabled='disabled'>
 						</div>
 						<div>
 							<label id='jobTypeLabel' for='jobType' class=""></label>
-							<input id='jobType' name='jobType' type='text'>
+							<input id='jobType' name='jobType' type='text' disabled='disabled'>
 						</div>
 						<div>
 							<label>&nbsp;</label>
-							<input id='isWarranty' type='checkbox' name='contractType' value='warranty'/><text id='rWarranty'></text>
+							<input id='isWarranty' type='checkbox' name='contractType' value='warranty' disabled='disabled'/><text id='rWarranty'></text>
 						</div>
 						<div>
 							<label>&nbsp;</label>
-							<input id='isSubContract' type='checkbox' name='contractType' value='subContract' /><text id='rSubContract'></text>
+							<input id='isSubContract' type='checkbox' name='contractType' value='subContract' disabled='disabled'/><text id='rSubContract'></text>
 						</div>
 					</form>
 				</div>
 				<div class='content_rg' style='width:252px;'>
-					<div id='closeBtn' class='h5 green btn inline' style='width:76px;line-height:27px;'></div>
+					<div>
+						<div id='holdBtn' class='h5 blue btn inline' style='width:76px;line-height:27px;'></div>
+						<div id='closeBtn' class='h5 green btn inline' style='width:76px;line-height:27px;'></div>
+					</div>					
 					<div id='finalInspec' class='yellow-dark' style='width:236px;height:64px;line-height:60px;margin-top:20px'></div>
 				</div>
 			</fieldset>

@@ -227,7 +227,7 @@
                     getModifyQueue : {
                         url : "modifyqueue.do?action=getone",
                         args : [ 
-                                 "registerNum"
+                                 "id"
                         ]
                     },
                     // 获取modifyqueue list
@@ -252,6 +252,18 @@
                     },
                     mFinish : {
                         url : "modifyqueue.do?action=finish",
+                        args : [ 
+                                 "id"
+                        ]
+                    },
+                    mReject : {
+                        url : "modifyqueue.do?action=reject",
+                        args : [ 
+                                 "id"
+                        ]
+                    },
+                    mPreapprove : {
+                        url : "modifyqueue.do?action=preapproval",
                         args : [ 
                                  "id"
                         ]

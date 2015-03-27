@@ -217,6 +217,22 @@ define([], function() {
                 }
             });
         },
+        mReject : function(options) {
+            $.common.ajax("mReject", {
+                data : options.data,
+                success : function(data) {
+                    options.success(data);
+                }
+            });
+        },
+        mPreapprove : function(options) {
+            $.common.ajax("mPreapprove", {
+                data : options.data,
+                success : function(data) {
+                    options.success(data);
+                }
+            });
+        },
         //分配
         allocate : function(options) {
             $.common.ajax("allocate", {
