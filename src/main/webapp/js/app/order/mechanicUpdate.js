@@ -67,6 +67,21 @@
         $('#jobType').val(modifyQue ? modifyQue.jobType + ' - ' + modifyQue.jobtypeTime + ' hour(s)' : '');
         $('#isWarranty').attr('checked', modifyQue && modifyQue.isWarrant ? true : false);
         $('#isSubContract').attr('checked', modifyQue && modifyQue.isSubContract ? true : false);
+        
+        switch(modifyQue.step) {
+        case 2:
+            $('#inProgress').text(IN_PROGRESS);
+            break;
+        case 3:
+            $('#inProgress').text(ON_HOLD);
+            break;
+        case 4:
+            $('#inProgress').text(FINISHED);
+            break;
+        default:
+            $('#inProgress').text('');
+            break;
+    }
     }
         
     $('#orderId').bind("blur", function() {
@@ -81,7 +96,7 @@
     });
     
     $('#startBtn').bind('click', function() {
-        if(!modifyQue) {
+        if(!modifyQue || modifyQue.step !== 1) {
             return;
         }
         $.OrderInfo.mStart({
@@ -96,7 +111,7 @@
         });
     });    
     $('#holdBtn').bind('click', function() {
-        if(!modifyQue) {
+        if(!modifyQue || modifyQue.step !== 1) {
             return;
         }
         $.OrderInfo.mHold({
@@ -111,7 +126,7 @@
         });
     });
     $('#finishBtn').bind('click', function() {
-        if(!modifyQue) {
+        if(!modifyQue || (modifyQue.step !== 2 && modifyQue.step !== 3)) {
             return;
         }
         $.OrderInfo.mPreapprove({

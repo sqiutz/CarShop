@@ -65,11 +65,23 @@
         $('#jobType').val(modifyQue ? modifyQue.jobType + ' - ' + modifyQue.jobtypeTime + ' hour(s)' : '');
         $('#isWarranty').attr('checked', modifyQue && modifyQue.isWarrant ? true : false);
         $('#isSubContract').attr('checked', modifyQue && modifyQue.isSubContract ? true : false);
-        if(4 == modifyQue.step) {
-            $('#holdBtn').show();
-        }
-        else {
-            $('#holdBtn').hide();
+
+        switch(modifyQue.step) {
+            case 4:
+                $('#holdBtn').show();
+                $('#finalInspec').text('');
+                break;
+            case 5:
+                $('#holdBtn').hide();
+                $('#finalInspec').text(ON_HOLD);
+                break;
+            case 6:
+                $('#holdBtn').show();
+                $('#finalInspec').text(FINISHED);
+                break;
+            default:
+                $('#finalInspec').text('');
+                break;
         }
     }
         
@@ -85,7 +97,7 @@
     });    
       
     $('#holdBtn').bind('click', function() {
-        if(!modifyQue) {
+        if(!modifyQue || modifyQue.step !== 4) {
             return;
         }
         $.OrderInfo.mReject({
@@ -101,7 +113,7 @@
         });
     });
     $('#closeBtn').bind('click', function() {
-        if(!modifyQue) {
+        if(!modifyQue || (modifyQue.step !== 4 && modifyQue.step !== 5)) {
             return;
         }
         $.OrderInfo.mFinish({
@@ -110,6 +122,7 @@
             },
             success : function(data) {
                 if(data.code == '000000') {
+                    $('#holdBtn').show();
                     $('#finalInspec').text(FINISHED);
                 }
             }
