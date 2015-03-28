@@ -51,12 +51,12 @@
 	</select>
 	
 	<select id="getAllOrders" resultMap="OrderDoMap" 
-		parameterType="java.lang.Integer">
+		parameterType="OrderDo">
 		SELECT 
 		<include refid="Base_Column_List" />
 		FROM TBL_ORDER
 		WHERE
-		STATUS >= #{status}
+		STATUS >= #{status} and date(ASSIGN_DATE) = #{assignDate}
 		order by STATUS asc
 	</select>
 	
@@ -317,9 +317,7 @@
 			<if test="groupid != null">
 				GROUPID = #{groupid},
 			</if>
-			<if test="jobType != null">
 				JOBTYPE = #{jobType},
-			</if>
 				EXPRESS = #{express}
 		</set>
 		WHERE 

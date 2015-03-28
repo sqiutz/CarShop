@@ -21,7 +21,7 @@ public interface OrderDao extends BaseDao<OrderDo>{
 	
 	public List<OrderDo> queryByOrdersId(List<Integer> orderIdList);
 	
-	public List<OrderDo> getAllOrders(Integer status);
+	public List<OrderDo> getAllOrders(OrderDo orderDo);
 	
 	public List<OrderDo> getAllOrdersFReport(OrderDo orderDo);
 	

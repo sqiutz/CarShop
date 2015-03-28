@@ -212,16 +212,16 @@ public class OrderController {
 		
 		try {
 			String jsonStr = request.getParameter("param");
-			StatusObject status = JsonConverter.getFromJsonString(jsonStr, StatusObject.class);
-			if (status == null) {
+			OrderObject orderObject = JsonConverter.getFromJsonString(jsonStr, OrderObject.class, "yyyy-MM-dd");
+			if (orderObject == null) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
 //				logger.error("< OrderController.getAllOrders() > 获取订单状态不正确." + status + " : " + BusinessCenterOrderStatus.ORDER_STATUS_WAIT.getStatus());
 			} else {
-				if(status.getStatus() != null){
-					orderList = orderService.getOrdersByStatus(status.getStatus());
+				if(orderObject.getStatus() != null){
+					orderList = orderService.getOrdersByStatus(orderObject.getStatus());
 				}else{
-					orderList = orderService.getAllOrders(status.getStartStatus());
+					orderList = orderService.getAllOrders(orderObject);
 				}
 			}
 		}catch (BusinessServiceException ex) {
@@ -387,7 +387,7 @@ public class OrderController {
 						
 						orderList.get(j).setCustomer(customer);
 						
-						if (orderObject.getExpress() == null){
+						if (orderList.get(j).getExpress() == null){
 							Float load = Float.parseFloat(jobtypeService.queryByKey(orderList.get(j).getJobType()).getValue());
 							totalLoad = totalLoad + load;
 						} else {
@@ -488,7 +488,7 @@ public class OrderController {
 						
 						orderList.get(j).setCustomer(customer);
 						
-						if (orderObject.getExpress() == null){
+						if (orderList.get(j).getExpress() == null){
 							Float load = Float.parseFloat(jobtypeService.queryByKey(orderList.get(j).getJobType()).getValue());
 							totalLoad = totalLoad + load;
 						} else {
@@ -580,6 +580,7 @@ public class OrderController {
 						
 						List<Order> tempOrderList = new ArrayList<Order>();
 						orderPerDays.put(date.toString(), tempOrderList);
+						orderPerDays.get(date.toString()).add(orderList.get(i));
 					}
 				}
 				
@@ -598,8 +599,13 @@ public class OrderController {
 					Float totalLoad = (float) 0;
 					for (int j = 0; j < orders.size(); j++) {
 						
-						Float load = Float.parseFloat(jobtypeService.queryByKey(orders.get(j).getJobType()).getValue());
-						totalLoad = totalLoad + load;
+						if (orders.get(j).getExpress() == null){
+							Float load = Float.parseFloat(jobtypeService.queryByKey(orders.get(j).getJobType()).getValue());
+							totalLoad = totalLoad + load;
+						} else {
+							Float load = Float.parseFloat(jobtypeService.queryByKey("Express" + orders.get(j).getExpress()).getValue());
+							totalLoad = totalLoad + load;
+						}
 					}
 					
 					totalLoad = totalLoad / (load_perc_value * load_person_value * booking_group_value);

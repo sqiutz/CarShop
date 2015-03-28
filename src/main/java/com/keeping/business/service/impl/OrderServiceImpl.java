@@ -165,10 +165,13 @@ public class OrderServiceImpl implements OrderService {
 		return orders_front;
 	}
 
-	public List<Order> getAllOrders(Integer startStatus) {
+	public List<Order> getAllOrders(OrderObject orderObject) {
 		// TODO Auto-generated method stub
 		List<Order> orders_front = new ArrayList<Order>();
-		List<OrderDo> orderDoes = orderDao.getAllOrders(startStatus);
+		OrderDo orderDo = new OrderDo();
+		orderDo.setAssignDate(TimeUtil.transferFromUtilToSqlDate(orderObject.getAssignDate()));
+		orderDo.setStatus(orderObject.getStatus());
+		List<OrderDo> orderDoes = orderDao.getAllOrders(orderDo);
 
 		if (orderDoes == null) {
 			return orders_front;

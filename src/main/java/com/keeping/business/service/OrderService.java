@@ -25,7 +25,7 @@ public interface OrderService {
     
 	public List<Order> getByOrdersId(List<Integer> orderIdList) throws BusinessServiceException;
 	
-	public List<Order> getAllOrders(Integer startStatus);
+	public List<Order> getAllOrders(OrderObject orderObject);
 	
 	public List<Order> getAllOrdersFReport(ReportObject reportObject);
 	

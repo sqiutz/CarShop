@@ -85,10 +85,10 @@ CREATE TABLE `TBL_USER` (
 DROP TABLE IF EXISTS `TBL_CUSTOMER`;
 CREATE TABLE `TBL_CUSTOMER` (
   `id` bigint(10) NOT NULL AUTO_INCREMENT,
-  `user_name` varchar(48) NOT NULL UNIQUE,
+  `user_name` varchar(48) NOT NULL,
   `passwd` varchar(48) DEFAULT NULL,
   `mobilephone` varchar(48) DEFAULT NULL,
-  `policenum` varchar(48) DEFAULT NULL,
+  `policenum` varchar(48) DEFAULT NULL UNIQUE,
   `create_time` timestamp NOT NULL DEFAULT '1990-01-01 00:00:00',
   `modify_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
