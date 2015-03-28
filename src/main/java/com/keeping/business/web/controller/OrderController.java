@@ -400,6 +400,10 @@ public class OrderController {
 					totalLoad = totalLoad / (load_perc_value * load_person_value); 
 					totalLoad =  (float)(Math.round(totalLoad*100))/100;
 					
+					if (totalLoad > 1.0){
+						totalLoad = (float) 1;
+					}
+					
 					orderPerPerson.setId(i+1);
 					orderPerPerson.setLoad(totalLoad);
 					orderPerPerson.setOrderList(orderList);
@@ -497,6 +501,10 @@ public class OrderController {
 					totalLoad = totalLoad / (load_perc_value * load_person_value);
 					totalLoad =  (float)(Math.round(totalLoad*100))/100;
 					
+					if (totalLoad > 1.0){
+						totalLoad = (float) 1;
+					}
+					
 					orderPerPerson.setId(i+1);
 					orderPerPerson.setLoad(totalLoad);
 					orderPerPerson.setOrderList(orderList);
@@ -553,7 +561,7 @@ public class OrderController {
 			} else {
 				
 				Property booking_group_no = propertyService.queryByKey("BOOKING_GROUP_NO");
-				Integer booking_group_value = Integer.parseInt(booking_group_no.getValue());
+				Float booking_group_value = Float.parseFloat(booking_group_no.getValue());
 				Property load_person = propertyService.queryByKey("LOAD_PERSON");
 				Property load_percentage = propertyService.queryByKey("LOAD_PERCENTAGE");
 				Float load_person_value = Float.parseFloat(load_person.getValue());
@@ -594,8 +602,12 @@ public class OrderController {
 						totalLoad = totalLoad + load;
 					}
 					
-					totalLoad = totalLoad / (load_perc_value * load_person_value);
+					totalLoad = totalLoad / (load_perc_value * load_person_value * booking_group_value);
 					totalLoad =  (float)(Math.round(totalLoad*100))/100;
+					
+					if (totalLoad > 1.0){
+						totalLoad = (float) 1;
+					}
 					
 					orderPerDay.setLoad(totalLoad);
 					
