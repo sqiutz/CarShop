@@ -42,6 +42,7 @@
     function getModifyQueue(id) {
         if(!id) {
             setModifyQueue();
+            return;
         }
         $.OrderInfo.getModifyQueue({
             data : {
@@ -68,21 +69,26 @@
         $('#isWarranty').prop('checked', modifyQue && modifyQue.isWarrant ? true : false);
         $('#isSubContract').prop('checked', modifyQue && modifyQue.isSubContract ? true : false);
         
-        switch(modifyQue.step) {
-            case 2:
-                $('#inProgress').text(IN_PROGRESS);
-                break;
-            case 3:
-                $('#inProgress').text(ON_HOLD);
-                break;
-            case 4:
-            case 5:
-            case 6:
-                $('#inProgress').text(FINISHED);
-                break;
-            default:
-                $('#inProgress').text('');
-                break;
+        if(modifyQue) {
+            switch(modifyQue.step) {
+                case 2:
+                    $('#inProgress').text(IN_PROGRESS);
+                    break;
+                case 3:
+                    $('#inProgress').text(ON_HOLD);
+                    break;
+                case 4:
+                case 5:
+                case 6:
+                    $('#inProgress').text(FINISHED);
+                    break;
+                default:
+                    $('#inProgress').text('');
+                    break;
+            }
+        }
+        else {
+            $('#inProgress').text('');
         }
     }
         

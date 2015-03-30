@@ -40,6 +40,7 @@
     function getModifyQueue(id) {
         if(!id) {
             setModifyQueue();
+            return;
         }
         $.OrderInfo.getModifyQueue({
             data : {
@@ -66,22 +67,27 @@
         $('#isWarranty').prop('checked', modifyQue && modifyQue.isWarrant ? true : false);
         $('#isSubContract').prop('checked', modifyQue && modifyQue.isSubContract ? true : false);
 
-        switch(modifyQue.step) {
-            case 4:
-                //$('#holdBtn').show();
-                $('#finalInspec').text('');
-                break;
-            case 5:
-                //$('#holdBtn').hide();
-                $('#finalInspec').text(ON_HOLD);
-                break;
-            case 6:
-                //$('#holdBtn').show();
-                $('#finalInspec').text(FINISHED);
-                break;
-            default:
-                $('#finalInspec').text('');
-                break;
+        if(modifyQue) {
+            switch(modifyQue.step) {
+                case 4:
+                    //$('#holdBtn').show();
+                    $('#finalInspec').text('');
+                    break;
+                case 5:
+                    //$('#holdBtn').hide();
+                    $('#finalInspec').text(ON_HOLD);
+                    break;
+                case 6:
+                    //$('#holdBtn').show();
+                    $('#finalInspec').text(FINISHED);
+                    break;
+                default:
+                    $('#finalInspec').text('');
+                    break;
+            }
+        }
+        else {
+            $('#finalInspec').text('');
         }
     }
         
