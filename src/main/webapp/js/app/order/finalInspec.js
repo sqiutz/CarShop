@@ -63,20 +63,20 @@
         $('#roofNo').val(modifyQue && modifyQue.order ? modifyQue.order.roofNum : '');
         $('#serviceAdvisor').val(modifyQue && modifyQue.user ? modifyQue.user.userName : '');
         $('#jobType').val(modifyQue ? modifyQue.jobType + ' - ' + modifyQue.jobtypeTime + ' hour(s)' : '');
-        $('#isWarranty').attr('checked', modifyQue && modifyQue.isWarrant ? true : false);
-        $('#isSubContract').attr('checked', modifyQue && modifyQue.isSubContract ? true : false);
+        $('#isWarranty').prop('checked', modifyQue && modifyQue.isWarrant ? true : false);
+        $('#isSubContract').prop('checked', modifyQue && modifyQue.isSubContract ? true : false);
 
         switch(modifyQue.step) {
             case 4:
-                $('#holdBtn').show();
+                //$('#holdBtn').show();
                 $('#finalInspec').text('');
                 break;
             case 5:
-                $('#holdBtn').hide();
+                //$('#holdBtn').hide();
                 $('#finalInspec').text(ON_HOLD);
                 break;
             case 6:
-                $('#holdBtn').show();
+                //$('#holdBtn').show();
                 $('#finalInspec').text(FINISHED);
                 break;
             default:
@@ -106,8 +106,8 @@
             },
             success : function(data) {
                 if(data.code == '000000') {
-                    $('#finalInspec').text(ON_HOLD);
-                    getModifyQueue(id);
+                    //$('#finalInspec').text(ON_HOLD);
+                    getModifyQueue(modifyQue.id);
                 }
             }
         });
@@ -123,7 +123,8 @@
             success : function(data) {
                 if(data.code == '000000') {
                     $('#holdBtn').show();
-                    $('#finalInspec').text(FINISHED);
+                    //$('#finalInspec').text(FINISHED);
+                    getModifyQueue(modifyQue.id);
                 }
             }
         });

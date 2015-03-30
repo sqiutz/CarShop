@@ -48,14 +48,14 @@
     
     $('#regJobCkb').bind('click', function(){
         if($(this).is(':checked')) {
-            $('#expJobCkb').attr('checked', false);
+            $('#expJobCkb').prop('checked', false);
             getRegJobTypeList();
         }
     });
     
     $('#expJobCkb').bind('click', function(){
         if($(this).is(':checked')) {
-            $('#regJobCkb').attr('checked', false);
+            $('#regJobCkb').prop('checked', false);
             getExpJobTypeList();
         }
     });

@@ -121,7 +121,7 @@
                 div = $('#regularService');
             }
             $('<input></input>').attr('type', 'checkbox')
-                .val(jobType.name).attr('class', 'jobTypeCkb').attr('checked', jobType.name === defaultJobType)
+                .val(jobType.name).attr('class', 'jobTypeCkb').prop('checked', jobType.name === defaultJobType)
                 .appendTo(div)
                 .bind('click', function() {
                     if($(this).is(':checked')) {
@@ -130,7 +130,7 @@
                         var ckbs = $('.jobTypeCkb');
                         for(var j = 0; j < ckbs.length; j++) {
                             if($(ckbs[j]).val() !== jobTypeSelected) {
-                                $(ckbs[j]).attr('checked', false);
+                                $(ckbs[j]).prop('checked', false);
                             }
                         }  
                         //$('#otherSelection').attr('checked', false);

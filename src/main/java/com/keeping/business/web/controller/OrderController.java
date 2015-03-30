@@ -203,8 +203,6 @@ public class OrderController {
 	@RequestMapping(params = "action=alllist")
 	@ResponseBody
 	public WebResultList<Order> getAllOrders(HttpServletRequest request,HttpServletResponse response) {
-		response.setHeader("Access-Control-Allow-Origin", "*");
-
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 

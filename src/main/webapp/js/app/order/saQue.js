@@ -32,7 +32,7 @@
             $('#currentNoLabel').text(CURRENT_NUMBER);
             $('#remainingLabel').text(REMAINING);
             $('#waitingTimeLabel').text(WAITING_TIME);
-            $('#avgWaitingTimeLabel').text(AVG_WAITING_TIME);
+//            $('#avgWaitingTimeLabel').text(AVG_WAITING_TIME);
             $('#timerLabel').text(TIMER);
             $('#callBtn').text(CALL).attr('title', CALL);
             $('#recallBtn').text(RECALL).attr('title', RECALL);
@@ -79,7 +79,7 @@
         });
     }
     
-    $.UserInfo.getProperty({
+/*    $.UserInfo.getProperty({
         data : {
             name : 'AVG_WAITING_TIME'
         },
@@ -91,7 +91,7 @@
             }
         }
     });
-    
+*/    
     var oListIter = 0, sListIter = 0, interval = 3000, tab = 0;
     var userProfile;
 	    
@@ -230,7 +230,8 @@
     var getOrderList = function() {
         $.OrderInfo.getOrderList({
             data : {
-                status : 1
+                status : 1,
+                assignDate : getDateString(new Date())
             },
             success : createWaitingList
         });

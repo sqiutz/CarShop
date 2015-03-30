@@ -139,7 +139,8 @@
                         url : "order.do?action=alllist",
                         args : [ 
                                  "status",
-                                 "startStatus"
+                                 "startStatus",
+                                 "assignDate"
                         ]
                     },
                     getBookedOrderList : {

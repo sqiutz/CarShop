@@ -65,23 +65,25 @@
         $('#roofNo').val(modifyQue && modifyQue.order ? modifyQue.order.roofNum : '');
         $('#serviceAdvisor').val(modifyQue && modifyQue.user ? modifyQue.user.userName : '');
         $('#jobType').val(modifyQue ? modifyQue.jobType + ' - ' + modifyQue.jobtypeTime + ' hour(s)' : '');
-        $('#isWarranty').attr('checked', modifyQue && modifyQue.isWarrant ? true : false);
-        $('#isSubContract').attr('checked', modifyQue && modifyQue.isSubContract ? true : false);
+        $('#isWarranty').prop('checked', modifyQue && modifyQue.isWarrant ? true : false);
+        $('#isSubContract').prop('checked', modifyQue && modifyQue.isSubContract ? true : false);
         
         switch(modifyQue.step) {
-        case 2:
-            $('#inProgress').text(IN_PROGRESS);
-            break;
-        case 3:
-            $('#inProgress').text(ON_HOLD);
-            break;
-        case 4:
-            $('#inProgress').text(FINISHED);
-            break;
-        default:
-            $('#inProgress').text('');
-            break;
-    }
+            case 2:
+                $('#inProgress').text(IN_PROGRESS);
+                break;
+            case 3:
+                $('#inProgress').text(ON_HOLD);
+                break;
+            case 4:
+            case 5:
+            case 6:
+                $('#inProgress').text(FINISHED);
+                break;
+            default:
+                $('#inProgress').text('');
+                break;
+        }
     }
         
     $('#orderId').bind("blur", function() {
@@ -105,7 +107,8 @@
             },
             success : function(data) {
                 if(data.code == '000000') {
-                    $('#inProgress').text(IN_PROGRESS);
+                    //$('#inProgress').text(IN_PROGRESS);
+                    getModifyQueue(modifyQue.id);
                 }
             }
         });
@@ -120,7 +123,8 @@
             },
             success : function(data) {
                 if(data.code == '000000') {
-                    $('#inProgress').text(ON_HOLD);
+                    //$('#inProgress').text(ON_HOLD);
+                    getModifyQueue(modifyQue.id);
                 }
             }
         });
@@ -135,7 +139,8 @@
             },
             success : function(data) {
                 if(data.code == '000000') {
-                    $('#inProgress').text(FINISHED);
+                    //$('#inProgress').text(FINISHED);
+                    getModifyQueue(modifyQue.id);
                 }
             }
         });

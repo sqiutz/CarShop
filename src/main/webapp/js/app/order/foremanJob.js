@@ -144,8 +144,8 @@
         $('#serviceAdvisor').val(queue && queue.user ? queue.user.userName : '');
         $('#jobType').val(queue ? queue.jobType + ' - ' + queue.jobtypeTime + ' hour(s)': '');
         $('#additionTime').val(queue ? queue.additionTime + ' hour(s)' : '');
-        $('#isWarranty').attr("checked", queue && queue.isWarrant ? true : false);
-        $('#isSubContract').attr("checked", queue && queue.isSubContract ? true : false);
+        $('#isWarranty').prop("checked", queue && queue.isWarrant ? true : false);
+        $('#isSubContract').prop("checked", queue && queue.isSubContract ? true : false);
         $('#promiseTime').val(queue && queue.order ? getTimeStr(queue.order.promiseTime) : '');
     }
     
@@ -217,7 +217,7 @@
                     $('<td></td>').text(load && load.order ? load.order.registerNum : '').appendTo(tr);
                     $('<td></td>').text(load && load.order ? load.order.roofNum : '').appendTo(tr);
                     $('<td></td>').text(load && load.sa ? load.sa.userName : '').appendTo(tr);
-                    $('<td></td>').text('').appendTo(tr);
+                    $('<td></td>').text(load && load.order ? (load.order.jobType ? load.order.jobType : load.order.express) : '').appendTo(tr);
                     $('<td></td>').text(load ? load.humanResource : '').appendTo(tr);
                     $('<td></td>').text(load ? load.additionalHours : '').appendTo(tr);
                     $('<td></td>').text(load ? load.generalRepaire : '').appendTo(tr);

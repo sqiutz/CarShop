@@ -1,4 +1,8 @@
 (function($) {
+    $('#startBtn').attr('disabled', 'disabled');
+    $('#cancelBtn').attr('disabled', 'disabled');
+    $('#finishBtn').attr('disabled', 'disabled');
+    
     $.UserInfo.getProperty({
         data : {
             name : 'LANGUAGE'
@@ -37,7 +41,7 @@
     
     var cListIter = 0, interval = 3000;
     // 创建洗车列表
-    var selectedId = 0, defaultId = 0;
+    var currQue, selectedId = 0;
     var createCarWashList = function(queues) {
         $('#carWashList tr.odd').remove();
         $('#carWashList tr.even').remove();
@@ -47,22 +51,23 @@
         for (var i = 0; i < num; i++) {
             j = cListIter * num + i;
             var queue = queues && j < queues.length ? queues[j] : null;
-            if(0 === tab && 0 === i && 0 === selectedId) {
+            if(0 == selectedId && 0 == i) {
                 setCurrentCarWashQue(queue);
             }
             var tr = $('<tr></tr>').attr('class', i % 2 === 0 ? 'odd' : 'even')
-                    .appendTo($('#carWashList'));
+                    .appendTo($('#carWashList'))
+                    .data(queue);
             if(queue) {
                 tr.addClass('hoverable').val(queue.id);
-                if(queue.id === parseInt(selectedId)) {
+                if(queue.id == selectedId) {
                     tr.addClass('selected');
                 }
                 tr.bind('click', function() {
                     $('#carWashList tr').removeClass('selected');
                     $(this).addClass('selected');
-                    if(0 === tab) {
-                        selectedId = $(this).val();
-                    }                    
+                    currQue = $(this).data();   
+                    selectedId = currQue.id;
+                    setCurrentCarWashQue(currQue);
                 })
             }
             $('<td></td>').text(queue && queue.order ? queue.order.registerNum : '').appendTo(tr);
@@ -78,23 +83,41 @@
         } else {
             cListIter = 0;
             setTimeout(function() {
-                getCarWashList();
+                if(0 == tab) {
+                    getCarWashList();
+                }
+                else {
+                    getInProgressList();
+                }
             }, interval);
         }
     };
     
     var setCurrentCarWashQue = function(queue) {
+        currQue = queue;
         if(queue) {
-            $('#startBtn').attr('disabled', false);
-            $('#cancelBtn').attr('disabled', false);
-            $('#finishBtn').attr('disabled', false);
+            if(0 == queue.step) {
+                $('#startBtn').attr('disabled', false);
+                $('#finishBtn').attr('disabled', 'disabled');
+                $('#cancelBtn').attr('disabled', false);
+            }
+            else if(1 == queue.step){
+                $('#finishBtn').attr('disabled', false);
+                $('#startBtn').attr('disabled', 'disabled');
+                $('#cancelBtn').attr('disabled', false);
+            }
+            else {
+                $('#startBtn').attr('disabled', 'disabled');
+                $('#cancelBtn').attr('disabled', 'disabled');
+                $('#finishBtn').attr('disabled', 'disabled');
+            }            
+            
         }
         else {
             $('#startBtn').attr('disabled', 'disabled');
             $('#cancelBtn').attr('disabled', 'disabled');
             $('#finishBtn').attr('disabled', 'disabled');
         }
-        defaultId = queue ? queue.id : 0;
         $('#currRegNo').text(queue && queue.order ? queue.order.registerNum : '');
         $('#currQueNo').text(queue && queue.order ? queue.order.queueNum : '');
     };
@@ -124,37 +147,49 @@
     };
     
     $('#startBtn').bind('click', function() {
+        if(!currQue || 0 !== currQue.step) {
+            return;
+        }
         $.OrderInfo.cStart({
             data : {
-                id : selectedId ? selectedId : defaultId
+                id : currQue.id
             },
             success : function(data) {
                 if(data.code == '000000') {
-                    
+                    currQue = null;
+                    selectedId = 0;
                 }
             }
         });
     });    
     $('#cancelBtn').bind('click', function() {
+        if(!currQue || (0 !== currQue.step && 1 !== currQue.step)) {
+            return;
+        }
         $.OrderInfo.cCancel({
             data : {
-                id : selectedId ? selectedId : defaultId
+                id : currQue.id
             },
             success : function(data) {
                 if(data.code == '000000') {
-                    
+                    currQue = null;
+                    selectedId = 0;
                 }
             }
         });
     });
     $('#finishBtn').bind('click', function() {
+        if(!currQue || 1 !== currQue.step) {
+            return;
+        }
         $.OrderInfo.cFinish({
             data : {
-                id : selectedId ? selectedId : defaultId
+                id : currQue.id
             },
             success : function(data) {
                 if(data.code == '000000') {
-                    
+                    currQue = null;
+                    selectedId = 0;
                 }
             }
         });
