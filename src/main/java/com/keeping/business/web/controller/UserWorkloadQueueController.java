@@ -80,7 +80,6 @@ public class UserWorkloadQueueController {
 	@RequestMapping(params = "action=getone")
 	@ResponseBody
 	public WebResultList<UserWorkload> getUserWorkload(HttpServletRequest request, HttpServletResponse response) {
-		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		
@@ -128,7 +127,6 @@ public class UserWorkloadQueueController {
 	@RequestMapping(params = "action=getallload")
 	@ResponseBody
 	public WebResultList<UserWorkloadList> getAllUserWorkload(HttpServletRequest request, HttpServletResponse response) {
-		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		

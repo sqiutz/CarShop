@@ -100,7 +100,6 @@ public class OrderController {
 	@RequestMapping(params = "action=report")
 	@ResponseBody
 	public WebResultList<Report> getReport(HttpServletRequest request,HttpServletResponse response) {
-		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		HttpSession session = request.getSession();
@@ -245,7 +244,6 @@ public class OrderController {
 	@RequestMapping(params = "action=allbooklist")
 	@ResponseBody
 	public WebResultList<Order> getAllBookOrders(HttpServletRequest request,HttpServletResponse response) {
-		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 
@@ -634,7 +632,6 @@ public class OrderController {
 	@RequestMapping(params = "action=getone")
 	@ResponseBody
 	public WebResultObject<Order> getOrder(HttpServletRequest request,HttpServletResponse response) {
-		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 
@@ -963,8 +960,6 @@ public class OrderController {
 	public WebResult resetOrderParameters(HttpServletRequest request,HttpServletResponse response) throws Exception {
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
-		
-		response.setHeader("Access-Control-Allow-Origin", "*");
 		
 		try {
 			

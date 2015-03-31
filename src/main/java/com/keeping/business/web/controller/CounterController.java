@@ -42,7 +42,6 @@ public class CounterController {
 	@ResponseBody
 	public WebResultList<Counter> getAllCounters(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		HttpSession session = request.getSession();
@@ -82,7 +81,6 @@ public class CounterController {
 	@ResponseBody
 	public WebResultObject<Counter> getCounter(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		HttpSession session = request.getSession();
@@ -138,8 +136,6 @@ public class CounterController {
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		HttpSession session = request.getSession();
 		session.setMaxInactiveInterval(PlatformPar.sessionTimeout);
-
-		response.setHeader("Access-Control-Allow-Origin", "*");
 
 		try {
 
@@ -209,8 +205,6 @@ public class CounterController {
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		HttpSession session = request.getSession();
 		session.setMaxInactiveInterval(PlatformPar.sessionTimeout);
-
-		response.setHeader("Access-Control-Allow-Origin", "*");
 
 		try {
 

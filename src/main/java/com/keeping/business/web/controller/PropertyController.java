@@ -38,7 +38,6 @@ public class PropertyController {
 	@ResponseBody
 	public WebResultObject<Property> getProperty(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		HttpSession session = request.getSession();
@@ -95,8 +94,6 @@ public class PropertyController {
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		HttpSession session = request.getSession();
 		session.setMaxInactiveInterval(PlatformPar.sessionTimeout);
-
-		response.setHeader("Access-Control-Allow-Origin", "*");
 
 		try {
 
@@ -166,8 +163,6 @@ public class PropertyController {
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		HttpSession session = request.getSession();
 		session.setMaxInactiveInterval(PlatformPar.sessionTimeout);
-
-		response.setHeader("Access-Control-Allow-Origin", "*");
 
 		try {
 

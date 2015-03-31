@@ -42,7 +42,6 @@ public class JobTypeController {
 	@ResponseBody
 	public WebResultList<JobType> getAllJobTypes(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		HttpSession session = request.getSession();
@@ -84,7 +83,6 @@ public class JobTypeController {
 	@ResponseBody
 	public WebResultObject<JobType> getJobType(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		HttpSession session = request.getSession();
@@ -141,8 +139,6 @@ public class JobTypeController {
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		HttpSession session = request.getSession();
 		session.setMaxInactiveInterval(PlatformPar.sessionTimeout);
-
-		response.setHeader("Access-Control-Allow-Origin", "*");
 
 		try {
 
@@ -273,8 +269,6 @@ public class JobTypeController {
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		HttpSession session = request.getSession();
 		session.setMaxInactiveInterval(PlatformPar.sessionTimeout);
-
-		response.setHeader("Access-Control-Allow-Origin", "*");
 
 		try {
 

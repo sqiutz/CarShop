@@ -76,7 +76,6 @@ public class ServeQueueController {
 	@RequestMapping(params = "action=alllist")
 	@ResponseBody
 	public WebResultList<ServeQueue> getAllServeQueues(HttpServletRequest request, HttpServletResponse response) {
-		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 
@@ -151,7 +150,6 @@ public class ServeQueueController {
 	@RequestMapping(params = "action=getestimationtime")
 	@ResponseBody
 	public WebResultList<EstimationTime> getAllEstimationTime(HttpServletRequest request, HttpServletResponse response) {
-		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 
@@ -196,7 +194,6 @@ public class ServeQueueController {
 	@RequestMapping(params = "action=getone")
 	@ResponseBody
 	public WebResultList<ServeQueue> getServeQueue(HttpServletRequest request, HttpServletResponse response) {
-		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		HttpSession session = request.getSession();
@@ -275,7 +272,6 @@ public class ServeQueueController {
 	@RequestMapping(params = "action=getlatestone")
 	@ResponseBody
 	public WebResultObject<ServeQueue> getLatestServeQueue(HttpServletRequest request, HttpServletResponse response) {
-		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		HttpSession session = request.getSession();
@@ -343,12 +339,10 @@ public class ServeQueueController {
 	@ResponseBody
 	public WebResult call(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		HttpSession session = request.getSession();
 		session.setMaxInactiveInterval(PlatformPar.sessionTimeout);
-		response.setHeader("Access-Control-Allow-Origin", "*");
 
 		try {
 //			String jsonStr = request.getParameter("param");
@@ -445,13 +439,10 @@ public class ServeQueueController {
 	@ResponseBody
 	public WebResult hold(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		HttpSession session = request.getSession();
 		session.setMaxInactiveInterval(PlatformPar.sessionTimeout);
-		response.setHeader("Access-Control-Allow-Origin", "*");
-
 		try {
 			String jsonStr = request.getParameter("param");
 			UserProfile loginUser = (UserProfile) session
@@ -540,12 +531,10 @@ public class ServeQueueController {
 	@ResponseBody
 	public WebResult cancelHold(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		HttpSession session = request.getSession();
 		session.setMaxInactiveInterval(PlatformPar.sessionTimeout);
-		response.setHeader("Access-Control-Allow-Origin", "*");
 
 		try {
 			String jsonStr = request.getParameter("param");
@@ -619,13 +608,10 @@ public class ServeQueueController {
 	@ResponseBody
 	public WebResult cancel(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		HttpSession session = request.getSession();
 		session.setMaxInactiveInterval(PlatformPar.sessionTimeout);
-		response.setHeader("Access-Control-Allow-Origin", "*");
-
 		try {
 			String jsonStr = request.getParameter("param");
 			UserProfile loginUser = (UserProfile) session
@@ -697,12 +683,10 @@ public class ServeQueueController {
 	@ResponseBody
 	public WebResult sendWorkShop(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		HttpSession session = request.getSession();
 		session.setMaxInactiveInterval(PlatformPar.sessionTimeout);
-		response.setHeader("Access-Control-Allow-Origin", "*");
 
 		try {
 			String jsonStr = request.getParameter("param");
