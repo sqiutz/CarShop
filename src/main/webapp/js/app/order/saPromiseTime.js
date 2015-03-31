@@ -91,7 +91,7 @@
                     continue;
                 }
                 if(td) {
-                    $('<div></div>').attr('class', 'timeslot ' + color[c++]).text(queue.technician).appendTo(td);
+                    $('<div></div>').attr('class', 'timeslot ' + color[c++]).text(jobTypeMapping(queue.jobType)).appendTo(td);
                     if(c >= color.length) {
                         c = 0;
                     }
@@ -122,7 +122,7 @@
             for(var i = 0; i < jobTypes.length; i++) {
                 var jobType = jobTypes[i];
                 var sel = $('#jobType');
-                $('<option></option>').val(jobType.name).text(jobType.name + ' - ' + jobType.value + ' hour(s)')
+                $('<option></option>').val(jobType.name).text(jobTypeMapping(jobType.name) + ' - ' + jobType.value + ' hour(s)')
                     .appendTo(sel);
             }
         }

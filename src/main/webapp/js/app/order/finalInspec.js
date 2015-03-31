@@ -63,7 +63,7 @@
         $('#idMechanic').val(modifyQue && modifyQue.modifier ? modifyQue.modifier.userName : '');
         $('#roofNo').val(modifyQue && modifyQue.order ? modifyQue.order.roofNum : '');
         $('#serviceAdvisor').val(modifyQue && modifyQue.user ? modifyQue.user.userName : '');
-        $('#jobType').val(modifyQue ? modifyQue.jobType + ' - ' + modifyQue.jobtypeTime + ' hour(s)' : '');
+        $('#jobType').val(modifyQue ? jobTypeMapping(modifyQue.jobType) + ' - ' + modifyQue.jobtypeTime + ' hour(s)' : '');
         $('#isWarranty').prop('checked', modifyQue && modifyQue.isWarrant ? true : false);
         $('#isSubContract').prop('checked', modifyQue && modifyQue.isSubContract ? true : false);
 

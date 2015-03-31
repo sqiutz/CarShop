@@ -67,7 +67,6 @@
                         $("#helloUserName").text(
                                 HELLO + ' ' + (userProfile ? userProfile.userName : ''));
                         $('#userName').text(userProfile ? userProfile.userName : ''); 
-                        $('#serviceAdvisor').val(userProfile ? userProfile.userName : '');
                     }
                 }
             });
@@ -142,7 +141,7 @@
         $('#regNo').val(queue && queue.order ? queue.order.registerNum : '');
         $('#roofNo').val(queue && queue.order ? queue.order.roofNum : '');
         $('#serviceAdvisor').val(queue && queue.user ? queue.user.userName : '');
-        $('#jobType').val(queue ? queue.jobType + ' - ' + queue.jobtypeTime + ' hour(s)': '');
+        $('#jobType').val(queue ? jobTypeMapping(queue.jobType) + ' - ' + queue.jobtypeTime + ' hour(s)': '');
         $('#additionTime').val(queue ? queue.additionTime + ' hour(s)' : '');
         $('#isWarranty').prop("checked", queue && queue.isWarrant ? true : false);
         $('#isSubContract').prop("checked", queue && queue.isSubContract ? true : false);
@@ -217,7 +216,7 @@
                     $('<td></td>').text(load && load.order ? load.order.registerNum : '').appendTo(tr);
                     $('<td></td>').text(load && load.order ? load.order.roofNum : '').appendTo(tr);
                     $('<td></td>').text(load && load.sa ? load.sa.userName : '').appendTo(tr);
-                    $('<td></td>').text(load && load.order ? (load.order.jobType ? load.order.jobType : load.order.express) : '').appendTo(tr);
+                    $('<td></td>').text(load && load.modifyQueue ? jobTypeMapping(load.modifyQueue.jobType) : '').appendTo(tr);
                     $('<td></td>').text(load ? load.humanResource : '').appendTo(tr);
                     $('<td></td>').text(load ? load.additionalHours : '').appendTo(tr);
                     $('<td></td>').text(load ? load.generalRepaire : '').appendTo(tr);
