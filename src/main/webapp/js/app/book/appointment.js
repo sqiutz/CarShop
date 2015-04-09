@@ -231,7 +231,7 @@
         var dateString = selectedDate.toDateString().split(' ');
         $('#canlendarTitle').text(dateString[1] + ' ' + dateString[3]);
         $('#monthlyView').fullCalendar({
-            height: 700,
+            height: 800,
             header:{  
                 left: '',
                 right: '',
