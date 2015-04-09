@@ -77,7 +77,7 @@ public class ModifyQueueController {
 	public WebResultList<TodayModifyQueue> getTodayModifyQueue(HttpServletRequest request, HttpServletResponse response) {
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
-		
+		response.setHeader("Access-Control-Allow-Origin", "*");
 		List<TodayModifyQueue> todayModifyQueues = new ArrayList<TodayModifyQueue>();
 		
 		try {
@@ -130,7 +130,7 @@ public class ModifyQueueController {
 	public WebResultList<ModifyQueue> getAllModifyQueues(HttpServletRequest request, HttpServletResponse response) {
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
-
+		response.setHeader("Access-Control-Allow-Origin", "*");
 		List<ModifyQueue> modifyQueueList = new ArrayList<ModifyQueue>();
 		try {
 			String jsonStr = request.getParameter("param");
@@ -196,6 +196,7 @@ public class ModifyQueueController {
 	@RequestMapping(params = "action=getone")
 	@ResponseBody
 	public WebResultObject<ModifyQueue> getModifyQueue(HttpServletRequest request, HttpServletResponse response) {
+		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 
@@ -254,6 +255,7 @@ public class ModifyQueueController {
 	@RequestMapping(params = "action=allocate")
 	@ResponseBody
 	public WebResultObject<ModifyQueue> allocateModifyQueue(HttpServletRequest request, HttpServletResponse response) {
+		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 
@@ -356,6 +358,7 @@ public class ModifyQueueController {
 	@ResponseBody
 	public WebResult start(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		
@@ -421,6 +424,7 @@ public class ModifyQueueController {
 	@ResponseBody
 	public WebResult hold(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		
@@ -475,6 +479,7 @@ public class ModifyQueueController {
 	@ResponseBody
 	public WebResult preapproval(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		
@@ -529,6 +534,7 @@ public class ModifyQueueController {
 	@ResponseBody
 	public WebResult reject(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		
@@ -585,6 +591,7 @@ public class ModifyQueueController {
 	@ResponseBody
 	public WebResult finish(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 

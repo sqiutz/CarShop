@@ -51,6 +51,7 @@ public class UserController {
 	@ResponseBody
 	public WebResultObject<UserProfile> login(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		UserProfile userProfile = new UserProfile();
@@ -105,6 +106,7 @@ public class UserController {
 	@ResponseBody
 	public WebResult logout(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		UserProfile userProfile = new UserProfile();
@@ -146,6 +148,7 @@ public class UserController {
 	@ResponseBody
 	public WebResultObject<UserProfile> checkLogin(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		HttpSession session = request.getSession();
@@ -177,6 +180,7 @@ public class UserController {
 	@ResponseBody
 	public WebResultObject<User> checkCounter(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		HttpSession session = request.getSession();
@@ -229,6 +233,7 @@ public class UserController {
 	public WebResultList<UserProfile> getAllUsers(Integer status,
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
+		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		HttpSession session = request.getSession();
@@ -271,6 +276,7 @@ public class UserController {
 	public WebResultList<UserProfile> getAllUsersByGroup(Integer status,
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
+		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		HttpSession session = request.getSession();
@@ -320,7 +326,7 @@ public class UserController {
 	@ResponseBody
 	public WebResult addUser(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-
+		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		HttpSession session = request.getSession();
@@ -392,7 +398,7 @@ public class UserController {
 	@ResponseBody
 	public WebResult deleteUser(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-
+		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		HttpSession session = request.getSession();
@@ -461,7 +467,7 @@ public class UserController {
 	@ResponseBody
 	public WebResult modifyUser(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-
+		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		HttpSession session = request.getSession();
@@ -528,7 +534,7 @@ public class UserController {
 	@ResponseBody
 	public WebResult disableUserCounter(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-
+		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		HttpSession session = request.getSession();
@@ -591,6 +597,7 @@ public class UserController {
 	public WebResultList<UserGroup> getAllGroup(Integer status,
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
+		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		HttpSession session = request.getSession();
@@ -623,6 +630,7 @@ public class UserController {
 	@ResponseBody
 	public WebResult addGroup(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
+		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		
@@ -677,6 +685,7 @@ public class UserController {
 	@ResponseBody
 	public WebResult deleteGroup(Integer id, HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
+		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		

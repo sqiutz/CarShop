@@ -61,9 +61,9 @@ public class CashQueueController {
 	@RequestMapping(params = "action=alllist")
 	@ResponseBody
 	public WebResultList<CashQueue> getCashQueues(HttpServletRequest request, HttpServletResponse response) {
+		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
-
 		
 		List<CashQueue> cashQueues = new ArrayList<CashQueue>();
 		
@@ -117,6 +117,7 @@ public class CashQueueController {
 	@RequestMapping(params = "action=getone")
 	@ResponseBody
 	public WebResultObject<CashQueue> getCashQueue(HttpServletRequest request, HttpServletResponse response) {
+		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 
@@ -169,6 +170,7 @@ public class CashQueueController {
 	@ResponseBody
 	public WebResult start(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		
@@ -220,6 +222,7 @@ public class CashQueueController {
 	@ResponseBody
 	public WebResult cancel(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		
@@ -271,6 +274,7 @@ public class CashQueueController {
 	@ResponseBody
 	public WebResult finish(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 
