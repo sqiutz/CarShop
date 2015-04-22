@@ -10,6 +10,8 @@ var CUSTOMER_QUE_STATUS_BOARD = 'CUSTOMER QUE STATUS BOARD';
 var CUSTOMER_QUE_STATUS_BOARD_DESC = 'Show the serving & waiting queue';
 var MECHANIC_UPDATE_JOB_PROGRESS = 'MECHANIC UPDATE JOB PROGRESS';
 var MECHANIC_UPDATE_JOB_PROGRESS_DESC = 'Input/Edit the mechanic job';
+var ISSUE_PARTS = 'ISSUE PARTS';
+var ISSUE_PARTS_DESC = 'Input/Edit the issue parts';
 var CAR_WASH_QUE_BOARD = 'CAR WASH QUE BOARD';
 var CAR_WASH_QUE_BOARD_DESC = 'Show the car wash queue';
 var CUSTOMER_JOB_PROGRESS_BOARD = 'CUSTOMER JOB PROGRESS BOARD';
@@ -18,6 +20,8 @@ var GREET_CUSTOMER = 'GREET CUSTOMER';
 var GREET_CUSTOMER_DESC = 'Service staff greet customer';
 var FINAL_INSPECTION = 'FINAL INSPECTION';
 var FINAL_INSPECTION_DESC = 'Final inspection for job progress';
+var CASH_QUE_CALLING_BOARD = 'CASH QUE CALLING BOARD';
+var CASH_QUE_CALLING_BOARD_DESC = 'Cashier calls the custumer and invoice creation';
 var HELLO = 'Hello';
 
 var CUSTOMER_QUE_STATUS_BOARD = 'CUSTOMER QUE STATUS BOARD';
@@ -164,6 +168,8 @@ var DAY = 'Day';
 var WEEK = 'Week';
 var MONTH = 'Month';
 var MANPOWER_ALLOCATION = 'Manpower Allocation';
+
+var CASHIER = 'Cashier';
 
 var MSG_INPUT_ORIGINAL_PASSWORD = 'Please input the original password!';
 var MSG_INPUT_NEW_PASSWORD = 'Please input the new password!';
