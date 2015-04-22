@@ -199,6 +199,33 @@ CREATE TABLE `TBL_MODIFYQUEUE` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Table structure for `TBL_MODIFYQUEUE`
+-- ----------------------------
+DROP TABLE IF EXISTS `TBL_ISSUEQUEUE`;
+CREATE TABLE `TBL_ISSUEQUEUE` (
+  `id` bigint(10) NOT NULL AUTO_INCREMENT,
+  `step` bigint(10) NOT NULL,
+  `user_id` bigint(10) NOT NULL,
+  `issuer_id` bigint(10) DEFAULT 0,
+  `order_id` bigint(10) NOT NULL,
+  `technician` varchar(48) NOT NULL DEFAULT 'test',
+  `comment` varchar(512) DEFAULT NULL,
+  `assign_time` datetime NOT NULL DEFAULT '1990-01-01 00:00:00',
+  `create_time` datetime NOT NULL DEFAULT '1990-01-01 00:00:00',
+  `start_time` datetime  NOT NULL DEFAULT '1990-01-01 00:00:00',
+  `assign_date` datetime  NOT NULL DEFAULT '1990-01-01 00:00:00',
+  `end_time` datetime  NOT NULL DEFAULT '1990-01-01 00:00:00',
+  INDEX user_ind (user_id),
+    FOREIGN KEY (user_id)
+    REFERENCES TBL_USER (id)
+    ON DELETE no action,
+   INDEX order_ind (order_id),
+    FOREIGN KEY (order_id)
+    REFERENCES TBL_ORDER (id)
+    ON DELETE no action,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+-- ----------------------------
 -- Records of TBL_ORDER
 -- ----------------------------
 

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.keeping.business.dal.dao.IssueQueueDao">
+
+	<resultMap id="IssueQueueDoMap" type="IssueQueueDo">
+	    <id column="ID" property="id" />
+		<result column="STEP" property="step" />
+		<result column="USER_ID" property="userId" />
+		<result column="ISSUER_ID" property="issuerId" />
+		<result column="ORDER_ID" property="orderId" />
+		<result column="CREATE_TIME" property="createTime" />
+		<result column="ASSIGN_TIME" property="assignTime" />
+		<result column="ASSIGN_DATE" property="assignDate" />
+		<result column="START_TIME" property="startTime" />
+		<result column="END_TIME" property="endTime" />
+		<result column="TECHNICIAN" property="technician" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		ID,STEP,USER_ID,ISSUER_ID,ORDER_ID,CREATE_TIME,START_TIME,END_TIME,ASSIGN_TIME,ASSIGN_DATE,TECHNICIAN
+	</sql>
+	
+	<select id="queryByIssueQueueid" resultMap="IssueQueueDoMap" 
+		parameterType="java.lang.Integer">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM TBL_ISSUEQUEUE
+		WHERE
+		ID = #{id}
+	</select>
+	
+	<insert id="addIssueQueue" parameterType="IssueQueueDo">
+		INSERT INTO TBL_ISSUEQUEUE 
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="step != null">
+				STEP,
+			</if>
+			<if test="userId != null">
+				USER_ID,
+			</if>
+			<if test="issuerId != null">
+				ISSUER_ID,
+			</if>
+			<if test="orderId != null">
+				ORDER_ID,
+			</if>
+			<if test="startTime != null">
+				START_TIME,
+			</if>
+			<if test="assignTime != null">
+				ASSIGN_TIME,
+			</if>
+			<if test="assignDate != null">
+				ASSIGN_DATE,
+			</if>
+			<if test="endTime != null">
+				END_TIME,
+			</if>
+			<if test="technician != null">
+				TECHNICIAN,
+			</if>
+			CREATE_TIME,
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="step != null">
+				#{step},
+			</if>
+			<if test="userId != null">
+				#{userId},
+			</if>
+			<if test="issuerId != null">
+				#{issuerId},
+			</if>
+			<if test="orderId != null">
+				#{orderId},
+			</if>
+			<if test="startTime != null">
+				#{startTime},
+			</if>
+			<if test="assignTime != null">
+				#{assignTime},
+			</if>
+			<if test="assignDate != null">
+				#{assignDate},
+			</if>
+			<if test="endTime != null">
+				#{endTime},
+			</if>
+			<if test="technician != null">
+				#{technician},
+			</if>
+			now(),
+		</trim>
+	</insert>
+	
+	<update id="updateIssueQueue" parameterType="IssueQueueDo">
+		UPDATE TBL_ISSUEQUEUE
+		<set>
+			<if test="step != null">
+				STEP = #{step},
+			</if>
+			<if test="userId != null">
+				USER_ID = #{userId},
+			</if>
+			<if test="issuerId != null">
+				ISSUER_ID = #{issuerId},
+			</if>
+			<if test="orderId != null">
+				ORDER_ID = #{orderId},
+			</if>
+			<if test="startTime != null">
+				START_TIME = #{startTime},
+			</if>
+			<if test="assignTime != null">
+				ASSIGN_TIME = #{assignTime},
+			</if>
+			<if test="assignDate != null">
+				ASSIGN_DATE = #{assignDate},
+			</if>
+			<if test="endTime != null">
+				END_TIME = #{endTime},
+			</if>
+			<if test="jobType != null">
+				JOBTYPE = #{jobType},
+			</if>
+			<if test="technician != null">
+				TECHNICIAN = #{technician},
+			</if>
+		</set>
+		WHERE 
+		ID = #{id}
+	</update>
+	
+</mapper>

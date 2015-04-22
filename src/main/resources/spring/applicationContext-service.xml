@@ -37,6 +37,10 @@
 		<property name="ModifyQueueDao" ref="modifyQueueDao" />
 	</bean>
 	
+	<bean id="issueQueueService" class="com.keeping.business.service.impl.IssueQueueServiceImpl">
+		<property name="IssueQueueDao" ref="issueQueueDao" />
+	</bean>
+	
 	<bean id="cashQueueService" class="com.keeping.business.service.impl.CashQueueServiceImpl">
 		<property name="CashQueueDao" ref="cashQueueDao" />
 	</bean>
