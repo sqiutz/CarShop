@@ -88,3 +88,14 @@ function getTimeStr(time) {
     catch(e) {}
     return '';
 }
+
+function jobTypeMapping(job) {
+    var index = job.indexOf(CONST_EXPRESS), result;
+    if(index > -1) {
+        result = 'E ' + job.substring(index + CONST_EXPRESS.length);
+    }
+    else {
+        result = 'R ' + job;
+    }
+    return result;
+}

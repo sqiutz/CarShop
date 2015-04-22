@@ -88,6 +88,9 @@ define(["md5"],function(){
                 data:options.data,
                 success:function(data){                 
                     options.success(data);                  
+                },
+                error : function(error) {
+                    options.error();
                 }
             });
         },

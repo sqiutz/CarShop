@@ -64,7 +64,6 @@ public class CashQueueController {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
-
 		
 		List<CashQueue> cashQueues = new ArrayList<CashQueue>();
 		

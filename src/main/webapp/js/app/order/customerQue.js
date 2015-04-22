@@ -141,7 +141,7 @@
             var tr = $('<tr></tr>').attr('class', i % 2 === 0 ? 'odd' : 'even')
                     .appendTo($('#nonBookingList'));
             $('<td></td>').text(order ? order.registerNum : '').appendTo(tr);
-            $('<td></td>').text(order ? order.estimationTime + ' mins' : '').appendTo(tr);
+            $('<td></td>').text(order ? (order.estimationTime / 60) + ' mins' : '').appendTo(tr);
         }
         if (orders && j < orders.length - 1) {
             nListIter++;

@@ -75,10 +75,9 @@ public class ModifyQueueController {
 	@RequestMapping(params = "action=gettoday")
 	@ResponseBody
 	public WebResultList<TodayModifyQueue> getTodayModifyQueue(HttpServletRequest request, HttpServletResponse response) {
-		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
-		
+		response.setHeader("Access-Control-Allow-Origin", "*");
 		List<TodayModifyQueue> todayModifyQueues = new ArrayList<TodayModifyQueue>();
 		
 		try {
@@ -129,10 +128,9 @@ public class ModifyQueueController {
 	@RequestMapping(params = "action=alllist")
 	@ResponseBody
 	public WebResultList<ModifyQueue> getAllModifyQueues(HttpServletRequest request, HttpServletResponse response) {
-		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
-
+		response.setHeader("Access-Control-Allow-Origin", "*");
 		List<ModifyQueue> modifyQueueList = new ArrayList<ModifyQueue>();
 		try {
 			String jsonStr = request.getParameter("param");

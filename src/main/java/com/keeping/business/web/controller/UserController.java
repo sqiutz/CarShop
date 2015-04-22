@@ -51,12 +51,12 @@ public class UserController {
 	@ResponseBody
 	public WebResultObject<UserProfile> login(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		UserProfile userProfile = new UserProfile();
 		HttpSession session = request.getSession();
 		session.setMaxInactiveInterval(PlatformPar.sessionTimeout);
-		response.setHeader("Access-Control-Allow-Origin", "*");
 
 		try {
 			// 验证请求参数
@@ -106,11 +106,11 @@ public class UserController {
 	@ResponseBody
 	public WebResult logout(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		UserProfile userProfile = new UserProfile();
 		HttpSession session = request.getSession();
-		response.setHeader("Access-Control-Allow-Origin", "*");
 
 		try {
 			
@@ -326,13 +326,11 @@ public class UserController {
 	@ResponseBody
 	public WebResult addUser(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-
+		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		HttpSession session = request.getSession();
 		session.setMaxInactiveInterval(PlatformPar.sessionTimeout);
-
-		response.setHeader("Access-Control-Allow-Origin", "*");
 
 		try {
 
@@ -400,13 +398,11 @@ public class UserController {
 	@ResponseBody
 	public WebResult deleteUser(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-
+		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		HttpSession session = request.getSession();
 		session.setMaxInactiveInterval(PlatformPar.sessionTimeout);
-
-		response.setHeader("Access-Control-Allow-Origin", "*");
 
 		try {
 
@@ -471,13 +467,11 @@ public class UserController {
 	@ResponseBody
 	public WebResult modifyUser(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-
+		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		HttpSession session = request.getSession();
 		session.setMaxInactiveInterval(PlatformPar.sessionTimeout);
-
-		response.setHeader("Access-Control-Allow-Origin", "*");
 
 		try {
 
@@ -540,13 +534,11 @@ public class UserController {
 	@ResponseBody
 	public WebResult disableUserCounter(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-
+		response.setHeader("Access-Control-Allow-Origin", "*");
 		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		HttpSession session = request.getSession();
 		session.setMaxInactiveInterval(PlatformPar.sessionTimeout);
-
-		response.setHeader("Access-Control-Allow-Origin", "*");
 
 		try {
 

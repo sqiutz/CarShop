@@ -21,21 +21,23 @@
             langCode = 'en_US';
         }
         loadLang('lang/' + langCode + '.js', function() {
-            $('#title').text(FINAL_INSPECTION);
+            $('#title').text(ISSUE_PARTS);
             $('#legendTitle').text(INPUT_EDIT_DATA);
             $('#regNoLabel').text(REG_NO);
             $('#idMechanicLabel').text(ID_MECHANIC);
             $('#roofNoLabel').text(ROOF_NO);
             $('#serviceAdvisorLabel').text(SERVICE_ADVISOR);
             $('#jobTypeLabel').text(JOB_TYPE);
+            $('#orderIdLabel').text(ID);
             $('#rWarranty').text(WARRANTY);
             $('#rSubContract').text(SUB_CONTRACT);
-            $('#closeBtn').text(FINISH).attr('title', FINISH);
-            $('#orderIdLabel').text(ID);
+            $('#jobProcess').text(JOB_PROCESS);
+            $('#startBtn').text(START).attr('title', START);
             $('#holdBtn').text(HOLD).attr('title', HOLD);
+            $('#finishBtn').text(FINISH).attr('title', FINISH);
         });
     }
-    
+    /*
     var modifyQue;
     function getModifyQueue(id) {
         if(!id) {
@@ -66,28 +68,27 @@
         $('#jobType').val(modifyQue ? jobTypeMapping(modifyQue.jobType) + ' - ' + modifyQue.jobtypeTime + ' hour(s)' : '');
         $('#isWarranty').prop('checked', modifyQue && modifyQue.isWarrant ? true : false);
         $('#isSubContract').prop('checked', modifyQue && modifyQue.isSubContract ? true : false);
-
+        
         if(modifyQue) {
             switch(modifyQue.step) {
+                case 2:
+                    $('#inProgress').text(IN_PROGRESS);
+                    break;
+                case 3:
+                    $('#inProgress').text(ON_HOLD);
+                    break;
                 case 4:
-                    //$('#holdBtn').show();
-                    $('#finalInspec').text('');
-                    break;
                 case 5:
-                    //$('#holdBtn').hide();
-                    $('#finalInspec').text(ON_HOLD);
-                    break;
                 case 6:
-                    //$('#holdBtn').show();
-                    $('#finalInspec').text(FINISHED);
+                    $('#inProgress').text(FINISHED);
                     break;
                 default:
-                    $('#finalInspec').text('');
+                    $('#inProgress').text('');
                     break;
             }
         }
         else {
-            $('#finalInspec').text('');
+            $('#inProgress').text('');
         }
     }
         
@@ -100,39 +101,55 @@
         if(keyCode == 13){ //Enter
             getModifyQueue($('#orderId').val());
         }
+    });
+    
+    $('#startBtn').bind('click', function() {
+        if(!modifyQue || modifyQue.step !== 1) {
+            return;
+        }
+        $.OrderInfo.mStart({
+            data : {
+                id : modifyQue.id
+            },
+            success : function(data) {
+                if(data.code == '000000') {
+                    //$('#inProgress').text(IN_PROGRESS);
+                    getModifyQueue(modifyQue.id);
+                }
+            }
+        });
     });    
-      
     $('#holdBtn').bind('click', function() {
-        if(!modifyQue || modifyQue.step !== 4) {
+        if(!modifyQue || modifyQue.step !== 1) {
             return;
         }
-        $.OrderInfo.mReject({
+        $.OrderInfo.mHold({
             data : {
                 id : modifyQue.id
             },
             success : function(data) {
                 if(data.code == '000000') {
-                    //$('#finalInspec').text(ON_HOLD);
+                    //$('#inProgress').text(ON_HOLD);
                     getModifyQueue(modifyQue.id);
                 }
             }
         });
     });
-    $('#closeBtn').bind('click', function() {
-        if(!modifyQue || (modifyQue.step !== 4 && modifyQue.step !== 5)) {
+    $('#finishBtn').bind('click', function() {
+        if(!modifyQue || (modifyQue.step !== 2 && modifyQue.step !== 3)) {
             return;
         }
-        $.OrderInfo.mFinish({
+        $.OrderInfo.mPreapprove({
             data : {
                 id : modifyQue.id
             },
             success : function(data) {
                 if(data.code == '000000') {
-                    $('#holdBtn').show();
-                    //$('#finalInspec').text(FINISHED);
+                    //$('#inProgress').text(FINISHED);
                     getModifyQueue(modifyQue.id);
                 }
             }
         });
     });
+    */
 })(jQuery);

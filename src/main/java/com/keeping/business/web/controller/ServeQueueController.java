@@ -348,7 +348,6 @@ public class ServeQueueController {
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		HttpSession session = request.getSession();
 		session.setMaxInactiveInterval(PlatformPar.sessionTimeout);
-		response.setHeader("Access-Control-Allow-Origin", "*");
 
 		try {
 //			String jsonStr = request.getParameter("param");
@@ -450,8 +449,6 @@ public class ServeQueueController {
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		HttpSession session = request.getSession();
 		session.setMaxInactiveInterval(PlatformPar.sessionTimeout);
-		response.setHeader("Access-Control-Allow-Origin", "*");
-
 		try {
 			String jsonStr = request.getParameter("param");
 			UserProfile loginUser = (UserProfile) session
@@ -545,7 +542,6 @@ public class ServeQueueController {
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		HttpSession session = request.getSession();
 		session.setMaxInactiveInterval(PlatformPar.sessionTimeout);
-		response.setHeader("Access-Control-Allow-Origin", "*");
 
 		try {
 			String jsonStr = request.getParameter("param");
@@ -624,8 +620,6 @@ public class ServeQueueController {
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		HttpSession session = request.getSession();
 		session.setMaxInactiveInterval(PlatformPar.sessionTimeout);
-		response.setHeader("Access-Control-Allow-Origin", "*");
-
 		try {
 			String jsonStr = request.getParameter("param");
 			UserProfile loginUser = (UserProfile) session
@@ -702,7 +696,6 @@ public class ServeQueueController {
 		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
 		HttpSession session = request.getSession();
 		session.setMaxInactiveInterval(PlatformPar.sessionTimeout);
-		response.setHeader("Access-Control-Allow-Origin", "*");
 
 		try {
 			String jsonStr = request.getParameter("param");

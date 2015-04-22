@@ -38,6 +38,10 @@
             $('#greetCustomerDesc').text(GREET_CUSTOMER_DESC);
             $('#finalInspecTitle').text(FINAL_INSPECTION);
             $('#finalInspecDesc').text(FINAL_INSPECTION_DESC);
+            $('#cashQueTitle').text(CASH_QUE_CALLING_BOARD);
+            $('#cashQueDesc').text(CASH_QUE_CALLING_BOARD_DESC);
+            $('#issueTitle').text(ISSUE_PARTS);
+            $('#issueDesc').text(ISSUE_PARTS_DESC);
         });
     }
     
