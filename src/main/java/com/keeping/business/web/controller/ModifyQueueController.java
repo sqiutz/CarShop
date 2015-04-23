@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.keeping.business.common.exception.BusinessServiceException;
 import com.keeping.business.common.rescode.BusinessCenterCashQueueStatus;
+import com.keeping.business.common.rescode.BusinessCenterIssueQueueStatus;
 import com.keeping.business.common.rescode.BusinessCenterModifyQueueStatus;
 import com.keeping.business.common.rescode.BusinessCenterOrderStatus;
 import com.keeping.business.common.rescode.BusinessCenterResCode;
@@ -26,6 +27,7 @@ import com.keeping.business.common.util.PlatformPar;
 import com.keeping.business.common.util.PlatfromConstants;
 import com.keeping.business.common.util.StringUtil;
 import com.keeping.business.service.CashQueueService;
+import com.keeping.business.service.IssueQueueService;
 import com.keeping.business.service.JobTypeService;
 import com.keeping.business.service.ModifyQueueService;
 import com.keeping.business.service.OrderService;
@@ -37,6 +39,7 @@ import com.keeping.business.web.controller.converter.ReorgQueue;
 import com.keeping.business.web.controller.converter.WebUserConverter;
 import com.keeping.business.web.controller.model.CashQueue;
 import com.keeping.business.web.controller.model.IdObject;
+import com.keeping.business.web.controller.model.IssueQueue;
 import com.keeping.business.web.controller.model.JobType;
 import com.keeping.business.web.controller.model.LoginReq;
 import com.keeping.business.web.controller.model.ModifyQueue;
@@ -71,6 +74,8 @@ public class ModifyQueueController {
 	private UserWorkloadService userWorkloadService;
 	@Resource
 	private CashQueueService cashQueueService;
+	@Resource
+	private IssueQueueService issueQueueService;
 	
 	@RequestMapping(params = "action=gettoday")
 	@ResponseBody
@@ -320,12 +325,19 @@ public class ModifyQueueController {
 					modifyQueue.setStep(BusinessCenterModifyQueueStatus.MODIFYQUEUE_STATUS_READY.getId());
 					modifyQueueService.updateModifyQueue(modifyQueue);
 					
+					IssueQueue issueQueue = new IssueQueue();
+					Date now = new Date();
+//					issueQueue.setCreateTime(now);
+//					issueQueue.setStep(BusinessCenterIssueQueueStatus.MODIFYQUEUE_STATUS_ISSUE.getId());
+//					issueQueue.setOrderId(modifyQueueObject.getOrderId());
+//					issueQueueService.addIssueQueue(issueQueue);
+					
 					userWorkload.setAdditionalHours(modifyQueue.getAdditionTime());
 					userWorkload.setModifyqueueId(modifyQueue.getId());
 					userWorkload.setGeneralRepaire(generalRepaire);
 					userWorkload.setAllocatedTime(modifyQueue.getAssignTime());
 					userWorkload.setHumanResource(modifyQueue.getLoad());
-					Date now = new Date();
+
 					userWorkload.setCreateTime(now);
 					userWorkload.setAssignDate(now);
 					userWorkload.setSaId(modifyQueue.getUserId());
