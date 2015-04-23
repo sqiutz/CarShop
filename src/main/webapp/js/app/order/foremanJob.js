@@ -247,6 +247,18 @@
                 }
             }
         });
+        
+        $.OrderInfo.iAllocate({
+            data : {
+                id : modifyQue.id,
+                modifierId : $('#technician').val()
+            },
+            success : function(data) {
+                if(data.code !== '000000') {
+                    console.log(data.code + ' ' + data.msg);
+                }
+            }
+        });
     });
     
     getModifyQueues();

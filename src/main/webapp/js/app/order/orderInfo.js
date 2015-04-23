@@ -192,6 +192,14 @@ define([], function() {
                 }
             });
         },
+        getIssueQueue : function(options) {
+            $.common.ajax("getIssueQueue", {
+                data : options.data,
+                success : function(data) {
+                    options.success(data);
+                }
+            });
+        },
         // Start, Hold and Finish in mechanic update
         mStart : function(options) {
             $.common.ajax("mStart", {
@@ -233,9 +241,41 @@ define([], function() {
                 }
             });
         },
+        iStart : function(options) {
+            $.common.ajax("iStart", {
+                data : options.data,
+                success : function(data) {
+                    options.success(data);
+                }
+            });
+        },
+        iHold : function(options) {
+            $.common.ajax("iHold", {
+                data : options.data,
+                success : function(data) {
+                    options.success(data);
+                }
+            });
+        },
+        iFinish : function(options) {
+            $.common.ajax("iFinish", {
+                data : options.data,
+                success : function(data) {
+                    options.success(data);
+                }
+            });
+        },
         //分配
         allocate : function(options) {
             $.common.ajax("allocate", {
+                data : options.data,
+                success : function(data) {
+                    options.success(data);
+                }
+            });
+        },
+        iAllocate : function(options) {
+            $.common.ajax("iAllocate", {
                 data : options.data,
                 success : function(data) {
                     options.success(data);

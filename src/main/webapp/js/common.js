@@ -231,6 +231,12 @@
                                  "id"
                         ]
                     },
+                    getIssueQueue : {
+                        url : "issuequeue.do?action=getone",
+                        args : [ 
+                                 "id"
+                        ]
+                    },
                     // 获取modifyqueue list
                     getModifyQueues : {
                         url : "modifyqueue.do?action=alllist",
@@ -269,9 +275,34 @@
                                  "id"
                         ]
                     },
+                    iStart : {
+                        url : "issuequeue.do?action=start",
+                        args : [ 
+                                 "id"
+                        ]
+                    },
+                    iHold : {
+                        url : "issuequeue.do?action=hold",
+                        args : [ 
+                                 "id"
+                        ]
+                    },
+                    iFinish : {
+                        url : "issuequeue.do?action=finish",
+                        args : [ 
+                                 "id"
+                        ]
+                    },
                     // 分配
                     allocate : {
                         url : "modifyqueue.do?action=allocate",
+                        args : [ 
+                                "id",
+                                "modifierId"
+                       ]
+                    },
+                    iAllocate : {
+                        url : "issuequeue.do?action=allocate",
                         args : [ 
                                 "id",
                                 "modifierId"

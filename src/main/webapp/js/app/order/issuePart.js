@@ -37,40 +37,40 @@
             $('#finishBtn').text(FINISH).attr('title', FINISH);
         });
     }
-    /*
-    var modifyQue;
-    function getModifyQueue(id) {
+    
+    var issueQue;
+    function getIssueQueue(id) {
         if(!id) {
-            setModifyQueue();
+            setIssueQueue();
             return;
         }
-        $.OrderInfo.getModifyQueue({
+        $.OrderInfo.getIssueQueue({
             data : {
                 id : id
             },
             success : function(data) {
                 if(data.code == '000000') {
-                    modifyQue = data.obj;                    
+                    issueQue = data.obj;                    
                 }
                 else {
-                    modifyQue = null;
+                    issueQue = null;
                 }
-                setModifyQueue(modifyQue);
+                setIssueQueue(issueQue);
             }
         });
     } 
     
-    function setModifyQueue(modifyQue) {
-        $('#regNo').val(modifyQue && modifyQue.order ? modifyQue.order.registerNum : '');
-        $('#idMechanic').val(modifyQue && modifyQue.modifier ? modifyQue.modifier.userName : '');
-        $('#roofNo').val(modifyQue && modifyQue.order ? modifyQue.order.roofNum : '');
-        $('#serviceAdvisor').val(modifyQue && modifyQue.user ? modifyQue.user.userName : '');
-        $('#jobType').val(modifyQue ? jobTypeMapping(modifyQue.jobType) + ' - ' + modifyQue.jobtypeTime + ' hour(s)' : '');
-        $('#isWarranty').prop('checked', modifyQue && modifyQue.isWarrant ? true : false);
-        $('#isSubContract').prop('checked', modifyQue && modifyQue.isSubContract ? true : false);
+    function setIssueQueue(issueQue) {
+        $('#regNo').val(issueQue && issueQue.order ? issueQue.order.registerNum : '');
+        $('#idMechanic').val(issueQue && issueQue.modifier ? issueQue.modifier.userName : '');
+        $('#roofNo').val(issueQue && issueQue.order ? issueQue.order.roofNum : '');
+        $('#serviceAdvisor').val(issueQue && issueQue.user ? issueQue.user.userName : '');
+        $('#jobType').val(issueQue ? jobTypeMapping(issueQue.jobType) + ' - ' + issueQue.jobtypeTime + ' hour(s)' : '');
+        $('#isWarranty').prop('checked', issueQue && issueQue.isWarrant ? true : false);
+        $('#isSubContract').prop('checked', issueQue && issueQue.isSubContract ? true : false);
         
-        if(modifyQue) {
-            switch(modifyQue.step) {
+        if(issueQue) {
+            switch(issueQue.step) {
                 case 2:
                     $('#inProgress').text(IN_PROGRESS);
                     break;
@@ -93,63 +93,63 @@
     }
         
     $('#orderId').bind("blur", function() {
-        getModifyQueue($('#orderId').val());
+        getIssueQueue($('#orderId').val());
     });
     $('#orderId').keyup(function(event) {
         var myEvent = event || window.event;
         var keyCode = myEvent.keyCode;
         if(keyCode == 13){ //Enter
-            getModifyQueue($('#orderId').val());
+            getIssueQueue($('#orderId').val());
         }
     });
     
     $('#startBtn').bind('click', function() {
-        if(!modifyQue || modifyQue.step !== 1) {
+        if(!issueQue || issueQue.step !== 1) {
             return;
         }
         $.OrderInfo.mStart({
             data : {
-                id : modifyQue.id
+                id : issueQue.id
             },
             success : function(data) {
                 if(data.code == '000000') {
                     //$('#inProgress').text(IN_PROGRESS);
-                    getModifyQueue(modifyQue.id);
+                    getIssueQueue(issueQue.id);
                 }
             }
         });
     });    
     $('#holdBtn').bind('click', function() {
-        if(!modifyQue || modifyQue.step !== 1) {
+        if(!issueQue || issueQue.step !== 1) {
             return;
         }
         $.OrderInfo.mHold({
             data : {
-                id : modifyQue.id
+                id : issueQue.id
             },
             success : function(data) {
                 if(data.code == '000000') {
                     //$('#inProgress').text(ON_HOLD);
-                    getModifyQueue(modifyQue.id);
+                    getIssueQueue(issueQue.id);
                 }
             }
         });
     });
     $('#finishBtn').bind('click', function() {
-        if(!modifyQue || (modifyQue.step !== 2 && modifyQue.step !== 3)) {
+        if(!issueQue || (issueQue.step !== 2 && issueQue.step !== 3)) {
             return;
         }
         $.OrderInfo.mPreapprove({
             data : {
-                id : modifyQue.id
+                id : issueQue.id
             },
             success : function(data) {
                 if(data.code == '000000') {
                     //$('#inProgress').text(FINISHED);
-                    getModifyQueue(modifyQue.id);
+                    getIssueQueue(issueQue.id);
                 }
             }
         });
     });
-    */
+    
 })(jQuery);
