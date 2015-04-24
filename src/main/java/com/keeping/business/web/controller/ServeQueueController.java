@@ -754,23 +754,6 @@ public class ServeQueueController {
 				modifyQueue.setIsWarrant(serveQueueObject.getIsWarrant());
 				modifyQueueService.addModifyQueue(modifyQueue);
 				
-				ModifyQueue printModifyQueue = new ModifyQueue();
-				printModifyQueue = modifyQueueService.getModifyQueueByOrderid(serveQueue.getOrderId());
-				
-				StringBuffer string = new StringBuffer();
-				string.append("############################\n");
-				string.append("\n");
-				string.append("\n");
-				string.append("\n");
-				string.append("\n");
-				string.append("Modify Queue ID is: " + printModifyQueue.getId() + "\n");
-				string.append("Use the ID to get Modify Queue! \n");
-				string.append("\n");
-				string.append("\n");
-				string.append("\n");
-				string.append("\n");
-				string.append("############################\n");
-				Printer.print(string.toString());
 			}
 		} catch (BusinessServiceException ex) {
 			System.out.println(ex.getMessage());
