@@ -24,6 +24,7 @@ import com.keeping.business.common.rescode.BusinessCenterServeQueueStatus;
 import com.keeping.business.common.rescode.BusinessCenterUserGroup;
 import com.keeping.business.common.util.PlatformPar;
 import com.keeping.business.common.util.PlatfromConstants;
+import com.keeping.business.common.util.Printer;
 import com.keeping.business.common.util.StringUtil;
 import com.keeping.business.service.CashQueueService;
 import com.keeping.business.service.JobTypeService;
@@ -152,7 +153,27 @@ public class IssueQueueController {
 					issueQueue.setIssuerId(issueQueueObject.getIssuerId());
 					issueQueue.setStep(BusinessCenterIssueQueueStatus.MODIFYQUEUE_STATUS_ISSUE.getId());
 					issueQueue.setOrderId(issueQueueObject.getOrderId());
-					issueQueueService.addIssueQueue(issueQueue);				
+					issueQueue.setJobType(issueQueueObject.getJobType());
+					issueQueue.setIsWarrant(issueQueueObject.getIsWarrant());
+					issueQueue.setIsSubContract(issueQueueObject.getIsSubContract());
+					issueQueueService.addIssueQueue(issueQueue);	
+					
+					IssueQueue printIssueQueue = new IssueQueue();
+					printIssueQueue = issueQueueService.getIssueQueueByOrderId(issueQueueObject.getOrderId());
+					
+					StringBuffer string = new StringBuffer();
+					string.append("############################\n");
+					string.append("\n");
+					string.append("\n");
+					string.append("\n");
+					string.append("\n");
+					string.append("Issue Queue ID is: " + printIssueQueue.getId() + "\n");
+					string.append("Use the ID to get Issue Queue! \n");
+					string.append("\n");
+					string.append("\n");
+					string.append("\n");
+					string.append("############################\n");
+					Printer.print(string.toString());
 			}
 		} catch (BusinessServiceException ex) {
 			code = ex.getErrorCode();
@@ -192,7 +213,7 @@ public class IssueQueueController {
 				
 				issueQueue = issueQueueService.getIssueQueueById(issueQueue.getId());
 				
-				if (issueQueue != null && issueQueue.getStep() > 0){
+				if (issueQueue != null && issueQueue.getStep() <3){
 					
 					Integer step = issueQueue.getStep();
 					
@@ -310,6 +331,8 @@ public class IssueQueueController {
 				
 				if (issueQueue != null && issueQueue.getStep() > 0){
 					
+					Date now = new Date();
+					issueQueue.setEndTime(now);
 					issueQueue.setStep(BusinessCenterIssueQueueStatus.MODIFYQUEUE_STATUS_FINISH.getId());
 					issueQueueService.updateIssueQueue(issueQueue);
 				}else{

@@ -102,10 +102,10 @@
     });
     
     $('#startBtn').bind('click', function() {
-        if(!issueQue || issueQue.step !== 0) {
+        if(!issueQue || (issueQue.step !== 0 && issueQue.step !== 2)) {
             return;
         }
-        $.OrderInfo.mStart({
+        $.OrderInfo.iStart({
             data : {
                 id : issueQue.id
             },
@@ -118,10 +118,10 @@
         });
     });    
     $('#holdBtn').bind('click', function() {
-        if(!issueQue || issueQue.step !== 0) {
+        if(!issueQue || issueQue.step !== 1) {
             return;
         }
-        $.OrderInfo.mHold({
+        $.OrderInfo.iHold({
             data : {
                 id : issueQue.id
             },
@@ -137,7 +137,7 @@
         if(!issueQue || (issueQue.step !== 1 && issueQue.step !== 2)) {
             return;
         }
-        $.OrderInfo.mPreapprove({
+        $.OrderInfo.iFinish({
             data : {
                 id : issueQue.id
             },

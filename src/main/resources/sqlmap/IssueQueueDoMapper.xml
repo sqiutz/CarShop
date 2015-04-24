@@ -13,11 +13,14 @@
 		<result column="ASSIGN_DATE" property="assignDate" />
 		<result column="START_TIME" property="startTime" />
 		<result column="END_TIME" property="endTime" />
+		<result column="JOBTYPE" property="jobType" />
 		<result column="TECHNICIAN" property="technician" />
+		<result column="ISWARRANT" property="isWarrant" />
+		<result column="ISSUBCONTRACT" property="isSubContract" />
 	</resultMap>
 	
 	<sql id="Base_Column_List">
-		ID,STEP,USER_ID,ISSUER_ID,ORDER_ID,CREATE_TIME,START_TIME,END_TIME,ASSIGN_TIME,ASSIGN_DATE,TECHNICIAN
+		ID,STEP,USER_ID,ISSUER_ID,ORDER_ID,CREATE_TIME,START_TIME,END_TIME,ASSIGN_TIME,ASSIGN_DATE,JOBTYPE,ISWARRANT,ISSUBCONTRACT,TECHNICIAN
 	</sql>
 	
 	<select id="queryByIssueQueueid" resultMap="IssueQueueDoMap" 
@@ -27,6 +30,15 @@
 		FROM TBL_ISSUEQUEUE
 		WHERE
 		ID = #{id}
+	</select>
+	
+	<select id="queryByIssueQueueOrderId" resultMap="IssueQueueDoMap" 
+		parameterType="java.lang.Integer">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM TBL_ISSUEQUEUE
+		WHERE
+		ORDER_ID = #{orderId}
 	</select>
 	
 	<insert id="addIssueQueue" parameterType="IssueQueueDo">
@@ -56,8 +68,17 @@
 			<if test="endTime != null">
 				END_TIME,
 			</if>
+			<if test="jobType != null">
+				JOBTYPE,
+			</if>
 			<if test="technician != null">
 				TECHNICIAN,
+			</if>
+			<if test="isWarrant != null">
+				ISWARRANT,
+			</if>
+			<if test="isSubContract != null">
+				ISSUBCONTRACT,
 			</if>
 			CREATE_TIME,
 		</trim>
@@ -86,8 +107,17 @@
 			<if test="endTime != null">
 				#{endTime},
 			</if>
+			<if test="jobType != null">
+				#{jobType},
+			</if>
 			<if test="technician != null">
 				#{technician},
+			</if>
+			<if test="isWarrant != null">
+				#{isWarrant},
+			</if>
+			<if test="isSubContract != null">
+				#{isSubContract},
 			</if>
 			now(),
 		</trim>
@@ -125,6 +155,12 @@
 			</if>
 			<if test="technician != null">
 				TECHNICIAN = #{technician},
+			</if>
+			<if test="isWarrant != null">
+			    ISWARRANT = #{isWarrant},
+			</if>
+			<if test="isSubContract != null">
+				ISSUBCONTRACT = #{isSubContract},
 			</if>
 		</set>
 		WHERE 

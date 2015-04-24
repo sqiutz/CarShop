@@ -14,4 +14,6 @@ public interface IssueQueueService {
     
     public void updateIssueQueue(IssueQueue issueQueue) throws BusinessServiceException;
     
+    public IssueQueue getIssueQueueByOrderId(Integer id) throws BusinessServiceException;
+    
 }

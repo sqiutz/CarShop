@@ -28,6 +28,10 @@ public class IssueQueueDo {
     private Date assignDate;
     
     private Integer issuerId;
+    
+    private Integer isWarrant;
+    
+    private Integer isSubContract;
 
 	public Integer getId() {
 		return id;
@@ -123,6 +127,22 @@ public class IssueQueueDo {
 
 	public void setIssuerId(Integer issuerId) {
 		this.issuerId = issuerId;
+	}
+
+	public Integer getIsWarrant() {
+		return isWarrant;
+	}
+
+	public void setIsWarrant(Integer isWarrant) {
+		this.isWarrant = isWarrant;
+	}
+
+	public Integer getIsSubContract() {
+		return isSubContract;
+	}
+
+	public void setIsSubContract(Integer isSubContract) {
+		this.isSubContract = isSubContract;
 	}
     
 

@@ -12,5 +12,6 @@ public interface IssueQueueDao extends BaseDao<IssueQueueDo>{
 	
 	public IssueQueueDo queryByIssueQueueid(Integer id);
 	
-
+	public IssueQueueDo queryByIssueQueueOrderId(Integer orderId);
+	
 }

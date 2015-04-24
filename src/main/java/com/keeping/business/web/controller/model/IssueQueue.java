@@ -20,6 +20,10 @@ public class IssueQueue extends BaseQueue{
 	private Integer issuerId;
 	
 	private User issuer;
+	
+	private Integer isWarrant;
+	
+	private Integer isSubContract;
 
 	public String getJobType() {
 		return jobType;
@@ -83,6 +87,22 @@ public class IssueQueue extends BaseQueue{
 
 	public void setIssuer(User issuer) {
 		this.issuer = issuer;
+	}
+
+	public Integer getIsWarrant() {
+		return isWarrant;
+	}
+
+	public void setIsWarrant(Integer isWarrant) {
+		this.isWarrant = isWarrant;
+	}
+
+	public Integer getIsSubContract() {
+		return isSubContract;
+	}
+
+	public void setIsSubContract(Integer isSubContract) {
+		this.isSubContract = isSubContract;
 	}
 
     

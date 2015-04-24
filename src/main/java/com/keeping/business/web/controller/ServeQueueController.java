@@ -24,6 +24,7 @@ import com.keeping.business.common.rescode.BusinessCenterServeQueueStatus;
 import com.keeping.business.common.rescode.BusinessCenterUserGroup;
 import com.keeping.business.common.util.PlatformPar;
 import com.keeping.business.common.util.PlatfromConstants;
+import com.keeping.business.common.util.Printer;
 import com.keeping.business.common.util.StringUtil;
 import com.keeping.business.service.JobTypeService;
 import com.keeping.business.service.ModifyQueueService;
@@ -752,6 +753,24 @@ public class ServeQueueController {
 				modifyQueue.setIsSubContract(serveQueueObject.getIsSubContract());
 				modifyQueue.setIsWarrant(serveQueueObject.getIsWarrant());
 				modifyQueueService.addModifyQueue(modifyQueue);
+				
+				ModifyQueue printModifyQueue = new ModifyQueue();
+				printModifyQueue = modifyQueueService.getModifyQueueByOrderid(serveQueue.getOrderId());
+				
+				StringBuffer string = new StringBuffer();
+				string.append("############################\n");
+				string.append("\n");
+				string.append("\n");
+				string.append("\n");
+				string.append("\n");
+				string.append("Modify Queue ID is: " + printModifyQueue.getId() + "\n");
+				string.append("Use the ID to get Modify Queue! \n");
+				string.append("\n");
+				string.append("\n");
+				string.append("\n");
+				string.append("\n");
+				string.append("############################\n");
+				Printer.print(string.toString());
 			}
 		} catch (BusinessServiceException ex) {
 			System.out.println(ex.getMessage());

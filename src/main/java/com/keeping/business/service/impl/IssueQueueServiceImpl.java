@@ -48,6 +48,21 @@ public class IssueQueueServiceImpl implements IssueQueueService{
 		
 		return issueQueue;
 	}
+	
+	public IssueQueue getIssueQueueByOrderId(Integer id)
+			throws BusinessServiceException {
+		// TODO Auto-generated method stub
+		IssueQueueDo issueQueueDo = issueQueueDao.queryByIssueQueueOrderId(id);
+		IssueQueue issueQueue = null;
+		
+		if(issueQueueDo == null){
+			return new IssueQueue();
+		}
+		
+		issueQueue = IssueQueueConverter.getIssueQueue(issueQueueDo);
+		
+		return issueQueue;
+	}
 
 	public IssueQueueDao getIssueQueueDao() {
 		return issueQueueDao;

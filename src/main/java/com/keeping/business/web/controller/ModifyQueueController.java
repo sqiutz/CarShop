@@ -25,6 +25,7 @@ import com.keeping.business.common.rescode.BusinessCenterServeQueueStatus;
 import com.keeping.business.common.rescode.BusinessCenterUserGroup;
 import com.keeping.business.common.util.PlatformPar;
 import com.keeping.business.common.util.PlatfromConstants;
+import com.keeping.business.common.util.Printer;
 import com.keeping.business.common.util.StringUtil;
 import com.keeping.business.service.CashQueueService;
 import com.keeping.business.service.IssueQueueService;

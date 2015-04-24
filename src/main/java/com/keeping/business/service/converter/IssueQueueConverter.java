@@ -28,6 +28,8 @@ public class IssueQueueConverter {
 		issueQueue.setAssignDate(TimeUtil.transferFromSqlToUtilDate(issueQueueDo.getAssignDate()));
 		issueQueue.setAssignTime(TimeUtil.transferFromSqlToUtil(issueQueueDo.getAssignTime()));
 		issueQueue.setIssuerId(issueQueueDo.getIssuerId());
+		issueQueue.setIsSubContract(issueQueueDo.getIsSubContract());
+		issueQueue.setIsWarrant(issueQueueDo.getIsWarrant());
 		
 		return issueQueue;
 	}
@@ -52,6 +54,8 @@ public class IssueQueueConverter {
 		issueQueueDo.setTechnician(issueQueue.getTechnician());
 		issueQueueDo.setAssignDate(TimeUtil.transferFromUtilToSqlDate(issueQueue.getAssignDate()));
 		issueQueueDo.setIssuerId(issueQueue.getIssuerId());
+		issueQueueDo.setIsSubContract(issueQueue.getIsSubContract());
+		issueQueueDo.setIsWarrant(issueQueue.getIsWarrant());
 		
 		return issueQueueDo;
 	}
