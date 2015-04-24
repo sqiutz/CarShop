@@ -305,7 +305,7 @@
                         url : "issuequeue.do?action=allocate",
                         args : [ 
                                 "id",
-                                "modifierId"
+                                "orderId"
                        ]
                     },
                     // 获取洗车列表

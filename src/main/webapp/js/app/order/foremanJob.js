@@ -251,7 +251,7 @@
         $.OrderInfo.iAllocate({
             data : {
                 id : modifyQue.id,
-                modifierId : $('#technician').val()
+                orderId : modifyQue.order.id
             },
             success : function(data) {
                 if(data.code !== '000000') {

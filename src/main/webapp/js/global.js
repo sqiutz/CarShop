@@ -90,6 +90,9 @@ function getTimeStr(time) {
 }
 
 function jobTypeMapping(job) {
+    if(!job) {
+        return '';
+    }
     var index = job.indexOf(CONST_EXPRESS), result;
     if(index > -1) {
         result = 'E ' + job.substring(index + CONST_EXPRESS.length);

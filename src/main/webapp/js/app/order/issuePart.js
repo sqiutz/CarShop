@@ -71,15 +71,13 @@
         
         if(issueQue) {
             switch(issueQue.step) {
-                case 2:
+                case 1:
                     $('#inProgress').text(IN_PROGRESS);
                     break;
-                case 3:
+                case 2:
                     $('#inProgress').text(ON_HOLD);
                     break;
-                case 4:
-                case 5:
-                case 6:
+                case 3:
                     $('#inProgress').text(FINISHED);
                     break;
                 default:
@@ -104,7 +102,7 @@
     });
     
     $('#startBtn').bind('click', function() {
-        if(!issueQue || issueQue.step !== 1) {
+        if(!issueQue || issueQue.step !== 0) {
             return;
         }
         $.OrderInfo.mStart({
@@ -120,7 +118,7 @@
         });
     });    
     $('#holdBtn').bind('click', function() {
-        if(!issueQue || issueQue.step !== 1) {
+        if(!issueQue || issueQue.step !== 0) {
             return;
         }
         $.OrderInfo.mHold({
@@ -136,7 +134,7 @@
         });
     });
     $('#finishBtn').bind('click', function() {
-        if(!issueQue || (issueQue.step !== 2 && issueQue.step !== 3)) {
+        if(!issueQue || (issueQue.step !== 1 && issueQue.step !== 2)) {
             return;
         }
         $.OrderInfo.mPreapprove({

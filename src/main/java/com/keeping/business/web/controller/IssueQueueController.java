@@ -142,11 +142,6 @@ public class IssueQueueController {
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
 //				logger.error("< IssueQueueController.getIssueQueue() > 获取维修订单请求信息不正确: " + idObject.getId());
 			} else {
-				
-				issueQueue = issueQueueService.getIssueQueueById(issueQueueObject.getId());
-				
-				if (issueQueue != null && issueQueue.getId() != null){
-					
 					if(issueQueueObject.getUserId() != null){
 						issueQueue.setUserId(issueQueueObject.getUserId());
 					}
@@ -156,13 +151,8 @@ public class IssueQueueController {
 					issueQueue.setCreateTime(now);
 					issueQueue.setIssuerId(issueQueueObject.getIssuerId());
 					issueQueue.setStep(BusinessCenterIssueQueueStatus.MODIFYQUEUE_STATUS_ISSUE.getId());
-					issueQueueService.addIssueQueue(issueQueue);
-					
-				}else{
-					code = BusinessCenterResCode.ORDER_NOT_EXIST.getCode();
-					msg = BusinessCenterResCode.ORDER_NOT_EXIST.getMsg();
-				}
-				
+					issueQueue.setOrderId(issueQueueObject.getOrderId());
+					issueQueueService.addIssueQueue(issueQueue);				
 			}
 		} catch (BusinessServiceException ex) {
 			code = ex.getErrorCode();

@@ -205,7 +205,7 @@ DROP TABLE IF EXISTS `TBL_ISSUEQUEUE`;
 CREATE TABLE `TBL_ISSUEQUEUE` (
   `id` bigint(10) NOT NULL AUTO_INCREMENT,
   `step` bigint(10) NOT NULL,
-  `user_id` bigint(10) NOT NULL,
+  `user_id` bigint(10) DEFAULT NULL,
   `issuer_id` bigint(10) DEFAULT 0,
   `order_id` bigint(10) NOT NULL,
   `technician` varchar(48) NOT NULL DEFAULT 'test',
