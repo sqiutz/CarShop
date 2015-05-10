@@ -326,24 +326,6 @@ public class ModifyQueueController {
 					modifyQueue.setStep(BusinessCenterModifyQueueStatus.MODIFYQUEUE_STATUS_READY.getId());
 					modifyQueueService.updateModifyQueue(modifyQueue);
 					
-					ModifyQueue printModifyQueue = new ModifyQueue();
-					printModifyQueue = modifyQueueService.getModifyQueueByOrderid(modifyQueueObject.getOrderId());
-					
-					StringBuffer string = new StringBuffer();
-					string.append("############################\n");
-					string.append("\n");
-					string.append("\n");
-					string.append("\n");
-					string.append("\n");
-					string.append("Modify Queue ID is: " + printModifyQueue.getId() + "\n");
-					string.append("Use the ID to get Modify Queue! \n");
-					string.append("\n");
-					string.append("\n");
-					string.append("\n");
-					string.append("\n");
-					string.append("############################\n");
-					Printer.print(string.toString());
-					
 					IssueQueue issueQueue = new IssueQueue();
 					Date now = new Date();
 //					issueQueue.setCreateTime(now);

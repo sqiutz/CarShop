@@ -45,6 +45,10 @@
 		<property name="CashQueueDao" ref="cashQueueDao" />
 	</bean>
 	
+	<bean id="settleQueueService" class="com.keeping.business.service.impl.SettleQueueServiceImpl">
+		<property name="SettleQueueDao" ref="settleQueueDao" />
+	</bean>
+	
 	<bean id="propertyService" class="com.keeping.business.service.impl.PropertyServiceImpl">
 		<property name="PropertyDao" ref="propertyDao" />
 	</bean>

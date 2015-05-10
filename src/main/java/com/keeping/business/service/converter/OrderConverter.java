@@ -36,6 +36,7 @@ public class OrderConverter {
 		order.setComment(orderDo.getComment());
 		order.setGroupid(orderDo.getGroupid());
 		order.setExpress(orderDo.getExpress());
+		order.setBakQueueNum(orderDo.getBakQueueNum());
 		
 		order.setStatusValue((BusinessCenterOrderStatus.getById(orderDo.getStatus())).getStatus());
 		
@@ -71,6 +72,7 @@ public class OrderConverter {
 		orderDo.setComment(order.getComment());
 		orderDo.setGroupid(order.getGroupid());
 		orderDo.setExpress(order.getExpress());
+		orderDo.setBakQueueNum(order.getBakQueueNum());
 		
 		return orderDo;
 	}

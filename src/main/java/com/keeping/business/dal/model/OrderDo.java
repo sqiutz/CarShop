@@ -27,6 +27,8 @@ public class OrderDo {
     
     private String queueNum;
     
+    private String bakQueueNum;
+    
     private String bookNum;
     
     private Timestamp promiseTime;
@@ -233,5 +235,13 @@ public class OrderDo {
 
 	public void setExpress(String express) {
 		this.express = express;
+	}
+
+	public String getBakQueueNum() {
+		return bakQueueNum;
+	}
+
+	public void setBakQueueNum(String bakQueueNum) {
+		this.bakQueueNum = bakQueueNum;
 	}
 }

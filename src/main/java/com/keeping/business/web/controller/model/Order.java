@@ -33,6 +33,8 @@ public class Order {
     
     private String queueNum;
     
+    private String bakQueueNum;
+    
     private String bookNum;
     
     private Date promiseTime;
@@ -283,6 +285,14 @@ public class Order {
 
 	public void setExpress(String express) {
 		this.express = express;
+	}
+
+	public String getBakQueueNum() {
+		return bakQueueNum;
+	}
+
+	public void setBakQueueNum(String bakQueueNum) {
+		this.bakQueueNum = bakQueueNum;
 	}
     
 }

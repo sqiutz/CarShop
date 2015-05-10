@@ -106,7 +106,8 @@ CREATE TABLE `TBL_ORDER` (
   `id` bigint(10) NOT NULL AUTO_INCREMENT,
   `status` bigint(10) NOT NULL DEFAULT 0,            /*0: subscribe; 1: serve start; */
   `registerNumber` varchar(48) DEFAULT NULL,
-  `queueNumber` varchar(48) DEFAULT NULL,   
+  `queueNumber` varchar(48) DEFAULT NULL,
+  `bakQueueNumber` varchar(48) DEFAULT NULL,   
   `roofNumber` varchar(48) DEFAULT NULL,
   `estimationTime` bigint(10) DEFAULT NULL,
   `bookNumber` varchar(48) DEFAULT NULL,
@@ -237,6 +238,29 @@ CREATE TABLE `TBL_ISSUEQUEUE` (
 -- ----------------------------
 DROP TABLE IF EXISTS `TBL_CASHQUEUE`;
 CREATE TABLE `TBL_CASHQUEUE` (
+  `id` bigint(10) NOT NULL AUTO_INCREMENT,
+  `step` bigint(10) NOT NULL,
+  `user_id` bigint(10) NOT NULL,
+  `order_id` bigint(10) NOT NULL,
+  `create_time` timestamp NOT NULL DEFAULT '1990-01-01 00:00:00',
+  `start_time` timestamp  NOT NULL DEFAULT '1990-01-01 00:00:00',
+  `end_time` timestamp  NOT NULL DEFAULT '1990-01-01 00:00:00',
+  INDEX user_ind (user_id),
+    FOREIGN KEY (user_id)
+    REFERENCES TBL_USER (id)
+    ON DELETE no action,
+  INDEX order_ind (order_id),
+    FOREIGN KEY (order_id)
+    REFERENCES TBL_ORDER (id)
+    ON DELETE no action,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for `TBL_SETTLEQUEUE`
+-- ----------------------------
+DROP TABLE IF EXISTS `TBL_SETTLEQUEUE`;
+CREATE TABLE `TBL_SETTLEQUEUE` (
   `id` bigint(10) NOT NULL AUTO_INCREMENT,
   `step` bigint(10) NOT NULL,
   `user_id` bigint(10) NOT NULL,

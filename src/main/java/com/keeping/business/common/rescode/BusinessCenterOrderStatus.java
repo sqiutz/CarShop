@@ -9,7 +9,9 @@ public enum BusinessCenterOrderStatus {
 	ORDER_STATUS_WASH(4, "wash"),
 	ORDER_STATUS_HOLD(5, "hold"),
 	ORDER_STATUS_CANCEL(7, "cancel"),
-	ORDER_STATUS_DONE(6, "done");
+	ORDER_STATUS_DONE(6, "done"),
+	ORDER_STATUS_BACK(8, "back"),
+	ORDER_STATUS_SETTLE(9, "settle");
 	
 	private Integer id;
 	private String status;

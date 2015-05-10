@@ -3,7 +3,7 @@ package com.keeping.business.web.controller.model;
 import java.util.Date;
 
 public class OrderObject {
-
+	
 	private String queueNumber;
 	
 	private String registerNum;
@@ -163,6 +163,5 @@ public class OrderObject {
 	public void setExpress(String express) {
 		this.express = express;
 	}
-	
 	
 }

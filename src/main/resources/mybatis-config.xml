@@ -14,6 +14,7 @@
 		<typeAlias alias="ModifyQueueDo" type="com.keeping.business.dal.model.ModifyQueueDo" />
 		<typeAlias alias="IssueQueueDo" type="com.keeping.business.dal.model.IssueQueueDo" />
 		<typeAlias alias="CashQueueDo" type="com.keeping.business.dal.model.CashQueueDo" />
+		<typeAlias alias="SettleQueueDo" type="com.keeping.business.dal.model.SettleQueueDo" />
 		<typeAlias alias="UserWorkloadDo" type="com.keeping.business.dal.model.UserWorkloadDo" />
 		<typeAlias alias="JobTypeDo" type="com.keeping.business.dal.model.JobTypeDo" />
 		<typeAlias alias="CounterDo" type="com.keeping.business.dal.model.CounterDo" />

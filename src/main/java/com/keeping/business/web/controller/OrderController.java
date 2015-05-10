@@ -20,10 +20,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.keeping.business.common.exception.BusinessServiceException;
+import com.keeping.business.common.rescode.BusinessCenterCashQueueStatus;
 import com.keeping.business.common.rescode.BusinessCenterOrderStatus;
 import com.keeping.business.common.rescode.BusinessCenterResCode;
+import com.keeping.business.common.rescode.BusinessCenterSettleQueueStatus;
 import com.keeping.business.common.util.PlatformPar;
 import com.keeping.business.common.util.PlatfromConstants;
+import com.keeping.business.common.util.Printer;
 import com.keeping.business.common.util.StringUtil;
 import com.keeping.business.common.util.TimeUtil;
 import com.keeping.business.service.CashQueueService;
@@ -33,6 +36,7 @@ import com.keeping.business.service.ModifyQueueService;
 import com.keeping.business.service.OrderService;
 import com.keeping.business.service.PropertyService;
 import com.keeping.business.service.ServeQueueService;
+import com.keeping.business.service.SettleQueueService;
 import com.keeping.business.service.UserGroupService;
 import com.keeping.business.service.UserService;
 import com.keeping.business.web.controller.converter.JsonConverter;
@@ -48,6 +52,7 @@ import com.keeping.business.web.controller.model.Property;
 import com.keeping.business.web.controller.model.Report;
 import com.keeping.business.web.controller.model.ReportObject;
 import com.keeping.business.web.controller.model.ServeQueue;
+import com.keeping.business.web.controller.model.SettleQueue;
 import com.keeping.business.web.controller.model.StatusObject;
 import com.keeping.business.web.controller.model.User;
 import com.keeping.business.web.controller.model.UserGroup;
@@ -80,6 +85,8 @@ public class OrderController {
 	private ModifyQueueService modifyQueueService;
 	@Resource
 	private CashQueueService cashQueueService;
+	@Resource
+	private SettleQueueService settleQueueService;
 	@Resource
 	private UserGroupService userGroupService;
     
@@ -212,7 +219,7 @@ public class OrderController {
 		try {
 			String jsonStr = request.getParameter("param");
 			OrderObject orderObject = JsonConverter.getFromJsonString(jsonStr, OrderObject.class, "yyyy-MM-dd");
-			if (orderObject == null) {
+			if (orderObject == null || orderObject.getAssignDate() == null) {
 				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
 //				logger.error("< OrderController.getAllOrders() > 获取订单状态不正确." + status + " : " + BusinessCenterOrderStatus.ORDER_STATUS_WAIT.getStatus());
@@ -879,73 +886,97 @@ public class OrderController {
 //				logger.error("< OrderController.bookOrder() > 订单预约请求信息不正确。" + jsonStr);
 			}else{
 				
-				order = orderService.getOrdersByRegNum(orderObject);
+				Integer status = orderObject.getStatus();
 				
-				Integer totalBookedOrders = 0;
-				Integer bookCounterNum = 0;
-				Integer counterNum = 0;
-				Integer baseTime = 0;
-				Integer bufferTime = 0;
+//				status = 0;  //Test data
 				
-				Date today = new Date();
-				orderObject.setNow(now);
-				orderObject.setStatus(BusinessCenterOrderStatus.ORDER_STATUS_WAIT.getId());
-				User user = new User();
-				UserGroup userGroup = userGroupService.queryByName("2");  //SA所在的组
-				user.setGroupId(userGroup.getId());   
-				if (StringUtil.isNull(order.getBookNum()) && order.getId() == null) {
-					orderObject.setIsBook(0);
-					user.setIsBooker(0);
-				}else{
-					orderObject.setIsBook(1);
-					user.setIsBooker(1);
+				if (status != null && status < BusinessCenterOrderStatus.ORDER_STATUS_WAIT.getId()) {
+					
+					order = orderService.getOrdersByRegNum(orderObject);
+					
+					Integer totalBookedOrders = 0;
+					Integer bookCounterNum = 0;
+					Integer counterNum = 0;
+					Integer baseTime = 0;
+					Integer bufferTime = 0;
+					
+					Date today = new Date();
+					orderObject.setNow(now);
+					orderObject.setStatus(BusinessCenterOrderStatus.ORDER_STATUS_WAIT.getId());
+					User user = new User();
+					UserGroup userGroup = userGroupService.queryByName("2");  //SA所在的组
+					user.setGroupId(userGroup.getId());   
+					if (StringUtil.isNull(order.getBookNum()) && order.getId() == null) {
+						orderObject.setIsBook(0);
+						user.setIsBooker(0);
+					}else{
+						orderObject.setIsBook(1);
+						user.setIsBooker(1);
+					}
+					totalBookedOrders = orderService.getOrderCountByStatusAndBook(orderObject);
+					bookCounterNum = userService.queryUserCountByGroupAndBook(user);
+					Property property = propertyService.queryByKey("COUNTER_NUM");
+					counterNum = Integer.parseInt(property.getValue());
+					property = propertyService.queryByKey("AVG_WAITING_TIME");
+					baseTime = Integer.parseInt(property.getValue());
+					property = propertyService.queryByKey("WAITING_TIME_BUFFER");
+					bufferTime = Integer.parseInt(property.getValue());
+					
+					if(bookCounterNum == 0){
+						bookCounterNum = 1;
+					}
+					Integer estimationTime = ((totalBookedOrders / bookCounterNum) + 1) * baseTime + bufferTime;
+				
+					if (StringUtil.isNull(order.getBookNum()) && order.getId() == null) {
+						Customer customer = customerService.getCustomerByPoliceNum(orderObject.getRegisterNum());
+						order.setCustomerId(customer.getId());
+						order.setRegisterNum(orderObject.getRegisterNum());
+						order.setStartTime(dateTime);
+						order.setStatus(BusinessCenterOrderStatus.ORDER_STATUS_WAIT.getId());    //1: start to wait for serve queue
+						order.setIsBook(0);
+						order.setAssignDate(today);
+						order.setEstimationTime(estimationTime);
+					
+						stringBuffer.append("N-");
+						stringBuffer.append(StringUtil.getNext(nQueueNumber));
+						nQueueNumber ++;
+					
+						order.setQueueNum(stringBuffer.toString());
+					
+						orderService.addOrder(order);
+					}else {
+						String registerNum = order.getRegisterNum();
+						order.setStartTime(dateTime);
+						order.setRegisterNum(registerNum);
+						order.setStatus(BusinessCenterOrderStatus.ORDER_STATUS_WAIT.getId());
+						order.setEstimationTime(estimationTime);
+					
+						stringBuffer.append("B-");
+						stringBuffer.append(StringUtil.getNext(bQueueNumber));
+						bQueueNumber ++;
+					
+						order.setQueueNum(stringBuffer.toString());
+					
+						orderService.updateOrder(order);
+					}
+				} else if (status != null && status == BusinessCenterOrderStatus.ORDER_STATUS_BACK.getId()){
+					
+					order = orderService.getOrdersByRegNum(orderObject);
+					
+					String queueNumber = order.getQueueNum();
+					String bakQueueNum = queueNumber.replace("B", "C");
+					order.setBakQueueNum(bakQueueNum);
+					order.setStatus(BusinessCenterOrderStatus.ORDER_STATUS_SETTLE.getId());
+					orderService.updateOrder(order);				
+					
+					SettleQueue settleQueue = new SettleQueue();
+					settleQueue.setStep(BusinessCenterSettleQueueStatus.SETTLEQUEUE_STATUS_SETTLE.getId());
+					settleQueue.setOrderId(order.getId());
+					
+					settleQueueService.addSettleQueue(settleQueue);
 				}
-				totalBookedOrders = orderService.getOrderCountByStatusAndBook(orderObject);
-				bookCounterNum = userService.queryUserCountByGroupAndBook(user);
-				Property property = propertyService.queryByKey("COUNTER_NUM");
-				counterNum = Integer.parseInt(property.getValue());
-				property = propertyService.queryByKey("AVG_WAITING_TIME");
-				baseTime = Integer.parseInt(property.getValue());
-				property = propertyService.queryByKey("WAITING_TIME_BUFFER");
-				bufferTime = Integer.parseInt(property.getValue());
 				
-				if(bookCounterNum == 0){
-					bookCounterNum = 1;
-				}
-				Integer estimationTime = ((totalBookedOrders / bookCounterNum) + 1) * baseTime + bufferTime;
 			
-				if (StringUtil.isNull(order.getBookNum()) && order.getId() == null) {
-					Customer customer = customerService.getCustomerByPoliceNum(orderObject.getRegisterNum());
-					order.setCustomerId(customer.getId());
-					order.setRegisterNum(orderObject.getRegisterNum());
-					order.setStartTime(dateTime);
-					order.setStatus(BusinessCenterOrderStatus.ORDER_STATUS_WAIT.getId());    //1: start to wait for serve queue
-					order.setIsBook(0);
-					order.setAssignDate(today);
-					order.setEstimationTime(estimationTime);
-				
-					stringBuffer.append("N-");
-					stringBuffer.append(StringUtil.getNext(nQueueNumber));
-					nQueueNumber ++;
-				
-					order.setQueueNum(stringBuffer.toString());
-				
-					orderService.addOrder(order);
-				}else {
-					String registerNum = order.getRegisterNum();
-					order.setStartTime(dateTime);
-					order.setRegisterNum(registerNum);
-					order.setStatus(BusinessCenterOrderStatus.ORDER_STATUS_WAIT.getId());
-					order.setEstimationTime(estimationTime);
-				
-					stringBuffer.append("B-");
-					stringBuffer.append(StringUtil.getNext(bQueueNumber));
-					bQueueNumber ++;
-				
-					order.setQueueNum(stringBuffer.toString());
-				
-					orderService.updateOrder(order);
-				}
 			}
 		}catch (BusinessServiceException ex) {
 			code = ex.getErrorCode();
@@ -962,6 +993,75 @@ public class OrderController {
 		} catch (Exception e) {
 //			logger.error("< OrderController.startOrder() > 取号预约返回出错."
 //					+ e.getMessage());
+			throw e;
+		}
+	}
+	
+	/**
+     * 客户现场取号后，开始一个订单
+     * 
+     * @param HttpServletRequest
+     * @param HttpServletResponse
+	 * @return 
+     * @return N/A
+	 * @throws Exception 
+     */
+	@RequestMapping(params = "action=print")
+	@ResponseBody
+	public WebResultObject<Order> printOrder(HttpServletRequest request,HttpServletResponse response) throws Exception {
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
+		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
+		
+		Order order = new Order();
+		
+		try {
+		
+			String jsonStr = request.getParameter("param");
+			OrderObject orderObject = JsonConverter.getFromJsonString(jsonStr, OrderObject.class, "yyyy-MM-dd");
+			 
+			if (StringUtil.isNull(jsonStr) || null == orderObject) {
+				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
+				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
+//				logger.error("< OrderController.bookOrder() > 订单预约请求信息不正确。" + jsonStr);
+			}else{
+				
+				order = orderService.getOrdersByQueueNum(orderObject.getQueueNumber());
+				
+				if (order != null && order.getQueueNum() != null){
+					
+					StringBuffer string = new StringBuffer();
+					string.append("############################\n");
+					string.append("\n");
+					string.append("\n");
+					string.append("\n");
+					string.append("\n");
+					string.append("Your QueueNumber is: " + order.getQueueNum() + "\n");
+					string.append("Please go the wait queue using this number, Thanks! \n");
+					string.append("\n");
+					string.append("\n");
+					string.append("\n");
+					string.append("\n");
+					string.append("############################\n");
+					Printer.print(string.toString());
+				} else {
+					
+					code = BusinessCenterResCode.SYS_ERROR.getCode();
+					msg = BusinessCenterResCode.SYS_ERROR.getMsg();
+				}
+			}
+		}catch (BusinessServiceException ex) {
+			code = ex.getErrorCode();
+			msg = ex.getErrorMessage();
+		}catch (Exception e) {
+			code = BusinessCenterResCode.SYS_ERROR.getCode();
+			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
+		}
+
+		// 返回结果
+		try {
+			return JsonConverter.getResultObject(code, msg, order);
+		} catch (Exception e) {
 			throw e;
 		}
 	}

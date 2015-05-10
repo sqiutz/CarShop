@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.keeping.business.dal.dao.SettleQueueDao">
+
+	<resultMap id="SettleQueueDoMap" type="SettleQueueDo">
+	    <id column="ID" property="id" />
+		<result column="STEP" property="step" />
+		<result column="USER_ID" property="userId" />
+		<result column="ORDER_ID" property="orderId" />
+		<result column="CREATE_TIME" property="createTime" />
+		<result column="START_TIME" property="startTime" />
+		<result column="END_TIME" property="endTime" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		ID,STEP,USER_ID,ORDER_ID,CREATE_TIME,START_TIME,END_TIME
+	</sql>
+
+	<select id="queryBySettleQueuestep" resultMap="SettleQueueDoMap" 
+		parameterType="java.lang.Integer">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM TBL_SettleQueue
+		WHERE
+		STEP = #{step}
+		order by STEP asc
+	</select>
+	
+	<select id="queryBySettleQueueid" resultMap="SettleQueueDoMap" 
+		parameterType="java.lang.Integer">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM TBL_SettleQueue
+		WHERE
+		ID = #{id}
+	</select>
+	
+	<select id="queryByOrderid" resultMap="SettleQueueDoMap" 
+		parameterType="java.lang.Integer">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM TBL_SettleQueue
+		WHERE
+		ORDER_ID = #{orderId}
+	</select>
+	
+	<select id="queryByUseridAndStep" resultMap="SettleQueueDoMap" parameterType="SettleQueueDo">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM TBL_SettleQueue
+		WHERE
+		STEP = #{step} and USER_ID = #{userId}
+	</select>
+	
+	<insert id="addSettleQueue" parameterType="SettleQueueDo">
+		INSERT INTO TBL_SettleQueue 
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="step != null">
+				STEP,
+			</if>
+			<if test="userId != null">
+				USER_ID,
+			</if>
+			<if test="orderId != null">
+				ORDER_ID,
+			</if>
+			<if test="startTime != null">
+				START_TIME,
+			</if>
+			<if test="endTime != null">
+				END_TIME,
+			</if>
+			CREATE_TIME,
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="step != null">
+				#{step},
+			</if>
+			<if test="userId != null">
+				#{userId},
+			</if>
+			<if test="orderId != null">
+				#{orderId},
+			</if>
+			<if test="startTime != null">
+				#{startTime},
+			</if>
+			<if test="endTime != null">
+				#{endTime},
+			</if>
+			now(),
+		</trim>
+	</insert>
+	
+	<update id="updateSettleQueue" parameterType="SettleQueueDo">
+		UPDATE TBL_SettleQueue
+		<set>
+			<if test="step != null">
+				STEP = #{step},
+			</if>
+			<if test="userId != null">
+				USER_ID = #{userId},
+			</if>
+			<if test="orderId != null">
+				ORDER_ID = #{orderId},
+			</if>
+			<if test="startTime != null">
+				START_TIME = #{startTime},
+			</if>
+			<if test="endTime != null">
+				END_TIME = #{endTime},
+			</if>
+		</set>
+		WHERE 
+		ID = #{id}
+	</update>
+	
+</mapper>

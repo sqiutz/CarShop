@@ -287,6 +287,9 @@
 			<if test="queueNum != null">
 				QUEUENUMBER = #{queueNum},
 			</if>
+			<if test="bakQueueNum != null">
+				BAKQUEUENUMBER = #{bakQueueNum},
+			</if>
 			<if test="roofNum != null">
 				ROOFNUMBER = #{roofNum},
 			</if>
