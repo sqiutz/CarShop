@@ -12,13 +12,13 @@
 	http://www.springframework.org/schema/aop
 	http://www.springframework.org/schema/jdbc/spring-jdbc.xsd"
 	default-autowire="byName">
-
-	<bean id="userService" class="com.keeping.business.service.impl.UserServiceImpl">
-		<property name="UserDao" ref="userDao" />
-	</bean>
 	
 	<bean id="userGroupService" class="com.keeping.business.service.impl.UserGroupServiceImpl">
 		<property name="UserGroupDao" ref="userGroupDao" />
+	</bean>
+	
+	<bean id="userService" class="com.keeping.business.service.impl.UserServiceImpl">
+		<property name="UserDao" ref="userDao" />
 	</bean>
 	
 	<bean id="customerService" class="com.keeping.business.service.impl.CustomerServiceImpl">

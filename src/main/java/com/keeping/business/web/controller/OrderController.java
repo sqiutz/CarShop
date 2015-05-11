@@ -219,17 +219,20 @@ public class OrderController {
 		try {
 			String jsonStr = request.getParameter("param");
 			OrderObject orderObject = JsonConverter.getFromJsonString(jsonStr, OrderObject.class, "yyyy-MM-dd");
-			if (orderObject == null || orderObject.getAssignDate() == null) {
-				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
-				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
-//				logger.error("< OrderController.getAllOrders() > 获取订单状态不正确." + status + " : " + BusinessCenterOrderStatus.ORDER_STATUS_WAIT.getStatus());
-			} else {
+//			if (orderObject == null) {
+//				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
+//				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
+////				logger.error("< OrderController.getAllOrders() > 获取订单状态不正确." + status + " : " + BusinessCenterOrderStatus.ORDER_STATUS_WAIT.getStatus());
+//			} else {
 				if(orderObject.getStatus() != null){
 					orderList = orderService.getOrdersByStatus(orderObject.getStatus());
 				}else{
+					Date now = new Date();
+					orderObject.setAssignDate(now);
+					
 					orderList = orderService.getAllOrders(orderObject);
 				}
-			}
+//			}
 		}catch (BusinessServiceException ex) {
 			code = ex.getErrorCode();
 			msg = ex.getErrorMessage();
@@ -886,13 +889,13 @@ public class OrderController {
 //				logger.error("< OrderController.bookOrder() > 订单预约请求信息不正确。" + jsonStr);
 			}else{
 				
-				Integer status = orderObject.getStatus();
+				order = orderService.getOrdersByRegNum(orderObject);
+				
+				Integer status = order.getStatus();
 				
 //				status = 0;  //Test data
 				
 				if (status != null && status < BusinessCenterOrderStatus.ORDER_STATUS_WAIT.getId()) {
-					
-					order = orderService.getOrdersByRegNum(orderObject);
 					
 					Integer totalBookedOrders = 0;
 					Integer bookCounterNum = 0;
@@ -960,8 +963,6 @@ public class OrderController {
 						orderService.updateOrder(order);
 					}
 				} else if (status != null && status == BusinessCenterOrderStatus.ORDER_STATUS_BACK.getId()){
-					
-					order = orderService.getOrdersByRegNum(orderObject);
 					
 					String queueNumber = order.getQueueNum();
 					String bakQueueNum = queueNumber.replace("B", "C");
