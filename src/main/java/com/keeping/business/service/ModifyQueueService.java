@@ -12,6 +12,8 @@ public interface ModifyQueueService {
     
     public ModifyQueue getModifyQueueById(Integer id) throws BusinessServiceException;
     
+    public ModifyQueue getModifyQueueByForId(Integer id) throws BusinessServiceException;
+    
     public ModifyQueue getModifyQueueByOrderid(Integer id) throws BusinessServiceException;
     
     public void addModifyQueue(ModifyQueue modifyQueue) throws BusinessServiceException;

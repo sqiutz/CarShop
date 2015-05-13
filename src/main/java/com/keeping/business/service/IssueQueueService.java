@@ -10,6 +10,8 @@ public interface IssueQueueService {
     
     public IssueQueue getIssueQueueById(Integer id) throws BusinessServiceException;
     
+    public IssueQueue getIssueQueueByForId(Integer id) throws BusinessServiceException;
+    
     public void addIssueQueue(IssueQueue issueQueue) throws BusinessServiceException;
     
     public void updateIssueQueue(IssueQueue issueQueue) throws BusinessServiceException;

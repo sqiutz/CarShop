@@ -24,6 +24,8 @@ public class IssueQueue extends BaseQueue{
 	private Integer isWarrant;
 	
 	private Integer isSubContract;
+	
+	private Integer for_id;
 
 	public String getJobType() {
 		return jobType;
@@ -103,6 +105,14 @@ public class IssueQueue extends BaseQueue{
 
 	public void setIsSubContract(Integer isSubContract) {
 		this.isSubContract = isSubContract;
+	}
+
+	public Integer getFor_id() {
+		return for_id;
+	}
+
+	public void setFor_id(Integer for_id) {
+		this.for_id = for_id;
 	}
 
     

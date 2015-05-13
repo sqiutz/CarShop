@@ -30,6 +30,7 @@ public class IssueQueueConverter {
 		issueQueue.setIssuerId(issueQueueDo.getIssuerId());
 		issueQueue.setIsSubContract(issueQueueDo.getIsSubContract());
 		issueQueue.setIsWarrant(issueQueueDo.getIsWarrant());
+		issueQueue.setFor_id(issueQueueDo.getFor_id());
 		
 		return issueQueue;
 	}
@@ -56,6 +57,7 @@ public class IssueQueueConverter {
 		issueQueueDo.setIssuerId(issueQueue.getIssuerId());
 		issueQueueDo.setIsSubContract(issueQueue.getIsSubContract());
 		issueQueueDo.setIsWarrant(issueQueue.getIsWarrant());
+		issueQueueDo.setFor_id(issueQueue.getFor_id());
 		
 		return issueQueueDo;
 	}

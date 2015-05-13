@@ -219,7 +219,7 @@ public class ModifyQueueController {
 //				logger.error("< ModifyQueueController.getModifyQueue() > 获取维修订单请求信息不正确: " + idObject.getId());
 			} else {
 				
-				modifyQueue = modifyQueueService.getModifyQueueById(idObject.getId());
+				modifyQueue = modifyQueueService.getModifyQueueByForId(idObject.getId());
 				
 				if (modifyQueue != null && modifyQueue.getId() != null){
 					Integer userId = modifyQueue.getUserId();
@@ -324,6 +324,7 @@ public class ModifyQueueController {
 					modifyQueue.setTechnician(modifyQueueObject.getTechnician());
 					modifyQueue.setPromistTime(modifyQueueObject.getPromistTime());
 					modifyQueue.setStep(BusinessCenterModifyQueueStatus.MODIFYQUEUE_STATUS_READY.getId());
+					modifyQueue.setFor_id(modifyQueueObject.getFor_id());
 					modifyQueueService.updateModifyQueue(modifyQueue);
 					
 					IssueQueue issueQueue = new IssueQueue();

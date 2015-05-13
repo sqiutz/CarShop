@@ -88,7 +88,7 @@ public class IssueQueueController {
 //				logger.error("< IssueQueueController.getIssueQueue() > 获取维修订单请求信息不正确: " + idObject.getId());
 			} else {
 				
-				issueQueue = issueQueueService.getIssueQueueById(idObject.getId());
+				issueQueue = issueQueueService.getIssueQueueByForId(idObject.getId());
 				
 				if (issueQueue != null && issueQueue.getId() != null){
 					Integer userId = issueQueue.getUserId();
@@ -156,24 +156,25 @@ public class IssueQueueController {
 					issueQueue.setJobType(issueQueueObject.getJobType());
 					issueQueue.setIsWarrant(issueQueueObject.getIsWarrant());
 					issueQueue.setIsSubContract(issueQueueObject.getIsSubContract());
+					issueQueue.setFor_id(issueQueueObject.getFor_id());
 					issueQueueService.addIssueQueue(issueQueue);	
 					
 					IssueQueue printIssueQueue = new IssueQueue();
 					printIssueQueue = issueQueueService.getIssueQueueByOrderId(issueQueueObject.getOrderId());
 					
-					StringBuffer string = new StringBuffer();
-					string.append("############################\n");
-					string.append("\n");
-					string.append("\n");
-					string.append("\n");
-					string.append("\n");
-					string.append("Issue Queue ID is: " + printIssueQueue.getId() + "\n");
-					string.append("Use the ID to get Issue Queue! \n");
-					string.append("\n");
-					string.append("\n");
-					string.append("\n");
-					string.append("############################\n");
-					Printer.print(string.toString());
+//					StringBuffer string = new StringBuffer();
+//					string.append("############################\n");
+//					string.append("\n");
+//					string.append("\n");
+//					string.append("\n");
+//					string.append("\n");
+//					string.append("Issue Queue ID is: " + printIssueQueue.getId() + "\n");
+//					string.append("Use the ID to get Issue Queue! \n");
+//					string.append("\n");
+//					string.append("\n");
+//					string.append("\n");
+//					string.append("############################\n");
+//					Printer.print(string.toString());
 			}
 		} catch (BusinessServiceException ex) {
 			code = ex.getErrorCode();

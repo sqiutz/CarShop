@@ -31,6 +31,7 @@ public class ModifyQueueConverter {
 		modifyQueue.setAdditionTime(modifyQueueDo.getAdditionTime());
 		modifyQueue.setAssignTime(TimeUtil.transferFromSqlToUtil(modifyQueueDo.getAssignTime()));
 		modifyQueue.setModifierId(modifyQueueDo.getModifierId());
+		modifyQueue.setFor_id(modifyQueueDo.getFor_id());
 		
 		return modifyQueue;
 	}
@@ -58,6 +59,7 @@ public class ModifyQueueConverter {
 		modifyQueueDo.setAssignDate(TimeUtil.transferFromUtilToSqlDate(modifyQueue.getAssignDate()));
 		modifyQueueDo.setAdditionTime(modifyQueue.getAdditionTime());
 		modifyQueueDo.setModifierId(modifyQueue.getModifierId());
+		modifyQueueDo.setFor_id(modifyQueue.getFor_id());
 		
 		return modifyQueueDo;
 	}

@@ -8,6 +8,7 @@
 		<result column="USER_ID" property="userId" />
 		<result column="MODIFIER_ID" property="modifierId" />
 		<result column="ORDER_ID" property="orderId" />
+		<result column="FOR_ID" property="forId" />
 		<result column="CREATE_TIME" property="createTime" />
 		<result column="ADDITION_TIME" property="additionTime" />
 		<result column="ASSIGN_TIME" property="assignTime" />
@@ -21,7 +22,7 @@
 	</resultMap>
 	
 	<sql id="Base_Column_List">
-		ID,STEP,USER_ID,MODIFIER_ID,ORDER_ID,CREATE_TIME,START_TIME,END_TIME,ASSIGN_TIME,ASSIGN_DATE,JOBTYPE,TECHNICIAN,ISWARRANT,ISSUBCONTRACT,ADDITION_TIME
+		ID,STEP,USER_ID,MODIFIER_ID,ORDER_ID,FOR_ID,CREATE_TIME,START_TIME,END_TIME,ASSIGN_TIME,ASSIGN_DATE,JOBTYPE,TECHNICIAN,ISWARRANT,ISSUBCONTRACT,ADDITION_TIME
 	</sql>
 
 	<select id="queryByModifyQueuestep" resultMap="ModifyQueueDoMap" >
@@ -98,6 +99,9 @@
 			<if test="orderId != null">
 				ORDER_ID,
 			</if>
+			<if test="forId != null">
+				FOR_ID,
+			</if>
 			<if test="startTime != null">
 				START_TIME,
 			</if>
@@ -139,6 +143,9 @@
 			</if>
 			<if test="orderId != null">
 				#{orderId},
+			</if>
+			<if test="forId != null">
+				#{forId},
 			</if>
 			<if test="startTime != null">
 				#{startTime},
@@ -185,6 +192,9 @@
 			</if>
 			<if test="orderId != null">
 				ORDER_ID = #{orderId},
+			</if>
+			<if test="forId != null">
+				FOR_ID = #{forId},
 			</if>
 			<if test="startTime != null">
 				START_TIME = #{startTime},

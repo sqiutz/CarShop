@@ -7,6 +7,7 @@
 		<result column="STEP" property="step" />
 		<result column="USER_ID" property="userId" />
 		<result column="ISSUER_ID" property="issuerId" />
+		<result column="FOR_ID" property="forId" />
 		<result column="ORDER_ID" property="orderId" />
 		<result column="CREATE_TIME" property="createTime" />
 		<result column="ASSIGN_TIME" property="assignTime" />
@@ -20,7 +21,7 @@
 	</resultMap>
 	
 	<sql id="Base_Column_List">
-		ID,STEP,USER_ID,ISSUER_ID,ORDER_ID,CREATE_TIME,START_TIME,END_TIME,ASSIGN_TIME,ASSIGN_DATE,JOBTYPE,ISWARRANT,ISSUBCONTRACT,TECHNICIAN
+		ID,STEP,USER_ID,ISSUER_ID,FOR_ID,ORDER_ID,CREATE_TIME,START_TIME,END_TIME,ASSIGN_TIME,ASSIGN_DATE,JOBTYPE,ISWARRANT,ISSUBCONTRACT,TECHNICIAN
 	</sql>
 	
 	<select id="queryByIssueQueueid" resultMap="IssueQueueDoMap" 
@@ -52,6 +53,9 @@
 			</if>
 			<if test="issuerId != null">
 				ISSUER_ID,
+			</if>
+			<if test="forId != null">
+				FOR_ID,
 			</if>
 			<if test="orderId != null">
 				ORDER_ID,
@@ -91,6 +95,9 @@
 			</if>
 			<if test="issuerId != null">
 				#{issuerId},
+			</if>
+			<if test="forId != null">
+				#{forId},
 			</if>
 			<if test="orderId != null">
 				#{orderId},
@@ -134,6 +141,9 @@
 			</if>
 			<if test="issuerId != null">
 				ISSUER_ID = #{issuerId},
+			</if>
+			<if test="forId != null">
+				FOR_ID = #{forId},
 			</if>
 			<if test="orderId != null">
 				ORDER_ID = #{orderId},

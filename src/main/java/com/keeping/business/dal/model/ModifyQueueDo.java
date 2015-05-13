@@ -35,6 +35,8 @@ public class ModifyQueueDo {
     
     private Integer modifierId;
     
+    private Integer for_id;
+    
 	public Integer getStep() {
 		return step;
 	}
@@ -153,6 +155,14 @@ public class ModifyQueueDo {
 
 	public void setModifierId(Integer modifierId) {
 		this.modifierId = modifierId;
+	}
+
+	public Integer getFor_id() {
+		return for_id;
+	}
+
+	public void setFor_id(Integer for_id) {
+		this.for_id = for_id;
 	}
 
 }

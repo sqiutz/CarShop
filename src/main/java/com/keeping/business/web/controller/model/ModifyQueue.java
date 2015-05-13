@@ -30,6 +30,8 @@ public class ModifyQueue extends BaseQueue{
 	private Integer modifierId;
 	
 	private User modifier;
+	
+	private Integer for_id;
 
 	public String getJobType() {
 		return jobType;
@@ -133,6 +135,14 @@ public class ModifyQueue extends BaseQueue{
 
 	public void setModifier(User modifier) {
 		this.modifier = modifier;
+	}
+
+	public Integer getFor_id() {
+		return for_id;
+	}
+
+	public void setFor_id(Integer for_id) {
+		this.for_id = for_id;
 	}
     
 }

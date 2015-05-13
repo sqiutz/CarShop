@@ -32,6 +32,8 @@ public class IssueQueueDo {
     private Integer isWarrant;
     
     private Integer isSubContract;
+    
+    private Integer for_id;
 
 	public Integer getId() {
 		return id;
@@ -143,6 +145,14 @@ public class IssueQueueDo {
 
 	public void setIsSubContract(Integer isSubContract) {
 		this.isSubContract = isSubContract;
+	}
+
+	public Integer getFor_id() {
+		return for_id;
+	}
+
+	public void setFor_id(Integer for_id) {
+		this.for_id = for_id;
 	}
     
 
