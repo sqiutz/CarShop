@@ -32,13 +32,16 @@
             $('#rWarranty').text(WARRANTY);
             $('#rSubContract').text(SUB_CONTRACT);
             $('#jobProcess').text(JOB_PROCESS);
+            $('#issueProcess').text(ISSUE_PROCESS);
             $('#startBtn').text(START).attr('title', START);
             $('#holdBtn').text(HOLD).attr('title', HOLD);
+            $('#iStartBtn').text(START).attr('title', START);
+            $('#iHoldBtn').text(HOLD).attr('title', HOLD);
             $('#finishBtn').text(FINISH).attr('title', FINISH);
         });
     }
     
-    var modifyQue;
+    var modifyQue, issueQue;
     function getModifyQueue(id) {
         if(!id) {
             setModifyQueue();
@@ -94,12 +97,14 @@
         
     $('#orderId').bind("blur", function() {
         getModifyQueue($('#orderId').val());
+        getIssueQueue($('#orderId').val());
     });
     $('#orderId').keyup(function(event) {
         var myEvent = event || window.event;
         var keyCode = myEvent.keyCode;
         if(keyCode == 13){ //Enter
             getModifyQueue($('#orderId').val());
+            getIssueQueue($('#orderId').val());
         }
     });
     
@@ -113,7 +118,6 @@
             },
             success : function(data) {
                 if(data.code == '000000') {
-                    //$('#inProgress').text(IN_PROGRESS);
                     getModifyQueue(modifyQue.id);
                 }
             }
@@ -129,7 +133,6 @@
             },
             success : function(data) {
                 if(data.code == '000000') {
-                    //$('#inProgress').text(ON_HOLD);
                     getModifyQueue(modifyQue.id);
                 }
             }
@@ -145,8 +148,81 @@
             },
             success : function(data) {
                 if(data.code == '000000') {
-                    //$('#inProgress').text(FINISHED);
                     getModifyQueue(modifyQue.id);
+                }
+            }
+        });
+    });
+    
+    function getIssueQueue(id) {
+        if(!id) {
+            setIssueQueue();
+            return;
+        }
+        $.OrderInfo.getIssueQueue({
+            data : {
+                id : id
+            },
+            success : function(data) {
+                if(data.code == '000000') {
+                    issueQue = data.obj;                    
+                }
+                else {
+                    issueQue = null;
+                }
+                setIssueQueue(issueQue);
+            }
+        });
+    } 
+    
+    function setIssueQueue(issueQue) {        
+        if(issueQue) {
+            switch(issueQue.step) {
+                case 1:
+                    $('#iInProgress').text(IN_PROGRESS);
+                    break;
+                case 2:
+                    $('#iInProgress').text(ON_HOLD);
+                    break;
+                case 3:
+                    $('#iInProgress').text(FINISHED);
+                    break;
+                default:
+                    $('#iInProgress').text('');
+                    break;
+            }
+        }
+        else {
+            $('#iInProgress').text('');
+        }
+    }
+    
+    $('#iStartBtn').bind('click', function() {
+        if(!issueQue || (issueQue.step !== 0 && issueQue.step !== 2)) {
+            return;
+        }
+        $.OrderInfo.iStart({
+            data : {
+                id : issueQue.id
+            },
+            success : function(data) {
+                if(data.code == '000000') {
+                    getIssueQueue(issueQue.id);
+                }
+            }
+        });
+    });    
+    $('#iHoldBtn').bind('click', function() {
+        if(!issueQue || issueQue.step !== 1) {
+            return;
+        }
+        $.OrderInfo.iHold({
+            data : {
+                id : issueQue.id
+            },
+            success : function(data) {
+                if(data.code == '000000') {
+                    getIssueQueue(issueQue.id);
                 }
             }
         });

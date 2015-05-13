@@ -8,10 +8,12 @@ var LOGIN = 'Login';
 var APPOINTMENT = 'Appoinment';
 var CUSTOMER_QUE_STATUS_BOARD = 'CUSTOMER QUE STATUS BOARD';
 var CUSTOMER_QUE_STATUS_BOARD_DESC = 'Show the serving & waiting queue';
-var MECHANIC_UPDATE_JOB_PROGRESS = 'MECHANIC UPDATE JOB PROGRESS';
-var MECHANIC_UPDATE_JOB_PROGRESS_DESC = 'Input/Edit the mechanic job';
+var MECHANIC_UPDATE_JOB_PROGRESS_HOME = 'MECHANIC<br />JOB';
+var MECHANIC_UPDATE_JOB_PROGRESS = 'MECHANIC JOB';
+var MECHANIC_UPDATE_JOB_PROGRESS_DESC = 'Update the mechanic job';
 var ISSUE_PARTS = 'ISSUE PARTS';
-var ISSUE_PARTS_DESC = 'Input/Edit the issue parts';
+var ISSUE_PARTS_HOME = 'ISSUE<br />PARTS';
+var ISSUE_PARTS_DESC = 'Update the issue parts';
 var CAR_WASH_QUE_BOARD = 'CAR WASH QUE BOARD';
 var CAR_WASH_QUE_BOARD_DESC = 'Show the car wash queue';
 var CUSTOMER_JOB_PROGRESS_BOARD = 'CUSTOMER JOB PROGRESS BOARD';
@@ -24,18 +26,15 @@ var CASH_QUE_CALLING_BOARD = 'CASH QUE CALLING BOARD';
 var CASH_QUE_CALLING_BOARD_DESC = 'Cashier calls the custumer and invoice creation';
 var HELLO = 'Hello';
 
-var CUSTOMER_QUE_STATUS_BOARD = 'CUSTOMER QUE STATUS BOARD';
 var WELCOME = 'WELCOME';
 var EST_WAIT = 'Est. Wait';
 var PLEASE_PROCEED_TO = 'Please Proceed to';
 var BOOKING = 'BOOKING';
 var NON_BOOKING = 'NON-BOOKING';
 
-var CUSTOMER_JOB_PROGRESS_BOARD = 'CUSTOMER JOB PROGRESS BOARD';
 var ESTIMATED_END_TIME = 'Estimated End<br />Time';
 var JOB_STATUS = 'Job Status';
 
-var MECHANIC_UPDATE_JOB_PROGRESS = 'MECHANIC UPDATE JOB PROGRESS';
 var INPUT_EDIT_DATA = 'Input/Edit Data';
 var ID_MECHANIC = 'ID Mechanic';
 var ROOF_NO = 'Roof No.';
@@ -44,6 +43,7 @@ var JOB_TYPE = 'Job Type';
 var WARRANTY = 'Warranty';
 var SUB_CONTRACT = 'Sub Contract';
 var JOB_PROCESS = 'Job Process';
+var ISSUE_PROCESS = 'Issue Process';
 var START = 'START';
 var FINISH = 'FINISH';
 var IN_PROGRESS = 'IN PROGRESS';
@@ -55,7 +55,6 @@ var REFERENCE = 'Reference';
 var BACK = 'BACK';
 var ID = 'ID';
 
-var CAR_WASH_QUEU_BOARD = 'CAR WASH QUEU BOARD';
 var CANCEL = 'CANCEL';
 var Cancel = 'Cancel';
 var NEXT_ON_QUE = 'NEXT on QUE';
@@ -64,6 +63,7 @@ var PROMISE_TIME = 'Promise Time';
 var CHANGE_PASSW0RD = 'Change Password';
 var LOGOUT = 'Logout';
 var SA_QUE_CALLING_BOARD = 'SA QUE CALLING BOARD';
+var SA_CALLING = 'SA Calling';
 var CURRENT_NUMBER = 'CURRENT NUMBER';
 var REMAINING = 'REMAINING';
 var WAITING_TIME = 'Waiting Time';
@@ -170,6 +170,7 @@ var MONTH = 'Month';
 var MANPOWER_ALLOCATION = 'Manpower Allocation';
 
 var CASHIER = 'Cashier';
+var CASHIER_CALLING = 'Cashier Calling';
 
 var MSG_INPUT_ORIGINAL_PASSWORD = 'Please input the original password!';
 var MSG_INPUT_NEW_PASSWORD = 'Please input the new password!';

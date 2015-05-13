@@ -26,8 +26,9 @@
             langCode = 'en_US';
         }
         loadLang('lang/' + langCode + '.js', function() {
-//            $('#changePwd').text(CHANGE_PASSW0RD).attr('title', CHANGE_PASSW0RD);
-//            $('#logout').text(LOGOUT).attr('title', LOGOUT);
+            $('#changePwd').text(CHANGE_PASSW0RD).attr('title', CHANGE_PASSW0RD);
+            $('#logout').text(LOGOUT).attr('title', LOGOUT);
+            $('#saQue').text(SA_CALLING).attr('title', SA_CALLING);
             $('#userName').text(CASHIER);
             $('#title').text(CASH_QUE_CALLING_BOARD);
             $('#currentNoLabel').text(CURRENT_NUMBER);
@@ -64,19 +65,19 @@
             $('#finishBtn').text(FINISH).attr('title', FINISH);
             $('#backBtn').text(BACK).attr('title', BACK);
             
-            /*$.UserInfo.checkLogin({
+            $.UserInfo.checkLogin({
                 success : function(data) {
                     if (data.code == '000000' && data.obj) {
                         userProfile = data.obj;
                         $("#helloUserName").text(
                                 HELLO + ' ' + (userProfile ? userProfile.userName : ''));
                         $('#userName').text(userProfile ? userProfile.userName : '');
-                        getServeQueue();
-                        getServeQueues();
-                        getOrderList(); 
+                        //getServeQueue();
+                        //getServeQueues();
+                        //getOrderList(); 
                     }
                 }
-            });*/
+            });
         });
     }
     

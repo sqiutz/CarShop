@@ -28,7 +28,7 @@
             $('#appointmentBtn').text(APPOINTMENT).attr('title', APPOINTMENT);
             $('#customerQueTitle').text(CUSTOMER_QUE_STATUS_BOARD);
             $('#customerQueDesc').text(CUSTOMER_QUE_STATUS_BOARD_DESC);
-            $('#machanicTitle').text(MECHANIC_UPDATE_JOB_PROGRESS);
+            $('#machanicTitle').html(MECHANIC_UPDATE_JOB_PROGRESS_HOME);
             $('#machanicDesc').text(MECHANIC_UPDATE_JOB_PROGRESS_DESC);
             $('#carWashTitle').text(CAR_WASH_QUE_BOARD);
             $('#carWashDesc').text(CAR_WASH_QUE_BOARD_DESC);
@@ -40,7 +40,7 @@
             $('#finalInspecDesc').text(FINAL_INSPECTION_DESC);
             $('#cashQueTitle').text(CASH_QUE_CALLING_BOARD);
             $('#cashQueDesc').text(CASH_QUE_CALLING_BOARD_DESC);
-            $('#issueTitle').text(ISSUE_PARTS);
+            $('#issueTitle').html(ISSUE_PARTS_HOME);
             $('#issueDesc').text(ISSUE_PARTS_DESC);
         });
     }

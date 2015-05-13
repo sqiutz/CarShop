@@ -31,7 +31,7 @@
             $('#orderIdLabel').text(ID);
             $('#rWarranty').text(WARRANTY);
             $('#rSubContract').text(SUB_CONTRACT);
-            $('#jobProcess').text(JOB_PROCESS);
+            $('#jobProcess').text(ISSUE_PROCESS);
             $('#startBtn').text(START).attr('title', START);
             $('#holdBtn').text(HOLD).attr('title', HOLD);
             $('#finishBtn').text(FINISH).attr('title', FINISH);
@@ -101,38 +101,38 @@
         }
     });
     
-    $('#startBtn').bind('click', function() {
-        if(!issueQue || (issueQue.step !== 0 && issueQue.step !== 2)) {
-            return;
-        }
-        $.OrderInfo.iStart({
-            data : {
-                id : issueQue.id
-            },
-            success : function(data) {
-                if(data.code == '000000') {
-                    //$('#inProgress').text(IN_PROGRESS);
-                    getIssueQueue(issueQue.id);
-                }
-            }
-        });
-    });    
-    $('#holdBtn').bind('click', function() {
-        if(!issueQue || issueQue.step !== 1) {
-            return;
-        }
-        $.OrderInfo.iHold({
-            data : {
-                id : issueQue.id
-            },
-            success : function(data) {
-                if(data.code == '000000') {
-                    //$('#inProgress').text(ON_HOLD);
-                    getIssueQueue(issueQue.id);
-                }
-            }
-        });
-    });
+//    $('#startBtn').bind('click', function() {
+//        if(!issueQue || (issueQue.step !== 0 && issueQue.step !== 2)) {
+//            return;
+//        }
+//        $.OrderInfo.iStart({
+//            data : {
+//                id : issueQue.id
+//            },
+//            success : function(data) {
+//                if(data.code == '000000') {
+//                    //$('#inProgress').text(IN_PROGRESS);
+//                    getIssueQueue(issueQue.id);
+//                }
+//            }
+//        });
+//    });    
+//    $('#holdBtn').bind('click', function() {
+//        if(!issueQue || issueQue.step !== 1) {
+//            return;
+//        }
+//        $.OrderInfo.iHold({
+//            data : {
+//                id : issueQue.id
+//            },
+//            success : function(data) {
+//                if(data.code == '000000') {
+//                    //$('#inProgress').text(ON_HOLD);
+//                    getIssueQueue(issueQue.id);
+//                }
+//            }
+//        });
+//    });
     $('#finishBtn').bind('click', function() {
         if(!issueQue || (issueQue.step !== 1 && issueQue.step !== 2)) {
             return;
