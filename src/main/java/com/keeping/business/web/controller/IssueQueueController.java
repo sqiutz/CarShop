@@ -156,7 +156,7 @@ public class IssueQueueController {
 					issueQueue.setJobType(issueQueueObject.getJobType());
 					issueQueue.setIsWarrant(issueQueueObject.getIsWarrant());
 					issueQueue.setIsSubContract(issueQueueObject.getIsSubContract());
-					issueQueue.setFor_id(issueQueueObject.getFor_id());
+					issueQueue.setForId(issueQueueObject.getForId());
 					issueQueueService.addIssueQueue(issueQueue);	
 					
 					IssueQueue printIssueQueue = new IssueQueue();

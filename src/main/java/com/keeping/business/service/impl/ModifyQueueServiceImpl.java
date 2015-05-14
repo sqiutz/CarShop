@@ -150,8 +150,6 @@ public class ModifyQueueServiceImpl implements ModifyQueueService{
 		return modifyQueue;
 	}
 	
-
-	@Override
 	public ModifyQueue getModifyQueueByForId(Integer id)
 			throws BusinessServiceException {
 		// TODO Auto-generated method stub

@@ -40,6 +40,7 @@
             $('#technicianLabel').text(TECHNICIAN);
             $('#allocationBtn').text(ALLOCATION);
             $('#workloadLabel').text(WORKLOAD);
+            $('#forIdLabel').text(FOR_ID);
             $('#technicianCol').text(TECHNICIAN + ':');
             $('#hrTakenCol').text(HR_TAKEN);
             $('#bayNoCol').text(BAY_NO);
@@ -237,7 +238,8 @@
         $.OrderInfo.allocate({
             data : {
                 id : modifyQue.id,
-                modifierId : $('#technician').val()
+                modifierId : $('#technician').val(),
+                forId : $('#forId').val()
             },
             success : function(data) {
                 if(data.code == '000000') {
@@ -251,7 +253,8 @@
         $.OrderInfo.iAllocate({
             data : {
                 id : modifyQue.id,
-                orderId : modifyQue.order.id
+                orderId : modifyQue.order.id,
+                forId : $('#forId').val()
             },
             success : function(data) {
                 if(data.code !== '000000') {

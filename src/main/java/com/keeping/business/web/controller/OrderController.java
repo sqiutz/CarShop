@@ -895,7 +895,7 @@ public class OrderController {
 				
 //				status = 0;  //Test data
 				
-				if (status != null && status < BusinessCenterOrderStatus.ORDER_STATUS_WAIT.getId()) {
+				if ((status == null) || (status != null && status < BusinessCenterOrderStatus.ORDER_STATUS_WAIT.getId())) {
 					
 					Integer totalBookedOrders = 0;
 					Integer bookCounterNum = 0;

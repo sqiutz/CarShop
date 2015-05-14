@@ -298,14 +298,16 @@
                         url : "modifyqueue.do?action=allocate",
                         args : [ 
                                 "id",
-                                "modifierId"
+                                "modifierId",
+                                "forId"
                        ]
                     },
                     iAllocate : {
                         url : "issuequeue.do?action=allocate",
                         args : [ 
                                 "id",
-                                "orderId"
+                                "orderId",
+                                "forId"
                        ]
                     },
                     // 获取洗车列表

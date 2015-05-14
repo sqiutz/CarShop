@@ -324,7 +324,7 @@ public class ModifyQueueController {
 					modifyQueue.setTechnician(modifyQueueObject.getTechnician());
 					modifyQueue.setPromistTime(modifyQueueObject.getPromistTime());
 					modifyQueue.setStep(BusinessCenterModifyQueueStatus.MODIFYQUEUE_STATUS_READY.getId());
-					modifyQueue.setFor_id(modifyQueueObject.getFor_id());
+					modifyQueue.setForId(modifyQueueObject.getForId());
 					modifyQueueService.updateModifyQueue(modifyQueue);
 					
 					IssueQueue issueQueue = new IssueQueue();
