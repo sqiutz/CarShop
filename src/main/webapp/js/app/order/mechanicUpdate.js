@@ -133,7 +133,7 @@
             },
             success : function(data) {
                 if(data.code == '000000') {
-                    getModifyQueue(modifyQue.id);
+                    getModifyQueue(modifyQue.forId);
                 }
             }
         });
@@ -148,7 +148,7 @@
             },
             success : function(data) {
                 if(data.code == '000000') {
-                    getModifyQueue(modifyQue.id);
+                    getModifyQueue(modifyQue.forId);
                 }
             }
         });
@@ -198,7 +198,7 @@
     }
     
     $('#iStartBtn').bind('click', function() {
-        if(!issueQue || (issueQue.step !== 0 && issueQue.step !== 2)) {
+        if(!issueQue || issueQue.step !== 0) {
             return;
         }
         $.OrderInfo.iStart({
@@ -207,13 +207,13 @@
             },
             success : function(data) {
                 if(data.code == '000000') {
-                    getIssueQueue(issueQue.id);
+                    getIssueQueue(issueQue.forId);
                 }
             }
         });
     });    
     $('#iHoldBtn').bind('click', function() {
-        if(!issueQue || issueQue.step !== 1) {
+        if(!issueQue || issueQue.step !== 0) {
             return;
         }
         $.OrderInfo.iHold({
@@ -222,7 +222,7 @@
             },
             success : function(data) {
                 if(data.code == '000000') {
-                    getIssueQueue(issueQue.id);
+                    getIssueQueue(issueQue.forId);
                 }
             }
         });

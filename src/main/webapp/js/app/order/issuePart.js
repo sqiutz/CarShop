@@ -102,7 +102,7 @@
     });
     
 //    $('#startBtn').bind('click', function() {
-//        if(!issueQue || (issueQue.step !== 0 && issueQue.step !== 2)) {
+//        if(!issueQue || issueQue.step !== 0) {
 //            return;
 //        }
 //        $.OrderInfo.iStart({
@@ -118,7 +118,7 @@
 //        });
 //    });    
 //    $('#holdBtn').bind('click', function() {
-//        if(!issueQue || issueQue.step !== 1) {
+//        if(!issueQue || issueQue.step !== 0) {
 //            return;
 //        }
 //        $.OrderInfo.iHold({
@@ -144,7 +144,7 @@
             success : function(data) {
                 if(data.code == '000000') {
                     //$('#inProgress').text(FINISHED);
-                    getIssueQueue(issueQue.id);
+                    getIssueQueue(issueQue.forId);
                 }
             }
         });

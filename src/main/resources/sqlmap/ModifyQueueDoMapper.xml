@@ -67,6 +67,15 @@
 		ID = #{id}
 	</select>
 	
+	<select id="queryByModifyQueueForid" resultMap="ModifyQueueDoMap" 
+		parameterType="java.lang.Integer">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM TBL_MODIFYQUEUE
+		WHERE
+		FOR_ID = #{forId}
+	</select>
+	
 	<select id="queryByOrderid" resultMap="ModifyQueueDoMap" 
 		parameterType="java.lang.Integer">
 		SELECT 

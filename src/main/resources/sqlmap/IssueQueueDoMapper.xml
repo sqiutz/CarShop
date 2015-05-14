@@ -42,6 +42,15 @@
 		ORDER_ID = #{orderId}
 	</select>
 	
+	<select id="queryByIssueQueueForid" resultMap="IssueQueueDoMap" 
+		parameterType="java.lang.Integer">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM TBL_ISSUEQUEUE
+		WHERE
+		FOR_ID = #{forId}
+	</select>
+	
 	<insert id="addIssueQueue" parameterType="IssueQueueDo">
 		INSERT INTO TBL_ISSUEQUEUE 
 		<trim prefix="(" suffix=")" suffixOverrides=",">

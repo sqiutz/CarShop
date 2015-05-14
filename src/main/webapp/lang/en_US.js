@@ -143,7 +143,6 @@ var TIEM_ALLOCATED = 'Time Allocated';
 var TIME_ON_HOLD = 'Time On Hold';
 var FINISH_TIME = 'Finish Time';
 var REMARKS = 'Remarks';
-var FOR_ID = 'For Id';
 
 var NEW_APPOINTMENT = 'New Appointment';
 var SETTING_PARAMETER = 'Setting Parameter';

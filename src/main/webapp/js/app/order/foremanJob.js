@@ -40,7 +40,7 @@
             $('#technicianLabel').text(TECHNICIAN);
             $('#allocationBtn').text(ALLOCATION);
             $('#workloadLabel').text(WORKLOAD);
-            $('#forIdLabel').text(FOR_ID);
+            $('#forIdLabel').text(ID);
             $('#technicianCol').text(TECHNICIAN + ':');
             $('#hrTakenCol').text(HR_TAKEN);
             $('#bayNoCol').text(BAY_NO);
