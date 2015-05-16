@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.net.ssl.SSLEngineResult.Status;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -889,7 +890,7 @@ public class OrderController {
 //				logger.error("< OrderController.bookOrder() > 订单预约请求信息不正确。" + jsonStr);
 			}else{
 				
-				order = orderService.getOrdersByRegNum(orderObject);
+				order = orderService.getOrderByRegNumInAnyStatus(orderObject);
 				
 				Integer status = order.getStatus();
 				
@@ -1029,7 +1030,7 @@ public class OrderController {
 				
 				order = orderService.getOrdersByQueueNum(orderObject.getQueueNumber());
 				
-				if (order != null && order.getQueueNum() != null){
+				if (order != null && order.getStatus() != null){
 					
 					StringBuffer string = new StringBuffer();
 					string.append("############################\n");
@@ -1037,7 +1038,13 @@ public class OrderController {
 					string.append("\n");
 					string.append("\n");
 					string.append("\n");
-					string.append("Your QueueNumber is: " + order.getQueueNum() + "\n");
+					if (order.getStatus() > BusinessCenterOrderStatus.ORDER_STATUS_BACK.getId()){
+
+						string.append("Your QueueNumber is: " + order.getBakQueueNum() + "\n");
+					} else {
+						
+						string.append("Your QueueNumber is: " + order.getQueueNum() + "\n");
+					}
 					string.append("Please go the wait queue using this number, Thanks! \n");
 					string.append("\n");
 					string.append("\n");

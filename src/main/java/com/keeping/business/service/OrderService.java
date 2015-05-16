@@ -33,6 +33,8 @@ public interface OrderService {
 	
 	public Order getOrdersByRegNum(OrderObject orderObject);
 	
+	public Order getOrderByRegNumInAnyStatus(OrderObject orderObject);
+	
 	public Integer getOrderCountByStatusAndBook(OrderObject orderObject);
 	
 	public List<Order> getOrderByStatusAndBook(OrderObject orderObject);

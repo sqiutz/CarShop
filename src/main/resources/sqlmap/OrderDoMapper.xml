@@ -139,6 +139,15 @@
 		REGISTERNUMBER = #{registerNum} and STATUS = 0 and date(ASSIGN_DATE) = #{assignDate}
 	</select>
 	
+	<select id="queryOrderByRegNumInAnyStatus" resultMap="OrderDoMap" 
+		parameterType="OrderDo">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM TBL_ORDER
+		WHERE
+		REGISTERNUMBER = #{registerNum} and date(ASSIGN_DATE) = #{assignDate}
+	</select>
+	
 	<select id="queryOrderById" resultMap="OrderDoMap" 
 		parameterType="java.lang.Integer">
 		SELECT 

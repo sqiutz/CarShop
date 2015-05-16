@@ -267,6 +267,23 @@ public class OrderServiceImpl implements OrderService {
 		return order;
 	}
 	
+	public Order getOrderByRegNumInAnyStatus(OrderObject orderObject) {
+		// TODO Auto-generated method stub
+		Order order = null;
+		OrderDo orderDo_input = new OrderDo();
+		orderDo_input.setRegisterNum(orderObject.getRegisterNum());
+		orderDo_input.setAssignDate(TimeUtil.transferFromUtilToSqlDate(orderObject.getAssignDate()));
+		OrderDo orderDo = orderDao.queryOrderByRegNumInAnyStatus(orderDo_input);
+
+		if (orderDo == null){
+			return new Order();
+		}else{
+			order = OrderConverter.getOrder(orderDo);
+		}
+		
+		return order;
+	}
+	
 	public Order queryOrderById(Integer id) throws BusinessServiceException {
 		// TODO Auto-generated method stub
 		Order order = null;
