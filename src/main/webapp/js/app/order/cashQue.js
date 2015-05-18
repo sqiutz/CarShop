@@ -69,7 +69,6 @@
                         $("#helloUserName").text(
                                 HELLO + ' ' + (userProfile ? userProfile.userName : ''));
                         $('#userName').text(userProfile ? userProfile.userName : '');
-                        //getServeQueue();
                         getServeQueues();
                         getOrderList(); 
                     }
@@ -118,6 +117,9 @@
             $('<td></td>').text(serve && serve.order ? getTimeStr(serve.order.startTime) : '').appendTo(tr);
             $('<td></td>').text(serve && serve.order ? getTimeStr(serve.order.endTime) : '').appendTo(tr);
         }
+        if(!currServe && waitinglist && waitinglist.length > 0) {
+            $('#callBtn').attr('disabled', false);
+        }
         if (serves && j < serves.length - 1) {
             sListIter++;
             setTimeout(function() {
@@ -148,9 +150,9 @@
     var createWaitingList = function(orders) {
         waitinglist = orders;
     	$('#remaining').text(orders ? orders.length : 0);
-    	if(!currServe && orders && orders.length > 0) {
-    		$('#callBtn').attr('disabled', false);
-    	}
+//    	if(!currServe && orders && orders.length > 0) {
+//    		$('#callBtn').attr('disabled', false);
+//    	}
         $('#waitingList tr.odd').remove();
         $('#waitingList tr.even').remove();
         var availHeight = ($('#content').height() - 20) * 0.5 - $('#waitingListTitle').height() - 4;
@@ -230,6 +232,7 @@
             },
             success : function(data) {
                 if(data.code == '000000') {
+                    $('#callBtn').attr('disabled', 'disabled');
                     getServeQueue(order.id);
                 }                
             }
