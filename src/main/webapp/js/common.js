@@ -134,6 +134,36 @@
                                 "id"
                        ]
                     },
+                    getSettleQueues : {
+                        url : "settlequeue.do?action=alllist",
+                        args : [ 
+                                 "step"
+                        ]
+                    },
+                    getSettleQueue : {
+                        url : "settlequeue.do?action=getone",
+                        args : [ 
+                                 "id"
+                        ]
+                    },
+                    sStart : {
+                        url : "settlequeue.do?action=start",
+                        args : [ 
+                                "id"
+                       ]
+                    },
+                    sFinish : {
+                        url : "settlequeue.do?action=finish",
+                        args : [ 
+                                "id"
+                       ]
+                    },
+                    sCancel : {
+                        url : "settlequeue.do?action=cancel",
+                        args : [ 
+                                "id"
+                       ]
+                    },
                     // 获取订单列表
                     getOrderList : {
                         url : "order.do?action=alllist",

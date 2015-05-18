@@ -1,9 +1,8 @@
 (function($) {
-	//$('#callBtn').attr('disabled', 'disabled');
-	//$('#recallBtn').attr('disabled', 'disabled');
-    //$('#finishBtn').attr('disabled', 'disabled');
-    //$('#holdBtn').attr('disabled', 'disabled');
-    //$('#cancelBtn').attr('disabled', 'disabled');
+	$('#callBtn').attr('disabled', 'disabled');
+//	$('#recallBtn').attr('disabled', 'disabled');
+    $('#finishBtn').attr('disabled', 'disabled');
+    $('#cancelBtn').attr('disabled', 'disabled');
     $.UserInfo.getProperty({
         data : {
             name : 'LANGUAGE'
@@ -28,8 +27,6 @@
         loadLang('lang/' + langCode + '.js', function() {
             $('#changePwd').text(CHANGE_PASSW0RD).attr('title', CHANGE_PASSW0RD);
             $('#logout').text(LOGOUT).attr('title', LOGOUT);
-            $('#saQue').text(SA_CALLING).attr('title', SA_CALLING);
-            $('#userName').text(CASHIER);
             $('#title').text(CASH_QUE_CALLING_BOARD);
             $('#currentNoLabel').text(CURRENT_NUMBER);
             $('#remainingLabel').text(REMAINING);
@@ -37,12 +34,12 @@
 //            $('#avgWaitingTimeLabel').text(AVG_WAITING_TIME);
             $('#timerLabel').text(TIMER);
             $('#callBtn').text(CALL).attr('title', CALL);
-            $('#recallBtn').text(RECALL).attr('title', RECALL);
-            $('#holdBtn').text(HOLD).attr('title', HOLD);
+//            $('#recallBtn').text(RECALL).attr('title', RECALL);
+//            $('#holdBtn').text(HOLD).attr('title', HOLD);
             $('#finishBtn').text(FINISH).attr('title', FINISH);
             $('#cancelBtn').text(CANCEL).attr('title', CANCEL);
-            $('#servingListLink').text(NOW_SERVING + '...');
-            $('#holdListLink').text(SUSPEND_LIST);
+            $('#servingListTitle').text(NOW_SERVING + '...');
+//            $('#holdListLink').text(SUSPEND_LIST);
             $('#waitingListTitle').text(WAITING_LIST);
             $('#regNoCol').text(REG_NO);
             $('#queNoCol').text(QUE_NO);
@@ -73,28 +70,15 @@
                                 HELLO + ' ' + (userProfile ? userProfile.userName : ''));
                         $('#userName').text(userProfile ? userProfile.userName : '');
                         //getServeQueue();
-                        //getServeQueues();
-                        //getOrderList(); 
+                        getServeQueues();
+                        getOrderList(); 
                     }
                 }
             });
         });
     }
-    
-/*    $.UserInfo.getProperty({
-        data : {
-            name : 'AVG_WAITING_TIME'
-        },
-        success : function(data) {
-            if (data.code == '000000') {
-                var num = data.obj.value * 1000;
-                $('#avgWaitingMins').text(getMins(num) + "'");
-                $('#avgWaitingSecs').text(getSecs(num) + "''");
-            }
-        }
-    });
-*/    
-/*    var oListIter = 0, sListIter = 0, interval = 3000, tab = 0;
+   
+    var oListIter = 0, sListIter = 0, interval = 3000;
     var userProfile;
 	    
     // 创建服务队列
@@ -110,8 +94,14 @@
             var tr = $('<tr></tr>').attr('class', i % 2 === 0 ? 'odd' : 'even')
                     .appendTo($('#servingList'));
             if(serve) {
+                if(i === 0) {
+                    if(!currServe || currServe.order.id !== serve.id) {
+                        currServe = serve;
+                        getServeQueue(serve.id);
+                    }                    
+                }
                 tr.addClass('hoverable').val(serve.id);
-                if(1 === tab) {
+
                 	if(serve.id === parseInt(selectedId)) {
                         tr.addClass('selected');
                     }
@@ -119,22 +109,13 @@
                         $('#servingList tr').removeClass('selected');
                         $(this).addClass('selected');
                         selectedId = $(this).val();
-                        if(!currServe) {
-                            $('#resumeBtn').attr('disabled', false);
-                        }
                     });
-                }
+
             }
             $('<td></td>').text(serve && serve.order ? serve.order.registerNum : '').appendTo(tr);
             $('<td></td>').text(serve && serve.order ? serve.order.queueNum : '').appendTo(tr);
             $('<td></td>').text(serve && serve.user ? serve.user.userName : '').appendTo(tr);
-            if(0 === tab) {
-                $('<td></td>').text(serve && serve.order ? getTimeStr(serve.order.startTime) : '').appendTo(tr);
-            }
-            else {
-                $('<td></td>').text(serve ? 
-                        getMins(serve.delayTime) + "'" + getSecs(serve.delayTime) + "''" : '').appendTo(tr);
-            }
+            $('<td></td>').text(serve && serve.order ? getTimeStr(serve.order.startTime) : '').appendTo(tr);
             $('<td></td>').text(serve && serve.order ? getTimeStr(serve.order.endTime) : '').appendTo(tr);
         }
         if (serves && j < serves.length - 1) {
@@ -145,56 +126,27 @@
         } else {
             sListIter = 0;
             setTimeout(function() {
-            	if(0 === tab) {
-            		getServeQueues();
-            	}
-            	else {
-            		getHoldQueues();
-            	}
+            	getServeQueues();
             }, interval);
         }
     };
     
     // 获取服务队列
     var getServeQueues = function() {
-    	if(0 !== tab) {
-    		return;
-    	}
-        $.OrderInfo.getServeQueues({
+        $.OrderInfo.getSettleQueues({
             data : {
-                step : 0,
-                isBooker : userProfile.isBooker
+                step : 1
             },
             success : function(serves) {
-            	if(0 !== tab) {
-            		return;
-            	}
                 createServingList(serves);
             }
         });
     };
-    
-    // 获取Hold队列
-    var getHoldQueues = function() {
-    	if(1 !== tab) {
-    		return;
-    	}
-        $.OrderInfo.getServeQueues({
-            data : {
-                step : 1,
-                isBooker : userProfile.isBooker
-            },
-            success : function(serves) {
-            	if(1 !== tab) {
-            		return;
-            	}
-                createServingList(serves);
-            }
-        });
-    };
-    
+        
     // 创建订单列表
+    var waitinglist;
     var createWaitingList = function(orders) {
+        waitinglist = orders;
     	$('#remaining').text(orders ? orders.length : 0);
     	if(!currServe && orders && orders.length > 0) {
     		$('#callBtn').attr('disabled', false);
@@ -205,7 +157,7 @@
         var j, num = Math.floor(availHeight / 43) - 1;
         for (var i = 0; i < num; i++) {
             j = oListIter * num + i;
-            var order = orders && j < orders.length ? orders[j] : null;
+            var order = orders && j < orders.length ? orders[j].order : null;
             var tr = $('<tr></tr>').attr('class', i % 2 === 0 ? 'odd' : 'even')
                     .appendTo($('#waitingList'));
             if(order) {
@@ -230,48 +182,40 @@
     
     // 获取订单列表
     var getOrderList = function() {
-        $.OrderInfo.getOrderList({
+        $.OrderInfo.getSettleQueues({
             data : {
-                status : 1,
-                assignDate : getDateString(new Date())
+                step : 0
             },
-            success : createWaitingList
+            success : function(serves) {
+                createWaitingList(serves);
+            }
         });
     };
     
     // 获取当前订单
     var currServe;
-    var getServeQueue = function() {
-    	$.OrderInfo.getServeQueue({
+    var getServeQueue = function(id) {
+    	$.OrderInfo.getSettleQueue({
     		data : {
-                step : 0,
-                isBooker : userProfile.isBooker
+                id : id
             },
             success : function(data) {
             	if(data.code == '000000') {
-            	    currServe = data.resList[0];
+            	    currServe = data.obj;
             		if(currServe) {
-            		    $.cookie('serveId', currServe.id);
-            		    $.cookie('registerNum', currServe.order.registerNum);
-            		    $('#callBtn').attr('disabled', 'disabled');
-            		    $('#resumeBtn').attr('disabled', 'disabled');
-            		    $('#holdBtn').attr('disabled', false);
-            		    $('#nextBtn').attr('disabled', false); 
+            		    $('#finishBtn').attr('disabled', false); 
+                        $('#cancelBtn').attr('disabled', false); 
             		    start = new Date(currServe.startTime);
-                        timer();
+                        //timer();
             		}
             		else {
-            		    $.cookie('serveId', '', {expires: -1});
-            		    $.cookie('registerNum', '', {expires: -1});
-            		    $('#holdBtn').attr('disabled', 'disabled');
-            		    $('#resumeBtn').attr('disabled', 'disabled');
-            		    $('#nextBtn').attr('disabled', 'disabled');
-            		    start = 0;
-            		    $.cookie('timerStartTime', '', {expires: -1});
+            		    $('#finishBtn').attr('disabled', 'disabled');
+                        $('#cancelBtn').attr('disabled', 'disabled');
+            		    //start = 0;
             		}
             		$('#currentNo').text(currServe ? currServe.order.queueNum : '')
-            		$('#waitingMins').text(currServe ? getMins(currServe.delayTime) + "'" : '');
-                    $('#waitingSecs').text(currServe ? getSecs(currServe.delayTime) + "''" : '');
+            		//$('#waitingMins').text(currServe ? getMins(currServe.delayTime) + "'" : '');
+                    //$('#waitingSecs').text(currServe ? getSecs(currServe.delayTime) + "''" : '');
             	}
             }
     	});
@@ -279,108 +223,83 @@
        
     // Call
     $('#callBtn').bind('click', function() {
-    	$.OrderInfo.call({
-    		success : function(data) {
-    		    if(data.code == '000000') {
-                    getServeQueue();
-    		    }
-            }
-    	});
-    });
-    
-    // Hold
-    $('#holdBtn').bind('click', function() {
-        $.OrderInfo.hold({
+        var order = waitinglist[0].order;
+        $.OrderInfo.sStart({
             data : {
-                id : currServe.id               
+                id : order.id               
             },
             success : function(data) {
                 if(data.code == '000000') {
-                    getServeQueue();
+                    getServeQueue(order.id);
                 }                
             }
         });
     });
     
-    // Resume
-    $('#resumeBtn').bind('click', function() {
-        $.OrderInfo.resume({
+    $('#finishBtn').bind('click', function() {
+        $.OrderInfo.sFinish({
             data : {
-                id : selectedId,         
+                id : currServe.order.id               
             },
             success : function(data) {
                 if(data.code == '000000') {
-                    getServeQueue();
+                    currServe = null;
+                    $('#finishBtn').attr('disabled', 'disabled');
+                    $('#cancelBtn').attr('disabled', 'disabled');
+                    $('#currentNo').text('');
                 }                
             }
         });
     });
     
-    // send
-    $('#nextBtn').bind('click', function() {
-    	location.href = 'sa_promise_time.html';
+    $('#cancelBtn').bind('click', function() {
+        $.OrderInfo.sCancel({
+            data : {
+                id : currServe.order.id               
+            },
+            success : function(data) {
+                if(data.code == '000000') {
+                    currServe = null;
+                    $('#finishBtn').attr('disabled', 'disabled');
+                    $('#cancelBtn').attr('disabled', 'disabled');
+                    $('#currentNo').text('');
+                }                
+            }
+        });
     });
-    // send
-    $('#backBtn').bind('click', function() {
-    	location.href = 'sa_que.html';
-    })
         
-    $('#holdListLink').bind('click', function() {
-    	if('unselected' === $('#holdListTab').attr('class')) {
-    	    $('#startTimeCol').text(DELAY_TIME);
-    		sListIter = 0;
-    		tab = 1;
-    		selectedId = 0;
-    		$('#holdListTab').attr('class', '');
-    		$('#servingListTab').attr('class', 'unselected');
-    		getHoldQueues();
-    	}
-    });
-    
-    $('#servingListLink').bind('click', function() {
-    	if('unselected' === $('#servingListTab').attr('class')) {
-    	    $('#startTimeCol').text(START_TIME);
-    		sListIter = 0;
-    		tab = 0;
-    		selectedId = 0;
-    		$('#servingListTab').attr('class', '');
-    		$('#holdListTab').attr('class', 'unselected');
-    		getServeQueues();
-    	}
-    })
-    
     // Timer
-    var start = 0;
-    function timer() {
-        if(0 == start) {
-            $('#timerMinutes').text(0 + "'");
-            $('#timerSeconds').text(0 + "''");
-            return;
-        }
-        var now = new Date();
-        $('#timerMinutes').text(getMinutes(now) + "'");
-        $('#timerSeconds').text(getSeconds(now) + "''");
-        setTimeout(function() {
-            timer()
-        }, 1000);
-    }
-    
-    function getMinutes(now) {
-        var diff = now - start;
-        return getMins(diff);
-    }
-    
-    function getSeconds(now) {        
-        var diff = now - start;
-        return getSecs(diff);
-    }
-    
-    function getMins(diff) {
-        return Math.floor(diff / 60000);
-    }
-    
-    function getSecs(diff) {
-        var mins = getMins(diff);
-        return Math.floor((diff - mins * 60000) / 1000);
-    }*/
+//    var start = 0;
+//    function timer() {
+//        if(0 == start) {
+//            $('#timerMinutes').text(0 + "'");
+//            $('#timerSeconds').text(0 + "''");
+//            return;
+//        }
+//        var now = new Date();
+//        $('#timerMinutes').text(getMinutes(now) + "'");
+//        $('#timerSeconds').text(getSeconds(now) + "''");
+//        setTimeout(function() {
+//            timer()
+//        }, 1000);
+//    }
+//    
+//    function getMinutes(now) {
+//        var diff = now - start;
+//        return getMins(diff);
+//    }
+//    
+//    function getSeconds(now) {        
+//        var diff = now - start;
+//        return getSecs(diff);
+//    }
+//    
+//    function getMins(diff) {
+//        return Math.floor(diff / 60000);
+//    }
+//    
+//    function getSecs(diff) {
+//        var mins = getMins(diff);
+//        return Math.floor((diff - mins * 60000) / 1000);
+//    }
 })(jQuery);

@@ -66,7 +66,52 @@ define([], function() {
                     options.success(data);
                 }
             });
-        },        
+        },  
+        getSettleQueues : function(options) {
+            var settleList;
+            $.common.ajax("getSettleQueues", {
+                data : options.data,
+                success : function(data) {
+                    settleList = data.resList;
+                    options.success(settleList);
+                },
+                error : function(error) {
+                    options.success();
+                }
+            });
+        },
+        getSettleQueue : function(options) {
+            $.common.ajax("getSettleQueue", {
+                data : options.data,
+                success : function(data) {
+                    options.success(data);
+                }
+            });
+        },
+        sStart : function(options) {
+            $.common.ajax("sStart", {
+                data : options.data,
+                success : function(data) {
+                    options.success(data);
+                }
+            });
+        },
+        sFinish : function(options) {
+            $.common.ajax("sFinish", {
+                data : options.data,
+                success : function(data) {
+                    options.success(data);
+                }
+            });
+        },
+        sCancel : function(options) {
+            $.common.ajax("sCancel", {
+                data : options.data,
+                success : function(data) {
+                    options.success(data);
+                }
+            });
+        },
 		// 获取订单列表
 		getOrderList : function(options) {
 			var orderlist;

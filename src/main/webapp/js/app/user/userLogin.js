@@ -109,6 +109,9 @@
                         else if(userProfile.groupName == 2) {
                             location.href = 'select_counter.html';
                         }
+                        else if(userProfile.groupName == 4) {
+                            location.href = 'cash_que.html';
+                        }
                     }else if(data.code == '010102'){
                         $('#errMsg').html(MSG_PASSWORD_NOT_CORRECT).show('normal');
                     }else if(data.code == '010100'){

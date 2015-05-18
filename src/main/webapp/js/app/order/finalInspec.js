@@ -113,7 +113,7 @@
             success : function(data) {
                 if(data.code == '000000') {
                     //$('#finalInspec').text(ON_HOLD);
-                    getModifyQueue(modifyQue.id);
+                    getModifyQueue(modifyQue.forId);
                 }
             }
         });
@@ -130,7 +130,7 @@
                 if(data.code == '000000') {
                     $('#holdBtn').show();
                     //$('#finalInspec').text(FINISHED);
-                    getModifyQueue(modifyQue.id);
+                    getModifyQueue(modifyQue.forId);
                 }
             }
         });

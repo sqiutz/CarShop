@@ -25,7 +25,7 @@
             langCode = 'en_US';
         }
         loadLang('lang/' + langCode + '.js', function() {
-            $('#title').text(CAR_WASH_QUEU_BOARD);
+            $('#title').text(CAR_WASH_QUE_BOARD);
             $('#currentNoLabel').text(CURRENT_NUMBER);
             $('#startBtn').text(START).attr('title', START);
             $('#finishBtn').text(FINISH).attr('title', FINISH);

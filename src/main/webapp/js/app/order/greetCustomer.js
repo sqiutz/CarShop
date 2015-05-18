@@ -41,7 +41,7 @@
                     //$('#regNumber').val('');
                     var order = data.obj;
                     $('#bookedTime').text(BOOKED_TIME + (order ? getTimeStr(order.bookTime) : ''));
-                    $('#queNumber').text(order ? order.queueNum : '');
+                    $('#queNumber').text(order ? (order.bakQueueNum ? order.bakQueueNum : order.queueNum) : '');
                 }                
     		}
     	});

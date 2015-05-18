@@ -63,7 +63,6 @@ var PROMISE_TIME = 'Promise Time';
 var CHANGE_PASSW0RD = 'Change Password';
 var LOGOUT = 'Logout';
 var SA_QUE_CALLING_BOARD = 'SA QUE CALLING BOARD';
-var SA_CALLING = 'SA Calling';
 var CURRENT_NUMBER = 'CURRENT NUMBER';
 var REMAINING = 'REMAINING';
 var WAITING_TIME = 'Waiting Time';
@@ -168,9 +167,6 @@ var DAY = 'Day';
 var WEEK = 'Week';
 var MONTH = 'Month';
 var MANPOWER_ALLOCATION = 'Manpower Allocation';
-
-var CASHIER = 'Cashier';
-var CASHIER_CALLING = 'Cashier Calling';
 
 var MSG_INPUT_ORIGINAL_PASSWORD = 'Please input the original password!';
 var MSG_INPUT_NEW_PASSWORD = 'Please input the new password!';

@@ -118,7 +118,7 @@
             },
             success : function(data) {
                 if(data.code == '000000') {
-                    getModifyQueue(modifyQue.id);
+                    getModifyQueue(modifyQue.forId);
                 }
             }
         });
