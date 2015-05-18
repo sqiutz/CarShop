@@ -60,6 +60,18 @@
             {
                 name : 'WAITING_TIME_BUFFER',
                 display : WAITING_TIME_BUFFER
+            },
+            {
+                name : 'BOOKING_GROUP_NO',
+                display : BOOKING_GROUP_NO
+            },
+            {
+                name : 'LOAD_PERSON',
+                display : LOAD_PERSON
+            },
+            {
+                name : 'LOAD_PERCENTAGE',
+                display : LOAD_PERCENTAGE
             }];
             
             $('#changePwd').text(CHANGE_PASSW0RD).attr('title', CHANGE_PASSW0RD);
