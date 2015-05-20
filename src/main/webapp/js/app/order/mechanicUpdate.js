@@ -198,7 +198,7 @@
     }
     
     $('#iStartBtn').bind('click', function() {
-        if(!issueQue || issueQue.step !== 0) {
+        if(!issueQue || (issueQue.step !== 0 && issueQue.step !== 2)) {
             return;
         }
         $.OrderInfo.iStart({
@@ -213,7 +213,7 @@
         });
     });    
     $('#iHoldBtn').bind('click', function() {
-        if(!issueQue || issueQue.step !== 0) {
+        if(!issueQue || issueQue.step !== 1) {
             return;
         }
         $.OrderInfo.iHold({

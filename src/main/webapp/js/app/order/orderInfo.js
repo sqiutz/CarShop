@@ -210,6 +210,15 @@ define([], function() {
                 }
             });
         },
+        printOrder : function(options) {
+            $.common.ajax("printOrder", {
+                type :"POST",
+                data : options.data,
+                success : function(data) {
+                    options.success(data);
+                }
+            });
+        },
         book : function(options) {
             $.common.ajax("book", {
                 type :"POST",

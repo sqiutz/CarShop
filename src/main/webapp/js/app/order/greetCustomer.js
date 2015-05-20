@@ -26,11 +26,12 @@
             $('#regNumberLabel').text(KEY_IN_REGISTRATION_NUMBER);
             $('#bookedTime').text(BOOKED_TIME);
             $('#queNumberLabel').text(QUE_WITH_NUMBER);
+            $('#queryBtn').text(QUERY).attr('title', QUERY);
             $('#printBtn').text(PRINT).attr('title', PRINT);
         });
     } 
     
-    $('#printBtn').bind('click', function() {
+    $('#queryBtn').bind('click', function() {
     	$.OrderInfo.startOrder({
     		data : {
     			registerNum : $('#regNumber').val(),
@@ -47,13 +48,28 @@
     	});
     });
     
+    $('#printBtn').bind('click', function() {
+        $.OrderInfo.printOrder({
+            data : {
+                registerNum : $('#regNumber').val(),
+                assignDate : getDateString(new Date())
+            },
+            success : function(data) {
+                if(data.code == '000000') {
+                }                
+            }
+        });
+    });
+    
     $('#regNumber').keyup(function() {
         var regNum = $('#regNumber').val();
         if(regNum.length > 6) {
+            $('#queryBtn').attr('disabled', false);
             $('#printBtn').attr('disabled', false);
         }
         else {
-            $('#printBtn').attr('disabled', 'disabled');
+            $('#queryBtn').attr('disabled', 'disabled');
+            $('#printBtn').attr('disabled', false);
         }
     });
     

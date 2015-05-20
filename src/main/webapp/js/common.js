@@ -226,6 +226,13 @@
                                  "assignDate"
                         ]
                     },
+                    printOrder : {
+                        url : "order.do?action=print",
+                        args : [ 
+                                 "registerNum",
+                                 "assignDate"
+                        ]
+                    },
                     book : {
                         url : "order.do?action=book",
                         args : [ 
