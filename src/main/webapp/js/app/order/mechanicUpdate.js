@@ -124,7 +124,7 @@
         });
     });    
     $('#holdBtn').bind('click', function() {
-        if(!modifyQue || modifyQue.step !== 1) {
+        if(!modifyQue || (modifyQue.step !== 1 && modifyQue.step !== 2)) {
             return;
         }
         $.OrderInfo.mHold({
