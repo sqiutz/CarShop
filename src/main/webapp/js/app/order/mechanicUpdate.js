@@ -198,7 +198,7 @@
     }
     
     $('#iStartBtn').bind('click', function() {
-        if(!issueQue || (issueQue.step !== 0 && issueQue.step !== 2)) {
+        if(!issueQue) {
             return;
         }
         $.OrderInfo.iStart({
