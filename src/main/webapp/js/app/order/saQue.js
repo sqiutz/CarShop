@@ -196,6 +196,7 @@
     	$('#remaining').text(orders ? orders.length : 0);
     	if(!currServe && orders && orders.length > 0) {
     		$('#callBtn').attr('disabled', false);
+    		$('#recallBtn').attr('disabled', false);
     	}
         $('#waitingList tr.odd').remove();
         $('#waitingList tr.even').remove();
@@ -252,6 +253,7 @@
             		    $.cookie('serveId', currServe.id);
             		    $.cookie('registerNum', currServe.order.registerNum);
             		    $('#callBtn').attr('disabled', 'disabled');
+            		    $('#recallBtn').attr('disabled', false);
             		    $('#resumeBtn').attr('disabled', 'disabled');
             		    $('#holdBtn').attr('disabled', false);
             		    $('#nextBtn').attr('disabled', false); 
@@ -264,6 +266,7 @@
             		    $('#holdBtn').attr('disabled', 'disabled');
             		    $('#resumeBtn').attr('disabled', 'disabled');
             		    $('#nextBtn').attr('disabled', 'disabled');
+            		    $('#recallBtn').attr('disabled', 'disabled');
             		    start = 0;
             		    $.cookie('timerStartTime', '', {expires: -1});
             		}
@@ -285,6 +288,16 @@
             }
     	});
     });
+    
+//    $('#recallBtn').bind('click', function() {
+//        $.OrderInfo.call({
+//            success : function(data) {
+//                if(data.code == '000000') {
+//                    getServeQueue();
+//                }
+//            }
+//        });
+//    });
     
     // Hold
     $('#holdBtn').bind('click', function() {
