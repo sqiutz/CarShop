@@ -190,7 +190,9 @@ public class CashQueueController {
 				
 				if (cashQueue != null){
 					
+					Date now = new Date();
 					cashQueue.setStep(BusinessCenterCashQueueStatus.CASHQUEUE_STATUS_START.getId());
+					cashQueue.setStartTime(now);
 					cashQueueService.updateCashQueue(cashQueue);
 				}else{
 					code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();

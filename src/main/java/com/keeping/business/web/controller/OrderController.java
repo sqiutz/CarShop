@@ -135,18 +135,26 @@ public class OrderController {
 				List<ServeQueue> serveQueues = new ArrayList<ServeQueue>();
 				List<ModifyQueue> modifyQueues = new ArrayList<ModifyQueue>();
 				List<CashQueue> cashQueues = new ArrayList<CashQueue>();
+				List<SettleQueue> settleQueues = new ArrayList<SettleQueue>();
 				
 				List<Long> serveQueueTime = new ArrayList<Long>();
 				List<Long> modifyQueueTime = new ArrayList<Long>();
 				List<Long> cashQueueTime = new ArrayList<Long>();
+				List<Long> settleQueueTime = new ArrayList<Long>();
 				
 				Integer total = orders.size();
 				Integer totalServeQueue = 0;
 				Integer totalModifyQueue = 0;
 				Integer totalCashQueue = 0;
+				Integer totalSettleQueue = 0;
 				Long totalServeQueueTime = new Long(0);
 				Long totalModifyQueueTime = new Long(0);
 				Long totalCashQueueTime = new Long(0);
+				Long totalSettleQueueTime = new Long(0);
+				Long totalServeQueueWaitTime = new Long(0);
+				Long totalModifyQueueWaitTime = new Long(0);
+				Long totalCashQueueWaitTime = new Long(0);
+				Long totalSettleQueueWaitTime = new Long(0);
 				
 				for (int i = 0; i < total; i++){
 					
@@ -157,6 +165,8 @@ public class OrderController {
 						Long interval = (serveQueue.getEndTime().getTime() - serveQueue.getStartTime().getTime())/ 1000 % 60;
 						serveQueueTime.add(interval);
 						totalServeQueueTime = totalServeQueueTime + interval;
+						Long intervalWait = (serveQueue.getStartTime().getTime() - serveQueue.getCreateTime().getTime())/ 1000 % 60;
+						totalServeQueueWaitTime = totalServeQueueWaitTime + intervalWait;
 						totalServeQueue ++;
 					}
 					
@@ -167,6 +177,8 @@ public class OrderController {
 						Long interval = (modifyQueue.getEndTime().getTime() - modifyQueue.getStartTime().getTime())/ 1000 % 60;
 						modifyQueueTime.add(interval);
 						totalModifyQueueTime = totalModifyQueueTime + interval;
+						Long intervalWait = (modifyQueue.getStartTime().getTime() - modifyQueue.getCreateTime().getTime())/ 1000 % 60;
+						totalModifyQueueWaitTime = totalModifyQueueWaitTime + intervalWait;
 						totalModifyQueue ++;
 					}
 					
@@ -177,7 +189,21 @@ public class OrderController {
 						Long interval = (cashQueue.getEndTime().getTime() - cashQueue.getStartTime().getTime())/ 1000 % 60;
 						cashQueueTime.add(interval);
 						totalCashQueueTime = totalCashQueueTime + interval;
+						Long intervalWait = (cashQueue.getStartTime().getTime() - cashQueue.getCreateTime().getTime())/ 1000 % 60;
+						totalCashQueueWaitTime = totalCashQueueWaitTime + intervalWait;
 						totalCashQueue ++;
+					}
+					
+					SettleQueue settleQueue = new SettleQueue();
+					settleQueue = settleQueueService.getSettleQueueByOrderid(orders.get(i).getId());
+					if(settleQueue != null && settleQueue.getId() != null){
+						settleQueues.add(settleQueue);
+						Long interval = (settleQueue.getEndTime().getTime() - settleQueue.getStartTime().getTime())/ 1000 % 60;
+						settleQueueTime.add(interval);
+						totalSettleQueueTime = totalSettleQueueTime + interval;
+						Long intervalWait = (settleQueue.getStartTime().getTime() - settleQueue.getCreateTime().getTime())/ 1000 % 60;
+						totalSettleQueueWaitTime = totalSettleQueueWaitTime + intervalWait;
+						totalSettleQueue ++;
 					}
 				}
 				
@@ -187,13 +213,38 @@ public class OrderController {
 				reports.add(report);
 				
 				report = new Report();
+				report.setName("Average serve wait time");
+				report.setValue((totalServeQueueWaitTime / total) + "");
+				reports.add(report);
+				
+				report = new Report();
 				report.setName("Average modify time");
 				report.setValue((totalModifyQueueTime / total) + "");
 				reports.add(report);
 				
 				report = new Report();
+				report.setName("Average modify wait time");
+				report.setValue((totalModifyQueueWaitTime / total) + "");
+				reports.add(report);
+				
+				report = new Report();
 				report.setName("Average cash time");
 				report.setValue((totalCashQueueTime / total) + "");
+				reports.add(report);
+				
+				report = new Report();
+				report.setName("Average cash wait time");
+				report.setValue((totalCashQueueWaitTime / total) + "");
+				reports.add(report);
+				
+				report = new Report();
+				report.setName("Average settle time");
+				report.setValue((totalSettleQueueTime / total) + "");
+				reports.add(report);
+				
+				report = new Report();
+				report.setName("Average settle wait time");
+				report.setValue((totalSettleQueueWaitTime / total) + "");
 				reports.add(report);
 			}
 		}catch (BusinessServiceException ex) {
@@ -230,6 +281,7 @@ public class OrderController {
 				}else{
 					Date now = new Date();
 					orderObject.setAssignDate(now);
+					orderObject.setStatus(BusinessCenterOrderStatus.ORDER_STATUS_WAIT.getId());
 					
 					orderList = orderService.getAllOrders(orderObject);
 				}
@@ -1028,7 +1080,7 @@ public class OrderController {
 //				logger.error("< OrderController.bookOrder() > 订单预约请求信息不正确。" + jsonStr);
 			}else{
 				
-				order = orderService.getOrdersByQueueNum(orderObject.getQueueNumber());
+				order = orderService.getOrderByRegNumInAnyStatus(orderObject);
 				
 				if (order != null && order.getStatus() != null){
 					

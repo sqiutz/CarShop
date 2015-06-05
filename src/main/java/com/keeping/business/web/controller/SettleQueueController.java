@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.keeping.business.common.exception.BusinessServiceException;
+import com.keeping.business.common.rescode.BusinessCenterCashQueueStatus;
 import com.keeping.business.common.rescode.BusinessCenterOrderStatus;
 import com.keeping.business.common.rescode.BusinessCenterResCode;
 import com.keeping.business.common.rescode.BusinessCenterSettleQueueStatus;
@@ -178,6 +179,8 @@ public class SettleQueueController {
 				
 				if (settlequeue != null){
 					
+					Date now = new Date();
+					settlequeue.setStartTime(now);
 					settlequeue.setStep(BusinessCenterSettleQueueStatus.SETTLEQUEUE_STATUS_START.getId());
 					settleQueueService.updateSettleQueue(settlequeue);
 				}else{
