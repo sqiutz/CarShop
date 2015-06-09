@@ -21,6 +21,9 @@
             langCode = 'en_US';
         }
         loadLang('lang/' + langCode + '.js', function() {
+            $('#changePwd').text(CHANGE_PASSW0RD).attr('title', CHANGE_PASSW0RD);
+            $('#logout').text(LOGOUT).attr('title', LOGOUT);
+            $('#foremanJob').text(FOREMAN_JOB_DISTRIBUTION_LIST).attr('title', FOREMAN_JOB_DISTRIBUTION_LIST);
             $('#title').text(FINAL_INSPECTION);
             $('#legendTitle').text(INPUT_EDIT_DATA);
             $('#regNoLabel').text(REG_NO);
@@ -33,8 +36,21 @@
             $('#closeBtn').text(FINISH).attr('title', FINISH);
             $('#orderIdLabel').text(ID);
             $('#holdBtn').text(HOLD).attr('title', HOLD);
+            
+            $.UserInfo.checkLogin({
+                success : function(data) {
+                    if (data.code == '000000' && data.obj) {
+                        userProfile = data.obj;
+                        $("#helloUserName").text(
+                                HELLO + ' ' + (userProfile ? userProfile.userName : ''));
+                        $('#userName').text(userProfile ? userProfile.userName : ''); 
+                    }
+                }
+            });
         });
     }
+    
+    var userProfile;
     
     var modifyQue;
     function getModifyQueue(id) {

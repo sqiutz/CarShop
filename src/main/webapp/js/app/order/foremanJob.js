@@ -23,6 +23,7 @@
         loadLang('lang/' + langCode + '.js', function() {
             $('#changePwd').text(CHANGE_PASSW0RD).attr('title', CHANGE_PASSW0RD);
             $('#logout').text(LOGOUT).attr('title', LOGOUT);
+            $('#finalSpec').text(FINAL_INSPECTION).attr('title', FINAL_INSPECTION);
             $('#title').text(FOREMAN_JOB_DISTRIBUTION_LIST);            
             $('#queueTitle').text(NEXT_ON_QUE);
             $('#regNoCol').text(REG_NO);
