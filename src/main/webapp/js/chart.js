@@ -1,14 +1,14 @@
 //draw charts in pages
 function drawChart(div, value) {
-    if(0 <= value && value <= 1) {
+    if(value >= 0) {
         var data = [
                     {
-                        'color'       : 'rgb(244,84,134)',
-                        'value'       : value
+                        'color'       : value < 1 ? 'rgb(244,84,134)' : '#C33C3C',
+                        'value'       : value <= 1 ? value : 1
                     },
                     {
                         'color'       : 'rgb(54,54,54)',
-                        'value'       : 1 - value
+                        'value'       : value <= 1 ? 1 - value : 0
                     }
         ];
         var label = parseInt(value * 100) + '%';
@@ -50,6 +50,6 @@ function drawPieChart(elementId, data, label) {
     svg.select('g').append('circle').attr('r', 30)
        .attr('fill', 'rgb(54,54,54)');
     svg.select('g').append('text').attr('text-anchor', 'middle')
-       .attr('fill', '#ffffff').attr('y', 8)
+       .attr('fill', data[0].value < 1 ? '#ffffff' : '#C33C3C').attr('y', 8)
        .text(label).attr('class', 'h3');
 }
