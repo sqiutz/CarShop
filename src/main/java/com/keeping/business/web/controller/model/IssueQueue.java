@@ -114,6 +114,5 @@ public class IssueQueue extends BaseQueue{
 	public void setForId(Integer forId) {
 		this.forId = forId;
 	}
-
     
 }

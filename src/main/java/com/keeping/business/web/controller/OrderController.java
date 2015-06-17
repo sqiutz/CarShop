@@ -259,6 +259,55 @@ public class OrderController {
 		return JsonConverter.getResultObject(code, msg, reports);
 	}
 	
+	/**
+     * 获取订单列表
+     * 
+     * @param HttpServletRequest
+     * @param HttpServletResponse
+	 * @return 
+     * @return N/A
+     */
+	@RequestMapping(params = "action=booklist")
+	@ResponseBody
+	public WebResultList<Order> getBookList(HttpServletRequest request,HttpServletResponse response) {
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
+		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
+		HttpSession session = request.getSession();
+		session.setMaxInactiveInterval(PlatformPar.sessionTimeout);
+		
+		UserProfile loginUser = (UserProfile) session.getAttribute(PlatfromConstants.STR_USER_PROFILE);
+
+		List<Order> orders = new ArrayList<Order>();
+		
+		try {
+			String jsonStr = request.getParameter("param");
+			ReportObject reportObject = JsonConverter.getFromJsonString(jsonStr, ReportObject.class, "yyyy-MM-dd");
+			if (reportObject == null) {
+				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
+				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
+//				logger.error("< OrderController.getAllOrders() > 获取订单状态不正确." + status + " : " + BusinessCenterOrderStatus.ORDER_STATUS_WAIT.getStatus());
+			}else if (null == session || null == loginUser || loginUser.getUserName().equals("admin") == false){
+				code = BusinessCenterResCode.SYS_INVILID_REQ.getCode();
+				msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
+//				logger.error("< OrderController.bookOrder() > session为空。" + jsonStr);
+			} else {
+	
+				orders = orderService.getAllOrdersFBook(reportObject);				
+			
+			}
+		}catch (BusinessServiceException ex) {
+			code = ex.getErrorCode();
+			msg = ex.getErrorMessage();
+		}catch (Exception e) {
+			code = BusinessCenterResCode.SYS_ERROR.getCode();
+			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
+//			logger.error("< OrderController.getAllOrders() > 获取订单列表失败." + e.getMessage());
+		}
+
+		return JsonConverter.getResultObject(code, msg, orders);
+	}
+	
 	@RequestMapping(params = "action=alllist")
 	@ResponseBody
 	public WebResultList<Order> getAllOrders(HttpServletRequest request,HttpServletResponse response) {
@@ -946,7 +995,70 @@ public class OrderController {
 				
 				Integer status = order.getStatus();
 				
-//				status = 0;  //Test data
+				if (status != null && status == BusinessCenterOrderStatus.ORDER_STATUS_BACK.getId()){
+					
+					String queueNumber = order.getQueueNum();
+					String bakQueueNum = queueNumber.replace("B", "C");
+					order.setBakQueueNum(bakQueueNum);
+					orderService.updateOrder(order);				
+				}
+				
+			}
+		}catch (BusinessServiceException ex) {
+			code = ex.getErrorCode();
+			msg = ex.getErrorMessage();
+		}catch (Exception e) {
+			code = BusinessCenterResCode.SYS_ERROR.getCode();
+			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
+//			logger.error("< OrderController.startOrder() > 取号预约失败." + e.getMessage());
+		}
+
+		// 返回结果
+		try {
+			return JsonConverter.getResultObject(code, msg, order);
+		} catch (Exception e) {
+//			logger.error("< OrderController.startOrder() > 取号预约返回出错."
+//					+ e.getMessage());
+			throw e;
+		}
+	}
+	
+	/**
+     * 客户现场取号后，开始一个订单
+     * 
+     * @param HttpServletRequest
+     * @param HttpServletResponse
+	 * @return 
+     * @return N/A
+	 * @throws Exception 
+     */
+	@RequestMapping(params = "action=print")
+	@ResponseBody
+	public WebResultObject<Order> printOrder(HttpServletRequest request,HttpServletResponse response) throws Exception {
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
+		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
+		
+		Order order = new Order();
+		
+		try {
+		
+			Date now = new Date();
+			java.sql.Timestamp dateTime = new java.sql.Timestamp(now.getTime());
+			StringBuffer stringBuffer = new StringBuffer();
+			
+			String jsonStr = request.getParameter("param");
+			OrderObject orderObject = JsonConverter.getFromJsonString(jsonStr, OrderObject.class, "yyyy-MM-dd");
+			 
+			if (StringUtil.isNull(jsonStr) || null == orderObject) {
+				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
+				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
+//				logger.error("< OrderController.bookOrder() > 订单预约请求信息不正确。" + jsonStr);
+			}else{
+				
+				order = orderService.getOrderByRegNumInAnyStatus(orderObject);
+				
+				Integer status = order.getStatus();
 				
 				if ((status == null) || (status != null && status < BusinessCenterOrderStatus.ORDER_STATUS_WAIT.getId())) {
 					
@@ -1030,57 +1142,6 @@ public class OrderController {
 					settleQueueService.addSettleQueue(settleQueue);
 				}
 				
-			
-			}
-		}catch (BusinessServiceException ex) {
-			code = ex.getErrorCode();
-			msg = ex.getErrorMessage();
-		}catch (Exception e) {
-			code = BusinessCenterResCode.SYS_ERROR.getCode();
-			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
-//			logger.error("< OrderController.startOrder() > 取号预约失败." + e.getMessage());
-		}
-
-		// 返回结果
-		try {
-			return JsonConverter.getResultObject(code, msg, order);
-		} catch (Exception e) {
-//			logger.error("< OrderController.startOrder() > 取号预约返回出错."
-//					+ e.getMessage());
-			throw e;
-		}
-	}
-	
-	/**
-     * 客户现场取号后，开始一个订单
-     * 
-     * @param HttpServletRequest
-     * @param HttpServletResponse
-	 * @return 
-     * @return N/A
-	 * @throws Exception 
-     */
-	@RequestMapping(params = "action=print")
-	@ResponseBody
-	public WebResultObject<Order> printOrder(HttpServletRequest request,HttpServletResponse response) throws Exception {
-		response.setHeader("Access-Control-Allow-Origin", "*");
-		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
-		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
-		
-		Order order = new Order();
-		
-		try {
-		
-			String jsonStr = request.getParameter("param");
-			OrderObject orderObject = JsonConverter.getFromJsonString(jsonStr, OrderObject.class, "yyyy-MM-dd");
-			 
-			if (StringUtil.isNull(jsonStr) || null == orderObject) {
-				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
-				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
-//				logger.error("< OrderController.bookOrder() > 订单预约请求信息不正确。" + jsonStr);
-			}else{
-				
-				order = orderService.getOrderByRegNumInAnyStatus(orderObject);
 				
 				if (order != null && order.getStatus() != null){
 					

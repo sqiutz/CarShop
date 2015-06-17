@@ -29,6 +29,8 @@ public interface OrderService {
 	
 	public List<Order> getAllOrdersFReport(ReportObject reportObject);
 	
+	public List<Order> getAllOrdersFBook(ReportObject reportObject);
+	
 	public Order getOrdersByQueueNum(String queueNumber);
 	
 	public Order getOrdersByRegNum(OrderObject orderObject);

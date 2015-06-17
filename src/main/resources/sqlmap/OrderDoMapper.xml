@@ -48,6 +48,7 @@
 		FROM TBL_ORDER
 		WHERE
 		STATUS = 1 and IS_BOOK = #{isBook}
+		order by CREATE_TIME asc 
 	</select>
 	
 	<select id="getAllOrders" resultMap="OrderDoMap" 
@@ -67,6 +68,16 @@
 		FROM TBL_ORDER
 		WHERE
 		STATUS between 0 and 6 and date(ASSIGN_DATE) &gt;= #{beginDate} and date(ASSIGN_DATE) &lt;= #{endDate}
+		order by STATUS asc
+	</select>
+	
+	<select id="getAllOrdersFBook" resultMap="OrderDoMap" 
+		parameterType="OrderDo">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM TBL_ORDER
+		WHERE
+		STATUS between 0 and 6 and date(ASSIGN_DATE) &gt;= #{beginDate} and date(ASSIGN_DATE) &lt;= #{endDate} and IS_BOOK = 1
 		order by STATUS asc
 	</select>
 	

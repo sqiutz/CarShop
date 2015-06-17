@@ -204,6 +204,26 @@ public class OrderServiceImpl implements OrderService {
 		return orders_front;
 	}
 	
+	public List<Order> getAllOrdersFBook(ReportObject reportObject) {
+		// TODO Auto-generated method stub
+		OrderDo orderDo = new OrderDo();
+		orderDo.setBeginDate(TimeUtil.transferFromUtilToSqlDate(reportObject.getStartDate()));
+		orderDo.setEndDate(TimeUtil.transferFromUtilToSqlDate(reportObject.getEndDate()));
+		
+		List<Order> orders_front = new ArrayList<Order>();
+		List<OrderDo> orderDoes = orderDao.getAllOrdersFBook(orderDo);
+
+		if (orderDoes == null) {
+			return orders_front;
+		} else {
+			for (int i = 0; i < orderDoes.size(); i++) {
+				orders_front.add(OrderConverter.getOrder(orderDoes.get(i)));
+			}
+		}
+
+		return orders_front;
+	}
+	
 	public void addOrder(Order order) throws BusinessServiceException {
 		// TODO Auto-generated method stub
 
