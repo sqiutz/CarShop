@@ -211,6 +211,13 @@
                                     "endDate"
                         ]                        
                     },
+                    getBookedOrdersByDate : {
+                        url : "order.do?action=booklist",
+                        args : [ 
+                                    "startDate",
+                                    "endDate"
+                        ]
+                    },
                     // 获取单个订单
                     getOrder : {
                     	url : "order.do?action=getone",

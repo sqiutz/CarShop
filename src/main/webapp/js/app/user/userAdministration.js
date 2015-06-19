@@ -2,6 +2,7 @@
 	$('#parameterDiv').hide();
 	$('#suspendDiv').hide();
 	$('#reportDiv').hide();
+	$('#bookedOrderDiv').hide();
 	$("#startDate").datepicker({
 	    inline: true,
 	    showMonthAfterYear: true,
@@ -11,6 +12,22 @@
 	    dateFormat: 'yy-mm-dd',
 	});
 	$("#endDate").datepicker({
+        inline: true,
+        showMonthAfterYear: true,
+        changeMonth: true,
+        changeYear: true,
+        buttonImageOnly: true,
+        dateFormat: 'yy-mm-dd',
+    });
+	$("#bStartDate").datepicker({
+        inline: true,
+        showMonthAfterYear: true,
+        changeMonth: true,
+        changeYear: true,
+        buttonImageOnly: true,
+        dateFormat: 'yy-mm-dd',
+    });
+    $("#bEndDate").datepicker({
         inline: true,
         showMonthAfterYear: true,
         changeMonth: true,
@@ -81,6 +98,7 @@
             $('#parameterLink').text(SYSTEM_PARAMETER);
             $('#suspendLink').text(SUSPEND_LIST);
             $('#reportLink').text(REPORT);
+            $('#bookedOrderLink').text(ORDER_LIST);
             $('#legend').text(ADD_USER);
             $('#parameterListTitle').text(PARAMETER_CONF);
             $('#jobTypeListTitle').text(REGULER_SERVICE_RATE_TIME);
@@ -107,6 +125,13 @@
             $('#fromLabel').text(FROM + ':');
             $('#toLabel').text(TO + ':');
             $('#showBtn').text(SHOW).attr('title', SHOW);
+            $('#bFromLabel').text(FROM + ':');
+            $('#bToLabel').text(TO + ':');
+            $('#bShowBtn').text(SHOW).attr('title', SHOW);
+            $('#bRegNoCol').text(REG_NO);
+            $('#bookedDateCol').text(BOOKED_DATE);
+            $('#jobTypeCol').text(JOB_TYPE);
+//            $('#contactCol').text(CONTACT);
             
             $.UserInfo.checkLogin({
                 success : function(data) {
@@ -376,8 +401,10 @@
 			$('#parameterTab').attr('class', 'unselected');
 			$('#suspendTab').attr('class', 'unselected');
 			$('#reportTab').attr('class', 'unselected');
+			$('#bookedOrderTab').attr('class', 'unselected');
 			$('#accountTab').attr('class', '');	
 			$('#parameterDiv').hide();
+			$('#bookedOrderDiv').hide();
 			$('#suspendDiv').hide();
 			$('#reportDiv').hide();
 			$('#accountDiv').show();			
@@ -389,10 +416,12 @@
 			$('#accountTab').attr('class', 'unselected');
 			$('#suspendTab').attr('class', 'unselected');
 			$('#reportTab').attr('class', 'unselected');
+			$('#bookedOrderTab').attr('class', 'unselected');
 			$('#parameterTab').attr('class', '');			
 			$('#accountDiv').hide();
 			$('#suspendDiv').hide();
 			$('#reportDiv').hide();
+			$('#bookedOrderDiv').hide();
 			$('#parameterDiv').show();
 			createParamsList();
 			getJobTypeList();
@@ -405,10 +434,12 @@
             $('#parameterTab').attr('class', 'unselected');            
             $('#accountTab').attr('class', 'unselected'); 
             $('#reportTab').attr('class', 'unselected');
+            $('#bookedOrderTab').attr('class', 'unselected');
             $('#suspendDiv').show();
             $('#parameterDiv').hide();            
             $('#accountDiv').hide();  
             $('#reportDiv').hide();
+            $('#bookedOrderDiv').hide();
             getSuspendList();
         }       
     });
@@ -418,11 +449,28 @@
             $('#suspendTab').attr('class', 'unselected');
             $('#parameterTab').attr('class', 'unselected');            
             $('#accountTab').attr('class', 'unselected'); 
+            $('#bookedOrderTab').attr('class', 'unselected');
             $('#reportTab').attr('class', '');
             $('#reportDiv').show();
             $('#suspendDiv').hide();
             $('#parameterDiv').hide();            
-            $('#accountDiv').hide();  
+            $('#accountDiv').hide(); 
+            $('#bookedOrderDiv').hide();
+        }       
+    });
+	
+	$('#bookedOrderLink').bind('click', function() {
+        if('unselected' === $('#bookedOrderTab').attr('class')) { 
+            $('#suspendTab').attr('class', 'unselected');
+            $('#parameterTab').attr('class', 'unselected');            
+            $('#accountTab').attr('class', 'unselected'); 
+            $('#bookedOrderTab').attr('class', '');
+            $('#reportTab').attr('class', 'unselected');
+            $('#reportDiv').hide();
+            $('#suspendDiv').hide();
+            $('#parameterDiv').hide();            
+            $('#accountDiv').hide(); 
+            $('#bookedOrderDiv').show();
         }       
     });
 	
@@ -694,7 +742,34 @@
 	            }
 	        });
 	    }
-	})
+	});
+	
+	$('#bShowBtn').bind('click', function() {
+        var startDate = $('#bStartDate').datepicker('getDate');
+        var endDate = $('#bEndDate').datepicker('getDate');
+        if(startDate && endDate && endDate >= startDate) {
+            $.OrderInfo.getBookedOrdersByDate({
+                data : {
+                    startDate : getDateString(startDate),
+                    endDate : getDateString(endDate)
+                },
+                success : function(orders) {
+                    $('#bookedOrderList tr.odd').remove();
+                    $('#bookedOrderList tr.even').remove();
+                    var num = orders.length;
+                    for (var i = 0; i < num; i++) {
+                        var order = orders[i];
+                        var tr = $('<tr></tr>').attr('class', i % 2 === 0 ? 'odd' : 'even')
+                                .appendTo($('#bookedOrderList'));
+                        $('<td></td>').text(order.registerNum).appendTo(tr);
+                        var bookStartTime = new Date(order.bookStartTime)
+                        $('<td></td>').text(getDateString(bookStartTime) + ' ' + getTimeStr(bookStartTime)).appendTo(tr);
+                        $('<td></td>').text(jobTypeMapping(order.jobType) + ' - ' + order.jobtypeTime + ' hour(s)').appendTo(tr);                                                          
+                    }
+                }
+            });
+        }
+    });
 	
 	function getMins(diff) {
         return Math.floor(diff / 60000);

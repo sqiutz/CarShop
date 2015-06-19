@@ -484,6 +484,19 @@ define([], function() {
                     options.success();
                 }
             });
+        },
+        getBookedOrdersByDate : function(options) {
+            var list;
+            $.common.ajax("getBookedOrdersByDate", {
+                data:options.data,
+                success : function(data) {
+                    list = data.resList
+                    options.success(list);
+                },
+                error : function(error) {
+                    options.success();
+                }
+            });
         }
 	};
 

@@ -24,7 +24,7 @@
             $('#title').text(ISSUE_PARTS);
             $('#legendTitle').text(INPUT_EDIT_DATA);
             $('#regNoLabel').text(REG_NO);
-            $('#idMechanicLabel').text(ID_MECHANIC);
+//            $('#idMechanicLabel').text(ID_MECHANIC);
             $('#roofNoLabel').text(ROOF_NO);
             $('#serviceAdvisorLabel').text(SERVICE_ADVISOR);
             $('#jobTypeLabel').text(JOB_TYPE);
@@ -62,7 +62,7 @@
     
     function setIssueQueue(issueQue) {
         $('#regNo').val(issueQue && issueQue.order ? issueQue.order.registerNum : '');
-        $('#idMechanic').val(issueQue && issueQue.modifier ? issueQue.modifier.userName : '');
+//        $('#idMechanic').val(issueQue && issueQue.modifier ? issueQue.modifier.userName : '');
         $('#roofNo').val(issueQue && issueQue.order ? issueQue.order.roofNum : '');
         $('#serviceAdvisor').val(issueQue && issueQue.user ? issueQue.user.userName : '');
         $('#jobType').val(issueQue ? jobTypeMapping(issueQue.jobType) + ' - ' + issueQue.jobtypeTime + ' hour(s)' : '');

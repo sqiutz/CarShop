@@ -40,11 +40,12 @@
 		</div>
 		<div id='content' class='content'>
 			<div class='navg' style='width:1200px;height:45px'>
-				<ul style='width:905px;height:45px'>
+				<ul style='width:1100px;height:45px'>
 						<li id='accountTab'><a id='accountLink' style='width:320px;height:45px'></a></li>
 						<li id='parameterTab' class='unselected'><a id='parameterLink' style='width:268px;height:45px'></a></li>
 						<li id='suspendTab' class='unselected'><a id='suspendLink' style='width:191px;height:45px'></a></li>
 						<li id='reportTab' class='unselected'><a id='reportLink' style='width:126px;height:45px'></a></li>
+						<li id='bookedOrderTab' class='unselected'><a id='bookedOrderLink' style='width:181px;height:45px'></a></li>
 				</ul>
 			</div>
 			<div id='accountDiv' style='margin-top:20px'>
@@ -142,6 +143,26 @@
 				</div>
 				<div id='reportListDiv' style='width:680px;margin:20px auto'></div>
 			</div>	
+			
+			<div id='bookedOrderDiv'>
+				<div style='width:680px;margin:20px auto;vertical-align:middle;'>
+					<lable id='bFromLabel' style='margin-right:4px;font-weight:bold;'></lable>
+					<input type="text" id="bStartDate" readonly="readonly" style='width:70px'/>
+					<lable id='bToLabel' style='margin-left:8px;margin-right:4px;font-weight:bold;'></lable>
+					<input type="text" id="bEndDate" readonly="readonly" style='width:70px'/>
+					<button id='bShowBtn' class='blue-button' style='width:71px;height:27px;vertical-align:middle;margin-top:-2px;margin-left:20px'></button>
+				</div>
+				<div id='bookedOrderListDiv' style='width:680px;margin:20px auto'>
+					<table id='bookedOrderList' class="queue blue" style='width:680px'>
+						<tr>
+							<th id='bRegNoCol'></th>
+							<th id='bookedDateCol'></th>							
+							<th id='jobTypeCol'></th>
+<!-- 							<th id='contactCol'></th> -->
+						</tr>
+				</table>
+				</div>
+			</div>
 		</div>
 	</div>
 </body>
