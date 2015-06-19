@@ -121,6 +121,7 @@ var FROM = 'From';
 var TO = 'To';
 var SHOW = 'Show';
 var BOOKED_DATE = 'Booked Date'
+var BOOKED_DATE_TIME = 'Booked Time'
 
 var QUEING_NUMBER = 'Queing Number';
 var KEY_IN_REGISTRATION_NUMBER = 'Please key in your registration number';

@@ -130,7 +130,7 @@
             $('#bShowBtn').text(SHOW).attr('title', SHOW);
             $('#bRegNoCol').text(REG_NO);
             $('#bookedDateCol').text(BOOKED_DATE);
-            $('#jobTypeCol').text(JOB_TYPE);
+            $('#bookedTimeCol').text(BOOKED_DATE_TIME);
 //            $('#contactCol').text(CONTACT);
             
             $.UserInfo.checkLogin({
@@ -763,8 +763,8 @@
                                 .appendTo($('#bookedOrderList'));
                         $('<td></td>').text(order.registerNum).appendTo(tr);
                         var bookStartTime = new Date(order.bookStartTime)
-                        $('<td></td>').text(getDateString(bookStartTime) + ' ' + getTimeStr(bookStartTime)).appendTo(tr);
-                        $('<td></td>').text(jobTypeMapping(order.jobType) + ' - ' + order.jobtypeTime + ' hour(s)').appendTo(tr);                                                          
+                        $('<td></td>').text(getDateString(bookStartTime)).appendTo(tr);
+                        $('<td></td>').text(getTimeStr(bookStartTime)).appendTo(tr);                                                          
                     }
                 }
             });
