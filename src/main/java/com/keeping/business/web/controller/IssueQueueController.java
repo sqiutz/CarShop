@@ -29,6 +29,7 @@ import com.keeping.business.common.util.StringUtil;
 import com.keeping.business.service.CashQueueService;
 import com.keeping.business.service.JobTypeService;
 import com.keeping.business.service.IssueQueueService;
+import com.keeping.business.service.ModifyQueueService;
 import com.keeping.business.service.OrderService;
 import com.keeping.business.service.ServeQueueService;
 import com.keeping.business.service.UserService;
@@ -61,6 +62,8 @@ public class IssueQueueController {
 	/** 用户信息Service */
 	@Resource
 	private IssueQueueService issueQueueService;
+	@Resource
+	private ModifyQueueService modifyQueueService;
 	@Resource
 	private OrderService orderService;
 	@Resource
@@ -143,38 +146,46 @@ public class IssueQueueController {
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
 //				logger.error("< IssueQueueController.getIssueQueue() > 获取维修订单请求信息不正确: " + idObject.getId());
 			} else {
-					if(issueQueueObject.getUserId() != null){
-						issueQueue.setUserId(issueQueueObject.getUserId());
-					}
-					
-					Date now = new Date();
-					
-					issueQueue.setCreateTime(now);
-					issueQueue.setIssuerId(issueQueueObject.getIssuerId());
-					issueQueue.setStep(BusinessCenterIssueQueueStatus.MODIFYQUEUE_STATUS_ISSUE.getId());
-					issueQueue.setOrderId(issueQueueObject.getOrderId());
-					issueQueue.setJobType(issueQueueObject.getJobType());
-					issueQueue.setIsWarrant(issueQueueObject.getIsWarrant());
-					issueQueue.setIsSubContract(issueQueueObject.getIsSubContract());
-					issueQueue.setForId(issueQueueObject.getForId());
-					issueQueueService.addIssueQueue(issueQueue);	
-					
-					IssueQueue printIssueQueue = new IssueQueue();
-					printIssueQueue = issueQueueService.getIssueQueueByOrderId(issueQueueObject.getOrderId());
-					
-//					StringBuffer string = new StringBuffer();
-//					string.append("############################\n");
-//					string.append("\n");
-//					string.append("\n");
-//					string.append("\n");
-//					string.append("\n");
-//					string.append("Issue Queue ID is: " + printIssueQueue.getId() + "\n");
-//					string.append("Use the ID to get Issue Queue! \n");
-//					string.append("\n");
-//					string.append("\n");
-//					string.append("\n");
-//					string.append("############################\n");
-//					Printer.print(string.toString());
+				
+					Integer forId = issueQueueObject.getForId();
+				    List<Integer> forids = modifyQueueService.getForids(forId);
+				    
+				    if (forids != null && forids.size() == 0){
+
+						if(issueQueueObject.getUserId() != null){
+							issueQueue.setUserId(issueQueueObject.getUserId());
+						}
+						
+						Date now = new Date();
+						
+						issueQueue.setCreateTime(now);
+						issueQueue.setIssuerId(issueQueueObject.getIssuerId());
+						issueQueue.setStep(BusinessCenterIssueQueueStatus.MODIFYQUEUE_STATUS_ISSUE.getId());
+						issueQueue.setOrderId(issueQueueObject.getOrderId());
+						issueQueue.setJobType(issueQueueObject.getJobType());
+						issueQueue.setIsWarrant(issueQueueObject.getIsWarrant());
+						issueQueue.setIsSubContract(issueQueueObject.getIsSubContract());
+						issueQueue.setForId(issueQueueObject.getForId());
+						issueQueueService.addIssueQueue(issueQueue);	
+						
+						IssueQueue printIssueQueue = new IssueQueue();
+						printIssueQueue = issueQueueService.getIssueQueueByOrderId(issueQueueObject.getOrderId());
+						
+//						StringBuffer string = new StringBuffer();
+//						string.append("############################\n");
+//						string.append("\n");
+//						string.append("\n");
+//						string.append("\n");
+//						string.append("\n");
+//						string.append("Issue Queue ID is: " + printIssueQueue.getId() + "\n");
+//						string.append("Use the ID to get Issue Queue! \n");
+//						string.append("\n");
+//						string.append("\n");
+//						string.append("\n");
+//						string.append("############################\n");
+//						Printer.print(string.toString());
+				    }
+				
 			}
 		} catch (BusinessServiceException ex) {
 			code = ex.getErrorCode();

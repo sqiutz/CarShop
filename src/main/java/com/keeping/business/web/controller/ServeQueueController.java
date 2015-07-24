@@ -252,6 +252,8 @@ public class ServeQueueController {
 						Long timeInterval = dateTime.getTime() - orders.get(j).getStartTime().getTime();
 						Integer elapseTime = new Integer(timeInterval.intValue());
 						serveQueueList.get(j).setDelayTime(elapseTime);
+						
+						serveQueueList.get(j).setJobType(orders.get(j).getJobType());
 					}
 					
 					ReorgQueue.reorgServeQueue(serveQueueList, users, orders);   //need to verify

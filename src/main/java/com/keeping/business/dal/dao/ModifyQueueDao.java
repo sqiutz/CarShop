@@ -25,5 +25,7 @@ public interface ModifyQueueDao extends BaseDao<ModifyQueueDo>{
 	public List<ModifyQueueDo> queryByModifyQueueUserId(ModifyQueueDo modifyQueueDo);
 	
 	public List<ModifyQueueDo> queryByModifyQueueModifierId(ModifyQueueDo modifyQueueDo);
+	
+	public List<Integer> getForids(Integer forId); 
 
 }

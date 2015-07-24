@@ -43,6 +43,7 @@ import com.keeping.business.service.UserService;
 import com.keeping.business.web.controller.converter.JsonConverter;
 import com.keeping.business.web.controller.model.CashQueue;
 import com.keeping.business.web.controller.model.Customer;
+import com.keeping.business.web.controller.model.IdObject;
 import com.keeping.business.web.controller.model.ModifyQueue;
 import com.keeping.business.web.controller.model.Order;
 import com.keeping.business.web.controller.model.OrderObject;
@@ -853,6 +854,76 @@ public class OrderController {
 				} else {
 					 code = BusinessCenterResCode.ORDER_EXIST.getCode();
 					 msg = BusinessCenterResCode.ORDER_EXIST.getMsg();
+				}
+			}
+		}catch (BusinessServiceException ex) {
+			code = ex.getErrorCode();
+			msg = ex.getErrorMessage();
+		}catch (Exception e) {
+			code = BusinessCenterResCode.SYS_ERROR.getCode();
+			msg = BusinessCenterResCode.SYS_ERROR.getMsg();
+//			logger.error("< OrderController.bookOrder() > 订单预约失败." + e.getMessage());
+		}
+
+		// 返回结果
+		try {
+			return JsonConverter.getResultSignal(code, msg);
+		} catch (Exception e) {
+			session.removeAttribute(PlatfromConstants.STR_USER_PROFILE);
+			session.invalidate();
+//			logger.error("< OrderController.bookOrder() > 订单预约返回出错."
+//					+ e.getMessage());
+			throw e;
+		}
+	}
+	
+	/**
+     * 预约订单
+     * 
+     * @param HttpServletRequest
+     * @param HttpServletResponse
+	 * @return 
+     * @return N/A
+	 * @throws Exception 
+     */
+	@RequestMapping(params = "action=cancel")
+	@ResponseBody
+	public WebResult cancelOrder(HttpServletRequest request,HttpServletResponse response) throws Exception {
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		String code = BusinessCenterResCode.SYS_SUCCESS.getCode();
+		String msg = BusinessCenterResCode.SYS_SUCCESS.getMsg();
+		HttpSession session = request.getSession();
+		session.setMaxInactiveInterval(PlatformPar.sessionTimeout);
+		
+		try { 
+			UserProfile loginUser = (UserProfile) session.getAttribute(PlatfromConstants.STR_USER_PROFILE);
+
+			String jsonStr = request.getParameter("param");
+			IdObject idObject = JsonConverter.getFromJsonString(jsonStr, IdObject.class, "yyyy-MM-dd HH:mm:ss");
+			
+			Date now = new Date();
+			java.sql.Timestamp dateTime = new java.sql.Timestamp(now.getTime());
+			 
+			if (StringUtil.isNull(jsonStr) || null == idObject) {
+				code = BusinessCenterResCode.SYS_REQ_ERROR.getCode();
+				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
+//				logger.error("< OrderController.bookOrder() > 订单预约请求信息不正确。" + jsonStr);
+//			} else if (null == session || null == loginUser || null == loginUser.getUserName()){
+//				code = BusinessCenterResCode.SYS_INVILID_REQ.getCode();
+//				msg = BusinessCenterResCode.SYS_INVILID_REQ.getMsg();
+////				logger.error("< OrderController.bookOrder() > session为空。" + jsonStr);
+			} 
+			else {
+				 Order order = orderService.queryOrderById(idObject.getId());
+				 
+				 if (order != null && order.getId() == null){
+					 
+					order.setStatus(BusinessCenterOrderStatus.ORDER_STATUS_CANCEL.getId());
+					orderService.updateOrder(order);
+				 } else {
+					 
+					code = BusinessCenterResCode.ORDER_NOT_EXIST.getCode();
+					msg = BusinessCenterResCode.ORDER_NOT_EXIST.getMsg();
 				}
 			}
 		}catch (BusinessServiceException ex) {

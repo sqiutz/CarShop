@@ -30,4 +30,6 @@ public interface ModifyQueueService {
     
     public List<ModifyQueue> getModifyQueueByModifierId(ModifyQueue modifyQueue);
     
+    public List<Integer> getForids(Integer id) throws BusinessServiceException;
+    
 }

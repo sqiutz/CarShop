@@ -58,6 +58,14 @@
 		date(ASSIGN_TIME) = #{date};
 	</select>
 	
+	<select id="getForids" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+		SELECT 
+		DISTINCT(FOR_ID)
+		FROM TBL_MODIFYQUEUE
+		WHERE
+		FOR_ID = #{forId};
+	</select>
+	
 	<select id="queryByModifyQueueid" resultMap="ModifyQueueDoMap" 
 		parameterType="java.lang.Integer">
 		SELECT 

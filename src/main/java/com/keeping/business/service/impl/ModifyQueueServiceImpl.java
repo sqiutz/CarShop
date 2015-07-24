@@ -181,6 +181,18 @@ public class ModifyQueueServiceImpl implements ModifyQueueService{
 	}
 	
 
+	@Override
+	public List<Integer> getForids(Integer id) throws BusinessServiceException {
+		// TODO Auto-generated method stub
+		
+		List<Integer> forids = new ArrayList<Integer>();
+		
+		forids = modifyQueueDao.getForids(id);
+	
+		return forids;
+	}
+	
+
 	public List<ModifyQueue> getModifyQueueByStepAndUserId(ModifyQueue modifyQueue) throws BusinessServiceException {
 		// TODO Auto-generated method stub
 		
@@ -206,8 +218,5 @@ public class ModifyQueueServiceImpl implements ModifyQueueService{
 	public void setModifyQueueDao(ModifyQueueDao modifyQueueDao) {
 		this.modifyQueueDao = modifyQueueDao;
 	}
-
-
-
 
 }

@@ -175,7 +175,7 @@ public class SettleQueueController {
 //				logger.error("< settlequeueController.start() > 订单维修订单信息为空或没有权限。" + jsonStr);
 			} else{
 				
-				settlequeue = settleQueueService.getSettleQueueById(settlequeue.getId());
+				settlequeue = settleQueueService.getSettleQueueByOrderid(settlequeue.getId());
 				
 				if (settlequeue != null){
 					
@@ -229,7 +229,7 @@ public class SettleQueueController {
 //				logger.error("< settlequeueController.cancel() > 订单维修订单信息为空或没有权限。" + jsonStr);
 			} else{
 				
-				settlequeue = settleQueueService.getSettleQueueById(settlequeue.getId());
+				settlequeue = settleQueueService.getSettleQueueByOrderid(settlequeue.getId());
 				
 				if (settlequeue != null){
 					
@@ -280,7 +280,7 @@ public class SettleQueueController {
 				msg = BusinessCenterResCode.SYS_REQ_ERROR.getMsg();
 //				logger.error("< settlequeueController.finish() > 维修订单信息为空或没有权限。" + jsonStr);
 			}else{
-				settlequeue = settleQueueService.getSettleQueueById(settlequeue.getId());
+				settlequeue = settleQueueService.getSettleQueueByOrderid(settlequeue.getId());
 				
 				if (settlequeue.getStep() == BusinessCenterSettleQueueStatus.SETTLEQUEUE_STATUS_START.getId()){
 					

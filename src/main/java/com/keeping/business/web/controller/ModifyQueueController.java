@@ -282,70 +282,80 @@ public class ModifyQueueController {
 				
 				if (modifyQueue != null && modifyQueue.getId() != null){
 					
-					Float generalRepaire = null;
-					JobType jobType = new JobType();
-					if(modifyQueueObject.getJobType() != null){
-						jobType = jobtypeService.queryByKey(modifyQueueObject.getJobType());
-					} else {
-						jobType = jobtypeService.queryByKey(modifyQueue.getJobType());;
-					}
-					if(jobType != null){
-						generalRepaire = Float.parseFloat(jobType.getValue());
-					}
+					Integer forId = modifyQueueObject.getForId();
+					List<Integer> forids = modifyQueueService.getForids(forId);
 					
-					UserWorkload userWorkload = new UserWorkload();
-					
-					if (modifyQueueObject.getModifierId() == null){
-						userWorkload.setUserId(modifyQueue.getModifierId());
-					} else {
-						userWorkload.setUserId(modifyQueueObject.getModifierId());
-					}
-					
-					Float load = Float.parseFloat(jobType.getValue());
-					load = load + modifyQueue.getAdditionTime();
-					
-					modifyQueue.setLoad(load);
-					
-					if(modifyQueueObject.getUserId() != null){
-						modifyQueue.setUserId(modifyQueueObject.getUserId());
-					}
-					
-					if(modifyQueueObject.getIsSubContract() != null){
-						modifyQueue.setIsWarrant(modifyQueueObject.getIsWarrant());
-					}
-					
-					if(modifyQueueObject.getIsWarrant() != null){
-						modifyQueue.setIsSubContract(modifyQueueObject.getIsSubContract());
-					}
-					
-					modifyQueue.setModifierId(modifyQueueObject.getModifierId());
-					modifyQueue.setJobType(modifyQueueObject.getJobType());
-					modifyQueue.setAdditionTime(modifyQueue.getAdditionTime());
-					modifyQueue.setTechnician(modifyQueueObject.getTechnician());
-					modifyQueue.setPromistTime(modifyQueueObject.getPromistTime());
-					modifyQueue.setStep(BusinessCenterModifyQueueStatus.MODIFYQUEUE_STATUS_READY.getId());
-					modifyQueue.setForId(modifyQueueObject.getForId());
-					modifyQueueService.updateModifyQueue(modifyQueue);
-					
-					IssueQueue issueQueue = new IssueQueue();
-					Date now = new Date();
-//					issueQueue.setCreateTime(now);
-//					issueQueue.setStep(BusinessCenterIssueQueueStatus.MODIFYQUEUE_STATUS_ISSUE.getId());
-//					issueQueue.setOrderId(modifyQueueObject.getOrderId());
-//					issueQueueService.addIssueQueue(issueQueue);
-					
-					userWorkload.setAdditionalHours(modifyQueue.getAdditionTime());
-					userWorkload.setModifyqueueId(modifyQueue.getId());
-					userWorkload.setGeneralRepaire(generalRepaire);
-					userWorkload.setAllocatedTime(modifyQueue.getAssignTime());
-					userWorkload.setHumanResource(modifyQueue.getLoad());
+					if (forids != null && forids.size() == 0){
+						
+						Float generalRepaire = null;
+						JobType jobType = new JobType();
+						if(modifyQueueObject.getJobType() != null){
+							jobType = jobtypeService.queryByKey(modifyQueueObject.getJobType());
+						} else {
+							jobType = jobtypeService.queryByKey(modifyQueue.getJobType());;
+						}
+						if(jobType != null){
+							generalRepaire = Float.parseFloat(jobType.getValue());
+						}
+						
+						UserWorkload userWorkload = new UserWorkload();
+						
+						if (modifyQueueObject.getModifierId() == null){
+							userWorkload.setUserId(modifyQueue.getModifierId());
+						} else {
+							userWorkload.setUserId(modifyQueueObject.getModifierId());
+						}
+						
+						Float load = Float.parseFloat(jobType.getValue());
+						load = load + modifyQueue.getAdditionTime();
+						
+						modifyQueue.setLoad(load);
+						
+						if(modifyQueueObject.getUserId() != null){
+							modifyQueue.setUserId(modifyQueueObject.getUserId());
+						}
+						
+						if(modifyQueueObject.getIsSubContract() != null){
+							modifyQueue.setIsWarrant(modifyQueueObject.getIsWarrant());
+						}
+						
+						if(modifyQueueObject.getIsWarrant() != null){
+							modifyQueue.setIsSubContract(modifyQueueObject.getIsSubContract());
+						}
+						
+						modifyQueue.setModifierId(modifyQueueObject.getModifierId());
+						modifyQueue.setJobType(modifyQueueObject.getJobType());
+						modifyQueue.setAdditionTime(modifyQueue.getAdditionTime());
+						modifyQueue.setTechnician(modifyQueueObject.getTechnician());
+						modifyQueue.setPromistTime(modifyQueueObject.getPromistTime());
+						modifyQueue.setStep(BusinessCenterModifyQueueStatus.MODIFYQUEUE_STATUS_READY.getId());
+						modifyQueue.setForId(modifyQueueObject.getForId());
+						modifyQueueService.updateModifyQueue(modifyQueue);
+						
+						IssueQueue issueQueue = new IssueQueue();
+						Date now = new Date();
+//						issueQueue.setCreateTime(now);
+//						issueQueue.setStep(BusinessCenterIssueQueueStatus.MODIFYQUEUE_STATUS_ISSUE.getId());
+//						issueQueue.setOrderId(modifyQueueObject.getOrderId());
+//						issueQueueService.addIssueQueue(issueQueue);
+						
+						userWorkload.setAdditionalHours(modifyQueue.getAdditionTime());
+						userWorkload.setModifyqueueId(modifyQueue.getId());
+						userWorkload.setGeneralRepaire(generalRepaire);
+						userWorkload.setAllocatedTime(modifyQueue.getAssignTime());
+						userWorkload.setHumanResource(modifyQueue.getLoad());
 
-					userWorkload.setCreateTime(now);
-					userWorkload.setAssignDate(now);
-					userWorkload.setSaId(modifyQueue.getUserId());
-					userWorkload.setIsSubContract(modifyQueue.getIsSubContract());
-					userWorkload.setIsWarrant(modifyQueue.getIsWarrant());
-					userWorkloadService.addUserWorkload(userWorkload);
+						userWorkload.setCreateTime(now);
+						userWorkload.setAssignDate(now);
+						userWorkload.setSaId(modifyQueue.getUserId());
+						userWorkload.setIsSubContract(modifyQueue.getIsSubContract());
+						userWorkload.setIsWarrant(modifyQueue.getIsWarrant());
+						userWorkloadService.addUserWorkload(userWorkload);
+					} else {
+					
+						code = BusinessCenterResCode.ID_EXIST.getCode();
+						msg = BusinessCenterResCode.ID_EXIST.getMsg();
+					}
 					
 				}else{
 					code = BusinessCenterResCode.ORDER_NOT_EXIST.getCode();
