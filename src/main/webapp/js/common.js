@@ -268,6 +268,12 @@
                                  "express"
                         ]
                     },
+                    cancelBooking : {
+                        url : "order.do?action=cancel",
+                        args : [ 
+                                 "id"
+                        ]
+                    },
                     // 获取modify queue
                     getModifyQueue : {
                         url : "modifyqueue.do?action=getone",

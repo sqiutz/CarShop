@@ -180,8 +180,6 @@ public class ModifyQueueServiceImpl implements ModifyQueueService{
 		return modifyQueue;
 	}
 	
-
-	@Override
 	public List<Integer> getForids(Integer id) throws BusinessServiceException {
 		// TODO Auto-generated method stub
 		

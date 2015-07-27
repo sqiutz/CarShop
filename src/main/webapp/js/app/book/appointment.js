@@ -172,6 +172,7 @@
                             .bind('click', function() {
                                 var order =  $(this).data();
                                 var currOrder = '{"groupid":' + '"' + order.groupid + '",' +
+                                    '"id":' + '"' + (order.id || '') + '",' +
                                     '"assignDate":' + '"' + getDateString(new Date(order.assignDate))  + '",' +
                                     '"registerNum":' + '"' + order.registerNum + '",' +
                                     '"userName":' + '"' + order.customer.userName + '",' +

@@ -148,6 +148,7 @@
         $('#isWarranty').prop("checked", queue && queue.isWarrant ? true : false);
         $('#isSubContract').prop("checked", queue && queue.isSubContract ? true : false);
         $('#promiseTime').val(queue && queue.order ? getTimeStr(queue.order.promiseTime) : '');
+        $('#forId').val('');
     }
     
     var users;
@@ -200,6 +201,7 @@
         $('#technicianName').text(load.userName);
     }
     
+    var totolHours = 0;
     var colors = ['yellow', 'yellow', 'green', 'green', 'red', 'red'];
     var getUserWorkload = function(userId) {
         $.OrderInfo.getUserWorkload({
@@ -220,6 +222,7 @@
                     $('<td></td>').text(load && load.sa ? load.sa.userName : '').appendTo(tr);
                     $('<td></td>').text(load && load.modifyQueue ? jobTypeMapping(load.modifyQueue.jobType) : '').appendTo(tr);
                     $('<td></td>').text(load ? load.humanResource : '').appendTo(tr);
+                    totolHours += load && load.humanResource ? load.humanResource : 0;
                     $('<td></td>').text(load ? load.additionalHours : '').appendTo(tr);
                     $('<td></td>').text(load ? load.generalRepaire : '').appendTo(tr);
                     $('<td></td>').text(load ? (load.isWarrant ? YES : NO) :'').appendTo(tr);
@@ -231,6 +234,7 @@
                     $('<td></td>').text(load && load.modifyQueue && load.modifyQueue.step == 4 ? getTimeStr(load.endTime) : '').appendTo(tr);
                     $('<td></td>').text(load ? load.comment : '').appendTo(tr);
                 }
+                $('#hrTaken').text(totolHours);
             } 
         });
     }
@@ -247,6 +251,9 @@
                     $('#allocationBtn').attr('disabled', 'disabled');
                     setCurrentModifyQue();
                     getAllWorkload();
+                }
+                else if(data.code == '010303') {
+                    alert(MSG_ID_IS_EXISTED);
                 }
             }
         });

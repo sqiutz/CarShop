@@ -41,8 +41,13 @@
                 if(data.code == '000000') {
                     //$('#regNumber').val('');
                     var order = data.obj;
-                    $('#bookedTime').text(BOOKED_TIME + (order ? getTimeStr(order.bookTime) : ''));
-                    $('#queNumber').text(order ? (order.bakQueueNum ? order.bakQueueNum : order.queueNum) : '');
+                    if(!order.id) {
+                        $('#bookedTime').text(BOOKING_NOT_FOUND);
+                    }
+                    else {
+                        $('#bookedTime').text(BOOKED_TIME + (order ? getTimeStr(order.bookTime) : ''));
+                        $('#queNumber').text(order ? (order.bakQueueNum ? order.bakQueueNum : order.queueNum) : '');
+                    }                    
                 }                
     		}
     	});
