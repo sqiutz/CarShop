@@ -41,7 +41,7 @@
                 if(data.code == '000000') {
                     //$('#regNumber').val('');
                     var order = data.obj;
-                    $('#bookedTime').text(BOOKED_TIME + (order ? getTimeStr(order.bookTime) : ''));
+                    $('#bookedTime').text(BOOKED_TIME + (order ? getTimeStr(order.bookStartTime) : ''));
                     $('#queNumber').text(order ? (order.bakQueueNum ? order.bakQueueNum : order.queueNum) : '');
                 }                
     		}
@@ -81,7 +81,7 @@
             success : function(data) {
                 if(data.code == '000000') {
                     var order = data.obj;
-                    $('#bookedTime').text(BOOKED_TIME + (order ? getTimeStr(order.createTime) : ''));
+                    $('#bookedTime').text(BOOKED_TIME + (order ? getTimeStr(order.bookStartTime) : ''));
                     $('#queNumber').text(order ? order.queueNum : '');
                 }
                 else {

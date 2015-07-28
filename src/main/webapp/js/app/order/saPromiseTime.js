@@ -32,8 +32,8 @@
             $('#jobTypeLabel').text(JOB_TYPE);
             $('#rWarranty').text(WARRANTY);
             $('#rSubContract').text(SUB_CONTRACT);
-            $('#promiseTimeRefLabel').text(PROMISE_TIME + ' - ' + REFERENCE);
-            $('#promiseTimeLabel').text(PROMISE_TIME);
+            $('#promiseTimeRefLabel').text(ESTIMATE_PROMISE_TIME + ' - ' + REFERENCE);
+            $('#promiseTimeLabel').text(ESTIMATE_PROMISE_TIME);
             $('#finishBtn').text(FINISH).attr('title', FINISH);
             $('#backBtn').text(BACK).attr('title', BACK);
             

@@ -146,7 +146,7 @@
 	var userGroup = {
 		groupNameMapper : {
 			0 : 'Admin',
-			1 : 'Manager',
+			1 : 'Forman',
 			2 : 'Servicer',
 			3 : 'Technician'
 		},
