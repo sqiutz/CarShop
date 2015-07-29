@@ -91,7 +91,7 @@
                     continue;
                 }
                 if(td) {
-                    $('<div></div>').attr('class', 'timeslot ' + color[c++]).text(jobTypeMapping(queue.jobType)).appendTo(td);
+                    $('<div></div>').attr('class', 'timeslot ' + color[c++]).text(jobTypeMapping(queue.jobType)).attr('title', queue.registerNum).appendTo(td);
                     if(c >= color.length) {
                         c = 0;
                     }
