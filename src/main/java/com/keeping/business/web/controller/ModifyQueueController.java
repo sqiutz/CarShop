@@ -107,6 +107,10 @@ public class ModifyQueueController {
 					load = load + modifyQueues.get(j).getAdditionTime();
 					
 					modifyQueues.get(j).setLoad(load);
+					
+					Integer orderId = modifyQueues.get(j).getOrderId();
+					Order order = orderService.queryOrderById(orderId);
+					modifyQueues.get(j).setRegisterNum(order.getRegisterNum());
 				}
 				
 				todayModifyQueue.setUsername(user.getUserName());

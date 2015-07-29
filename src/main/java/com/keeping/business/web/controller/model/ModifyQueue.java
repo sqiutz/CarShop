@@ -32,6 +32,16 @@ public class ModifyQueue extends BaseQueue{
 	private User modifier;
 	
 	private Integer forId;
+	
+	private String registerNum;
+
+	public String getRegisterNum() {
+		return registerNum;
+	}
+
+	public void setRegisterNum(String registerNum) {
+		this.registerNum = registerNum;
+	}
 
 	public String getJobType() {
 		return jobType;
