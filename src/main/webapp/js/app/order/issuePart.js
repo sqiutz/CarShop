@@ -26,7 +26,7 @@
             $('#regNoLabel').text(REG_NO);
 //            $('#idMechanicLabel').text(ID_MECHANIC);
             $('#roofNoLabel').text(ROOF_NO);
-            $('#serviceAdvisorLabel').text(SERVICE_ADVISOR);
+//            $('#serviceAdvisorLabel').text(SERVICE_ADVISOR);
             $('#jobTypeLabel').text(JOB_TYPE);
             $('#orderIdLabel').text(ID);
             $('#rWarranty').text(WARRANTY);
@@ -64,7 +64,7 @@
         $('#regNo').val(issueQue && issueQue.order ? issueQue.order.registerNum : '');
 //        $('#idMechanic').val(issueQue && issueQue.modifier ? issueQue.modifier.userName : '');
         $('#roofNo').val(issueQue && issueQue.order ? issueQue.order.roofNum : '');
-        $('#serviceAdvisor').val(issueQue && issueQue.user ? issueQue.user.userName : '');
+//        $('#serviceAdvisor').val(issueQue && issueQue.user ? issueQue.user.userName : '');
         $('#jobType').val(issueQue ? jobTypeMapping(issueQue.jobType) + ' - ' + issueQue.jobtypeTime + ' hour(s)' : '');
         $('#isWarranty').prop('checked', issueQue && issueQue.isWarrant ? true : false);
         $('#isSubContract').prop('checked', issueQue && issueQue.isSubContract ? true : false);

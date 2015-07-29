@@ -131,7 +131,7 @@
             }
             else {
                 $('<td></td>').text(serve ? 
-                        getMins(serve.delayTime) + "'" + getSecs(serve.delayTime) + "''" : '').appendTo(tr);
+                        getHours(serve.delayTime) + ":" + getMins(serve.delayTime) : '').appendTo(tr);
             }
             $('<td></td>').text(serve && serve.order ? getTimeStr(serve.order.endTime) : '').appendTo(tr);
         }
@@ -252,6 +252,7 @@
             		if(currServe) {
             		    $.cookie('serveId', currServe.id);
             		    $.cookie('registerNum', currServe.order.registerNum);
+            		    $.cookie('jobType', currServe.order.jobType ? currServe.order.jobType : currServe.order.express);
             		    $('#callBtn').attr('disabled', 'disabled');
             		    $('#recallBtn').attr('disabled', false);
             		    $('#resumeBtn').attr('disabled', 'disabled');
@@ -271,8 +272,8 @@
             		    $.cookie('timerStartTime', '', {expires: -1});
             		}
             		$('#currentNo').text(currServe ? currServe.order.queueNum : '')
-            		$('#waitingMins').text(currServe ? getMins(currServe.delayTime) + "'" : '');
-                    $('#waitingSecs').text(currServe ? getSecs(currServe.delayTime) + "''" : '');
+            		$('#waitingMins').text(currServe ? getHours(currServe.delayTime) + ":" : '');
+                    $('#waitingSecs').text(currServe ? getMins(currServe.delayTime): '');
             	}
             }
     	});
@@ -386,8 +387,13 @@
         return getSecs(diff);
     }
     
+    function getHours(diff) {
+        return Math.floor(diff / 3600000);
+    }
+    
     function getMins(diff) {
-        return Math.floor(diff / 60000);
+        var hours = getHours(diff);
+        return Math.floor((diff - hours * 3600000) / 60000);
     }
     
     function getSecs(diff) {

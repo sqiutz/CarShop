@@ -237,6 +237,15 @@ define([], function() {
                 }
             });
         },
+        cancelBooking : function(options) {
+            $.common.ajax("cancelBooking", {
+                type :"POST",
+                data : options.data,
+                success : function(data) {
+                    options.success(data);
+                }
+            });
+        },
         // 获取单个modify queue
 		getModifyQueue : function(options) {
             $.common.ajax("getModifyQueue", {

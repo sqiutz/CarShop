@@ -34,6 +34,7 @@
             $('#expressMaintenanceLabel').text(EXPRESS_MAINTENANCE);
             $('#saveBtn').text(SAVE).attr('title', SAVE);
             $('#cancelBtn').text(Cancel).attr('title', Cancel);
+            $('#backBtn').text(BACK).attr('title', BACK);
             $('#promiseTimeLabel').text(PROMISE_TIME);    
             $('#groupNoLabel').text(GROUP_NO);
         });
@@ -68,6 +69,7 @@
         var order = $.cookie('currOrder');
         if(order) {
             update = true;
+            $('#cancelBtn').show();
             order =  JSON.parse(order);
             defaultDate = order.assignDate;            
             $('#policeNo').val(order.registerNum);
@@ -78,7 +80,8 @@
             defaultJobType =  order.jobType ? order.jobType : (CONST_EXPRESS + order.express);
             $('#promiseTime').val(order.bookStartTime);
         }
-        else {            
+        else {   
+            $('#cancelBtn').hide();
             if($.cookie('selectedDate')) {
                 defaultDate = $.cookie('selectedDate');
             }
@@ -173,8 +176,30 @@
             .text('(' + INPUT_EST_TIME + ')').appendTo(box);*/
     };
     
-    $('#cancelBtn').bind('click', function() {
+    $('#backBtn').bind('click', function() {
         location.href = 'appointment_index.html';
+    });
+    
+    $('#cancelBtn').bind('click', function() {
+        var order = $.cookie('currOrder');
+        if(order) {
+            order =  JSON.parse(order);
+            $.OrderInfo.cancelBooking({
+                data : {
+                    id: order.id
+                },
+                success : function(data) {
+                    if (data.code == '000000') {
+                        $.cookie('currOrder', '', {expires: -1});
+                        location.href = 'appointment_index.html';
+                    }
+                    else {
+                        $('#errMsg').html(MSG_FAILED_TO_CANCEL_APPOINTMENT).show('normal');
+                    }
+                }
+            });
+        }
+        
     });
     
     $('#saveBtn').bind('click', function() {

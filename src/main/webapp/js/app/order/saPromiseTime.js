@@ -119,11 +119,15 @@
         });
         
         function createJobTypeList(jobTypes) {
+            var selectedType = $.cookie('jobType');
             for(var i = 0; i < jobTypes.length; i++) {
                 var jobType = jobTypes[i];
                 var sel = $('#jobType');
                 $('<option></option>').val(jobType.name).text(jobTypeMapping(jobType.name) + ' - ' + jobType.value + ' hour(s)')
                     .appendTo(sel);
+                if(selectedType === jobType.name) {
+                    sel.val(jobType.name);
+                }
             }
         }
     }
@@ -166,6 +170,7 @@
                     $.cookie('serveId', '', {expires: -1});
                     $.cookie('registerNum', '', {expires: -1});
                     $.cookie('timerStartTime', '', {expires: -1});
+                    $.cookie('jobType', '', {expires: -1});
                     location.href = 'sa_que.html';
                 }
             }
