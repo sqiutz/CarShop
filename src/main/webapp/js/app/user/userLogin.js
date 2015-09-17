@@ -25,7 +25,7 @@
             $('#usernameLabel').text(USERNAME);
             $('#passwordLabel').text(PASSWORD);
             $('#loginBtn').text(LOGIN).attr('title', LOGIN);
-            $('#appointmentBtn').text(APPOINTMENT).attr('title', APPOINTMENT);
+//            $('#appointmentBtn').text(APPOINTMENT).attr('title', APPOINTMENT);
             $('#customerQueTitle').text(CUSTOMER_QUE_STATUS_BOARD);
             $('#customerQueDesc').text(CUSTOMER_QUE_STATUS_BOARD_DESC);
             $('#machanicTitle').html(MECHANIC_UPDATE_JOB_PROGRESS_HOME);
@@ -34,14 +34,16 @@
             $('#carWashDesc').text(CAR_WASH_QUE_BOARD_DESC);
             $('#customerJobTitle').text(CUSTOMER_JOB_PROGRESS_BOARD);
             $('#customerJobDesc').text(CUSTOMER_JOB_PROGRESS_BOARD_DESC);
-            $('#greetCustomerTitle').text(GREET_CUSTOMER);
-            $('#greetCustomerDesc').text(GREET_CUSTOMER_DESC);
+//            $('#greetCustomerTitle').text(GREET_CUSTOMER);
+//            $('#greetCustomerDesc').text(GREET_CUSTOMER_DESC);
             //$('#finalInspecTitle').text(FINAL_INSPECTION);
             //$('#finalInspecDesc').text(FINAL_INSPECTION_DESC);
             $('#cashQueTitle').text(CASH_QUE_CALLING_BOARD);
             $('#cashQueDesc').text(CASH_QUE_CALLING_BOARD_DESC);
             $('#issueTitle').html(ISSUE_PARTS_HOME);
             $('#issueDesc').text(ISSUE_PARTS_DESC);
+            $('#appointmentTitle').text(APPOINTMENT);
+            $('#appointmentDesc').text(APPOINTMENT_DESC);
         });
     }
     
@@ -159,7 +161,7 @@
         }
     });
     
-    $('#appointmentBtn').bind("click", function(){
-        location.href = 'appointment_index.html';
-    });
+//    $('#appointmentBtn').bind("click", function(){
+//        location.href = 'appointment_index.html';
+//    });
 })(jQuery);

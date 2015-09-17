@@ -93,6 +93,7 @@
             
             $('#changePwd').text(CHANGE_PASSW0RD).attr('title', CHANGE_PASSW0RD);
             $('#logout').text(LOGOUT).attr('title', LOGOUT);
+            $('#greetCustomer').text(GREET_CUSTOMER).attr('title', GREET_CUSTOMER);
             $('#title').text(SUZUKI_SIAGA_LEBIH_MENGERTI_KELUARGA);
             $('#accountLink').text(ACCOUNT_MANAGEMENT);
             $('#parameterLink').text(SYSTEM_PARAMETER);
@@ -131,7 +132,7 @@
             $('#bRegNoCol').text(REG_NO);
             $('#bookedDateCol').text(BOOKED_DATE);
             $('#bookedTimeCol').text(BOOKED_DATE_TIME);
-//            $('#contactCol').text(CONTACT);
+            $('#contactCol').text(CUSTOMER);
             
             $.UserInfo.checkLogin({
                 success : function(data) {
@@ -761,9 +762,10 @@
                         var order = orders[i];
                         var tr = $('<tr></tr>').attr('class', i % 2 === 0 ? 'odd' : 'even')
                                 .appendTo($('#bookedOrderList'));
-                        $('<td></td>').text(order.registerNum).appendTo(tr);
                         var bookStartTime = new Date(order.bookStartTime)
                         $('<td></td>').text(getDateString(bookStartTime)).appendTo(tr);
+                        $('<td></td>').text(order.customer).appendTo(tr); 
+                        $('<td></td>').text(order.registerNum).appendTo(tr);                        
                         $('<td></td>').text(getTimeStr(bookStartTime)).appendTo(tr);                                                          
                     }
                 }
