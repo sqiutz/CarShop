@@ -100,7 +100,8 @@
             changeYear: true,
             buttonImageOnly: true,
             dateFormat: 'yy-mm-dd',
-            defaultDate: defaultDate
+            defaultDate: defaultDate,
+            minDate: new Date()
         });
     }
     
