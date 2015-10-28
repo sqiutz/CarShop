@@ -46,7 +46,7 @@
             $('#queNoCol').text(QUE_NO);
             $('#saCol').text(SA);
             $('#startTimeCol').text(START_TIME);
-            $('#endTimeCol').text(END_TIME);
+//            $('#endTimeCol').text(END_TIME);
             $('#wRegNoCol').text(REG_NO);
             $('#wQueNoCol').text(QUE_NO);
             $('#queStartCol').text(QUE_START);            
@@ -133,7 +133,7 @@
                 $('<td></td>').text(serve ? 
                         getHours(serve.delayTime) + ":" + getMins(serve.delayTime) : '').appendTo(tr);
             }
-            $('<td></td>').text(serve && serve.order ? getTimeStr(serve.order.endTime) : '').appendTo(tr);
+//            $('<td></td>').text(serve && serve.order ? getTimeStr(serve.order.endTime) : '').appendTo(tr);
         }
         if (serves && j < serves.length - 1) {
             sListIter++;
