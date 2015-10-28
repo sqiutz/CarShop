@@ -93,7 +93,7 @@
             
             $('#changePwd').text(CHANGE_PASSW0RD).attr('title', CHANGE_PASSW0RD);
             $('#logout').text(LOGOUT).attr('title', LOGOUT);
-            $('#greetCustomer').text(GREET_CUSTOMER).attr('title', GREET_CUSTOMER);
+            $('#greetCustomer').text(APPOINTMENT).attr('title', APPOINTMENT);
             $('#title').text(SUZUKI_SIAGA_LEBIH_MENGERTI_KELUARGA);
             $('#accountLink').text(ACCOUNT_MANAGEMENT);
             $('#parameterLink').text(SYSTEM_PARAMETER);
